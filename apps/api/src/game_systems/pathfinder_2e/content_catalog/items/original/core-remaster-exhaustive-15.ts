@@ -135,7 +135,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worneyepiece",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 433,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dazzled",
+          "sourceId": "TkIyaNPgTZFBCCuh",
+          "name": "Dazzled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "kK0ClM2NkZYKVs2Z",
+          "name": "Sun Goggles",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:diglys-oil-of-sympathy-lesser",
@@ -216,7 +240,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d6",
         "type": "piercing"
       }
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 249,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Reinforced Stock",
+          "sourceId": "tHIb3ynOHj7dGiCH",
+          "name": "Reinforced Stock",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "lsTTJ9GlHOu5o3bt",
+          "name": "Musket Staff of Void",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 590,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Void Warp",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Void Warp",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Void Warp",
+          "sourceId": "mAMEt4FFbdqoRnkN",
+          "name": "Void Warp",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "lsTTJ9GlHOu5o3bt",
+          "name": "Musket Staff of Void",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 675,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Grim Tendrils",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Grim Tendrils",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Grim Tendrils",
+          "sourceId": "k34hDOfIIMAxNL4a",
+          "name": "Grim Tendrils",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "lsTTJ9GlHOu5o3bt",
+          "name": "Musket Staff of Void",
+          "type": "weapon"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:musket-staff-of-force",
@@ -261,7 +353,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d6",
         "type": "piercing"
       }
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 249,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Reinforced Stock",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Reinforced Stock",
+          "sourceId": "tHIb3ynOHj7dGiCH",
+          "name": "Reinforced Stock",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "mfYwthsSMkDS8djw",
+          "name": "Musket Staff of Force",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 590,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Shield",
+          "sourceId": "TVKNbcgTee19PXZR",
+          "name": "Shield",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "mfYwthsSMkDS8djw",
+          "name": "Musket Staff of Force",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 672,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Force Barrage",
+          "sourceId": "gKKqvLohtrSJj3BM",
+          "name": "Force Barrage",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "mfYwthsSMkDS8djw",
+          "name": "Musket Staff of Force",
+          "type": "weapon"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:diglys-oil-of-sympathy-moderate",
@@ -331,7 +491,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 553,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Scrying",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Scrying",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Scrying",
+          "sourceId": "r784cIz17eWujtQj",
+          "name": "Scrying",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "5oXpYSNiqxVWSafq",
+          "name": "Malefic Mirror",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 1126,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Illusory Disguise",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Illusory Disguise",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Illusory Disguise",
+          "sourceId": "i35dpZFI7jZcRoBo",
+          "name": "Illusory Disguise",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "5oXpYSNiqxVWSafq",
+          "name": "Malefic Mirror",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 1741,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "5oXpYSNiqxVWSafq",
+          "name": "Malefic Mirror",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:diglys-oil-of-sympathy-greater",

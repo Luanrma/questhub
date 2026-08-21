@@ -31,7 +31,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "shield",
       "group": "buckler"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 156,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Raise a Shield",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Raise a Shield",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Raise a Shield",
+          "sourceId": "xjGwis0uaC2305pm",
+          "name": "Raise a Shield",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "1k3AsSW7lpU0kEpY",
+          "name": "Buckler",
+          "type": "shield"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:gnome-hooked-hammer",
@@ -106,7 +130,185 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "kit",
       "group": "kit"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/02xhi/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Rope",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Rope",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Rope",
+          "sourceId": "fyYnQf1NAx9fWFaS",
+          "name": "Rope",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/30xet/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Waterskin",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Waterskin",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Waterskin",
+          "sourceId": "VnPh324pKwd2ZB66",
+          "name": "Waterskin",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/afbn4/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Chalk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Chalk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Chalk",
+          "sourceId": "xShIDyydOMkGvGNb",
+          "name": "Chalk",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/jtagt/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Rations",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Rations",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Rations",
+          "sourceId": "L9ZV076913otGtiB",
+          "name": "Rations",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/lems2/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Torch",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Torch",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Torch",
+          "sourceId": "8Jdw4yAzWYylGePS",
+          "name": "Torch",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/lpl11/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Bedroll",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Bedroll",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Bedroll",
+          "sourceId": "fagzYdmfYyMQ6J77",
+          "name": "Bedroll",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/items/z9tim/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Soap",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Soap",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Soap",
+          "sourceId": "81aHsD27HFGnq1Nt",
+          "name": "Soap",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/system/items/mca3x/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Backpack",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Backpack",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Backpack",
+          "sourceId": "3lgwjrFEsQVKzhh7",
+          "name": "Backpack",
+          "type": "backpack"
+        },
+        "owner": {
+          "sourceId": "2req0jGaxz8hScdB",
+          "name": "Adventurer's Pack",
+          "type": "kit"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:backpack",
@@ -690,7 +892,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 797,
+        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Caltrops",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Caltrops",
+          "package": "pf2e",
+          "sourcePack": "equipment-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Caltrops",
+          "sourceId": "5DaEI4I7cVdOD507",
+          "name": "Effect: Caltrops",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "7fSnvJ2xoSfa6JXD",
+          "name": "Caltrops",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:shortsword",
@@ -1259,7 +1485,53 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worncloak",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 393,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Feint",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Feint",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Feint",
+          "sourceId": "QNAVeNKtHA0EUw4X",
+          "name": "Feint",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "DA3HgyEBGEbtRNOo",
+          "name": "Dueling Cape",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 481,
+        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Dueling Cape",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Dueling Cape",
+          "package": "pf2e",
+          "sourcePack": "equipment-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Dueling Cape",
+          "sourceId": "7dLsA9PAb5ij7Bc6",
+          "name": "Effect: Dueling Cape",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "DA3HgyEBGEbtRNOo",
+          "name": "Dueling Cape",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:explorers-clothing",

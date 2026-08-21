@@ -3,159 +3,346 @@ import type { Pathfinder2eSpellData } from '../types'
 
 export const PATHFINDER_PLAYER_CORE_SPELL_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eSpellData>[] = [
   {
-    contentId: 'pf2e:spell:spells-srd:electric-arc',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1',
-    translatableHash: 'git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1',
-    source: { sourcePack: 'spells-srd', sourceId: 'kBhaPuzLUSwS6vVf', slug: 'electric-arc', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    data: {
-      schemaVersion: 1,
-      name: 'Electric Arc',
-      rank: 1,
-      rarity: 'common',
-      traits: ['cantrip', 'concentrate', 'electricity', 'manipulate'],
-      traditions: ['arcane', 'primal'],
-      description: 'An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.',
-      castingTime: '2 actions',
-      range: '30 feet',
-      target: '1 or 2 creatures',
-      area: null,
-      duration: 'instantaneous',
-      defense: 'basic Reflex save',
-      damage: [{ formula: '2d4', type: 'electricity', kind: 'damage' }],
-      heightening: 'Heightened (+1): damage increases by 1d4.',
+    "contentId": "pf2e:spell:spells-srd:electric-arc",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1",
+    "translatableHash": "git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "kBhaPuzLUSwS6vVf",
+      "slug": "electric-arc",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
     },
-  },
-  {
-    contentId: 'pf2e:spell:spells-srd:force-barrage',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
-    translatableHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
-    source: { sourcePack: 'spells-srd', sourceId: 'gKKqvLohtrSJj3BM', slug: 'force-barrage', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { path: '/api/game-systems/pathfinder-2e/icons/spells/magic-missile.webp' },
-    data: {
-      schemaVersion: 1,
-      name: 'Force Barrage',
-      rank: 1,
-      rarity: 'common',
-      traits: ['concentrate', 'force', 'manipulate'],
-      traditions: ['arcane', 'occult'],
-      description: 'You fire a shard of solidified magic that automatically hits and deals 1d4+1 force damage. Each additional casting action creates another shard, up to three.',
-      castingTime: '1 to 3 actions',
-      range: '120 feet',
-      target: '1 creature per shard',
-      area: null,
-      duration: 'instantaneous',
-      defense: null,
-      damage: [{ formula: '1d4+1', type: 'force', kind: 'damage' }],
-      heightening: 'Heightened (+2): fire one additional shard for each action spent.',
-    },
-  },
-  {
-    contentId: 'pf2e:spell:spells-srd:heal',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8',
-    translatableHash: 'git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8',
-    source: { sourcePack: 'spells-srd', sourceId: 'rfZpqmj0AIIdkVIs', slug: 'heal', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    data: {
-      schemaVersion: 1,
-      name: 'Heal',
-      rank: 1,
-      rarity: 'common',
-      traits: ['healing', 'manipulate', 'vitality'],
-      traditions: ['divine', 'primal'],
-      description: 'You channel vital energy to restore 1d8 Hit Points to a willing living creature or deal 1d8 vitality damage to an undead target. The number of actions changes range and targets.',
-      castingTime: '1 to 3 actions',
-      range: 'varies',
-      target: '1 willing living creature, 1 undead, or all living and undead creatures in a 30-foot emanation',
-      area: '30-foot emanation with 3 actions',
-      duration: 'instantaneous',
-      defense: 'basic Fortitude save for undead targets',
-      damage: [{ formula: '1d8', type: 'vitality', kind: 'damage-or-healing' }],
-      heightening: 'Heightened (+1): healing or damage increases by 1d8; the 2-action healing bonus increases by 8.',
-    },
-  },
-  {
-    contentId: 'pf2e:spell:spells-srd:blazing-bolt',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'sha256:7af691f559323ed07d760d827bb9bfc45f47eb83b5cc4d519958b095b7cd6ba0',
-    translatableHash: 'sha256:e303f9651c524c126e4cba675eacacb2a478f0007b338d85f169b5349b8ae3ac',
-    source: { sourcePack: 'spells-srd', sourceId: 'ZxHC7V7HtjUsB8zH', slug: 'blazing-bolt', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    data: {
-      schemaVersion: 1,
-      name: 'Blazing Bolt',
-      rank: 2,
-      rarity: 'common',
-      traits: ['attack', 'concentrate', 'fire', 'manipulate'],
-      traditions: ['arcane', 'primal'],
-      description: 'You fire a ray of heat and flame. Make a spell attack against one creature. Additional casting actions fire additional rays at different targets, up to three rays. Spending at least 2 actions increases the damage.',
-      castingTime: '1 to 3 actions',
-      range: '60 feet',
-      target: '1 or more creatures',
-      area: null,
-      duration: 'instantaneous',
-      defense: null,
-      damage: [
-        { formula: '2d6', type: 'fire', kind: 'damage' },
-        { formula: '4d6', type: 'fire', kind: 'damage' },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Electric Arc",
+      "rank": 1,
+      "rarity": "common",
+      "traits": [
+        "cantrip",
+        "concentrate",
+        "electricity",
+        "manipulate"
       ],
-      heightening: 'Heightened (+1): each target takes 1d6 additional damage in the 1-action version or 2d6 additional damage in the 2-action and 3-action versions.',
-    },
+      "traditions": [
+        "arcane",
+        "primal"
+      ],
+      "description": "An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.",
+      "castingTime": "2 actions",
+      "range": "30 feet",
+      "target": "1 or 2 creatures",
+      "area": null,
+      "duration": "instantaneous",
+      "defense": "basic Reflex save",
+      "damage": [
+        {
+          "formula": "2d4",
+          "type": "electricity",
+          "kind": "damage"
+        }
+      ],
+      "heightening": "Heightened (+1): damage increases by 1d4."
+    }
   },
   {
-    contentId: 'pf2e:spell:spells-srd:dispel-magic',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'sha256:3e54682d72e1bdfc3392d1efdb74cbb8ab17b477698fb778363d6c8c7bc9e34a',
-    translatableHash: 'sha256:7cf0716f610c2ba6a4d79373ef2d2e51100d1e183eca8dfc1d53c965b18c5372',
-    source: { sourcePack: 'spells-srd', sourceId: '9HpwDN4MYQJnW0LG', slug: 'dispel-magic', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { path: '/api/game-systems/pathfinder-2e/icons/spells/dispel-magic.webp' },
-    data: {
-      schemaVersion: 1,
-      name: 'Dispel Magic',
-      rank: 2,
-      rarity: 'common',
-      traits: ['concentrate', 'manipulate'],
-      traditions: ['arcane', 'divine', 'occult', 'primal'],
-      description: 'You unravel the magic behind a spell or effect. Attempt a counteract check against the target. A successfully counteracted magic item becomes a mundane item of its type for 10 minutes.',
-      castingTime: '2 actions',
-      range: '120 feet',
-      target: '1 spell effect or unattended magic item',
-      area: null,
-      duration: 'varies',
-      defense: null,
-      damage: [],
-      heightening: 'No additional heightened effect.',
+    "contentId": "pf2e:spell:spells-srd:force-barrage",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "git-blob:c92171de982d94a73361f42b3cf5a15426b37258",
+    "translatableHash": "git-blob:c92171de982d94a73361f42b3cf5a15426b37258",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "gKKqvLohtrSJj3BM",
+      "slug": "force-barrage",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
     },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/spells/magic-missile.webp"
+    },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Force Barrage",
+      "rank": 1,
+      "rarity": "common",
+      "traits": [
+        "concentrate",
+        "force",
+        "manipulate"
+      ],
+      "traditions": [
+        "arcane",
+        "occult"
+      ],
+      "description": "You fire a shard of solidified magic that automatically hits and deals 1d4+1 force damage. Each additional casting action creates another shard, up to three.",
+      "castingTime": "1 to 3 actions",
+      "range": "120 feet",
+      "target": "1 creature per shard",
+      "area": null,
+      "duration": "instantaneous",
+      "defense": null,
+      "damage": [
+        {
+          "formula": "1d4+1",
+          "type": "force",
+          "kind": "damage"
+        }
+      ],
+      "heightening": "Heightened (+2): fire one additional shard for each action spent."
+    }
   },
   {
-    contentId: 'pf2e:spell:spells-srd:invisibility',
-    domain: 'SPELL',
-    locale: 'en-US',
-    sourceHash: 'sha256:88c5677860c74fa0989da1fb6d0f7f9c59b0b1e777d0723d687b5c67fac68bbe',
-    translatableHash: 'sha256:f8284398a6842940336d3aa3c997c787b1c2244cde77865f33c1cfe536291ec4',
-    source: { sourcePack: 'spells-srd', sourceId: 'XXqE1eY3w3z6xJCB', slug: 'invisibility', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { path: '/api/game-systems/pathfinder-2e/icons/spells/invisibility.webp' },
-    data: {
-      schemaVersion: 1,
-      name: 'Invisibility',
-      rank: 2,
-      rarity: 'common',
-      traits: ['illusion', 'manipulate', 'subtle'],
-      traditions: ['arcane', 'occult'],
-      description: 'Illusions bend light around the target, rendering it invisible. Other creatures can attempt to find the target. The spell ends after the target completes a hostile action.',
-      castingTime: '2 actions',
-      range: 'touch',
-      target: '1 creature',
-      area: null,
-      duration: '10 minutes',
-      defense: null,
-      damage: [],
-      heightening: 'Heightened (4th): the spell lasts 1 minute but does not end when the target uses a hostile action.',
+    "contentId": "pf2e:spell:spells-srd:heal",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8",
+    "translatableHash": "git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "rfZpqmj0AIIdkVIs",
+      "slug": "heal",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
     },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heal",
+      "rank": 1,
+      "rarity": "common",
+      "traits": [
+        "healing",
+        "manipulate",
+        "vitality"
+      ],
+      "traditions": [
+        "divine",
+        "primal"
+      ],
+      "description": "You channel vital energy to restore 1d8 Hit Points to a willing living creature or deal 1d8 vitality damage to an undead target. The number of actions changes range and targets.",
+      "castingTime": "1 to 3 actions",
+      "range": "varies",
+      "target": "1 willing living creature, 1 undead, or all living and undead creatures in a 30-foot emanation",
+      "area": "30-foot emanation with 3 actions",
+      "duration": "instantaneous",
+      "defense": "basic Fortitude save for undead targets",
+      "damage": [
+        {
+          "formula": "1d8",
+          "type": "vitality",
+          "kind": "damage-or-healing"
+        }
+      ],
+      "heightening": "Heightened (+1): healing or damage increases by 1d8; the 2-action healing bonus increases by 8."
+    }
   },
+  {
+    "contentId": "pf2e:spell:spells-srd:blazing-bolt",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "sha256:7af691f559323ed07d760d827bb9bfc45f47eb83b5cc4d519958b095b7cd6ba0",
+    "translatableHash": "sha256:e303f9651c524c126e4cba675eacacb2a478f0007b338d85f169b5349b8ae3ac",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "ZxHC7V7HtjUsB8zH",
+      "slug": "blazing-bolt",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blazing Bolt",
+      "rank": 2,
+      "rarity": "common",
+      "traits": [
+        "attack",
+        "concentrate",
+        "fire",
+        "manipulate"
+      ],
+      "traditions": [
+        "arcane",
+        "primal"
+      ],
+      "description": "You fire a ray of heat and flame. Make a spell attack against one creature. Additional casting actions fire additional rays at different targets, up to three rays. Spending at least 2 actions increases the damage.",
+      "castingTime": "1 to 3 actions",
+      "range": "60 feet",
+      "target": "1 or more creatures",
+      "area": null,
+      "duration": "instantaneous",
+      "defense": null,
+      "damage": [
+        {
+          "formula": "2d6",
+          "type": "fire",
+          "kind": "damage"
+        },
+        {
+          "formula": "4d6",
+          "type": "fire",
+          "kind": "damage"
+        }
+      ],
+      "heightening": "Heightened (+1): each target takes 1d6 additional damage in the 1-action version or 2d6 additional damage in the 2-action and 3-action versions."
+    }
+  },
+  {
+    "contentId": "pf2e:spell:spells-srd:dispel-magic",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "sha256:3e54682d72e1bdfc3392d1efdb74cbb8ab17b477698fb778363d6c8c7bc9e34a",
+    "translatableHash": "sha256:7cf0716f610c2ba6a4d79373ef2d2e51100d1e183eca8dfc1d53c965b18c5372",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "9HpwDN4MYQJnW0LG",
+      "slug": "dispel-magic",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/spells/dispel-magic.webp"
+    },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dispel Magic",
+      "rank": 2,
+      "rarity": "common",
+      "traits": [
+        "concentrate",
+        "manipulate"
+      ],
+      "traditions": [
+        "arcane",
+        "divine",
+        "occult",
+        "primal"
+      ],
+      "description": "You unravel the magic behind a spell or effect. Attempt a counteract check against the target. A successfully counteracted magic item becomes a mundane item of its type for 10 minutes.",
+      "castingTime": "2 actions",
+      "range": "120 feet",
+      "target": "1 spell effect or unattended magic item",
+      "area": null,
+      "duration": "varies",
+      "defense": null,
+      "damage": [],
+      "heightening": "No additional heightened effect."
+    }
+  },
+  {
+    "contentId": "pf2e:spell:spells-srd:invisibility",
+    "domain": "SPELL",
+    "locale": "en-US",
+    "sourceHash": "sha256:88c5677860c74fa0989da1fb6d0f7f9c59b0b1e777d0723d687b5c67fac68bbe",
+    "translatableHash": "sha256:f8284398a6842940336d3aa3c997c787b1c2244cde77865f33c1cfe536291ec4",
+    "source": {
+      "sourcePack": "spells-srd",
+      "sourceId": "XXqE1eY3w3z6xJCB",
+      "slug": "invisibility",
+      "publicationTitle": "Pathfinder Player Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/spells/invisibility.webp"
+    },
+    "data": {
+      "schemaVersion": 1,
+      "name": "Invisibility",
+      "rank": 2,
+      "rarity": "common",
+      "traits": [
+        "illusion",
+        "manipulate",
+        "subtle"
+      ],
+      "traditions": [
+        "arcane",
+        "occult"
+      ],
+      "description": "Illusions bend light around the target, rendering it invisible. Other creatures can attempt to find the target. The spell ends after the target completes a hostile action.",
+      "castingTime": "2 actions",
+      "range": "touch",
+      "target": "1 creature",
+      "area": null,
+      "duration": "10 minutes",
+      "defense": null,
+      "damage": [],
+      "heightening": "Heightened (4th): the spell lasts 1 minute but does not end when the target uses a hostile action."
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 56,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "XXqE1eY3w3z6xJCB",
+          "name": "Invisibility",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 124,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Undetected",
+          "sourceId": "VRSef5y1LmL2Hkjf",
+          "name": "Undetected",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "XXqE1eY3w3z6xJCB",
+          "name": "Invisibility",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 259,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Hidden",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Hidden",
+          "sourceId": "iU0fEDdBp3rXpTMC",
+          "name": "Hidden",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "XXqE1eY3w3z6xJCB",
+          "name": "Invisibility",
+          "type": "spell"
+        }
+      }
+    ]
+  }
 ]

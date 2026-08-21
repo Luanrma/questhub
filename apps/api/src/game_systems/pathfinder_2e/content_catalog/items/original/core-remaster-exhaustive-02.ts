@@ -1250,7 +1250,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "shield",
       "group": "tower-shield"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 195,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Take Cover",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Take Cover",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Take Cover",
+          "sourceId": "ust1jJSCZQUhBZIz",
+          "name": "Take Cover",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "ltundBNFAnP7bgPr",
+          "name": "Tower Shield",
+          "type": "shield"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:copper-pieces",
@@ -1883,7 +1907,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 474,
+        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry",
+          "package": "pf2e",
+          "sourcePack": "equipment-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Parry",
+          "sourceId": "fRlvmul3LbLo2xvR",
+          "name": "Effect: Parry",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "o29fgVteF3yj8NKn",
+          "name": "Parrying Scabbard",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:chest",
@@ -2289,7 +2337,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": -2,
         "speedPenaltyFeet": -5
       }
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 98,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Half Plate",
+          "sourceId": "pRoikbRo5HFW6YUB",
+          "name": "Half Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "r0ifJfoz8aqf0mwk",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:light-pick",
@@ -2475,7 +2547,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 87,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Administer First Aid",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Administer First Aid",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Administer First Aid",
+          "sourceId": "MHLuKy4nQO2Z4Am1",
+          "name": "Administer First Aid",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "s1vB3HdXjMigYAnY",
+          "name": "Healer's Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 149,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Disease",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Disease",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Treat Disease",
+          "sourceId": "TC7OcDa7JlWbqMaN",
+          "name": "Treat Disease",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "s1vB3HdXjMigYAnY",
+          "name": "Healer's Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 204,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Poison",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Poison",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Treat Poison",
+          "sourceId": "KjoCEEmPGTeFE4hh",
+          "name": "Treat Poison",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "s1vB3HdXjMigYAnY",
+          "name": "Healer's Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 261,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Wounds",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Wounds",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Treat Wounds",
+          "sourceId": "1kGNdIIhuglAjIp9",
+          "name": "Treat Wounds",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "s1vB3HdXjMigYAnY",
+          "name": "Healer's Toolkit",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:orc-knuckle-dagger",
@@ -2616,7 +2778,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 37,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Thieves' Toolkit",
+          "sourceId": "zvLyCVD8g2PdHJAc",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "Sw7MBLASN3xK4Y44",
+          "name": "Thieves' Toolkit (Replacement Picks)",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:flail",
@@ -2690,7 +2876,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-two-hands",
       "category": "equipment",
       "group": "equipment"
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/description/value",
+        "sourceIndex": 110,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Grapple",
+          "sourceId": "PMbdMWc2QroouFGD",
+          "name": "Grapple",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "T8EopYZLT137CsdW",
+          "name": "Net",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:item:equipment-srd:kukri",

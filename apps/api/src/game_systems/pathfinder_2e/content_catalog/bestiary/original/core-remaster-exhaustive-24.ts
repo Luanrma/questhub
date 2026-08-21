@@ -134,7 +134,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "bZHqPBdQjPS02Rd4",
+          "sourceId": "bZHqPBdQjPS02Rd4",
+          "name": "Coral Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "L4mNBzmwkWcG1PpK",
+          "name": "Coral Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "FXvKIkf5JQCPKyrs",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 487,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "CYx6PDHf6ppok3ro",
+          "name": "At My Command",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:naiad-commander",
@@ -287,7 +355,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "bZHqPBdQjPS02Rd4",
+          "sourceId": "bZHqPBdQjPS02Rd4",
+          "name": "Coral Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "XD7TY7lcGvO4mbKI",
+          "name": "Coral Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 153,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FMRFRcuXn2QHFX2v",
+          "name": "Bravery",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 256,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: No Quarter!",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: No Quarter!",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: No Quarter!",
+          "sourceId": "TjRZbd52qWPjTbNT",
+          "name": "Effect: No Quarter!",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "OjePIuXOLgAEb4RG",
+          "name": "No Quarter!",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:naiad-raider",
@@ -425,7 +561,141 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "bZHqPBdQjPS02Rd4",
+          "sourceId": "bZHqPBdQjPS02Rd4",
+          "name": "Coral Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "orb3Zr8VNcBKdPxx",
+          "name": "Coral Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "LwcNJ4icWzju8j94",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 105,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "TAqfKW4mSmkiBuzO",
+          "name": "Break Legs!",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 166,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+        "label": "Clumsy 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Clumsy",
+          "sourceId": "i3OJZU2nk64Df3xm",
+          "name": "Clumsy",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "TAqfKW4mSmkiBuzO",
+          "name": "Break Legs!",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 392,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Break Legs!",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Break Legs!",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Break Legs!",
+          "sourceId": "zOaP4yGwbFOszxeJ",
+          "name": "Effect: Break Legs!",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "TAqfKW4mSmkiBuzO",
+          "name": "Break Legs!",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 154,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0gE6l2oSZZRPjEyT",
+          "name": "Stampeding Shove",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:naiad-water-defender",
@@ -606,7 +876,251 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.bZHqPBdQjPS02Rd4",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "bZHqPBdQjPS02Rd4",
+          "sourceId": "bZHqPBdQjPS02Rd4",
+          "name": "Coral Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "X7V5m3LBFQSWuUKu",
+          "name": "Coral Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 16,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dlhm2yJ4EUGym0CG",
+          "name": "Gang Up",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "AWvNPE4U0kEJSL1T",
+          "sourceId": "AWvNPE4U0kEJSL1T",
+          "name": "Sneak Attack",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "j1wf4dSXkGypJjRs",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 67,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "j1wf4dSXkGypJjRs",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 34,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "kSd8rIlnXiVczYg0",
+          "name": "Deny Advantage",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 131,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Hidden",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Hidden",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Hidden",
+          "sourceId": "iU0fEDdBp3rXpTMC",
+          "name": "Hidden",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "kSd8rIlnXiVczYg0",
+          "name": "Deny Advantage",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 182,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Undetected",
+          "sourceId": "VRSef5y1LmL2Hkjf",
+          "name": "Undetected",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "kSd8rIlnXiVczYg0",
+          "name": "Deny Advantage",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 256,
+        "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.classfeatures.Item.Surprise Attack",
+          "package": "pf2e",
+          "sourcePack": "classfeatures",
+          "documentType": "Item",
+          "compendiumKey": "Surprise Attack",
+          "sourceId": "w6rMqmGzhUahdnA7",
+          "name": "Surprise Attack",
+          "type": "feat"
+        },
+        "owner": {
+          "sourceId": "kSd8rIlnXiVczYg0",
+          "name": "Deny Advantage",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 66,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "qNEPB3RKC3SlV4YE",
+          "name": "Surprise Attacker",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/system/rules/0/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "qNEPB3RKC3SlV4YE",
+          "name": "Surprise Attacker",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 287,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Brutal Rally",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Brutal Rally",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Brutal Rally",
+          "sourceId": "7x0O2GqWBJiAk5PF",
+          "name": "Effect: Brutal Rally",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "wXgvnztT7r9jO7Px",
+          "name": "Brutal Rally",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:frenzied-sea-life",
@@ -666,7 +1180,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 128,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Dispel Magic",
+          "sourceId": "9HpwDN4MYQJnW0LG",
+          "name": "Dispel Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "T45kzuGRl8ajMo9q",
+          "name": "Frenzied Sea Life",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:timonithaea",
@@ -973,7 +1511,974 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gpzpAAAJ1Lza2JVl",
+          "sourceId": "gpzpAAAJ1Lza2JVl",
+          "name": "Detect Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "NIUtiy75GbTPaUlB",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 462,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Invisibility Potion",
+          "sourceId": "bikFUFRLwfdvX2x2",
+          "name": "Invisibility Potion",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "NIUtiy75GbTPaUlB",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/11/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aEM2cttJ2eYcLssW",
+          "sourceId": "aEM2cttJ2eYcLssW",
+          "name": "Fleet Step",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "DL6s3bHOig0efa8q",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 58,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Fleet Step",
+          "sourceId": "ThFug45WHkQQXcoF",
+          "name": "Spell Effect: Fleet Step",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "DL6s3bHOig0efa8q",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "IxhGEKl63R4QBvkj",
+          "sourceId": "IxhGEKl63R4QBvkj",
+          "name": "Frostbite",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "UJdTNNkBAkKL8cb8",
+          "name": "Frostbite",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 249,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Frostbite",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Frostbite",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Frostbite",
+          "sourceId": "DdqWMj7cuf4S1bgr",
+          "name": "Spell Effect: Frostbite",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "UJdTNNkBAkKL8cb8",
+          "name": "Frostbite",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "izcxFQFwf3woCnFs",
+          "sourceId": "izcxFQFwf3woCnFs",
+          "name": "Guidance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 386,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Guidance",
+          "sourceId": "3qHKBDF7lrHw8jFK",
+          "name": "Spell Effect: Guidance",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 458,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Guidance Immunity",
+          "sourceId": "3LyOkV25p7wA181H",
+          "name": "Effect: Guidance Immunity",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/14/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "g8QqHpv2CWDwmIm1",
+          "sourceId": "g8QqHpv2CWDwmIm1",
+          "name": "Gust of Wind",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "sWXvc1br4kamX6mt",
+          "name": "Gust of Wind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 646,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "sWXvc1br4kamX6mt",
+          "name": "Gust of Wind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/15/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "rfZpqmj0AIIdkVIs",
+          "sourceId": "rfZpqmj0AIIdkVIs",
+          "name": "Heal",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "fYjljG26WAtP4FBy",
+          "name": "Heal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jfVCuOpzC6mUrf6f",
+          "sourceId": "jfVCuOpzC6mUrf6f",
+          "name": "Hydraulic Push",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "wosRKNwlCOlpTwVR",
+          "name": "Hydraulic Push",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WBmvzNDfpwka3qT4",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "AzdFtTsj7aN4X55d",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/17/system/description/value",
+        "sourceIndex": 594,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Light",
+          "sourceId": "cVVZXNbV0nElVOPZ",
+          "name": "Spell Effect: Light",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "AzdFtTsj7aN4X55d",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/18/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "SnjhtQYexDtNDdEg",
+          "sourceId": "SnjhtQYexDtNDdEg",
+          "name": "Stabilize",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/18/system/description/value",
+        "sourceIndex": 56,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dying",
+          "sourceId": "yZRUzMqrMmfLu0V1",
+          "name": "Dying",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/18/system/description/value",
+        "sourceIndex": 134,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/19/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4YnON9JHYqtLzccu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4YnON9JHYqtLzccu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4YnON9JHYqtLzccu",
+          "sourceId": "4YnON9JHYqtLzccu",
+          "name": "Summon Animal",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Y42w44Dsi0ecuzGU",
+          "name": "Summon Animal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/19/system/description/value",
+        "sourceIndex": 150,
+        "uuid": "Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF",
+        "label": "summon",
+        "target": {
+          "uuid": "Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF",
+          "package": "pf2e",
+          "sourcePack": "journals",
+          "documentType": "JournalEntry",
+          "compendiumKey": "S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF"
+        },
+        "owner": {
+          "sourceId": "Y42w44Dsi0ecuzGU",
+          "name": "Summon Animal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.oUDNCArkQTdhllxD",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.oUDNCArkQTdhllxD",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "oUDNCArkQTdhllxD",
+          "sourceId": "oUDNCArkQTdhllxD",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "KMfCOi5aGdBkzL5p",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 1796,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+        "label": "Escaping",
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Escape",
+          "sourceId": "SkZAQRkLLkmBQNB9",
+          "name": "Escape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "KMfCOi5aGdBkzL5p",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/20/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.iAnpxrLaBU4V6Sej",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.iAnpxrLaBU4V6Sej",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "iAnpxrLaBU4V6Sej",
+          "sourceId": "iAnpxrLaBU4V6Sej",
+          "name": "Tidal Surge",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "HL3wrCKvsFKv7jaX",
+          "name": "Tidal Surge (At Will)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/24/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UHuA1hue5xrRM6KK",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UHuA1hue5xrRM6KK",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "UHuA1hue5xrRM6KK",
+          "sourceId": "UHuA1hue5xrRM6KK",
+          "name": "(Nymph Queen) Tied to the Land",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "Gm902B0XQR5W4eLu",
+          "name": "Tied to the Land",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/24/system/description/value",
+        "sourceIndex": 353,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Blight",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Blight",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Blight",
+          "sourceId": "7yWXx3qC4eFNHhxD",
+          "name": "Blight",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Gm902B0XQR5W4eLu",
+          "name": "Tied to the Land",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/26/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kakyXBG5WA8c6Zfd",
+          "sourceId": "kakyXBG5WA8c6Zfd",
+          "name": "Constant Spells",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "xqRgagTvArv2abwD",
+          "name": "Constant Spells",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/27/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kG4fDd16fYEFvmgy",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kG4fDd16fYEFvmgy",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "kG4fDd16fYEFvmgy",
+          "sourceId": "kG4fDd16fYEFvmgy",
+          "name": "(Nymph Queen) Nymph's Beauty",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "Y44FxT7CY4R6SkdW",
+          "name": "Nymph's Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/27/system/description/value",
+        "sourceIndex": 120,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+        "label": "Stunned 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stunned",
+          "sourceId": "dfCMdR4wnpbYNTix",
+          "name": "Stunned",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Y44FxT7CY4R6SkdW",
+          "name": "Nymph's Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/29/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eXleBXdAemiEoHA8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eXleBXdAemiEoHA8",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "eXleBXdAemiEoHA8",
+          "sourceId": "eXleBXdAemiEoHA8",
+          "name": "(Nymph Queen) Change Shape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "yQ0WKMlep02TPvLi",
+          "name": "Change Shape",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gPvtmKMRpg9I9D7H",
+          "sourceId": "gPvtmKMRpg9I9D7H",
+          "name": "Earthbind",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "hsbJvOvw0iW8KC2Q",
+          "name": "Earthbind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/30/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.SEmSk1INZDmeoB5R",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.SEmSk1INZDmeoB5R",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "SEmSk1INZDmeoB5R",
+          "sourceId": "SEmSk1INZDmeoB5R",
+          "name": "(Nymph Queen) Focus Beauty",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "P658sPuiyqAqTdkz",
+          "name": "Focus Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/31/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IFQd4GiHlV33p7oK",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IFQd4GiHlV33p7oK",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "IFQd4GiHlV33p7oK",
+          "sourceId": "IFQd4GiHlV33p7oK",
+          "name": "(Nymph Queen) Inspiration",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "lQKrggSbzpvqq4YB",
+          "name": "Inspiration",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/31/system/description/value",
+        "sourceIndex": 730,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nymph Queen's Inspiration",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nymph Queen's Inspiration",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Nymph Queen's Inspiration",
+          "sourceId": "iSyyR4QVOaY6mxtg",
+          "name": "Effect: Nymph Queen's Inspiration",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "lQKrggSbzpvqq4YB",
+          "name": "Inspiration",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "yhz9fF69uwRhnHix",
+          "sourceId": "yhz9fF69uwRhnHix",
+          "name": "Animal Messenger",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "YiFG8bxDntR4v7nk",
+          "name": "Animal Messenger",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.dileJ0Yxqg76LMvu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.dileJ0Yxqg76LMvu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "dileJ0Yxqg76LMvu",
+          "sourceId": "dileJ0Yxqg76LMvu",
+          "name": "One with Plants",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "8eOsaEWVmshDsqGC",
+          "name": "One with Plants",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "0qaqksrGGDj74HXE",
+          "sourceId": "0qaqksrGGDj74HXE",
+          "name": "Revealing Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 194,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dazzled",
+          "sourceId": "TkIyaNPgTZFBCCuh",
+          "name": "Dazzled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 266,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 331,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.W69zswpj0Trdy5rj",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.W69zswpj0Trdy5rj",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "W69zswpj0Trdy5rj",
+          "sourceId": "W69zswpj0Trdy5rj",
+          "name": "Air Bubble",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "l3ONYuCavd12lvrr",
+          "name": "Air Bubble",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "vLA0q0WOK2YPuJs6",
+          "sourceId": "vLA0q0WOK2YPuJs6",
+          "name": "Charm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 916,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Friendly",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Friendly",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Friendly",
+          "sourceId": "v66R7FdOf11l94im",
+          "name": "Friendly",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 1011,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Helpful",
+          "sourceId": "v44P3WUcU1j0115l",
+          "name": "Helpful",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WzLKjSw6hsBhuklC",
+          "sourceId": "WzLKjSw6hsBhuklC",
+          "name": "Create Water",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "VqIDKCwbYa5QHWC1",
+          "name": "Create Water",
+          "type": "spell"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:timonithaea-7-9",
@@ -1295,7 +2800,1194 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.W69zswpj0Trdy5rj",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.W69zswpj0Trdy5rj",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "W69zswpj0Trdy5rj",
+          "sourceId": "W69zswpj0Trdy5rj",
+          "name": "Air Bubble",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "l3ONYuCavd12lvrr",
+          "name": "Air Bubble",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/11/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "vLA0q0WOK2YPuJs6",
+          "sourceId": "vLA0q0WOK2YPuJs6",
+          "name": "Charm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 916,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Friendly",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Friendly",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Friendly",
+          "sourceId": "v66R7FdOf11l94im",
+          "name": "Friendly",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 1011,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Helpful",
+          "sourceId": "v44P3WUcU1j0115l",
+          "name": "Helpful",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JpGaXFxRfMtRVeWe",
+          "name": "Charm",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WzLKjSw6hsBhuklC",
+          "sourceId": "WzLKjSw6hsBhuklC",
+          "name": "Create Water",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "VqIDKCwbYa5QHWC1",
+          "name": "Create Water",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gpzpAAAJ1Lza2JVl",
+          "sourceId": "gpzpAAAJ1Lza2JVl",
+          "name": "Detect Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "NIUtiy75GbTPaUlB",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 462,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Invisibility Potion",
+          "sourceId": "bikFUFRLwfdvX2x2",
+          "name": "Invisibility Potion",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "NIUtiy75GbTPaUlB",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/14/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aEM2cttJ2eYcLssW",
+          "sourceId": "aEM2cttJ2eYcLssW",
+          "name": "Fleet Step",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "DL6s3bHOig0efa8q",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 58,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Fleet Step",
+          "sourceId": "ThFug45WHkQQXcoF",
+          "name": "Spell Effect: Fleet Step",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "DL6s3bHOig0efa8q",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/15/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.IxhGEKl63R4QBvkj",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "IxhGEKl63R4QBvkj",
+          "sourceId": "IxhGEKl63R4QBvkj",
+          "name": "Frostbite",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "UJdTNNkBAkKL8cb8",
+          "name": "Frostbite",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/15/system/description/value",
+        "sourceIndex": 249,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Frostbite",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Frostbite",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Frostbite",
+          "sourceId": "DdqWMj7cuf4S1bgr",
+          "name": "Spell Effect: Frostbite",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "UJdTNNkBAkKL8cb8",
+          "name": "Frostbite",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "izcxFQFwf3woCnFs",
+          "sourceId": "izcxFQFwf3woCnFs",
+          "name": "Guidance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 386,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Guidance",
+          "sourceId": "3qHKBDF7lrHw8jFK",
+          "name": "Spell Effect: Guidance",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 458,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Guidance Immunity",
+          "sourceId": "3LyOkV25p7wA181H",
+          "name": "Effect: Guidance Immunity",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "9n6M42ZkIgsmreIB",
+          "name": "Guidance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.g8QqHpv2CWDwmIm1",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "g8QqHpv2CWDwmIm1",
+          "sourceId": "g8QqHpv2CWDwmIm1",
+          "name": "Gust of Wind",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "sWXvc1br4kamX6mt",
+          "name": "Gust of Wind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/17/system/description/value",
+        "sourceIndex": 646,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "sWXvc1br4kamX6mt",
+          "name": "Gust of Wind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/18/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "rfZpqmj0AIIdkVIs",
+          "sourceId": "rfZpqmj0AIIdkVIs",
+          "name": "Heal",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "fYjljG26WAtP4FBy",
+          "name": "Heal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/19/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jfVCuOpzC6mUrf6f",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jfVCuOpzC6mUrf6f",
+          "sourceId": "jfVCuOpzC6mUrf6f",
+          "name": "Hydraulic Push",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "wosRKNwlCOlpTwVR",
+          "name": "Hydraulic Push",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.oXeEbcUdgJGWHGEJ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.oXeEbcUdgJGWHGEJ",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "oXeEbcUdgJGWHGEJ",
+          "sourceId": "oXeEbcUdgJGWHGEJ",
+          "name": "Impaling Spike",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "oBOgO4AYHKFB8MMT",
+          "name": "Impaling Spike",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 568,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Immobilized",
+          "sourceId": "eIcWbB5o3pP6OIMe",
+          "name": "Immobilized",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "oBOgO4AYHKFB8MMT",
+          "name": "Impaling Spike",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 642,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Escape",
+          "sourceId": "SkZAQRkLLkmBQNB9",
+          "name": "Escape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "oBOgO4AYHKFB8MMT",
+          "name": "Impaling Spike",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 987,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "oBOgO4AYHKFB8MMT",
+          "name": "Impaling Spike",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/20/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WBmvzNDfpwka3qT4",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "AzdFtTsj7aN4X55d",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/20/system/description/value",
+        "sourceIndex": 594,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Light",
+          "sourceId": "cVVZXNbV0nElVOPZ",
+          "name": "Spell Effect: Light",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "AzdFtTsj7aN4X55d",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/21/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "SnjhtQYexDtNDdEg",
+          "sourceId": "SnjhtQYexDtNDdEg",
+          "name": "Stabilize",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/21/system/description/value",
+        "sourceIndex": 56,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dying",
+          "sourceId": "yZRUzMqrMmfLu0V1",
+          "name": "Dying",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/21/system/description/value",
+        "sourceIndex": 134,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "7XfNkVvFBcoUN1Jv",
+          "name": "Stabilize",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/22/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4YnON9JHYqtLzccu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4YnON9JHYqtLzccu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4YnON9JHYqtLzccu",
+          "sourceId": "4YnON9JHYqtLzccu",
+          "name": "Summon Animal",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Y42w44Dsi0ecuzGU",
+          "name": "Summon Animal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/22/system/description/value",
+        "sourceIndex": 150,
+        "uuid": "Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF",
+        "label": "summon",
+        "target": {
+          "uuid": "Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF",
+          "package": "pf2e",
+          "sourcePack": "journals",
+          "documentType": "JournalEntry",
+          "compendiumKey": "S55aqwWIzpQRFhcq.JournalEntryPage.8gcp880pEWZ9VPnF"
+        },
+        "owner": {
+          "sourceId": "Y42w44Dsi0ecuzGU",
+          "name": "Summon Animal",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/23/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.iAnpxrLaBU4V6Sej",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.iAnpxrLaBU4V6Sej",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "iAnpxrLaBU4V6Sej",
+          "sourceId": "iAnpxrLaBU4V6Sej",
+          "name": "Tidal Surge",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "HL3wrCKvsFKv7jaX",
+          "name": "Tidal Surge (At Will)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/27/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UHuA1hue5xrRM6KK",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UHuA1hue5xrRM6KK",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "UHuA1hue5xrRM6KK",
+          "sourceId": "UHuA1hue5xrRM6KK",
+          "name": "(Nymph Queen) Tied to the Land",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "Gm902B0XQR5W4eLu",
+          "name": "Tied to the Land",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/27/system/description/value",
+        "sourceIndex": 353,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Blight",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Blight",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Blight",
+          "sourceId": "7yWXx3qC4eFNHhxD",
+          "name": "Blight",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Gm902B0XQR5W4eLu",
+          "name": "Tied to the Land",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/29/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kakyXBG5WA8c6Zfd",
+          "sourceId": "kakyXBG5WA8c6Zfd",
+          "name": "Constant Spells",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "xqRgagTvArv2abwD",
+          "name": "Constant Spells",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.z2mfh3oPnfYqXflY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.z2mfh3oPnfYqXflY",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "z2mfh3oPnfYqXflY",
+          "sourceId": "z2mfh3oPnfYqXflY",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "QR3EGTv0d5clkGrl",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 236,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "QR3EGTv0d5clkGrl",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 525,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Cleanse Affliction",
+          "sourceId": "SUKaxVZW2TlM8lu0",
+          "name": "Cleanse Affliction",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "QR3EGTv0d5clkGrl",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 689,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "QR3EGTv0d5clkGrl",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 826,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "QR3EGTv0d5clkGrl",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/30/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kG4fDd16fYEFvmgy",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.kG4fDd16fYEFvmgy",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "kG4fDd16fYEFvmgy",
+          "sourceId": "kG4fDd16fYEFvmgy",
+          "name": "(Nymph Queen) Nymph's Beauty",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "Y44FxT7CY4R6SkdW",
+          "name": "Nymph's Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/30/system/description/value",
+        "sourceIndex": 120,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+        "label": "Stunned 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stunned",
+          "sourceId": "dfCMdR4wnpbYNTix",
+          "name": "Stunned",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Y44FxT7CY4R6SkdW",
+          "name": "Nymph's Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/32/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eXleBXdAemiEoHA8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eXleBXdAemiEoHA8",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "eXleBXdAemiEoHA8",
+          "sourceId": "eXleBXdAemiEoHA8",
+          "name": "(Nymph Queen) Change Shape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "yQ0WKMlep02TPvLi",
+          "name": "Change Shape",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/33/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.SEmSk1INZDmeoB5R",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.SEmSk1INZDmeoB5R",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "SEmSk1INZDmeoB5R",
+          "sourceId": "SEmSk1INZDmeoB5R",
+          "name": "(Nymph Queen) Focus Beauty",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "P658sPuiyqAqTdkz",
+          "name": "Focus Beauty",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/34/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IFQd4GiHlV33p7oK",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-family-ability-glossary.Item.IFQd4GiHlV33p7oK",
+          "package": "pf2e",
+          "sourcePack": "bestiary-family-ability-glossary",
+          "documentType": "Item",
+          "compendiumKey": "IFQd4GiHlV33p7oK",
+          "sourceId": "IFQd4GiHlV33p7oK",
+          "name": "(Nymph Queen) Inspiration",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "lQKrggSbzpvqq4YB",
+          "name": "Inspiration",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/34/system/description/value",
+        "sourceIndex": 730,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nymph Queen's Inspiration",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Nymph Queen's Inspiration",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Nymph Queen's Inspiration",
+          "sourceId": "iSyyR4QVOaY6mxtg",
+          "name": "Effect: Nymph Queen's Inspiration",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "lQKrggSbzpvqq4YB",
+          "name": "Inspiration",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Y3G6Y6EDgCY0s3fq",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Y3G6Y6EDgCY0s3fq",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Y3G6Y6EDgCY0s3fq",
+          "sourceId": "Y3G6Y6EDgCY0s3fq",
+          "name": "Hydraulic Torrent",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "hL5bNB4uhZrOcVWN",
+          "name": "Hydraulic Torrent",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.oUDNCArkQTdhllxD",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.oUDNCArkQTdhllxD",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "oUDNCArkQTdhllxD",
+          "sourceId": "oUDNCArkQTdhllxD",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "KMfCOi5aGdBkzL5p",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 1796,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+        "label": "Escaping",
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Escape",
+          "sourceId": "SkZAQRkLLkmBQNB9",
+          "name": "Escape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "KMfCOi5aGdBkzL5p",
+          "name": "Aqueous Orb",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gPvtmKMRpg9I9D7H",
+          "sourceId": "gPvtmKMRpg9I9D7H",
+          "name": "Earthbind",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "hsbJvOvw0iW8KC2Q",
+          "name": "Earthbind",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.yhz9fF69uwRhnHix",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "yhz9fF69uwRhnHix",
+          "sourceId": "yhz9fF69uwRhnHix",
+          "name": "Animal Messenger",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "YiFG8bxDntR4v7nk",
+          "name": "Animal Messenger",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.dileJ0Yxqg76LMvu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.dileJ0Yxqg76LMvu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "dileJ0Yxqg76LMvu",
+          "sourceId": "dileJ0Yxqg76LMvu",
+          "name": "One with Plants",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "8eOsaEWVmshDsqGC",
+          "name": "One with Plants",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "0qaqksrGGDj74HXE",
+          "sourceId": "0qaqksrGGDj74HXE",
+          "name": "Revealing Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 194,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dazzled",
+          "sourceId": "TkIyaNPgTZFBCCuh",
+          "name": "Dazzled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 266,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 331,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "0LI7TsEg0mU9QBd1",
+          "name": "Revealing Light",
+          "type": "spell"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:unruly-crowd",
@@ -1376,7 +4068,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 138,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Catchy Slogan",
+          "sourceId": "wFpKEx9KSjoVg9xq",
+          "name": "Effect: Catchy Slogan",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "ewXmZRDcTa19hzd0",
+          "name": "Catchy Slogan",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 276,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 397,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 544,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 336,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Calm",
+          "sourceId": "b515AZlB0sridKSq",
+          "name": "Calm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "b1xe6qPYygPr7MH5",
+          "name": "Unruly Crowd",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:rowdy-crowd",
@@ -1457,7 +4261,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 138,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Catchy Slogan",
+          "sourceId": "wFpKEx9KSjoVg9xq",
+          "name": "Effect: Catchy Slogan",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "ewXmZRDcTa19hzd0",
+          "name": "Catchy Slogan",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 276,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 397,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 544,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 336,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Calm",
+          "sourceId": "b515AZlB0sridKSq",
+          "name": "Calm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "EsbnHIdsavLd2qJc",
+          "name": "Rowdy Crowd",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:diabolic-messenger",
@@ -1587,7 +4503,273 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "rQWaJhI5Bko5x14Z",
+          "sourceId": "rQWaJhI5Bko5x14Z",
+          "name": "Dagger",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "EvA52gSS6f0EqUlc",
+          "name": "Dagger",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "tH5GirEy7YB3ZgCk",
+          "sourceId": "tH5GirEy7YB3ZgCk",
+          "name": "Rapier",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "vRPtAQv99khaa6Mi",
+          "name": "Rapier",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 172,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Omm2X9U53sWtJwUK",
+          "name": "Hidden Blade",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/11/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "AWvNPE4U0kEJSL1T",
+          "sourceId": "AWvNPE4U0kEJSL1T",
+          "name": "Sneak Attack",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "RwOdkAEAFzEFKY17",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 65,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "RwOdkAEAFzEFKY17",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "4tIVTg9wj56RrveA",
+          "sourceId": "4tIVTg9wj56RrveA",
+          "name": "Leather Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "M0bW2RAoBH2BbPWF",
+          "name": "Leather Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Jvp0x2Sc82WVpExT",
+          "sourceId": "Jvp0x2Sc82WVpExT",
+          "name": "Disguise Kit",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "s0J7dSfxLfShQPvt",
+          "name": "Disguise Kit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.jJZbdMHMdh8UL2j8",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "jJZbdMHMdh8UL2j8",
+          "sourceId": "jJZbdMHMdh8UL2j8",
+          "name": "Clothing (Fine)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "Y3zn6VS3UUVxrVNI",
+          "name": "Clothing (Fine)",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "zvLyCVD8g2PdHJAc",
+          "sourceId": "zvLyCVD8g2PdHJAc",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "RUDnmv9DcblfEsE5",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 34,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
+        "label": "Pick Locks",
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Pick a Lock",
+          "sourceId": "2EE4aF4SZpYf0R6H",
+          "name": "Pick a Lock",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "RUDnmv9DcblfEsE5",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 101,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
+        "label": "Disable Devices",
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Disable a Device",
+          "sourceId": "cYdz2grcOcRt4jk6",
+          "name": "Disable a Device",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "RUDnmv9DcblfEsE5",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 311,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)",
+        "label": "Replacement Picks",
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Thieves' Toolkit (Replacement Picks)",
+          "sourceId": "Sw7MBLASN3xK4Y44",
+          "name": "Thieves' Toolkit (Replacement Picks)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "RUDnmv9DcblfEsE5",
+          "name": "Thieves' Toolkit",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:violent-crowd",
@@ -1668,7 +4850,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 138,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Catchy Slogan",
+          "sourceId": "wFpKEx9KSjoVg9xq",
+          "name": "Effect: Catchy Slogan",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "ewXmZRDcTa19hzd0",
+          "name": "Catchy Slogan",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 276,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 397,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 544,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 336,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Calm",
+          "sourceId": "b515AZlB0sridKSq",
+          "name": "Calm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "20N1KWw4cmy0Etoh",
+          "name": "Violent Crowd",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:murderous-crowd",
@@ -1749,7 +5043,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 138,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Catchy Slogan",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Catchy Slogan",
+          "sourceId": "wFpKEx9KSjoVg9xq",
+          "name": "Effect: Catchy Slogan",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "ewXmZRDcTa19hzd0",
+          "name": "Catchy Slogan",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 276,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 397,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 544,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JEjJmbaqLOsaBEiD",
+          "name": "Shake Confidence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 336,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Calm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Calm",
+          "sourceId": "b515AZlB0sridKSq",
+          "name": "Calm",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "73rwK4mN1FJbcoTG",
+          "name": "Murderous Crowd",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:thoroughbred-nightmare",
@@ -1884,7 +5290,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.5bTt2CvYHPvaR7QQ",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "5bTt2CvYHPvaR7QQ",
+          "sourceId": "5bTt2CvYHPvaR7QQ",
+          "name": "Interplanar Teleport",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "aFTYkeNI6jd2TfGi",
+          "name": "Interplanar Teleport (Self and Rider Only)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 88,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "nbWXPfh7WyVCERN9",
+          "name": "Smoke",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 444,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "nbWXPfh7WyVCERN9",
+          "name": "Smoke",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:kizrech",
@@ -2086,7 +5560,317 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kquBnQ0kObZztnBc",
+          "sourceId": "kquBnQ0kObZztnBc",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "LNMvDz05IiBL47EM",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 226,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "eFSn04VHXskAZuk0",
+          "name": "Infernal Command",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "A6MAt5wI9QNtMV0B",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "m4HQ2o5aPxjXf2kY",
+          "sourceId": "m4HQ2o5aPxjXf2kY",
+          "name": "Shield Block",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "co2oaEEUO9ejhVbc",
+          "name": "Shield Block",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "VlNcjmYyu95vOUe8",
+          "sourceId": "VlNcjmYyu95vOUe8",
+          "name": "Translocate",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "BvdfIvDQwWd4EOFO",
+          "name": "Translocate",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "VlNcjmYyu95vOUe8",
+          "sourceId": "VlNcjmYyu95vOUe8",
+          "name": "Translocate",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "WLvdIhprj7cd1ha4",
+          "name": "Translocate (At Will)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "30BBep9U4BDV0EgQ",
+          "sourceId": "30BBep9U4BDV0EgQ",
+          "name": "Diabolic Pact",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Kirpy3b4A9YGiJvu",
+          "name": "Diabolic Pact",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jFmWSIpJGGebim6y",
+          "sourceId": "jFmWSIpJGGebim6y",
+          "name": "Touch of the Void",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "L7z0810ey8nlSwJL",
+          "name": "Touch of the Void",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 459,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Touch of the Void",
+          "sourceId": "GhNVAYtoF5hK3AlD",
+          "name": "Spell Effect: Touch of the Void",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "L7z0810ey8nlSwJL",
+          "name": "Touch of the Void",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FJrsDoaIXksVjld9",
+          "sourceId": "FJrsDoaIXksVjld9",
+          "name": "Trident",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "aA1Pt1vmD2n0trhU",
+          "name": "Trident",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Yr9yCuJiAlFh3QEB",
+          "sourceId": "Yr9yCuJiAlFh3QEB",
+          "name": "Steel Shield",
+          "type": "shield"
+        },
+        "owner": {
+          "sourceId": "FwBqpVCLUAlpS6Lz",
+          "name": "Steel Shield",
+          "type": "shield"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "r0ifJfoz8aqf0mwk",
+          "sourceId": "r0ifJfoz8aqf0mwk",
+          "name": "Breastplate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "TXMMBy6973OUJRI9",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 98,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Half Plate",
+          "sourceId": "pRoikbRo5HFW6YUB",
+          "name": "Half Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "TXMMBy6973OUJRI9",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "EkZVXMdtqTTgahiJ",
+          "sourceId": "EkZVXMdtqTTgahiJ",
+          "name": "Charm of Resistance",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "vrKcrtDYg36TA2Gz",
+          "name": "Charm of Cold Resistance",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:kizrech-11-12",
@@ -2288,7 +6072,317 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kquBnQ0kObZztnBc",
+          "sourceId": "kquBnQ0kObZztnBc",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "LNMvDz05IiBL47EM",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 226,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "eFSn04VHXskAZuk0",
+          "name": "Infernal Command",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "A6MAt5wI9QNtMV0B",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "m4HQ2o5aPxjXf2kY",
+          "sourceId": "m4HQ2o5aPxjXf2kY",
+          "name": "Shield Block",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "co2oaEEUO9ejhVbc",
+          "name": "Shield Block",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "VlNcjmYyu95vOUe8",
+          "sourceId": "VlNcjmYyu95vOUe8",
+          "name": "Translocate",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "BvdfIvDQwWd4EOFO",
+          "name": "Translocate",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "VlNcjmYyu95vOUe8",
+          "sourceId": "VlNcjmYyu95vOUe8",
+          "name": "Translocate",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "WLvdIhprj7cd1ha4",
+          "name": "Translocate (At Will)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.30BBep9U4BDV0EgQ",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "30BBep9U4BDV0EgQ",
+          "sourceId": "30BBep9U4BDV0EgQ",
+          "name": "Diabolic Pact",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Kirpy3b4A9YGiJvu",
+          "name": "Diabolic Pact",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jFmWSIpJGGebim6y",
+          "sourceId": "jFmWSIpJGGebim6y",
+          "name": "Touch of the Void",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "z6F0gzh1tDFHQ7TW",
+          "name": "Touch of the Void",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 459,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Touch of the Void",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Touch of the Void",
+          "sourceId": "GhNVAYtoF5hK3AlD",
+          "name": "Spell Effect: Touch of the Void",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "z6F0gzh1tDFHQ7TW",
+          "name": "Touch of the Void",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FJrsDoaIXksVjld9",
+          "sourceId": "FJrsDoaIXksVjld9",
+          "name": "Trident",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "aA1Pt1vmD2n0trhU",
+          "name": "Trident",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Yr9yCuJiAlFh3QEB",
+          "sourceId": "Yr9yCuJiAlFh3QEB",
+          "name": "Steel Shield",
+          "type": "shield"
+        },
+        "owner": {
+          "sourceId": "FwBqpVCLUAlpS6Lz",
+          "name": "Steel Shield",
+          "type": "shield"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "r0ifJfoz8aqf0mwk",
+          "sourceId": "r0ifJfoz8aqf0mwk",
+          "name": "Breastplate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "TXMMBy6973OUJRI9",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 98,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Half Plate",
+          "sourceId": "pRoikbRo5HFW6YUB",
+          "name": "Half Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "TXMMBy6973OUJRI9",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.EkZVXMdtqTTgahiJ",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "EkZVXMdtqTTgahiJ",
+          "sourceId": "EkZVXMdtqTTgahiJ",
+          "name": "Charm of Resistance",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "vrKcrtDYg36TA2Gz",
+          "name": "Charm of Cold Resistance",
+          "type": "equipment"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:heavily-damaged-jaws-of-hell",
@@ -2366,7 +6460,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 651,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "uHMxDJnJaeG4qqvF",
+          "name": "Spit Fire",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:damaged-jaws-of-hell",
@@ -2444,7 +6562,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 651,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "uHMxDJnJaeG4qqvF",
+          "name": "Spit Fire",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:lesser-marsh-giant",
@@ -2596,7 +6738,251 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.z2mfh3oPnfYqXflY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.z2mfh3oPnfYqXflY",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "z2mfh3oPnfYqXflY",
+          "sourceId": "z2mfh3oPnfYqXflY",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "j34Fi56CTrZXtEGG",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 236,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "j34Fi56CTrZXtEGG",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 525,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Cleanse Affliction",
+          "sourceId": "SUKaxVZW2TlM8lu0",
+          "name": "Cleanse Affliction",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "j34Fi56CTrZXtEGG",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 689,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "j34Fi56CTrZXtEGG",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 826,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "j34Fi56CTrZXtEGG",
+          "name": "Mariner's Curse",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "41TZEjhO6D1nWw2X",
+          "sourceId": "41TZEjhO6D1nWw2X",
+          "name": "Augury",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Yde51S9ffNgHJlgB",
+          "name": "Augury",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.9XHmC2JgTUIQ1CCm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.9XHmC2JgTUIQ1CCm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "9XHmC2JgTUIQ1CCm",
+          "sourceId": "9XHmC2JgTUIQ1CCm",
+          "name": "Mist",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "M9OmJbde6QeKYhrF",
+          "name": "Mist",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 72,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "M9OmJbde6QeKYhrF",
+          "name": "Mist",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.NApB2Fl7i8wzp7RX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.NApB2Fl7i8wzp7RX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "NApB2Fl7i8wzp7RX",
+          "sourceId": "NApB2Fl7i8wzp7RX",
+          "name": "Gaff",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "zkvNDt3HOWSmCOid",
+          "name": "Gaff",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 47,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "vVucSfThIT1iEEjO",
+          "name": "Drowning Hook",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 116,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "eoLK3mAvvXiMTLnH",
+          "name": "Twist the Hook",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:demonologist",
@@ -2816,7 +7202,1087 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "zvKWclOZ7A53DObE",
+          "sourceId": "zvKWclOZ7A53DObE",
+          "name": "Clairvoyance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XN4JCtBNmeC0mnJX",
+          "name": "Clairvoyance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 17,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "XN4JCtBNmeC0mnJX",
+          "name": "Clairvoyance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jwK43yKsHTkJQvQ9",
+          "sourceId": "jwK43yKsHTkJQvQ9",
+          "name": "See the Unseen",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 49,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 240,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 670,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: See the Unseen",
+          "sourceId": "T5bk6UH7yuYog1Fp",
+          "name": "Spell Effect: See the Unseen",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/11/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.thAHF1zxNplLCJPO",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.thAHF1zxNplLCJPO",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "thAHF1zxNplLCJPO",
+          "sourceId": "thAHF1zxNplLCJPO",
+          "name": "Caustic Blast",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "ZJ1mmBhvQ13eIzyA",
+          "name": "Caustic Blast",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4gBIw4IDrSfFHik4",
+          "sourceId": "4gBIw4IDrSfFHik4",
+          "name": "Daze",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "URn1wMuJoRCcNuNL",
+          "name": "Daze",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 177,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+        "label": "Stunned 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stunned",
+          "sourceId": "dfCMdR4wnpbYNTix",
+          "name": "Stunned",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "URn1wMuJoRCcNuNL",
+          "name": "Daze",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gpzpAAAJ1Lza2JVl",
+          "sourceId": "gpzpAAAJ1Lza2JVl",
+          "name": "Detect Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "V0KER9CC8ycoMeqb",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 462,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Invisibility Potion",
+          "sourceId": "bikFUFRLwfdvX2x2",
+          "name": "Invisibility Potion",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "V0KER9CC8ycoMeqb",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/14/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4koZzrnMXhhosn0D",
+          "sourceId": "4koZzrnMXhhosn0D",
+          "name": "Fear",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 182,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 297,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 421,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 493,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/15/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aEM2cttJ2eYcLssW",
+          "sourceId": "aEM2cttJ2eYcLssW",
+          "name": "Fleet Step",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "gcaJUmXzlqkVLkeU",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/15/system/description/value",
+        "sourceIndex": 58,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Fleet Step",
+          "sourceId": "ThFug45WHkQQXcoF",
+          "name": "Spell Effect: Fleet Step",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "gcaJUmXzlqkVLkeU",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Wu0xFpewMKRK3HG8",
+          "sourceId": "Wu0xFpewMKRK3HG8",
+          "name": "Grease",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 314,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 510,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Balance",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Balance",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Balance",
+          "sourceId": "M76ycLAqHoAgbcej",
+          "name": "Balance",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WBmvzNDfpwka3qT4",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcuPb7SNC597YAWQ",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/17/system/description/value",
+        "sourceIndex": 594,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Light",
+          "sourceId": "cVVZXNbV0nElVOPZ",
+          "name": "Spell Effect: Light",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "XcuPb7SNC597YAWQ",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/18/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "dINQzhqGmIsqGMUY",
+          "sourceId": "dINQzhqGmIsqGMUY",
+          "name": "Mending",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "I8sIuSzKYa2hsURS",
+          "name": "Mending",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/18/system/description/value",
+        "sourceIndex": 111,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Broken",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Broken",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Broken",
+          "sourceId": "6dNUvdb1dhToNDj3",
+          "name": "Broken",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "I8sIuSzKYa2hsURS",
+          "name": "Mending",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/19/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "OhD2Z6rIGGD5ocZA",
+          "sourceId": "OhD2Z6rIGGD5ocZA",
+          "name": "Read Aura",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "gy41CKzvHlbhDCPR",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/19/system/description/value",
+        "sourceIndex": 222,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Identify Magic",
+          "sourceId": "eReSHVEPCsdkSL4G",
+          "name": "Identify Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "gy41CKzvHlbhDCPR",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.JOdOpbPDl7nqvJUm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.JOdOpbPDl7nqvJUm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "JOdOpbPDl7nqvJUm",
+          "sourceId": "JOdOpbPDl7nqvJUm",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcQBrW31HJZ3PwHD",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 176,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Dispel Magic",
+          "sourceId": "9HpwDN4MYQJnW0LG",
+          "name": "Dispel Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcQBrW31HJZ3PwHD",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/20/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "aXuJh4i8HqSu6NYV",
+          "sourceId": "aXuJh4i8HqSu6NYV",
+          "name": "Longspear",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "H91fpqLmPSX7S8ow",
+          "name": "Longspear",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/21/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "dDIPA1WE9ESF67EB",
+          "sourceId": "dDIPA1WE9ESF67EB",
+          "name": "Explorer's Clothing",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "ryVaqSZq9cQ7wPix",
+          "name": "Robes",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/22/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FOWF5f0tCaApv9RE",
+          "sourceId": "FOWF5f0tCaApv9RE",
+          "name": "Spellbook (Blank)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "ldL413k00pgvZnif",
+          "name": "Fiendish Hypotheses and Protections from Same (Spellbook)",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/27/system/description/value",
+        "sourceIndex": 40,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Summon Fiend",
+          "sourceId": "29ytKctjg7qSW2ff",
+          "name": "Summon Fiend",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "xS8f6u8VDcBepVGM",
+          "name": "Demon Summoning",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/27/system/description/value",
+        "sourceIndex": 117,
+        "uuid": "Compendium.pf2e.pathfinder-monster-core-2.Actor.Nucol",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.pathfinder-monster-core-2.Actor.Nucol",
+          "package": "pf2e",
+          "sourcePack": "pathfinder-monster-core-2",
+          "documentType": "Actor",
+          "compendiumKey": "Nucol",
+          "sourceId": "ANptV6ltBi9C3P1l",
+          "name": "Nucol",
+          "type": "npc"
+        },
+        "owner": {
+          "sourceId": "xS8f6u8VDcBepVGM",
+          "name": "Demon Summoning",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "IarZrgCeaiUqOuRu",
+          "sourceId": "IarZrgCeaiUqOuRu",
+          "name": "Wall of Fire",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "tVCjQZw9BZ33YLek",
+          "name": "Wall of Fire",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 384,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "tVCjQZw9BZ33YLek",
+          "name": "Wall of Fire",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "sxQZ6yqTn0czJxVd",
+          "sourceId": "sxQZ6yqTn0czJxVd",
+          "name": "Fireball",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "0C7SQ8e1ChTZR1ri",
+          "name": "Fireball",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WsUwpfmhKrKwoIe3",
+          "sourceId": "WsUwpfmhKrKwoIe3",
+          "name": "Slow",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 191,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 310,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 439,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "9h9YCncqah6VNsKf",
+          "sourceId": "9h9YCncqah6VNsKf",
+          "name": "Acid Grip",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "beFFC7HSXV6dFHTe",
+          "name": "Acid Grip",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 301,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Acid Grip",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Acid Grip",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Acid Grip",
+          "sourceId": "6TGcfVyzzVHEo7ke",
+          "name": "Spell Effect: Acid Grip",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "beFFC7HSXV6dFHTe",
+          "name": "Acid Grip",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.3JG1t3T4mWn6vTke",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.3JG1t3T4mWn6vTke",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "3JG1t3T4mWn6vTke",
+          "sourceId": "3JG1t3T4mWn6vTke",
+          "name": "Blur",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "js9TOs5y1lonFoKZ",
+          "name": "Blur",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 48,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "js9TOs5y1lonFoKZ",
+          "name": "Blur",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "5esP2GVzvxWsMgaX",
+          "sourceId": "5esP2GVzvxWsMgaX",
+          "name": "Environmental Endurance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "g82rm1SAoomn7Gyp",
+          "name": "Environmental Endurance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "tlSE7Ly8vi1Dgddv",
+          "sourceId": "tlSE7Ly8vi1Dgddv",
+          "name": "Laughing Fit",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 314,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 457,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:dragons-ward",
@@ -2880,7 +8346,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 368,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Cleanse Affliction",
+          "sourceId": "SUKaxVZW2TlM8lu0",
+          "name": "Cleanse Affliction",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Q3tYNLNsh36qBUyL",
+          "name": "Curse the Intruders",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 450,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Curse the Intruders",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Curse the Intruders",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Curse the Intruders",
+          "sourceId": "qPul8V5LMyHNpsOa",
+          "name": "Effect: Curse the Intruders",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "Q3tYNLNsh36qBUyL",
+          "name": "Curse the Intruders",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 101,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Dispel Magic",
+          "sourceId": "9HpwDN4MYQJnW0LG",
+          "name": "Dispel Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XSY1p9wtrpoTA1JT",
+          "name": "Dragon's Ward",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:marshy-snapdrake",
@@ -3041,7 +8575,141 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 117,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fascinated",
+          "sourceId": "AdPVz7rbaVSRxHFg",
+          "name": "Fascinated",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "oWKqHA1A1VMXlVm8",
+          "name": "Alluring Scent",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "ynOVEJzoDLnic7tI",
+          "name": "Reactive Strike (Tail Scythe Only)",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 173,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Dazzled",
+          "sourceId": "TkIyaNPgTZFBCCuh",
+          "name": "Dazzled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "HAmEsoCS7jucJCnL",
+          "name": "Marshy Snapdrake Pollen",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 315,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "HAmEsoCS7jucJCnL",
+          "name": "Marshy Snapdrake Pollen",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 455,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Confused",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Confused",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Confused",
+          "sourceId": "yblD8fOR1J8rDwEQ",
+          "name": "Confused",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "HAmEsoCS7jucJCnL",
+          "name": "Marshy Snapdrake Pollen",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "33PlFFmeIlVuU3MF",
+          "name": "Grab",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:distracted-zaluraak",
@@ -3247,7 +8915,383 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.VlNcjmYyu95vOUe8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "VlNcjmYyu95vOUe8",
+          "sourceId": "VlNcjmYyu95vOUe8",
+          "name": "Translocate",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "imCi608NG5YiQGuW",
+          "name": "Translocate",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kquBnQ0kObZztnBc",
+          "sourceId": "kquBnQ0kObZztnBc",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "RvtzkMW1PTqja0gM",
+          "name": "+2 Status to All Saves vs. Arcane",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 234,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Fd9jpCrOyon1zkTb",
+          "name": "Disruptive Breath",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 301,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Fd9jpCrOyon1zkTb",
+          "name": "Disruptive Breath",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 646,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "ZSBangxptZQWQrmm",
+          "name": "Treasure Dive",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aqRYNoSvxsVfqglH",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aqRYNoSvxsVfqglH",
+          "sourceId": "aqRYNoSvxsVfqglH",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 207,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Escape",
+          "sourceId": "SkZAQRkLLkmBQNB9",
+          "name": "Escape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 278,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Immobilized",
+          "sourceId": "eIcWbB5o3pP6OIMe",
+          "name": "Immobilized",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 334,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Grabbed",
+          "sourceId": "kWc1fhmv9LBiTuei",
+          "name": "Grabbed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 389,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Restrained",
+          "sourceId": "VcDeM8A5oI6VqhbM",
+          "name": "Restrained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 573,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Unfettered Movement",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Unfettered Movement",
+          "sourceId": "CdAyAiMGESvgNQtz",
+          "name": "Spell Effect: Unfettered Movement",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "AJ1yLigCUPDfpXUg",
+          "name": "Unfettered Movement",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "sxQZ6yqTn0czJxVd",
+          "sourceId": "sxQZ6yqTn0czJxVd",
+          "name": "Fireball",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "sNVPlrGHgUKc5ABj",
+          "name": "Fireball",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gpzpAAAJ1Lza2JVl",
+          "sourceId": "gpzpAAAJ1Lza2JVl",
+          "name": "Detect Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "EUdeG6pV7AvsMvbp",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 462,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Invisibility Potion",
+          "sourceId": "bikFUFRLwfdvX2x2",
+          "name": "Invisibility Potion",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "EUdeG6pV7AvsMvbp",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gKKqvLohtrSJj3BM",
+          "sourceId": "gKKqvLohtrSJj3BM",
+          "name": "Force Barrage",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "HCZoZXU257qlMRFY",
+          "name": "Force Barrage",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "OhD2Z6rIGGD5ocZA",
+          "sourceId": "OhD2Z6rIGGD5ocZA",
+          "name": "Read Aura",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "tkQzWdHkAQOzFXJ0",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 222,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Identify Magic",
+          "sourceId": "eReSHVEPCsdkSL4G",
+          "name": "Identify Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "tkQzWdHkAQOzFXJ0",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:ogre-hunter",
@@ -3359,7 +9403,141 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Oiq3QgLrM4i3W5Hg",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Oiq3QgLrM4i3W5Hg",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Oiq3QgLrM4i3W5Hg",
+          "sourceId": "Oiq3QgLrM4i3W5Hg",
+          "name": "Ogre Hook",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "PTDd0WiyVEKSxhqV",
+          "name": "Ogre Hook",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FJrsDoaIXksVjld9",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FJrsDoaIXksVjld9",
+          "sourceId": "FJrsDoaIXksVjld9",
+          "name": "Trident",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "RksE6xKtRInL3em8",
+          "name": "Trident",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.r0ifJfoz8aqf0mwk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "r0ifJfoz8aqf0mwk",
+          "sourceId": "r0ifJfoz8aqf0mwk",
+          "name": "Breastplate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "oX0TEAFAzilaC6O8",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 98,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Half Plate",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Half Plate",
+          "sourceId": "pRoikbRo5HFW6YUB",
+          "name": "Half Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "oX0TEAFAzilaC6O8",
+          "name": "Breastplate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 161,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JDeq2RIvsQCT4hQm",
+          "name": "Hunting Throw",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 268,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Immobilized",
+          "sourceId": "eIcWbB5o3pP6OIMe",
+          "name": "Immobilized",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "JDeq2RIvsQCT4hQm",
+          "name": "Hunting Throw",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:greater-demonologist",
@@ -3579,7 +9757,1065 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "zvKWclOZ7A53DObE",
+          "sourceId": "zvKWclOZ7A53DObE",
+          "name": "Clairvoyance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XN4JCtBNmeC0mnJX",
+          "name": "Clairvoyance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 17,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "XN4JCtBNmeC0mnJX",
+          "name": "Clairvoyance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.jwK43yKsHTkJQvQ9",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "jwK43yKsHTkJQvQ9",
+          "sourceId": "jwK43yKsHTkJQvQ9",
+          "name": "See the Unseen",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 49,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Invisible",
+          "sourceId": "zJxUflt9np0q4yML",
+          "name": "Invisible",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 240,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 670,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: See the Unseen",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: See the Unseen",
+          "sourceId": "T5bk6UH7yuYog1Fp",
+          "name": "Spell Effect: See the Unseen",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "zhaenlfDsaNjpTUZ",
+          "name": "See the Unseen",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/11/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.thAHF1zxNplLCJPO",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.thAHF1zxNplLCJPO",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "thAHF1zxNplLCJPO",
+          "sourceId": "thAHF1zxNplLCJPO",
+          "name": "Caustic Blast",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "ZJ1mmBhvQ13eIzyA",
+          "name": "Caustic Blast",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4gBIw4IDrSfFHik4",
+          "sourceId": "4gBIw4IDrSfFHik4",
+          "name": "Daze",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "URn1wMuJoRCcNuNL",
+          "name": "Daze",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 177,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+        "label": "Stunned 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stunned",
+          "sourceId": "dfCMdR4wnpbYNTix",
+          "name": "Stunned",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "URn1wMuJoRCcNuNL",
+          "name": "Daze",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "gpzpAAAJ1Lza2JVl",
+          "sourceId": "gpzpAAAJ1Lza2JVl",
+          "name": "Detect Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "V0KER9CC8ycoMeqb",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 462,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Invisibility Potion",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Invisibility Potion",
+          "sourceId": "bikFUFRLwfdvX2x2",
+          "name": "Invisibility Potion",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "V0KER9CC8ycoMeqb",
+          "name": "Detect Magic",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/14/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "4koZzrnMXhhosn0D",
+          "sourceId": "4koZzrnMXhhosn0D",
+          "name": "Fear",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 182,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 297,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 421,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/14/system/description/value",
+        "sourceIndex": 493,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "1P8oJuO8bFdxVtzV",
+          "name": "Fear",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/15/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aEM2cttJ2eYcLssW",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aEM2cttJ2eYcLssW",
+          "sourceId": "aEM2cttJ2eYcLssW",
+          "name": "Fleet Step",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "gcaJUmXzlqkVLkeU",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/15/system/description/value",
+        "sourceIndex": 58,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fleet Step",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Fleet Step",
+          "sourceId": "ThFug45WHkQQXcoF",
+          "name": "Spell Effect: Fleet Step",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "gcaJUmXzlqkVLkeU",
+          "name": "Fleet Step",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/16/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Wu0xFpewMKRK3HG8",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Wu0xFpewMKRK3HG8",
+          "sourceId": "Wu0xFpewMKRK3HG8",
+          "name": "Grease",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 314,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/16/system/description/value",
+        "sourceIndex": 510,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Balance",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Balance",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Balance",
+          "sourceId": "M76ycLAqHoAgbcej",
+          "name": "Balance",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "PgNlNjhdU3d7Sdyz",
+          "name": "Grease",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/17/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WBmvzNDfpwka3qT4",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcuPb7SNC597YAWQ",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/17/system/description/value",
+        "sourceIndex": 594,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Light",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Light",
+          "sourceId": "cVVZXNbV0nElVOPZ",
+          "name": "Spell Effect: Light",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "XcuPb7SNC597YAWQ",
+          "name": "Light",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/18/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "dINQzhqGmIsqGMUY",
+          "sourceId": "dINQzhqGmIsqGMUY",
+          "name": "Mending",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "I8sIuSzKYa2hsURS",
+          "name": "Mending",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/18/system/description/value",
+        "sourceIndex": 111,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Broken",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Broken",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Broken",
+          "sourceId": "6dNUvdb1dhToNDj3",
+          "name": "Broken",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "I8sIuSzKYa2hsURS",
+          "name": "Mending",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/19/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.OhD2Z6rIGGD5ocZA",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "OhD2Z6rIGGD5ocZA",
+          "sourceId": "OhD2Z6rIGGD5ocZA",
+          "name": "Read Aura",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "gy41CKzvHlbhDCPR",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/19/system/description/value",
+        "sourceIndex": 222,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Identify Magic",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Identify Magic",
+          "sourceId": "eReSHVEPCsdkSL4G",
+          "name": "Identify Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "gy41CKzvHlbhDCPR",
+          "name": "Read Aura",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.JOdOpbPDl7nqvJUm",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.JOdOpbPDl7nqvJUm",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "JOdOpbPDl7nqvJUm",
+          "sourceId": "JOdOpbPDl7nqvJUm",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcQBrW31HJZ3PwHD",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 176,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Dispel Magic",
+          "sourceId": "9HpwDN4MYQJnW0LG",
+          "name": "Dispel Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "XcQBrW31HJZ3PwHD",
+          "name": "Dispelling Globe",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/20/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.aXuJh4i8HqSu6NYV",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "aXuJh4i8HqSu6NYV",
+          "sourceId": "aXuJh4i8HqSu6NYV",
+          "name": "Longspear",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "H91fpqLmPSX7S8ow",
+          "name": "Longspear",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/21/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.dDIPA1WE9ESF67EB",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "dDIPA1WE9ESF67EB",
+          "sourceId": "dDIPA1WE9ESF67EB",
+          "name": "Explorer's Clothing",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "ryVaqSZq9cQ7wPix",
+          "name": "Robes",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/22/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FOWF5f0tCaApv9RE",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FOWF5f0tCaApv9RE",
+          "sourceId": "FOWF5f0tCaApv9RE",
+          "name": "Spellbook (Blank)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "ldL413k00pgvZnif",
+          "name": "Fiendish Hypotheses and Protections from Same (Spellbook)",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/27/system/description/value",
+        "sourceIndex": 40,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Summon Fiend",
+          "sourceId": "29ytKctjg7qSW2ff",
+          "name": "Summon Fiend",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "xS8f6u8VDcBepVGM",
+          "name": "Demon Summoning",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "IarZrgCeaiUqOuRu",
+          "sourceId": "IarZrgCeaiUqOuRu",
+          "name": "Wall of Fire",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "tVCjQZw9BZ33YLek",
+          "name": "Wall of Fire",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 384,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "tVCjQZw9BZ33YLek",
+          "name": "Wall of Fire",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.sxQZ6yqTn0czJxVd",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "sxQZ6yqTn0czJxVd",
+          "sourceId": "sxQZ6yqTn0czJxVd",
+          "name": "Fireball",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "0C7SQ8e1ChTZR1ri",
+          "name": "Fireball",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.WsUwpfmhKrKwoIe3",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "WsUwpfmhKrKwoIe3",
+          "sourceId": "WsUwpfmhKrKwoIe3",
+          "name": "Slow",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 191,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 310,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 439,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "KRT33bZl4uGcVHl6",
+          "name": "Slow",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "9h9YCncqah6VNsKf",
+          "sourceId": "9h9YCncqah6VNsKf",
+          "name": "Acid Grip",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "beFFC7HSXV6dFHTe",
+          "name": "Acid Grip",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/6/system/description/value",
+        "sourceIndex": 301,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Acid Grip",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Acid Grip",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Acid Grip",
+          "sourceId": "6TGcfVyzzVHEo7ke",
+          "name": "Spell Effect: Acid Grip",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "beFFC7HSXV6dFHTe",
+          "name": "Acid Grip",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.3JG1t3T4mWn6vTke",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.3JG1t3T4mWn6vTke",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "3JG1t3T4mWn6vTke",
+          "sourceId": "3JG1t3T4mWn6vTke",
+          "name": "Blur",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "js9TOs5y1lonFoKZ",
+          "name": "Blur",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 48,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Concealed",
+          "sourceId": "DmAIPqOBomZ7H95W",
+          "name": "Concealed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "js9TOs5y1lonFoKZ",
+          "name": "Blur",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "5esP2GVzvxWsMgaX",
+          "sourceId": "5esP2GVzvxWsMgaX",
+          "name": "Environmental Endurance",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "g82rm1SAoomn7Gyp",
+          "name": "Environmental Endurance",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "tlSE7Ly8vi1Dgddv",
+          "sourceId": "tlSE7Ly8vi1Dgddv",
+          "name": "Laughing Fit",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 314,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 457,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "67ikYHgjhaUG1Z7C",
+          "name": "Laughing Fit",
+          "type": "spell"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:greater-dragons-ward",
@@ -3643,7 +10879,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 368,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Cleanse Affliction",
+          "sourceId": "SUKaxVZW2TlM8lu0",
+          "name": "Cleanse Affliction",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Q3tYNLNsh36qBUyL",
+          "name": "Curse the Intruders",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 450,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Curse the Intruders",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Curse the Intruders",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Curse the Intruders",
+          "sourceId": "qPul8V5LMyHNpsOa",
+          "name": "Effect: Curse the Intruders",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "Q3tYNLNsh36qBUyL",
+          "name": "Curse the Intruders",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 101,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Dispel Magic",
+          "sourceId": "9HpwDN4MYQJnW0LG",
+          "name": "Dispel Magic",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "WNqtBA2lhQcVaE4D",
+          "name": "Greater Dragon's Ward",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:hunted-by-chains",
@@ -3705,7 +11009,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 296,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "DZs5p7js1GEsHi69",
+          "name": "Chains of Undeath",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 178,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Restrained",
+          "sourceId": "VcDeM8A5oI6VqhbM",
+          "name": "Restrained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "YOoLTw1foHA5g9Ng",
+          "name": "Hunted by Chains",
+          "type": "hazard"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 326,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Grabbed",
+          "sourceId": "kWc1fhmv9LBiTuei",
+          "name": "Grabbed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "YOoLTw1foHA5g9Ng",
+          "name": "Hunted by Chains",
+          "type": "hazard"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 480,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "YOoLTw1foHA5g9Ng",
+          "name": "Hunted by Chains",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:scaling-the-chain",
@@ -3888,7 +11282,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 171,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Light",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Light",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "wAnVScy4XBMbtkLm",
+          "name": "Light Vulnerability",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "qtjjmBc0D5XleSqw",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 346,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WsuruTWS3hKjcRAs",
+          "name": "Weight of Darkness",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 523,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 4",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WsuruTWS3hKjcRAs",
+          "name": "Weight of Darkness",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:talhindirs-autumn",
@@ -3951,7 +11435,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 253,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "IXxD7yCqmDTGKr4z",
+          "name": "Accusations",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 8,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "eCADU7m2g9CZMt8i",
+          "name": "Vengeful Judgment",
+          "type": "melee"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 183,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "L9IH9MTc1lxty0DC",
+          "name": "Talhindir's Autumn",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:partially-decomposed-rat-swarm",
@@ -4066,7 +11618,141 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 51,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "wnyeoxJq6nJPx1Re",
+          "name": "Slow",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/system/rules/0/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "wnyeoxJq6nJPx1Re",
+          "name": "Slow",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "qdYjcExtbkx2HCQg",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 20,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 322,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 442,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:dutys-soulshackle",
@@ -4137,7 +11823,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 41,
+        "uuid": "Compendium.pf2e.pfs-season-7-bestiary.Actor.Withered Leaf of Talhindir",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.pfs-season-7-bestiary.Actor.Withered Leaf of Talhindir",
+          "package": "pf2e",
+          "sourcePack": "pfs-season-7-bestiary",
+          "documentType": "Actor",
+          "compendiumKey": "Withered Leaf of Talhindir",
+          "sourceId": "ckZ7eHNCFNP6ddiO",
+          "name": "Withered Leaf of Talhindir",
+          "type": "npc"
+        },
+        "owner": {
+          "sourceId": "PMq6dV0yzrSd6xx3",
+          "name": "Call to Serve",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:talhindirs-grief",
@@ -4203,7 +11913,53 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 346,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Zc4aoZHHPsmz8zUP",
+          "name": "The Falling Tears",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 418,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Zc4aoZHHPsmz8zUP",
+          "name": "The Falling Tears",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:lyari-zinfeld",
@@ -4360,7 +12116,185 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FVjTuBCIefAgloUU",
+          "sourceId": "FVjTuBCIefAgloUU",
+          "name": "Staff",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "MYehNbs3vmOO1Am4",
+          "name": "Duty's Soulshackle",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "qCEOZ6109Yo34tRx",
+          "sourceId": "qCEOZ6109Yo34tRx",
+          "name": "Formula Book (Blank)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "cISRUzJuD47gP9NF",
+          "name": "Books",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "8TPmCaPZA4UVvbUU",
+          "name": "Grab",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "QJb8S927Yj81EgHH",
+          "sourceId": "QJb8S927Yj81EgHH",
+          "name": "Writing Set",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "Xm3MjataWAQOWy06",
+          "name": "Writing Set",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "ijL1KOz9fwNu0dRj",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 404,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 473,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 545,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:hunted-by-dutys-bonds",
@@ -4422,7 +12356,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 296,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "DZs5p7js1GEsHi69",
+          "name": "Chains of Undeath",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 178,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Restrained",
+          "sourceId": "VcDeM8A5oI6VqhbM",
+          "name": "Restrained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "VbQMn1mSY5fUY6YC",
+          "name": "Hunted by Duty's Bonds",
+          "type": "hazard"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 326,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Grabbed",
+          "sourceId": "kWc1fhmv9LBiTuei",
+          "name": "Grabbed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "VbQMn1mSY5fUY6YC",
+          "name": "Hunted by Duty's Bonds",
+          "type": "hazard"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 486,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "VbQMn1mSY5fUY6YC",
+          "name": "Hunted by Duty's Bonds",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:ascending-the-chain",
@@ -4605,7 +12629,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 171,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Light",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Light",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Light",
+          "sourceId": "WBmvzNDfpwka3qT4",
+          "name": "Light",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "wAnVScy4XBMbtkLm",
+          "name": "Light Vulnerability",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "qtjjmBc0D5XleSqw",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 346,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WsuruTWS3hKjcRAs",
+          "name": "Weight of Darkness",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 523,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 4",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WsuruTWS3hKjcRAs",
+          "name": "Weight of Darkness",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:talhindirs-fall",
@@ -4668,7 +12782,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 253,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "IXxD7yCqmDTGKr4z",
+          "name": "Accusations",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 8,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "eCADU7m2g9CZMt8i",
+          "name": "Vengeful Judgment",
+          "type": "melee"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/routine",
+        "sourceIndex": 183,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "VQbocHpHJzxg91tq",
+          "name": "Talhindir's Fall",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:dutys-soulshackle-3-4",
@@ -4739,7 +12921,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 41,
+        "uuid": "Compendium.pf2e.pfs-season-7-bestiary.Actor.Shriveled Leaf of Talhindir",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.pfs-season-7-bestiary.Actor.Shriveled Leaf of Talhindir",
+          "package": "pf2e",
+          "sourcePack": "pfs-season-7-bestiary",
+          "documentType": "Actor",
+          "compendiumKey": "Shriveled Leaf of Talhindir",
+          "sourceId": "gCD8rOahd9F9ZSJO",
+          "name": "Shriveled Leaf of Talhindir",
+          "type": "npc"
+        },
+        "owner": {
+          "sourceId": "PMq6dV0yzrSd6xx3",
+          "name": "Call to Serve",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:talhindirs-despair",
@@ -4805,7 +13011,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 367,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Zc4aoZHHPsmz8zUP",
+          "name": "The Falling Tears",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 439,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Zc4aoZHHPsmz8zUP",
+          "name": "The Falling Tears",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 511,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "Zc4aoZHHPsmz8zUP",
+          "name": "The Falling Tears",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:recently-slain-rat-swarm",
@@ -4920,7 +13194,141 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 51,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "wnyeoxJq6nJPx1Re",
+          "name": "Slow",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/system/rules/0/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "wnyeoxJq6nJPx1Re",
+          "name": "Slow",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "qdYjcExtbkx2HCQg",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 20,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 322,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 442,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "BsKuf0AAqQmzH3he",
+          "name": "Zombie Plague",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:lyari-zinfeld-3-4",
@@ -5077,7 +13485,185 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.FVjTuBCIefAgloUU",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "FVjTuBCIefAgloUU",
+          "sourceId": "FVjTuBCIefAgloUU",
+          "name": "Staff",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "MYehNbs3vmOO1Am4",
+          "name": "Duty's Soulshackle",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "qCEOZ6109Yo34tRx",
+          "sourceId": "qCEOZ6109Yo34tRx",
+          "name": "Formula Book (Blank)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "cISRUzJuD47gP9NF",
+          "name": "Books",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/10/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "8TPmCaPZA4UVvbUU",
+          "name": "Grab",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "QJb8S927Yj81EgHH",
+          "sourceId": "QJb8S927Yj81EgHH",
+          "name": "Writing Set",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "Xm3MjataWAQOWy06",
+          "name": "Writing Set",
+          "type": "equipment"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "ijL1KOz9fwNu0dRj",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 404,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 473,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 545,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "dKVpzI2Gex2xr8no",
+          "name": "Nihilistic Truthsayer",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:undead-hellknight",
@@ -5209,7 +13795,185 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.5fu6dCtqhdBnHNqh",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.5fu6dCtqhdBnHNqh",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "5fu6dCtqhdBnHNqh",
+          "sourceId": "5fu6dCtqhdBnHNqh",
+          "name": "Morningstar",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "KI69UtWVsTZKLPNG",
+          "name": "Morningstar",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "tOhoGvmCMw4JpWcS",
+          "sourceId": "tOhoGvmCMw4JpWcS",
+          "name": "Spear",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "KpeMKV7CbqME1qH5",
+          "name": "Spear",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/10/system/description/value",
+        "sourceIndex": 215,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Damned Restoration",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Damned Restoration",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Damned Restoration",
+          "sourceId": "F4fWxN5WREaoWz19",
+          "name": "Effect: Damned Restoration",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "VAjIOFfXsEkMxTAZ",
+          "name": "Damned Restoration",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "Yr9yCuJiAlFh3QEB",
+          "sourceId": "Yr9yCuJiAlFh3QEB",
+          "name": "Steel Shield",
+          "type": "shield"
+        },
+        "owner": {
+          "sourceId": "0lgIXqo7aKzCIyox",
+          "name": "Steel Shield",
+          "type": "shield"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "lCgXeV52eYYl5cUX",
+          "sourceId": "lCgXeV52eYYl5cUX",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "pOFG857MX7nTJiSt",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "GYDWypkIdfOOmTOL",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/8/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.m4HQ2o5aPxjXf2kY",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "m4HQ2o5aPxjXf2kY",
+          "sourceId": "m4HQ2o5aPxjXf2kY",
+          "name": "Shield Block",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "auiyDQ3bjvUlAvnb",
+          "name": "Shield Block",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/9/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "SS9faTVf8zDWuOC8",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:torn-trio",
@@ -5347,7 +14111,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 372,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Grapple",
+          "sourceId": "PMbdMWc2QroouFGD",
+          "name": "Grapple",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "XlSPUiZ7swOb3uMB",
+          "name": "Bound Limbs",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/1/system/description/value",
+        "sourceIndex": 571,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Escape",
+          "sourceId": "SkZAQRkLLkmBQNB9",
+          "name": "Escape",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "XlSPUiZ7swOb3uMB",
+          "name": "Bound Limbs",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 62,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Grabbed",
+          "sourceId": "kWc1fhmv9LBiTuei",
+          "name": "Grabbed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "hFgGN1jjJQY5dlJm",
+          "name": "Tear Asunder",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 116,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Restrained",
+          "sourceId": "VcDeM8A5oI6VqhbM",
+          "name": "Restrained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "hFgGN1jjJQY5dlJm",
+          "name": "Tear Asunder",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:the-scourge-of-woodsedge",
@@ -5517,7 +14371,229 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "sebk9XseMCRkDqRg",
+          "sourceId": "sebk9XseMCRkDqRg",
+          "name": "Lifesense",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "VxDkoOnhJQrp2lBr",
+          "name": "Lifesense",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "etMnv73EIdEZrYYu",
+          "sourceId": "etMnv73EIdEZrYYu",
+          "name": "Frightful Presence",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "dZcNG2pzhZMzFOhd",
+          "name": "Frightful Presence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "e7fLQ2VN2Wm2QleD",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "ISrOBF4Pu0FhHEw3",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 25,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Paralyzed",
+          "sourceId": "6uEgoh53GbXuHpTF",
+          "name": "Paralyzed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "00iNFuUnCQuVy22z",
+          "name": "Final Execution",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/7/system/description/value",
+        "sourceIndex": 239,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
+        "label": "Doomed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Doomed",
+          "sourceId": "3uh1r86TzbQvosxv",
+          "name": "Doomed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "00iNFuUnCQuVy22z",
+          "name": "Final Execution",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 110,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
+        "label": "Drained 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Drained",
+          "sourceId": "4D2KBtexWXa6oUMR",
+          "name": "Drained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "UFdJTh4UUcMeXA26",
+          "name": "Life Sap",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 272,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
+        "label": "Drained 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Drained",
+          "sourceId": "4D2KBtexWXa6oUMR",
+          "name": "Drained",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "UFdJTh4UUcMeXA26",
+          "name": "Life Sap",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 377,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Paralyzed",
+          "sourceId": "6uEgoh53GbXuHpTF",
+          "name": "Paralyzed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "UFdJTh4UUcMeXA26",
+          "name": "Life Sap",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 628,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: To Shreds (AC Penalty)",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: To Shreds (AC Penalty)",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: To Shreds (AC Penalty)",
+          "sourceId": "vaqiHzEewOKDx6rP",
+          "name": "Effect: To Shreds (AC Penalty)",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "B3tpwN7dZEoStsev",
+          "name": "To Shreds",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:gloom-bulwark",
@@ -5643,7 +14719,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "Yvxn95ARr9Baz2CC",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "g26YiEIfSHCpLocV",
+          "sourceId": "g26YiEIfSHCpLocV",
+          "name": "Constrict",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "xuB4k73Z8rKaFG6w",
+          "name": "Constrict",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 148,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "iYf3uLDlQAFqWnpS",
+          "name": "Stench",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 261,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "iYf3uLDlQAFqWnpS",
+          "name": "Stench",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "O0NSt1FAuVA1ufFe",
+          "name": "Grab",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:heart-of-gloom",
@@ -5720,7 +14908,97 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 370,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "ZWOZTzoMhLXgEuG5",
+          "name": "Crushing Horror",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 534,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "ZWOZTzoMhLXgEuG5",
+          "name": "Crushing Horror",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 187,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+        "label": "Frightened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Frightened",
+          "sourceId": "TBSHQspnbcqxsmjL",
+          "name": "Frightened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "l9RIfnleIIXm43C5",
+          "name": "Anguish",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/system/details/disable",
+        "sourceIndex": 145,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Planar Tether",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Planar Tether",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Planar Tether",
+          "sourceId": "ksLCg62cLOojw3gN",
+          "name": "Planar Tether",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "SXxWMcVgAsN0gK2u",
+          "name": "Heart of Gloom",
+          "type": "hazard"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:adma-heavenstriker",
@@ -5863,7 +15141,515 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.tH5GirEy7YB3ZgCk",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "tH5GirEy7YB3ZgCk",
+          "sourceId": "tH5GirEy7YB3ZgCk",
+          "name": "Rapier",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "D5b3gy3BMMb4n9EZ",
+          "name": "Rapier",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/12/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "AWvNPE4U0kEJSL1T",
+          "sourceId": "AWvNPE4U0kEJSL1T",
+          "name": "Sneak Attack",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "n5prVmMJc4Fo2BeJ",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/12/system/description/value",
+        "sourceIndex": 47,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "n5prVmMJc4Fo2BeJ",
+          "name": "Sneak Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/13/system/description/value",
+        "sourceIndex": 70,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "C8zybAKtn1J2YbDA",
+          "name": "Surprise Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/13/system/rules/0/uuid",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "C8zybAKtn1J2YbDA",
+          "name": "Surprise Attack",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "4tIVTg9wj56RrveA",
+          "sourceId": "4tIVTg9wj56RrveA",
+          "name": "Leather Armor",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "MfaPXgVFH1i5gZfw",
+          "name": "Leather Armor",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.QGXNqpP5KvSldoZz",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.QGXNqpP5KvSldoZz",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "QGXNqpP5KvSldoZz",
+          "sourceId": "QGXNqpP5KvSldoZz",
+          "name": "Giant Scorpion Venom",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "T2OJ3lkrGlhtpzwy",
+          "name": "Giant Scorpion Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 341,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "T2OJ3lkrGlhtpzwy",
+          "name": "Giant Scorpion Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 481,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "T2OJ3lkrGlhtpzwy",
+          "name": "Giant Scorpion Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 622,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+        "label": "Enfeebled 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Enfeebled",
+          "sourceId": "MIRkyAjyBeXivMa7",
+          "name": "Enfeebled",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "T2OJ3lkrGlhtpzwy",
+          "name": "Giant Scorpion Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.zo0ophqfKunJFxZN",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "zo0ophqfKunJFxZN",
+          "sourceId": "zo0ophqfKunJFxZN",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "WAeFwVkpyDUEaDJG",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 596,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WAeFwVkpyDUEaDJG",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 698,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WAeFwVkpyDUEaDJG",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 801,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WAeFwVkpyDUEaDJG",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 934,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Unconscious",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Unconscious",
+          "sourceId": "fBnFDH2MTzgFijKf",
+          "name": "Unconscious",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "WAeFwVkpyDUEaDJG",
+          "name": "Lethargy Poison",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.5RGNjhDxZ0yMhTds",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.5RGNjhDxZ0yMhTds",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "5RGNjhDxZ0yMhTds",
+          "sourceId": "5RGNjhDxZ0yMhTds",
+          "name": "Spider Venom",
+          "type": "consumable"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 345,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 481,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+        "label": "Clumsy 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Clumsy",
+          "sourceId": "i3OJZU2nk64Df3xm",
+          "name": "Clumsy",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 546,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 681,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+        "label": "Clumsy 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Clumsy",
+          "sourceId": "i3OJZU2nk64Df3xm",
+          "name": "Clumsy",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/5/system/description/value",
+        "sourceIndex": 746,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 3",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "FSY7dpKN2SU93UUU",
+          "name": "Spider Venom",
+          "type": "consumable"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 14,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "M23HjFDcHQKXjyZY",
+          "name": "Close Quarters",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/9/system/description/value",
+        "sourceIndex": 279,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Off-Guard",
+          "sourceId": "AJh5ex99aV6VTggg",
+          "name": "Off-Guard",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "EBFwA5Tfy3v5HLnd",
+          "name": "Venom Spit",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:undead-hellknight-armiger",
@@ -5980,7 +15766,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "mVxA9E2ernBL6fM6",
+          "sourceId": "mVxA9E2ernBL6fM6",
+          "name": "War Flail",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "2kVCxU9YT31Qyxxe",
+          "name": "War Flail",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "lCgXeV52eYYl5cUX",
+          "sourceId": "lCgXeV52eYYl5cUX",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "yaA9mOHMdr0OJlpT",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "YqyljsL6wezdVC5V",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "fkPnDYPtyCnwMQ77",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "gROjkMEOBGEbDc5h",
+          "name": "Grab",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:hellknight-armiger",
@@ -6098,7 +15996,163 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "dUC8Fsa6FZtVikS3",
+          "sourceId": "dUC8Fsa6FZtVikS3",
+          "name": "Composite Longbow",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "2jgkPo9h39VeZpE7",
+          "name": "Composite Longbow",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "mVxA9E2ernBL6fM6",
+          "sourceId": "mVxA9E2ernBL6fM6",
+          "name": "War Flail",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "j9hEo0rW13TqCL0T",
+          "name": "War Flail",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "lCgXeV52eYYl5cUX",
+          "sourceId": "lCgXeV52eYYl5cUX",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "1r2RAOiDIq86OLmr",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "w2ENw2VMPcsbif8g",
+          "sourceId": "w2ENw2VMPcsbif8g",
+          "name": "Arrows",
+          "type": "ammo"
+        },
+        "owner": {
+          "sourceId": "eFHmjMfgLYaPQ8o0",
+          "name": "Arrows",
+          "type": "ammo"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "kquBnQ0kObZztnBc",
+          "sourceId": "kquBnQ0kObZztnBc",
+          "name": "+1 Status to All Saves vs. Magic",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "geD4pfraSGQRXXvE",
+          "name": "+1 Status to All Saves vs. Fear",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "7T97DtLE0W60dzuK",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/8/system/description/value",
+        "sourceIndex": 78,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "ltVH2KG0tgPtTPFb",
+          "name": "Toppling Strike",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:undead-hellknight-7-12",
@@ -6215,7 +16269,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "mVxA9E2ernBL6fM6",
+          "sourceId": "mVxA9E2ernBL6fM6",
+          "name": "War Flail",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "2kVCxU9YT31Qyxxe",
+          "name": "War Flail",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "lCgXeV52eYYl5cUX",
+          "sourceId": "lCgXeV52eYYl5cUX",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "yaA9mOHMdr0OJlpT",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "YqyljsL6wezdVC5V",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "fkPnDYPtyCnwMQ77",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "Tkd8sH4pwFIPzqTr",
+          "sourceId": "Tkd8sH4pwFIPzqTr",
+          "name": "Grab",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "gROjkMEOBGEbDc5h",
+          "name": "Grab",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:undead-hellknight-maralictor",
@@ -6343,7 +16509,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/0/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.mVxA9E2ernBL6fM6",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "mVxA9E2ernBL6fM6",
+          "sourceId": "mVxA9E2ernBL6fM6",
+          "name": "War Flail",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "2kVCxU9YT31Qyxxe",
+          "name": "War Flail",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.rXt4629QSg7KDTgJ",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "rXt4629QSg7KDTgJ",
+          "sourceId": "rXt4629QSg7KDTgJ",
+          "name": "Warhammer",
+          "type": "weapon"
+        },
+        "owner": {
+          "sourceId": "Rk1KV4nu3yxSfhWk",
+          "name": "Warhammer",
+          "type": "weapon"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.lCgXeV52eYYl5cUX",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "lCgXeV52eYYl5cUX",
+          "sourceId": "lCgXeV52eYYl5cUX",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        },
+        "owner": {
+          "sourceId": "yaA9mOHMdr0OJlpT",
+          "name": "Hellknight Plate",
+          "type": "armor"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "YqyljsL6wezdVC5V",
+          "name": "Reactive Strike",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "TTCw5NusiSSkJU1x",
+          "sourceId": "TTCw5NusiSSkJU1x",
+          "name": "Void Healing",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "fkPnDYPtyCnwMQ77",
+          "name": "Void Healing",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:animated-fang",
@@ -6677,7 +16955,75 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           "traits": []
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 179,
+        "uuid": "Compendium.pf2e.spells-srd.Item.Slow",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.Slow",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "Slow",
+          "sourceId": "WsUwpfmhKrKwoIe3",
+          "name": "Slow",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "Lg2b43SOS7b24tQO",
+          "name": "Time Shift",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 8,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "aXwyJ46C43u7XLcw",
+          "name": "Time Drain",
+          "type": "melee"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 90,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "aXwyJ46C43u7XLcw",
+          "name": "Time Drain",
+          "type": "melee"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:eye-of-choral",
@@ -6893,7 +17239,53 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "etMnv73EIdEZrYYu",
+          "sourceId": "etMnv73EIdEZrYYu",
+          "name": "Frightful Presence",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "hfA70zaWuZGyWOuC",
+          "name": "Frightful Presence",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc",
+          "package": "pf2e",
+          "sourcePack": "bestiary-ability-glossary-srd",
+          "documentType": "Item",
+          "compendiumKey": "W7SbTykXrNwxDzJc",
+          "sourceId": "W7SbTykXrNwxDzJc",
+          "name": "Reactive Strike",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "LBxPiVEwr6YcuylX",
+          "name": "Reactive Strike (Jaws Only)",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:fiendish-hospitality",
@@ -6973,7 +17365,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 344,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "tKJccmRPwKztcY9i",
+          "name": "Ordered Escort",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:pfs-season-7-bestiary:marcoss-marauders",
@@ -7169,7 +17585,31 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/0/system/description/value",
+        "sourceIndex": 475,
+        "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Cloud of Allergens",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Cloud of Allergens",
+          "package": "pf2e",
+          "sourcePack": "bestiary-effects",
+          "documentType": "Item",
+          "compendiumKey": "Effect: Cloud of Allergens",
+          "sourceId": "pVd4mbG2u8Y1mqgL",
+          "name": "Effect: Cloud of Allergens",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "F4YsaMzZsgKzc6Xi",
+          "name": "Cloud of Allergens",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:blog-bestiary:rt5rrmn",
@@ -7288,7 +17728,119 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
         }
       ],
       "spellcasting": []
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 400,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fascinated",
+          "sourceId": "AdPVz7rbaVSRxHFg",
+          "name": "Fascinated",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "4MVd3IEx1LY2YkgL",
+          "name": "But I'm Adorable",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 581,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "4MVd3IEx1LY2YkgL",
+          "name": "But I'm Adorable",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 750,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+        "label": "Slowed 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Slowed",
+          "sourceId": "xYTAsEpcJE1Ccni3",
+          "name": "Slowed",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "4MVd3IEx1LY2YkgL",
+          "name": "But I'm Adorable",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 137,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "9H9hYf9LGWIukjEw",
+          "name": "Rt5rrmn Yyumn",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 350,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+        "label": "Sickened 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Sickened",
+          "sourceId": "fesd1n5eVhpCSS18",
+          "name": "Sickened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "9H9hYf9LGWIukjEw",
+          "name": "Rt5rrmn Yyumn",
+          "type": "action"
+        }
+      }
+    ]
   },
   {
     "contentId": "pf2e:bestiary:blog-bestiary:wordsmith",
@@ -7450,6 +18002,360 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
           ]
         }
       ]
-    }
+    },
+    "sourceReferences": [
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/1/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.SwUiVavHKMWG7t5K",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.SwUiVavHKMWG7t5K",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "SwUiVavHKMWG7t5K",
+          "sourceId": "SwUiVavHKMWG7t5K",
+          "name": "Truespeech",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "GxovVAVCobWcf89g",
+          "name": "Truespeech (Constant)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 336,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "B74C5L1wE6GrSUcY",
+          "name": "Forge Onomatopoeia",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/11/system/description/value",
+        "sourceIndex": 546,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+        "label": "Stupefied 2",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stupefied",
+          "sourceId": "e1XGnhKNSQIm5IXg",
+          "name": "Stupefied",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "B74C5L1wE6GrSUcY",
+          "name": "Forge Onomatopoeia",
+          "type": "action"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/2/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.wzLkNU3AAqOSKFPR",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.wzLkNU3AAqOSKFPR",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "wzLkNU3AAqOSKFPR",
+          "sourceId": "wzLkNU3AAqOSKFPR",
+          "name": "Noise Blast",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "2uSeXvIbklTvlMPK",
+          "name": "Noise Blast",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 317,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Deafened",
+          "sourceId": "9PR9y0bi4JPKnHPR",
+          "name": "Deafened",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "2uSeXvIbklTvlMPK",
+          "name": "Noise Blast",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/2/system/description/value",
+        "sourceIndex": 490,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+        "label": "Stunned 1",
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Stunned",
+          "sourceId": "dfCMdR4wnpbYNTix",
+          "name": "Stunned",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "2uSeXvIbklTvlMPK",
+          "name": "Noise Blast",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/3/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "aIHY2DArKFweIrpf",
+          "sourceId": "aIHY2DArKFweIrpf",
+          "name": "Command",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "SMrxEqJI5KT5MMtO",
+          "name": "Command",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 117,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Fleeing",
+          "sourceId": "sDPxOjQ9kx2RZE8D",
+          "name": "Fleeing",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "SMrxEqJI5KT5MMtO",
+          "name": "Command",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 212,
+        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
+          "package": "pf2e",
+          "sourcePack": "conditionitems",
+          "documentType": "Item",
+          "compendiumKey": "Prone",
+          "sourceId": "j91X7x0XSomq8d60",
+          "name": "Prone",
+          "type": "condition"
+        },
+        "owner": {
+          "sourceId": "SMrxEqJI5KT5MMtO",
+          "name": "Command",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/3/system/description/value",
+        "sourceIndex": 290,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Delay",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Delay",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Delay",
+          "sourceId": "A72nHGUtNXgY5Ey9",
+          "name": "Delay",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "SMrxEqJI5KT5MMtO",
+          "name": "Command",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/4/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "0zU8CPejjQFnhZFI",
+          "sourceId": "0zU8CPejjQFnhZFI",
+          "name": "Figment",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "QHw9BRzNnCN6OWpX",
+          "name": "Figment",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 352,
+        "uuid": "Compendium.pf2e.actionspf2e.Item.Create a Diversion",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.actionspf2e.Item.Create a Diversion",
+          "package": "pf2e",
+          "sourcePack": "actionspf2e",
+          "documentType": "Item",
+          "compendiumKey": "Create a Diversion",
+          "sourceId": "GkmbTGfg8KcgynOA",
+          "name": "Create a Diversion",
+          "type": "action"
+        },
+        "owner": {
+          "sourceId": "QHw9BRzNnCN6OWpX",
+          "name": "Figment",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "INLINE_UUID",
+        "sourcePath": "/items/4/system/description/value",
+        "sourceIndex": 583,
+        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Figment",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Figment",
+          "package": "pf2e",
+          "sourcePack": "spell-effects",
+          "documentType": "Item",
+          "compendiumKey": "Spell Effect: Figment",
+          "sourceId": "2Hg3a06gZCSnUgSA",
+          "name": "Spell Effect: Figment",
+          "type": "effect"
+        },
+        "owner": {
+          "sourceId": "QHw9BRzNnCN6OWpX",
+          "name": "Figment",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/5/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.vLzFcIaSXs7YTIqJ",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "vLzFcIaSXs7YTIqJ",
+          "sourceId": "vLzFcIaSXs7YTIqJ",
+          "name": "Message",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "nsmTe5l3SniMy5hM",
+          "name": "Message",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/6/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.spells-srd.Item.yV7Ouzaoe7DHLESI",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.spells-srd.Item.yV7Ouzaoe7DHLESI",
+          "package": "pf2e",
+          "sourcePack": "spells-srd",
+          "documentType": "Item",
+          "compendiumKey": "yV7Ouzaoe7DHLESI",
+          "sourceId": "yV7Ouzaoe7DHLESI",
+          "name": "Ventriloquism",
+          "type": "spell"
+        },
+        "owner": {
+          "sourceId": "IgoXslLVAtWKyOlt",
+          "name": "Ventriloquism (At Will)",
+          "type": "spell"
+        }
+      },
+      {
+        "syntax": "UUID_VALUE",
+        "sourcePath": "/items/7/_stats/compendiumSource",
+        "sourceIndex": 0,
+        "uuid": "Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV",
+        "label": null,
+        "target": {
+          "uuid": "Compendium.pf2e.equipment-srd.Item.0QgniSjpzksm5riV",
+          "package": "pf2e",
+          "sourcePack": "equipment-srd",
+          "documentType": "Item",
+          "compendiumKey": "0QgniSjpzksm5riV",
+          "sourceId": "0QgniSjpzksm5riV",
+          "name": "Artisan's Toolkit (Sterling)",
+          "type": "equipment"
+        },
+        "owner": {
+          "sourceId": "6wcamsCzleVZoVVR",
+          "name": "Anvil and Hammer",
+          "type": "equipment"
+        }
+      }
+    ]
   }
 ]
