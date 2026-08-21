@@ -97,6 +97,7 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
         { name: 'conditionitems', path: 'packs/conditions' },
         { name: 'spells-srd', path: 'packs/spells' },
         { name: 'equipment-srd', path: 'packs/equipment' },
+        { name: 'rollable-tables', path: 'packs/rollable-tables' },
         { name: 'fixture-bestiary', path: 'packs/fixture-bestiary' },
       ],
     })
@@ -113,11 +114,17 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
       type: 'spell',
       system: { slug: 'other-spell', publication: { title: 'Fixture Book' } },
     })
+    writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'rollable-tables', 'warpwaves.json'), {
+      _id: 'warpwaves-table-id',
+      name: 'Warpwaves',
+      system: { slug: 'warpwaves' },
+    })
 
     const semantic = '@UUID[Compendium.pf2e.conditionitems.Item.frightened]{Frightened 2}'
     const nonSemantic = '@UUID[Compendium.pf2e.spells-srd.Item.other-spell]{Other Spell}'
-    const unresolved = '@UUID[Compendium.pf2e.missing-pack.Item.unresolved]{Unresolved Source Reference}'
-    const description = `${semantic} ${nonSemantic} ${unresolved}`
+    const unresolvedItem = '@UUID[Compendium.pf2e.missing-pack.Item.unresolved]{Unresolved Source Reference}'
+    const nonItemWithoutType = '@UUID[Compendium.pf2e.rollable-tables.RollTable.warpwaves]{Warpwaves}'
+    const description = `${semantic} ${nonSemantic} ${unresolvedItem} ${nonItemWithoutType}`
 
     writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'fixture-bestiary', 'creature.json'), {
       _id: 'actor-source',
@@ -192,7 +199,7 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
 
     const result = backfillPf2eCatalogSourceReferences({ sourceRoot, outputRoot })
     assert.equal(result.recordCount, 3)
-    assert.equal(result.sourceReferenceCount, 9)
+    assert.equal(result.sourceReferenceCount, 12)
     assert.equal(result.recordsWithReferences, 3)
     assert.equal(result.referenceCount, 6)
     assert.equal(result.unresolvedTargetCount, 3)
@@ -218,6 +225,7 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
       assert.match(content, /Compendium\.pf2e\.conditionitems\.Item\.frightened/)
       assert.match(content, /Compendium\.pf2e\.missing-pack\.Item\.unresolved/)
       assert.doesNotMatch(content, /Compendium\.pf2e\.spells-srd\.Item\.other-spell/)
+      assert.doesNotMatch(content, /Compendium\.pf2e\.rollable-tables\.RollTable\.warpwaves/)
       assert.match(content, /condition-frightened/)
       assert.match(content, /"condition"/)
       assert.match(content, /,null\]\]/)
