@@ -16,6 +16,7 @@ export type Pathfinder2eSpellEffectOutcome =
 
 export type Pathfinder2eSpellEffectEvidence =
   | 'DEGREE_OF_SUCCESS'
+  | 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE'
   | 'STANDALONE_REFERENCE'
   | 'REFERENCE_ONLY'
   | 'NON_DESCRIPTION_REFERENCE'
@@ -47,6 +48,7 @@ export type Pathfinder2eSpellEffectMapping = {
 type AlignedOccurrence = {
   start: number
   line: string
+  previousNonEmptyLine: string | null
 }
 
 type ResolvedSemanticReference = {
@@ -81,14 +83,32 @@ function exactOccurrences(text: string, label: string): number[] {
   return positions
 }
 
+function lineStartAt(text: string, position: number): number {
+  return text.lastIndexOf('\n', Math.max(position - 1, 0)) + 1
+}
+
 function lineAt(text: string, position: number): string {
-  const lineStart = text.lastIndexOf('\n', Math.max(position - 1, 0)) + 1
+  const lineStart = lineStartAt(text, position)
   const nextBreak = text.indexOf('\n', position)
   const lineEnd = nextBreak < 0 ? text.length : nextBreak
   return text.slice(lineStart, lineEnd).trim()
 }
 
-function outcomeForLine(line: string): Pathfinder2eSpellEffectOutcome {
+function previousNonEmptyLineAt(text: string, position: number): string | null {
+  const currentLineStart = lineStartAt(text, position)
+  if (currentLineStart <= 0) return null
+
+  const previousText = text.slice(0, currentLineStart - 1)
+  const lines = previousText.split('\n')
+  for (let index = lines.length - 1; index >= 0; index -= 1) {
+    const line = lines[index].trim()
+    if (line) return line
+  }
+  return null
+}
+
+function outcomeForLine(line: string | null): Pathfinder2eSpellEffectOutcome {
+  if (!line) return null
   for (const [prefix, outcome] of OUTCOME_PREFIXES) {
     if (line === prefix || line.startsWith(`${prefix} `)) return outcome
   }
@@ -139,7 +159,11 @@ function alignDescriptionReferences(
 
     group.forEach((resolved, index) => {
       const start = selectedPositions![index]
-      aligned.set(resolved.reference, { start, line: lineAt(description, start) })
+      aligned.set(resolved.reference, {
+        start,
+        line: lineAt(description, start),
+        previousNonEmptyLine: previousNonEmptyLineAt(description, start),
+      })
     })
   }
 
@@ -192,8 +216,8 @@ function resolveSemanticReferences(contentId: string): ResolvedSemanticReference
       return { reference, definition }
     })
     .sort((left, right) => (
-      left.reference.sourceIndex - right.reference.sourceIndex
-      || left.reference.sourcePath.localeCompare(right.reference.sourcePath)
+      left.reference.sourcePath.localeCompare(right.reference.sourcePath)
+      || left.reference.sourceIndex - right.reference.sourceIndex
     ))
 }
 
@@ -218,10 +242,18 @@ function classifyMapping(
       evidence = 'DEGREE_OF_SUCCESS'
       potential = true
     } else if (aligned.line === reference.label) {
-      evidence = 'STANDALONE_REFERENCE'
+      const previousOutcome = outcomeForLine(aligned.previousNonEmptyLine)
+      if (previousOutcome) {
+        evidence = 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE'
+        outcome = previousOutcome
+      } else {
+        evidence = 'STANDALONE_REFERENCE'
+        outcome = null
+      }
       potential = true
     } else {
       evidence = 'REFERENCE_ONLY'
+      outcome = null
     }
   }
 
