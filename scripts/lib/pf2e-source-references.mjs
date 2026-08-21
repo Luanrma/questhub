@@ -21,6 +21,14 @@ function ownerFromObject(value) {
   return Object.keys(owner).length ? owner : null
 }
 
+function nearestSourceOwner(value, inheritedOwner) {
+  const candidate = ownerFromObject(value)
+  if (!candidate) return inheritedOwner
+  if (candidate.sourceId) return candidate
+  if (inheritedOwner?.sourceId) return inheritedOwner
+  return candidate
+}
+
 export function parseFoundryUuid(uuid) {
   const target = { uuid }
   const compendium = uuid.match(COMPENDIUM_UUID_PATTERN)
@@ -256,7 +264,7 @@ export function collectPf2eSourceReferences(document, { resolveTarget } = {}) {
 
     if (!value || typeof value !== 'object') return
 
-    const localOwner = ownerFromObject(value) ?? inheritedOwner
+    const localOwner = nearestSourceOwner(value, inheritedOwner)
     for (const key of Object.keys(value).sort((left, right) => left.localeCompare(right))) {
       visit(value[key], `${path}/${escapeJsonPointerSegment(key)}`, localOwner)
     }
