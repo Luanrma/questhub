@@ -88,6 +88,12 @@ Use o papel correspondente ao gate atual da esteira:
 
 Um papel não herda automaticamente a autoridade de outro. Em especial, Developer não aprova a própria implementação, Code Reviewer não substitui QA e nenhum desses papéis decide arquitetura no lugar do Architect.
 
+### Loop autônomo entre gates
+
+Quando o usuário autorizar explicitamente a execução autônoma até um gate humano, siga também `docs/governance/AUTONOMOUS_WORKFLOW.md`.
+
+Nesse modo, retornos recuperáveis entre BA, Architecture, Development, Code Review, Documentation Audit e QA fazem parte do próprio loop e não devem interromper o usuário. `HUMAN APPROVAL` só pode ser declarado com gates aplicáveis revalidados e checks obrigatórios verdes; merge continua sendo responsabilidade humana.
+
 ## 4. Antes de qualquer mudança
 
 Identifique explicitamente:
