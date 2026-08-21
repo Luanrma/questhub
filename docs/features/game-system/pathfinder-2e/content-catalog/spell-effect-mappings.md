@@ -10,6 +10,8 @@ Dependências: `QH-EFF-004`, `QH-EFF-005`.
 
 Bloqueia: `QH-EFF-009`.
 
+Refinamento obrigatório de alinhamento: `spell-effect-alignment-policy.md`.
+
 ## 1. Objetivo
 
 Criar um mapeamento somente leitura, pertencente ao bounded context PF2e, que relacione cada Spell já existente no catálogo QuestHub às definições `condition`, `effect` ou `affliction` que ela **pode produzir com evidência estrutural suficiente**, preservando contexto de grau de sucesso e valores sugeridos quando esses dados podem ser recuperados de forma determinística.
@@ -149,9 +151,11 @@ Spell Effect: Outcast's Curse (Failure)
 
 Uma referência é `DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE` somente quando:
 
-1. sua própria linha contém apenas o label preservado pelo QH-EFF-004;
+1. sua própria linha contém apenas o token estrutural de alinhamento da referência;
 2. a linha não vazia imediatamente anterior começa com exatamente um dos quatro marcadores canônicos do item 6.1;
 3. não existe qualquer outra linha/conteúdo intermediário.
+
+O token estrutural é definido em `spell-effect-alignment-policy.md`: label explícito quando existe; caso contrário, `target.compendiumKey` exato. Isso serve somente para alinhamento e nunca reescreve `source.label`.
 
 Nesse caso:
 
@@ -166,7 +170,7 @@ Se a linha anterior não satisfizer exatamente essa regra, a referência volta �
 
 ### 6.3. Referência standalone sem Degree of Success associado
 
-Uma referência é `STANDALONE_REFERENCE` quando, após normalização de whitespace, a linha/bloco em que ela aparece contém somente o próprio label preservado pelo QH-EFF-004 e ela não satisfaz o item 6.2.
+Uma referência é `STANDALONE_REFERENCE` quando, após normalização de whitespace, a linha/bloco em que ela aparece contém somente o token estrutural exato da referência e ela não satisfaz o item 6.2.
 
 Exemplos típicos:
 
@@ -203,16 +207,17 @@ Cards posteriores podem definir política específica para um campo estruturado 
 
 ## 7. Associação entre referência e descrição normalizada
 
-O QH-EFF-004 preserva a ordem das ocorrências e o label original. A normalização histórica removeu o UUID, mas preservou o texto legível e a ordem editorial.
+O QH-EFF-004 preserva a ordem das ocorrências e a identidade estrutural. A normalização histórica removeu o UUID, mas preservou o texto legível e a ordem editorial.
 
 Para referências de `system.description.value`, o mapper:
 
 1. ordena referências por `sourceIndex`;
-2. percorre a descrição original `en-US` da Spell na mesma ordem;
-3. localiza cada `label` de forma sequencial, nunca retrocedendo na string;
-4. determina a linha/bloco textual da ocorrência;
-5. quando a linha é standalone, pode observar somente a linha não vazia imediatamente anterior para a regra 6.2;
-6. falha de forma segura para `REFERENCE_ONLY` se não puder alinhar exatamente a ocorrência.
+2. determina o token estrutural exato conforme `spell-effect-alignment-policy.md`;
+3. percorre a descrição original `en-US` da Spell na mesma ordem;
+4. localiza cada token de forma sequencial, nunca retrocedendo na string;
+5. determina a linha/bloco textual da ocorrência;
+6. quando a linha é standalone, pode observar somente a linha não vazia imediatamente anterior para a regra 6.2;
+7. falha de forma segura para `REFERENCE_ONLY` se não puder alinhar exatamente a ocorrência.
 
 A falha de alinhamento não autoriza busca fuzzy, tradução reversa ou inferência por IA.
 
@@ -226,7 +231,7 @@ O hint só existe quando:
 
 1. a definição do QH-EFF-005 é `condition`;
 2. `conditionValue.isValued = true`;
-3. o label preservado segue exatamente:
+3. o **label explícito preservado** segue exatamente:
 
 ```text
 <canonical definition name> <positive integer>
@@ -241,6 +246,8 @@ Frightened 3 -> valueHint 3
 ```
 
 A origem fica explícita como `REFERENCE_LABEL`.
+
+O fallback por `target.compendiumKey` definido na política de alinhamento não participa de value hints.
 
 Não existe regex genérica sobre qualquer número da descrição. Conditions não valorizadas nunca recebem value hint por esse mecanismo.
 
@@ -269,6 +276,8 @@ Clumsy                    -> REFERENCE_ONLY, potential false
 Spell Effect: Aerial Form -> STANDALONE_REFERENCE, potential true, outcome null
 ```
 
+As duas referências usam UUID sem label explícito no source congelado; o alinhamento ocorre pelo `target.compendiumKey`, enquanto `source.label` permanece `null`.
+
 Isso impede o falso positivo de aplicar `Clumsy` por conjurar a Spell.
 
 ### Outcast's Curse
@@ -287,7 +296,9 @@ Spell Effect: Outcast's Curse (Failure)
   -> FAILURE
 ```
 
-O texto `(Success)`/`(Failure)` do label não participa da classificação; a evidência vem exclusivamente da linha de Degree of Success imediatamente anterior.
+Essas referências também possuem label explícito ausente no source congelado e são alinhadas pelo `target.compendiumKey` exato.
+
+O texto `(Success)`/`(Failure)` do token não participa da classificação; a evidência vem exclusivamente da linha de Degree of Success imediatamente anterior.
 
 ## 10. Cobertura
 
@@ -374,7 +385,7 @@ QH-EFF-006 apenas prepara metadata engine-only para QH-EFF-009.
 
 ADR aplicável: `ADR-0005`.
 
-O BA não identifica nova decisão estrutural além da fronteira já aceita, mas Architecture Review permanece obrigatório após o refinamento do contexto posicional.
+O BA não identifica nova decisão estrutural além da fronteira já aceita, mas Architecture Review permanece obrigatório após refinamentos de contexto posicional/alinhamento.
 
 ## 16. Critérios de aceite
 
@@ -395,19 +406,20 @@ O BA não identifica nova decisão estrutural além da fronteira já aceita, mas
 - **AC15** — `Aerial Form -> Clumsy` não é efeito potencial;
 - **AC16** — `Spell Effect: Aerial Form` é efeito potencial standalone com `outcome = null`;
 - **AC17** — `Outcast's Curse (Success)` e `(Failure)` preservam outcomes SUCCESS e FAILURE pela linha imediatamente anterior;
-- **AC18** — o texto `(Success)`/`(Failure)` presente em label não é usado para inferir outcome;
+- **AC18** — o texto `(Success)`/`(Failure)` presente no token não é usado para inferir outcome;
 - **AC19** — Conditions não valorizadas não recebem value hint por número textual;
-- **AC20** — falha de alinhamento de label não aciona fuzzy matching/IA e não gera falso positivo;
+- **AC20** — falha de alinhamento não aciona fuzzy matching/IA e não gera falso positivo;
 - **AC21** — nenhum save/ataque é resolvido e nenhum efeito é aplicado;
 - **AC22** — originais e traduções permanecem byte-identical;
 - **AC23** — nenhuma semântica PF2e nova vaza para VTT Core;
 - **AC24** — resultado é determinístico para os mesmos dados versionados;
 - **AC25** — API interna permite listar todos os mappings e somente os potenciais;
-- **AC26** — testes e CI cobrem regressões de Aerial Form, Agonizing Despair e Outcast's Curse.
+- **AC26** — testes e CI cobrem regressões de Aerial Form, Agonizing Despair e Outcast's Curse;
+- **AC27–AC31** — critérios adicionais de UUID sem label explícito são definidos em `spell-effect-alignment-policy.md` e fazem parte obrigatória do aceite deste card.
 
 ## 17. Questões abertas
 
-Nenhuma questão de produto bloqueante após o refinamento de Outcast's Curse.
+Nenhuma questão de produto bloqueante após os refinamentos de Outcast's Curse e UUID sem label explícito.
 
 A política continua deliberadamente conservadora: referências inline ambíguas permanecem visíveis como não confirmadas em vez de serem adivinhadas. Cobertura semântica total das referências é obrigatória; recall de aplicações não estruturadas pode ser refinado posteriormente sem quebrar o contrato.
 
