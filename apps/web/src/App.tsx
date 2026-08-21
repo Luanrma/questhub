@@ -11,6 +11,7 @@ import { CampaignsDashboardPage } from './features/campaigns/pages/CampaignsDash
 import { CampaignSettingsPage } from './features/campaigns/pages/CampaignSettingsPage'
 import { PlaceholderPage } from './features/campaigns/pages/PlaceholderPage'
 import { HomePage } from './features/home-navigation/pages/HomePage'
+import { Pf2eSemanticReferencesDebugPage } from './pages/Pf2eSemanticReferencesDebugPage'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/campaigns/new" element={<CampaignCreatePage />} />
         <Route path="/campaigns/join" element={<CampaignJoinPage />} />
         <Route path="/characters/*" element={<Navigate to="/campaigns" replace />} />
+        <Route path="/dev/pf2e/source-references" element={<Pf2eSemanticReferencesDebugPage />} />
       </Route>
 
       <Route element={<CampaignLayout />}>
