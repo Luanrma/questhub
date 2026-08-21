@@ -132,6 +132,11 @@ export function ActorActiveEffectsPanel({
     }
   }
 
+  function closeOverlay() {
+    setMutationError(null)
+    setOverlay(null)
+  }
+
   function openCreate() {
     setDraft(emptyDraft)
     setMutationError(null)
@@ -171,7 +176,7 @@ export function ActorActiveEffectsPanel({
         )
       }
 
-      setOverlay(null)
+      closeOverlay()
       reload()
     } catch (cause) {
       setMutationError(cause instanceof ApiError ? cause.message : 'Não foi possível salvar o efeito.')
@@ -191,7 +196,7 @@ export function ActorActiveEffectsPanel({
         `/api/campaigns/${encodeURIComponent(campaignId)}/actors/${encodeURIComponent(actorId)}/effects/${encodeURIComponent(effect.id)}`,
         { method: 'DELETE' },
       )
-      setOverlay(null)
+      closeOverlay()
       reload()
     } catch (cause) {
       setMutationError(cause instanceof ApiError ? cause.message : 'Não foi possível remover o efeito.')
@@ -289,7 +294,7 @@ export function ActorActiveEffectsPanel({
               </h4>
               <button
                 type="button"
-                onClick={() => setOverlay(null)}
+                onClick={closeOverlay}
                 className="rounded-md p-1.5 text-[#665846] hover:bg-black/5"
                 aria-label="Fechar"
               >
@@ -344,6 +349,10 @@ export function ActorActiveEffectsPanel({
 
                   {presentation.summary ? (
                     <p className="whitespace-pre-wrap rounded-lg border border-[#7c6d59]/20 bg-[#f2e8d7]/75 p-3 text-sm leading-relaxed text-[#514537]">{presentation.summary}</p>
+                  ) : null}
+
+                  {mutationError ? (
+                    <p className="rounded-md border border-rose-700/25 bg-rose-950/10 px-3 py-2 text-xs font-semibold text-rose-800">{mutationError}</p>
                   ) : null}
 
                   {canManage ? (
@@ -440,7 +449,7 @@ export function ActorActiveEffectsPanel({
                 <div className="flex justify-end gap-2 border-t border-[#7c6d59]/20 pt-3">
                   <button
                     type="button"
-                    onClick={() => setOverlay(null)}
+                    onClick={closeOverlay}
                     className="rounded-md border border-[#7c6d59]/25 px-3 py-1.5 text-xs font-semibold"
                   >
                     Cancelar
