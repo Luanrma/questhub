@@ -248,6 +248,7 @@ export function Aside({
       <CampaignCharacterSheetWorkspace
         campaignId={campaignId}
         gameSystem={system?.gameSystem ?? null}
+        role={role}
       />
       <CampaignGameSystemTokenIntegration
         campaignId={campaignId}

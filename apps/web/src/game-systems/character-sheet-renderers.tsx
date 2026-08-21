@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import type { ActorEffectPresentationResolver } from '../vtt/actor-effects/types'
 import { PathfinderCharacterSheetAdapter } from './PathfinderCharacterSheetAdapter'
 import type { GameSystemKey } from './registry'
 
@@ -19,6 +20,7 @@ export type CharacterSheetPageDescriptor = {
 export type CharacterSheetRendererRegistration = {
   pages: readonly CharacterSheetPageDescriptor[]
   Renderer: ComponentType<CharacterSheetRendererProps>
+  resolveActorEffectPresentation?: ActorEffectPresentationResolver
 }
 
 const pathfinderPages: readonly CharacterSheetPageDescriptor[] = [
