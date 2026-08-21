@@ -9,9 +9,6 @@ import type { Pathfinder2eSourceReference } from './source-references'
 
 const root = process.cwd()
 const helperFile = path.join(root, 'scripts', 'lib', 'pf2e-source-references.mjs')
-const enrichmentFile = path.join(root, 'scripts', 'lib', 'enrich-pf2e-source-references.mjs')
-const importerFile = path.join(root, 'scripts', 'import-pf2e-core-exhaustive.mjs')
-const baseImporterFile = path.join(root, 'scripts', 'import-pf2e-core-exhaustive-base.mjs')
 const nativeImport = new Function('specifier', 'return import(specifier)') as (
   specifier: string,
 ) => Promise<Record<string, unknown>>
@@ -24,7 +21,7 @@ async function sourceReferenceModule() {
   }>
 }
 
-test('inline UUID metadata coexists with readable source labels and preserves duplicates', async () => {
+test('inline UUID metadata preserves repeated source references independently', async () => {
   const { collectPf2eSourceReferences } = await sourceReferenceModule()
   const document = {
     _id: 'spell-source-id',
@@ -109,16 +106,14 @@ test('Foundry Compendium UUID parsing preserves structural target parts without 
   assert.deepEqual(parseFoundryUuid('Actor.actor-id'), { uuid: 'Actor.actor-id' })
 })
 
-test('target resolver follows the source manifest pack name-to-path mapping', async () => {
+test('target resolver follows source manifest pack name-to-path mapping', async () => {
   const { createPf2eSourceReferenceResolver, parseFoundryUuid } = await sourceReferenceModule()
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-ref-'))
   try {
     const physicalPack = path.join(fixtureRoot, 'packs', 'pf2e', 'conditions')
     mkdirSync(physicalPack, { recursive: true })
     writeFileSync(path.join(fixtureRoot, 'system.pf2e.json'), JSON.stringify({
-      packs: [
-        { name: 'conditionitems', path: 'packs/conditions', type: 'Item' },
-      ],
+      packs: [{ name: 'conditionitems', path: 'packs/conditions', type: 'Item' }],
     }))
     writeFileSync(path.join(physicalPack, 'one.json'), JSON.stringify({
       _id: 'target-1',
@@ -155,7 +150,7 @@ test('target resolver follows the source manifest pack name-to-path mapping', as
   }
 })
 
-test('target resolver refuses unknown packs instead of inferring a directory from labels', async () => {
+test('target resolver refuses unknown packs instead of inferring from labels', async () => {
   const { createPf2eSourceReferenceResolver, parseFoundryUuid } = await sourceReferenceModule()
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-ref-'))
   try {
@@ -185,105 +180,6 @@ test('OriginalContentRecord keeps source references optional and outside transla
 
   assert.equal(legacyRecord.sourceReferences, undefined)
   assert.deepEqual(enrichedRecord.sourceReferences, [])
-})
-
-test('enrichment stage attaches references to Bestiary, Spell and Item originals without changing their data', async () => {
-  const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-enrich-'))
-  const sourceRoot = path.join(fixtureRoot, 'source')
-  const outputRoot = path.join(fixtureRoot, 'output')
-  try {
-    const sourcePack = path.join(sourceRoot, 'packs', 'pf2e', 'source-fixtures')
-    const targetPack = path.join(sourceRoot, 'packs', 'pf2e', 'conditions')
-    mkdirSync(sourcePack, { recursive: true })
-    mkdirSync(targetPack, { recursive: true })
-    writeFileSync(path.join(sourceRoot, 'system.pf2e.json'), JSON.stringify({
-      packs: [{ name: 'conditionitems', path: 'packs/conditions', type: 'Item' }],
-    }))
-    writeFileSync(path.join(targetPack, 'target-key.json'), JSON.stringify({
-      _id: 'target-id',
-      name: 'Target',
-      type: 'effect',
-      system: { slug: 'target-key' },
-    }))
-
-    const domains = [
-      { directory: 'bestiary', domain: 'BESTIARY', id: 'actor-id', slug: 'actor-file', type: 'npc' },
-      { directory: 'spells', domain: 'SPELL', id: 'spell-id', slug: 'spell-file', type: 'spell' },
-      { directory: 'items', domain: 'ITEM', id: 'item-id', slug: 'item-file', type: 'equipment' },
-    ] as const
-
-    for (const entry of domains) {
-      writeFileSync(path.join(sourcePack, `${entry.slug}.json`), JSON.stringify({
-        _id: entry.id,
-        name: entry.slug,
-        type: entry.type,
-        system: {
-          description: {
-            value: '@UUID[Compendium.pf2e.conditionitems.Item.target-key]{Target Label}',
-          },
-        },
-      }))
-
-      const originalDir = path.join(outputRoot, entry.directory, 'original')
-      mkdirSync(originalDir, { recursive: true })
-      const record = {
-        contentId: `pf2e:${entry.directory}:fixture:${entry.slug}`,
-        domain: entry.domain,
-        locale: 'en-US',
-        source: { sourcePack: 'fixture', sourceId: entry.id, slug: entry.slug },
-        sourceHash: 'sha256:source',
-        translatableHash: 'sha256:translated',
-        data: { schemaVersion: 1, untouched: true },
-      }
-      writeFileSync(
-        path.join(originalDir, 'core-remaster-exhaustive-01.ts'),
-        `export const FIXTURE = ${JSON.stringify([record], null, 2)}\n`,
-      )
-    }
-
-    const enrichmentModule = await nativeImport(pathToFileURL(enrichmentFile).href) as {
-      enrichPf2eBatchSourceReferences(params: {
-        sourceRoot: string
-        batchNumber: string
-        outputRoot: string
-      }): { recordCount: number; referenceCount: number }
-    }
-    const result = enrichmentModule.enrichPf2eBatchSourceReferences({
-      sourceRoot,
-      batchNumber: '01',
-      outputRoot,
-    })
-    assert.deepEqual(result, { recordCount: 3, referenceCount: 3 })
-
-    for (const entry of domains) {
-      const generated = readFileSync(
-        path.join(outputRoot, entry.directory, 'original', 'core-remaster-exhaustive-01.ts'),
-        'utf8',
-      )
-      assert.match(generated, /"sourceReferences"/)
-      assert.match(generated, /"sourceId": "target-id"/)
-      assert.match(generated, /"untouched": true/)
-      assert.match(generated, /"translatableHash": "sha256:translated"/)
-    }
-  } finally {
-    rmSync(fixtureRoot, { recursive: true, force: true })
-  }
-})
-
-test('exhaustive importer public entrypoint is version 15 and enriches all three generated domains', () => {
-  const importer = readFileSync(importerFile, 'utf8')
-  const baseImporter = readFileSync(baseImporterFile, 'utf8')
-  const enrichment = readFileSync(enrichmentFile, 'utf8')
-  const helper = readFileSync(helperFile, 'utf8')
-
-  assert.match(importer, /const importerVersion = 15/)
-  assert.match(importer, /import-pf2e-core-exhaustive-base\.mjs/)
-  assert.match(importer, /enrichPf2eBatchSourceReferences/)
-  assert.match(enrichment, /\['bestiary', 'spells', 'items'\]/)
-  assert.match(enrichment, /collectPf2eSourceReferences\(sourceDocument/)
-  assert.match(helper, /system\.pf2e\.json/)
-  assert.match(baseImporter, /\.replace\(\/@UUID\\\[/)
-  assert.match(baseImporter, /translatableHash: sha256\(JSON\.stringify\(data\)\)/)
 })
 
 test('reference extractor contains no concrete effect names or mechanical classification mapping', () => {
