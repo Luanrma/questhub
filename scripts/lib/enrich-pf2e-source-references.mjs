@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { basename, join, resolve } from 'node:path'
 import {
   collectPf2eSourceReferences,
   createPf2eSourceReferenceResolver,
@@ -78,15 +78,26 @@ function indexSourceDocuments(sourceRoot) {
   return bySourceId
 }
 
-function enrichRecord(record, sourceDocuments, resolveTarget) {
+function sourceDocumentForRecord(record, sourceDocuments) {
   const matches = sourceDocuments.get(record.source?.sourceId) ?? []
-  if (matches.length !== 1) {
+  const slug = typeof record.source?.slug === 'string' ? record.source.slug : null
+  const slugMatches = slug
+    ? matches.filter((entry) => basename(entry.file, '.json') === slug)
+    : []
+  const candidates = slugMatches.length > 0 ? slugMatches : matches
+
+  if (candidates.length !== 1) {
     throw new Error(
-      `Expected exactly one source document for ${record.contentId} (${record.source?.sourceId}), found ${matches.length}`,
+      `Expected exactly one source document for ${record.contentId} (${record.source?.sourceId}:${slug ?? 'no-slug'}), found ${candidates.length}`,
     )
   }
 
-  const sourceReferences = collectPf2eSourceReferences(matches[0].value, { resolveTarget })
+  return candidates[0].value
+}
+
+function enrichRecord(record, sourceDocuments, resolveTarget) {
+  const sourceDocument = sourceDocumentForRecord(record, sourceDocuments)
+  const sourceReferences = collectPf2eSourceReferences(sourceDocument, { resolveTarget })
   const enriched = { ...record }
   if (sourceReferences.length > 0) enriched.sourceReferences = sourceReferences
   else delete enriched.sourceReferences
