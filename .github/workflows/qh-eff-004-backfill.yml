@@ -1,13 +1,14 @@
 name: QH-EFF-004 PF2e Source Reference Backfill
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/qh-eff-004-pf2e-semantic-references
+      - main
     paths:
       - scripts/backfill-pf2e-source-references.mjs
       - scripts/lib/backfill-pf2e-source-references.mjs
       - scripts/lib/pf2e-source-references.mjs
+      - apps/api/src/game_systems/pathfinder_2e/content_catalog/source-reference-backfill.test.ts
       - .github/workflows/qh-eff-004-backfill.yml
 
 permissions:
