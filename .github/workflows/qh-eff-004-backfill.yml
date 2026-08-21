@@ -8,7 +8,6 @@ on:
       - scripts/backfill-pf2e-source-references.mjs
       - scripts/lib/backfill-pf2e-source-references.mjs
       - scripts/lib/pf2e-source-references.mjs
-      - scripts/report-qh-eff-004-reference-packs.mjs
       - apps/api/src/game_systems/pathfinder_2e/content_catalog/source-reference-backfill.test.ts
       - .github/workflows/qh-eff-004-backfill.yml
 
@@ -41,24 +40,22 @@ jobs:
           ref: 01114da5851f31404078d8020809b13e4000bc4b
           path: .tmp/pf2e-source
 
-      - name: Backfill existing catalog
+      - name: Generate semantic sidecar from existing catalog
         run: node scripts/backfill-pf2e-source-references.mjs .tmp/pf2e-source
-
-      - name: Report reference pack distribution
-        run: node scripts/report-qh-eff-004-reference-packs.mjs
 
       - name: Validate generated diff
         run: git diff --check
 
-      - name: Commit generated catalog metadata
+      - name: Commit generated semantic sidecar
         shell: bash
         run: |
-          if git diff --quiet -- apps/api/src/game_systems/pathfinder_2e/content_catalog; then
-            echo "Catalog is already enriched."
+          SIDE='apps/api/src/game_systems/pathfinder_2e/content_catalog/source_reference_index/generated'
+          if git diff --quiet -- "$SIDE"; then
+            echo "Semantic sidecar is already current."
             exit 0
           fi
           git config user.name "QuestHub Automation"
           git config user.email "actions@users.noreply.github.com"
-          git add -- ':(glob)apps/api/src/game_systems/pathfinder_2e/content_catalog/**/original/*.ts'
-          git commit -m "QH-EFF-004 backfill existing PF2e source references"
+          git add -- "$SIDE/bestiary.ts" "$SIDE/spells.ts" "$SIDE/items.ts"
+          git commit -m "QH-EFF-004 generate PF2e semantic reference sidecar"
           git push origin HEAD:feat/qh-eff-004-pf2e-semantic-references
