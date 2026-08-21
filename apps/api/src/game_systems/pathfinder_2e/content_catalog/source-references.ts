@@ -32,6 +32,8 @@ export type Pathfinder2eSourceReference = {
 /**
  * Compact generated representation used only by the PF2e semantic sidecar.
  * Raw UUID preserves package/pack/document/key; those parts are decoded at read time.
+ * A null target type means the source contained an explicit PF2e reference whose target
+ * could not be resolved exactly; the reference is preserved without semantic inference.
  */
 export type Pathfinder2eSourceReferenceTuple = readonly [
   syntax: 0 | 1,
@@ -42,7 +44,7 @@ export type Pathfinder2eSourceReferenceTuple = readonly [
   ownerSourceId: string | null,
   targetSourceId: string | null,
   targetSlug: string | null,
-  targetType: Pathfinder2eSemanticTargetType,
+  targetType: Pathfinder2eSemanticTargetType | null,
 ]
 
 const EMPTY_REFERENCES: readonly Pathfinder2eSourceReferenceTuple[] = []
@@ -93,7 +95,7 @@ export function getPathfinder2eSourceReferences(
         ...parseTarget(uuid),
         ...(targetSourceId ? { sourceId: targetSourceId } : {}),
         ...(targetSlug ? { slug: targetSlug } : {}),
-        type: targetType,
+        ...(targetType ? { type: targetType } : {}),
       },
     }
   })
