@@ -1,10 +1,27 @@
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync, mkdirSync } from 'node:fs'
 import { basename, join, relative, resolve, sep } from 'node:path'
 import ts from 'typescript'
 import {
   collectPf2eSourceReferences,
   createPf2eSourceReferenceResolver,
 } from './pf2e-source-references.mjs'
+
+const SEMANTIC_TARGET_TYPES = new Set(['condition', 'effect', 'affliction'])
+
+const DOMAIN_CONFIG = {
+  BESTIARY: {
+    file: 'bestiary.ts',
+    exportName: 'PATHFINDER_2E_BESTIARY_SOURCE_REFERENCE_INDEX',
+  },
+  SPELL: {
+    file: 'spells.ts',
+    exportName: 'PATHFINDER_2E_SPELL_SOURCE_REFERENCE_INDEX',
+  },
+  ITEM: {
+    file: 'items.ts',
+    exportName: 'PATHFINDER_2E_ITEM_SOURCE_REFERENCE_INDEX',
+  },
+}
 
 function walkFiles(directory) {
   if (!existsSync(directory)) return []
@@ -231,19 +248,14 @@ function directRecordArray(source, path) {
       ))) {
         continue
       }
-
-      return {
-        records,
-        start: initializer.getStart(sourceFile),
-        end: initializer.getEnd(),
-      }
+      return records
     }
   }
 
   throw new Error(`Historical original array not found: ${path}`)
 }
 
-function readGeneratedArray(source, path) {
+function readOriginalRecords(source, path) {
   const generatedChunks = [...source.matchAll(
     /\/\* PF2E_GENERATED_CHUNK_START \*\/([\s\S]*?)\/\* PF2E_GENERATED_CHUNK_END \*\//g,
   )]
@@ -251,54 +263,7 @@ function readGeneratedArray(source, path) {
     return generatedChunks.flatMap((match) => JSON.parse(match[1]))
   }
   if (/export const[\s\S]*?=\s*\[\s*\]\s*$/.test(source)) return []
-
-  return directRecordArray(source, path).records
-}
-
-function serialize(value) {
-  return JSON.stringify(value, null, 2)
-}
-
-function rewriteGeneratedArray(source, records, path) {
-  const chunkPattern = /\/\* PF2E_GENERATED_CHUNK_START \*\/([\s\S]*?)\/\* PF2E_GENERATED_CHUNK_END \*\//g
-  const chunks = [...source.matchAll(chunkPattern)]
-  if (chunks.length > 0) {
-    const lengths = chunks.map((match) => JSON.parse(match[1]).length)
-    let offset = 0
-    return source.replace(chunkPattern, (_, originalChunk) => {
-      const expectedLength = lengths.shift() ?? JSON.parse(originalChunk).length
-      const chunk = records.slice(offset, offset + expectedLength)
-      offset += expectedLength
-      return `/* PF2E_GENERATED_CHUNK_START */${serialize(chunk)}/* PF2E_GENERATED_CHUNK_END */`
-    })
-  }
-
-  const direct = directRecordArray(source, path)
-  return `${source.slice(0, direct.start)}${serialize(records)}${source.slice(direct.end)}`
-}
-
-function withoutSourceReferences(record) {
-  const copy = { ...record }
-  delete copy.sourceReferences
-  return copy
-}
-
-function sameJson(left, right) {
-  return JSON.stringify(left) === JSON.stringify(right)
-}
-
-function enrichRecord(record, sourceDocuments, resolveTarget) {
-  const sourceDocument = sourceDocumentForRecord(record, sourceDocuments)
-  const sourceReferences = collectPf2eSourceReferences(sourceDocument, { resolveTarget })
-  const enriched = { ...record }
-  if (sourceReferences.length > 0) enriched.sourceReferences = sourceReferences
-  else delete enriched.sourceReferences
-
-  if (!sameJson(withoutSourceReferences(record), withoutSourceReferences(enriched))) {
-    throw new Error(`Backfill attempted to mutate canonical record fields: ${record.contentId}`)
-  }
-
-  return enriched
+  return directRecordArray(source, path)
 }
 
 function originalCatalogFiles(outputRoot) {
@@ -307,6 +272,35 @@ function originalCatalogFiles(outputRoot) {
     const segments = relative(outputRoot, file).split(sep)
     return segments.includes('original')
   })
+}
+
+function compactReference(reference) {
+  return [
+    reference.syntax === 'INLINE_UUID' ? 0 : 1,
+    reference.sourcePath,
+    reference.sourceIndex,
+    reference.uuid,
+    reference.label,
+    reference.owner?.sourceId ?? null,
+    reference.target.sourceId ?? null,
+    reference.target.slug ?? null,
+    reference.target.type,
+  ]
+}
+
+function generatedFileSource(exportName, entries) {
+  const lines = [
+    "import type { Pathfinder2eSourceReferenceTuple } from '../../source-references'",
+    '',
+    `export const ${exportName}: Readonly<Record<string, readonly Pathfinder2eSourceReferenceTuple[]>> = {`,
+  ]
+
+  for (const [contentId, references] of entries) {
+    lines.push(`  ${JSON.stringify(contentId)}: ${JSON.stringify(references)},`)
+  }
+
+  lines.push('}', '')
+  return lines.join('\n')
 }
 
 export function backfillPf2eCatalogSourceReferences({
@@ -319,38 +313,69 @@ export function backfillPf2eCatalogSourceReferences({
 
   const sourceDocuments = indexSourceDocuments(sourceRoot)
   const resolveTarget = createPf2eSourceReferenceResolver(sourceRoot)
-  const files = originalCatalogFiles(outputRoot)
+  const byDomain = new Map(Object.keys(DOMAIN_CONFIG).map((domain) => [domain, []]))
 
   let recordCount = 0
   let recordsWithReferences = 0
   let referenceCount = 0
-  const changedFiles = []
+  let sourceReferenceCount = 0
+  let unresolvedTargetCount = 0
 
-  for (const path of files) {
+  for (const path of originalCatalogFiles(outputRoot)) {
     const source = readFileSync(path, 'utf8')
     if (!source.includes('Pathfinder2eOriginalContentRecord')) continue
 
-    const records = readGeneratedArray(source, path)
-    let changed = false
-    const enriched = records.map((record) => {
-      const result = enrichRecord(record, sourceDocuments, resolveTarget)
+    const records = readOriginalRecords(source, path)
+    for (const record of records) {
       recordCount += 1
-      referenceCount += result.sourceReferences?.length ?? 0
-      if ((result.sourceReferences?.length ?? 0) > 0) recordsWithReferences += 1
-      if (!sameJson(record.sourceReferences ?? null, result.sourceReferences ?? null)) changed = true
-      return result
-    })
+      if (!DOMAIN_CONFIG[record.domain]) {
+        throw new Error(`Unsupported PF2e content domain in backfill: ${record.domain}`)
+      }
 
-    if (!changed) continue
+      const sourceDocument = sourceDocumentForRecord(record, sourceDocuments)
+      const allReferences = collectPf2eSourceReferences(sourceDocument, { resolveTarget })
+      sourceReferenceCount += allReferences.length
+      unresolvedTargetCount += allReferences.filter((reference) => (
+        reference.target.package === 'pf2e' && !reference.target.type
+      )).length
+
+      const semanticReferences = allReferences.filter((reference) => (
+        SEMANTIC_TARGET_TYPES.has(reference.target.type)
+      ))
+      if (semanticReferences.length === 0) continue
+
+      recordsWithReferences += 1
+      referenceCount += semanticReferences.length
+      byDomain.get(record.domain).push([
+        record.contentId,
+        semanticReferences.map(compactReference),
+      ])
+    }
+  }
+
+  const generatedRoot = join(outputRoot, 'source_reference_index', 'generated')
+  if (write) mkdirSync(generatedRoot, { recursive: true })
+
+  const changedFiles = []
+  for (const [domain, config] of Object.entries(DOMAIN_CONFIG)) {
+    const entries = byDomain.get(domain)
+      .sort((left, right) => left[0].localeCompare(right[0]))
+    const expected = generatedFileSource(config.exportName, entries)
+    const path = join(generatedRoot, config.file)
+    const current = existsSync(path) ? readFileSync(path, 'utf8') : null
+    if (current === expected) continue
+
     changedFiles.push(relative(outputRoot, path).replaceAll('\\', '/'))
-    if (write) writeFileSync(path, rewriteGeneratedArray(source, enriched, path))
+    if (write) writeFileSync(path, expected)
   }
 
   return {
-    fileCount: files.length,
+    fileCount: originalCatalogFiles(outputRoot).length,
     recordCount,
+    sourceReferenceCount,
     recordsWithReferences,
     referenceCount,
+    unresolvedTargetCount,
     changedFileCount: changedFiles.length,
     changedFiles,
   }
