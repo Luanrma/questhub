@@ -51,6 +51,8 @@ A resolução permanece field-by-field. Quando apenas o nome está traduzido, po
 
 O exemplo `Effect: Swarming Bites`, usado durante a revisão humana, possui overlay editorial explícito para demonstrar o fluxo `pt-BR`; sua identidade continua sendo a definição canônica, não o texto traduzido.
 
+A cobertura editorial integral de todas as definições `kind: effect` foi separada para **QH-EFF-016 — Traduzir integralmente o catálogo PF2e de Active Effects para pt-BR**. O QH-EFF-015 entrega o contrato de localização/fallback e pode conter traduções já revisadas, mas cobertura de 100% do catálogo não é critério de conclusão deste card.
+
 ### Rota de conteúdo
 
 `content_catalog/routes.ts` publica:
@@ -108,16 +110,19 @@ Ele é agnóstico ao Game System. Recebe por props:
 - metadata de localização;
 - conteúdo contextual opcional.
 
-O mesmo componente é usado por:
+O mesmo shell é alcançado por:
 
 - `PathfinderActiveEffectDefinitionModal`, ao abrir uma referência de conteúdo PF2e;
-- `CampaignActiveEffectDefinitionModal`, ao abrir um efeito a partir do Token.
+- `CampaignActiveEffectDefinitionModal`, ao abrir um Active Effect aplicado pela ficha;
+- `CampaignActiveEffectDefinitionModal`, ao abrir o mesmo Active Effect aplicado pelos ícones do Token.
 
-Isso substitui o antigo modal escuro local de `TokenPresentationOverlay.tsx`; portanto não há mais duas UIs concorrentes para a mesma definição canônica.
+**Ficha e Token não possuem implementações concorrentes de detalhe.** Ambos entregam a instância `ActorEffectView` para o mesmo `CampaignActiveEffectDefinitionModal`, que usa a mesma `definitionKey`, a mesma rota da Composition Root e o mesmo `ActiveEffectDefinitionModal`.
 
-### Web — Token
+O antigo modal escuro local de `TokenPresentationOverlay.tsx` foi removido, assim como o antigo `overlay.kind === 'detail'` de `ActorActiveEffectsPanel.tsx`. Editar/remover permanecem ações de gerenciamento separadas da consulta da definição.
 
-`TokenPresentationOverlay.tsx` continua recebendo somente `ActorEffectView` genérico. Ao selecionar um efeito, delega o detalhe para `CampaignActiveEffectDefinitionModal`.
+### Web — ficha e Token
+
+`ActorActiveEffectsPanel.tsx` e `TokenPresentationOverlay.tsx` continuam recebendo somente `ActorEffectView` genérico. Ao selecionar um efeito, ambos delegam o detalhe para `CampaignActiveEffectDefinitionModal`.
 
 `CampaignActiveEffectDefinitionModal.tsx`:
 
@@ -128,6 +133,8 @@ Isso substitui o antigo modal escuro local de `TokenPresentationOverlay.tsx`; po
 - normaliza defensivamente descrições antigas;
 - não importa nenhum módulo PF2e;
 - não executa mutações.
+
+A lista compacta sobre o Token não renderiza a descrição longa e usa `overflow-x-hidden`, evitando a barra horizontal observada na revisão humana. A descrição completa pertence exclusivamente ao modal compartilhado.
 
 Assim, o VTT conhece apenas a capacidade genérica “consultar apresentação de uma definição do Game System”.
 
@@ -168,7 +175,7 @@ A query canônica cobre ainda:
 
 ## Não execução
 
-A navegação de conteúdo e o detalhe aberto pelo Token são somente leitura.
+A navegação de conteúdo e o detalhe aberto pela ficha ou pelo Token são somente leitura.
 
 `potential=true` significa apenas que o mapping anterior identificou uma ocorrência potencialmente aplicável. A navegação continua consultiva.
 
@@ -205,7 +212,8 @@ Além dos gates automatizados, validar:
 - Item com Condition valorada, como Abysium Chunk;
 - Bestiary Action/Hazard com referência estrutural;
 - abertura e fechamento do modal de definição;
-- mesmo card visual ao abrir uma definição por referência e pelo Token;
+- ficha e Token abrindo exatamente o mesmo `CampaignActiveEffectDefinitionModal` para a mesma instância aplicada;
+- referências de conteúdo convergindo no mesmo `ActiveEffectDefinitionModal` compartilhado;
 - seleção `pt-BR` / `en-US`;
 - ausência de `<p>`, `@Check[...]` e referências Foundry cruas suportadas no texto final;
 - preservação visual de parágrafos separados;
