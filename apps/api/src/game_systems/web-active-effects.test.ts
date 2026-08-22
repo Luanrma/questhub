@@ -8,6 +8,7 @@ const webRoot = path.join(root, 'apps', 'web', 'src')
 const panelFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActorActiveEffectsPanel.tsx')
 const hookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useActorActiveEffects.ts')
 const tokenEffectHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useTokenActiveEffects.ts')
+const localInvalidationFile = path.join(webRoot, 'vtt', 'actor-effects', 'localInvalidation.ts')
 const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacterSheetActorContext.ts')
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
 const tokenPresentationOverlayFile = path.join(webRoot, 'vtt', 'token-presentation', 'TokenPresentationOverlay.tsx')
@@ -47,20 +48,34 @@ test('active effect summary is compact, capped at six and has no horizontal scro
   assert.match(source, /Tentar novamente/)
 })
 
-test('manual create and update bodies expose only presentation fields approved by QH-EFF-002', () => {
+test('manual create and update bodies expose only generic presentation fields and never require an icon URL', () => {
   const source = read(panelFile)
   const bodyMatch = source.match(/const body = \{([\s\S]*?)\n    \}/)
   assert.ok(bodyMatch, 'manual effect mutation body must exist')
   const body = bodyMatch[1]
   assert.match(body, /name:/)
   assert.match(body, /description:/)
-  assert.match(body, /iconUrl:/)
   assert.match(body, /polarity:/)
   assert.match(body, /category:/)
   assert.match(body, /displayValue:/)
-  assert.doesNotMatch(body, /namespace|definitionKey|schemaVersion|payload|origin/)
+  assert.doesNotMatch(body, /iconUrl|namespace|definitionKey|schemaVersion|payload|origin/)
+  assert.doesNotMatch(source, /URL do ícone/)
+  assert.match(source, /Ícone automático/)
+  assert.match(source, /effect\.iconUrl/)
   assert.match(source, /window\.confirm/)
   assert.match(source, /method: 'DELETE'/)
+})
+
+test('successful manual mutations publish local invalidation as well as reloading the sheet panel', () => {
+  const source = read(panelFile)
+  const invalidation = read(localInvalidationFile)
+
+  assert.match(source, /publishLocalActorEffectsChanged\(\{ campaignId, actorId \}\)/)
+  assert.match(source, /function invalidateAfterMutation\(\)[\s\S]*publishLocalActorEffectsChanged[\s\S]*reload\(\)/)
+  assert.ok((source.match(/invalidateAfterMutation\(\)/g) ?? []).length >= 3)
+  assert.match(invalidation, /questhub:vtt:actor-effects:changed/)
+  assert.match(invalidation, /window\.dispatchEvent\(new CustomEvent/)
+  assert.doesNotMatch(invalidation, /effects|payload|origin|setInterval|setTimeout/)
 })
 
 test('mutation feedback is visible in effect detail and cleared with the overlay', () => {
@@ -107,31 +122,56 @@ test('token overlay composes generic actor effects separately from game-system t
   assert.doesNotMatch(tokenHook, /game-system-effects/)
 })
 
+test('active effects occupy the lane above the token while resources stay below it', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.match(overlay, /style=\{\{ left: overlayLeft, top, width: overlayWidth, height: size \}\}/)
+  assert.match(overlay, /absolute bottom-full[\s\S]*<ActiveEffectIndicators effects=\{effects\}/)
+  assert.match(overlay, /absolute left-0 right-0 top-full mt-1 grid gap-1/)
+})
+
 test('token effect summary caps at three plus overflow and preserves all detail instances', () => {
   const overlay = read(tokenPresentationOverlayFile)
 
   assert.match(overlay, /effects\.slice\(0, 3\)/)
   assert.match(overlay, /\+\{hiddenCount\}/)
   assert.match(overlay, /effects\.map\(\(effect\) =>/)
+  assert.match(overlay, /openDetail\(effect\)/)
+  assert.match(overlay, /EffectDetailModal/)
   assert.match(overlay, /effect\.displayValue/)
   assert.match(overlay, /effect\.polarity/)
   assert.match(overlay, /effect\.description/)
   assert.match(overlay, /effect\.category/)
 })
 
-test('token effect detail never renders opaque effect identity or payload fields', () => {
+test('expanded token effects close on outside click and protect their internal pointer interactions', () => {
   const overlay = read(tokenPresentationOverlayFile)
 
+  assert.match(overlay, /document\.addEventListener\('pointerdown', onOutsidePointerDown, true\)/)
+  assert.match(overlay, /root\.contains\(event\.target as Node\)/)
+  assert.match(overlay, /event\.stopPropagation\(\)[\s\S]*setOpen\(false\)/)
+  assert.match(overlay, /onPointerDown=\{\(event\) => event\.stopPropagation\(\)\}/)
+})
+
+test('token effect detail is a dedicated read-only modal and never renders opaque fields', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.match(overlay, /createPortal\(/)
+  assert.match(overlay, /role="dialog"/)
+  assert.match(overlay, /Detalhes do efeito/)
+  assert.match(overlay, /Valor exibido/)
+  assert.match(overlay, /Descrição/)
   assert.doesNotMatch(overlay, /effect\.(?:payload|origin|namespace|definitionKey)/)
   assert.doesNotMatch(overlay, /JSON\.stringify\([^)]*(?:payload|origin)/)
 })
 
-test('token actor-effect hook refreshes on matching effect/token changes and reconnect without polling', () => {
+test('token actor-effect hook refreshes on socket, local invalidation, token changes and reconnect without polling', () => {
   const source = read(tokenEffectHookFile)
 
   assert.match(source, /'vtt:actor-effects:changed'/)
+  assert.match(source, /subscribeLocalActorEffectsChanged\(onLocalEffectsChanged\)/)
   assert.match(source, /payload\.campaignId !== activeCampaignId/)
-  assert.match(source, /payload\.actorId !== state\.actorId/)
+  assert.match(source, /payload\.actorId === state\.actorId/)
   assert.match(source, /'vtt:token:changed'/)
   assert.match(source, /payload\.token\.id !== activeTokenId/)
   assert.match(source, /socket\?\.on\('connect', refresh\)/)
@@ -144,6 +184,7 @@ test('generic actor effects UI contains no concrete game-system semantics', () =
     read(panelFile),
     read(hookFile),
     read(tokenEffectHookFile),
+    read(localInvalidationFile),
     read(contextHookFile),
     read(typesFile),
     read(tokenPresentationOverlayFile),
