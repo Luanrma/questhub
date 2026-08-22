@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { useSession } from '../../contexts/session-context'
 import { api } from '../../lib/api'
 import type { TokenIdentityChangedPayload } from '../token-presentation/types'
+import {
+  subscribeLocalActorEffectsChanged,
+  type LocalActorEffectsChangedPayload,
+} from './localInvalidation'
 import type { ActorEffectsChangedPayload, ActorEffectView } from './types'
 
 type TokenActorEffectsResponse = {
@@ -80,9 +84,18 @@ export function useTokenActiveEffects(
       setRefreshVersion((current) => current + 1)
     }
 
+    function matchesActor(payload: ActorEffectsChangedPayload | LocalActorEffectsChangedPayload) {
+      if (payload.campaignId !== activeCampaignId) return false
+      return !state.actorId || payload.actorId === state.actorId
+    }
+
     function onEffectsChanged(payload: ActorEffectsChangedPayload) {
-      if (payload.campaignId !== activeCampaignId) return
-      if (!state.actorId || payload.actorId !== state.actorId) return
+      if (!matchesActor(payload)) return
+      refresh()
+    }
+
+    function onLocalEffectsChanged(payload: LocalActorEffectsChangedPayload) {
+      if (!matchesActor(payload)) return
       refresh()
     }
 
@@ -91,11 +104,13 @@ export function useTokenActiveEffects(
       refresh()
     }
 
+    const unsubscribeLocal = subscribeLocalActorEffectsChanged(onLocalEffectsChanged)
     socket?.on('vtt:actor-effects:changed', onEffectsChanged)
     socket?.on('vtt:token:changed', onTokenChanged)
     socket?.on('connect', refresh)
 
     return () => {
+      unsubscribeLocal()
       socket?.off('vtt:actor-effects:changed', onEffectsChanged)
       socket?.off('vtt:token:changed', onTokenChanged)
       socket?.off('connect', refresh)
