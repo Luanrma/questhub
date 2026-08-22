@@ -17,24 +17,37 @@ A decisão aprovada é **classificação individual por definição**:
 
 A decisão é registrada por `definitionKey = {sourcePack}:{sourceId}`. O runtime não interpreta nome, descrição, Rule Elements, sinais numéricos ou IA para decidir polaridade.
 
-## Exemplo de NEUTRAL válido
+## Cobertura vigente
 
-`bestiary-effects:1toVzNVJZx0RwG1v` — **Effect: Darivan's Bloodline Magic** permanece `NEUTRAL` por decisão explícita. A própria definição pode conceder bônus de Diplomacy a Darivan **ou** impor penalidade de Will a outro alvo. Não existe uma única polaridade correta no nível da definição.
+Para a revisão PF2e travada acima, **todos os 1.188 Effects publicados pelo recorte QuestHub possuem decisão editorial explícita por chave exata**:
+
+- 855 `BENEFICIAL`;
+- 331 `HARMFUL`;
+- 2 `NEUTRAL` explicitamente contextuais.
+
+As decisões ficam materializadas como dados estáticos nos manifests de `active-effect-polarity-editorial/` e são agregadas por `active-effect-polarity-editorial.ts`.
+
+O guard editorial usado durante desenvolvimento detecta Effects ainda `NEUTRAL` cuja descrição apresenta sinais unilateralmente benéficos ou prejudiciais. O resultado aprovado é materializado no repositório por `definitionKey`; **esse detector não participa da classificação em runtime**. Além dele, um teste exige igualdade exata entre o conjunto de chaves editoriais e o conjunto de Effects publicados.
+
+## NEUTRAL explícito
+
+`bestiary-effects:1toVzNVJZx0RwG1v` — **Effect: Darivan's Bloodline Magic** permanece `NEUTRAL`: a mesma definição pode conceder bônus de Diplomacy a Darivan ou impor penalidade de Will a outro alvo.
+
+`bestiary-effects:6E8bOkwFzFuQ3ZAw` — **Effect: Lurker's Glow (Critical Failure)** permanece `NEUTRAL`: iluminação é contextual e não constitui, por si só, vantagem ou prejuízo universal para o portador/alvo.
 
 Isso é diferente do comportamento rejeitado em Human Validation, no qual praticamente todos os `effect` permaneciam `NEUTRAL` por uma política blanket.
 
 ## Materialização vigente
 
-O catálogo continua contendo uma classificação explícita para toda definição publicada. Sobre a base materializada pelo gerador, `active-effect-polarity-editorial.ts` registra decisões individuais revisadas para Effects semanticamente inequívocos e para casos neutros deliberados.
-
 O carregamento do catálogo:
 
 - aplica somente decisões por chave exata;
 - valida que toda decisão editorial aponta para uma definição publicada de `kind = effect`;
+- exige cobertura editorial exata de todo Effect publicado;
 - não possui fallback do tipo `effect → NEUTRAL` ou `affliction → HARMFUL`;
-- preserva a classificação base explicitamente versionada quando não existe uma revisão editorial adicional para aquela chave.
+- preserva a classificação explicitamente versionada fora do domínio `effect` conforme o manifesto canônico.
 
-A ausência de override não é autorização para inferência em runtime. Novas definições continuam exigindo entrada explícita no manifesto de materialização antes de serem publicadas.
+A ausência de uma decisão para um Effect publicado é erro de regressão, não autorização para inferência em runtime.
 
 ## Conditions
 
@@ -60,6 +73,7 @@ Afflictions atualmente publicadas continuam com suas decisões explícitas versi
 
 Os testes devem impedir retorno à política blanket:
 
+- o conjunto de chaves editoriais deve ser exatamente igual ao conjunto de Effects publicados;
 - deve existir ao menos um `effect` publicado `BENEFICIAL`;
 - deve existir ao menos um `effect` publicado `HARMFUL`;
 - deve existir ao menos um `effect` explicitamente `NEUTRAL` por contexto misto;
