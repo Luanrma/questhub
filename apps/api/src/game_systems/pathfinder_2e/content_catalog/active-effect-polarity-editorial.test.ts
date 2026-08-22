@@ -61,6 +61,16 @@ function suggestedPolarity(description: string): SuggestedPolarity | null {
   return beneficial ? 'BENEFICIAL' : 'HARMFUL'
 }
 
+test('editorial polarity covers every published Effect exactly once by definitionKey', () => {
+  const publishedEffectKeys = listPathfinder2eActiveEffectDefinitions()
+    .filter((definition) => definition.kind === 'effect')
+    .map((definition) => definition.definitionKey)
+    .sort()
+  const editorialKeys = Object.keys(PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL).sort()
+
+  assert.deepEqual(editorialKeys, publishedEffectKeys)
+})
+
 test('obviously one-sided Effects are not left at the historical blanket NEUTRAL baseline', () => {
   const leftovers = listPathfinder2eActiveEffectDefinitions()
     .filter((definition) => definition.kind === 'effect' && definition.polarity === 'NEUTRAL')
