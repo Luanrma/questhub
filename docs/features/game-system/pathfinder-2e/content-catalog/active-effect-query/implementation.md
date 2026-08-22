@@ -59,11 +59,11 @@ Os testes cobrem:
 - presença de somente rotas GET para esse contrato;
 - manutenção da fronteira Game System/VTT.
 
-## Relação com os próximos cards
+## Relação com os cards seguintes
 
-QH-EFF-014 pode consumir a definição consultável para enriquecer a apresentação/aplicação de `CampaignActorEffect` sem duplicar metadata.
+QH-EFF-014 consome a definição consultável para enriquecer a apresentação/aplicação de `CampaignActorEffect` sem duplicar metadata.
 
-QH-EFF-015 poderá usar mappings de Spell/Item/Bestiary para navegar de uma ocorrência até este endpoint pela `definitionKey` e abrir o modal de detalhe. Outcome, valueHint e stageHint continuam contexto da ocorrência, não identidade da definição.
+QH-EFF-015 consome os mappings de Spell/Item/Bestiary para navegar de uma ocorrência até este endpoint pela `definitionKey` e abrir o detalhe canônico. Outcome, valueHint e stageHint continuam contexto da ocorrência, não identidade da definição.
 
 ## Limites mantidos
 
