@@ -25,6 +25,7 @@ jobs:
       - run: npm ci
       - run: npx tsx scripts/qh-eff-016-inventory.mts
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: qh-eff-016-effect-inventory
           path: qh-eff-016-artifact/
