@@ -1,5 +1,6 @@
 import type { Server as HttpServer } from 'node:http'
 import { randomInt } from 'node:crypto'
+import type { Prisma } from '@prisma/client'
 import cookie from 'cookie'
 import { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
@@ -73,11 +74,6 @@ export function setupCampaignPresence(server: HttpServer) {
 
   function isCampaignOnline(campaignId: string) {
     return state.isCampaignOnline(campaignId)
-  }
-
-  function isSessionMaster(campaignId: string, socketId: string, userId: string) {
-    const online = state.getCampaignOnline(campaignId)
-    return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)
   }
 
   function getCampaignSessionState(campaignId: string) {
@@ -279,14 +275,14 @@ export function setupCampaignPresence(server: HttpServer) {
       )
     }
 
-    const controlledTokenWhere = {
+    const controlledTokenWhere: Prisma.CampaignTokenWhereInput = {
       campaignId,
       OR: [
         { actor: { controllerMember: { userId: socketUser.id } } },
         { actorId: null, controllerMember: { userId: socketUser.id } },
       ],
       placement: { isNot: null },
-    } as const
+    }
     const token = await prisma.campaignToken.findFirst({
       where: controlledTokenWhere,
       orderBy: { createdAt: 'asc' },
@@ -767,11 +763,6 @@ export function setupCampaignPresence(server: HttpServer) {
     })
 
     await emitCampaignTokenSnapshot(campaignId, socket.id, scene?.id ?? null)
-  }
-
-  async function emitVisibleTableSnapshots(campaignId: string) {
-    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
-    await Promise.all(sockets.map((campaignSocket) => emitVisibleTableSnapshot(campaignId, campaignSocket)))
   }
 
   function emitCampaignScene(campaignId: string, scene: VttTableScene | null) {

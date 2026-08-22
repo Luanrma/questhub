@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify'
+import type { Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
@@ -142,7 +143,7 @@ export function registerInventoryRoutes(app: FastifyInstance) {
           user: { select: { email: true } },
         },
       },
-    } as const
+    } satisfies Prisma.CampaignActorSelect
     const catalogSheetSystemKey = catalogTokenSheetSystemKey(
       member.campaign.gameSystem as GameSystemKey,
     )
@@ -152,7 +153,7 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         { characterSheet: { is: null } },
         { characterSheet: { is: { systemKey: { not: catalogSheetSystemKey } } } },
       ],
-    } as const
+    } satisfies Prisma.CampaignActorWhereInput
 
     const actors = member.role === 'MASTER'
       ? await prisma.campaignActor.findMany({

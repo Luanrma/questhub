@@ -39,14 +39,14 @@ export class PrismaAreaRepository implements AreaRepository {
     if (role === 'MASTER') return null
     const viewState = await prisma.campaignSceneViewState.findUnique({ where: { campaignId }, select: { forcedSceneId: true } })
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
-    const controlledTokenWhere = {
+    const controlledTokenWhere: Prisma.CampaignTokenWhereInput = {
       campaignId,
       OR: [
         { actor: { controllerMemberId: memberId } },
         { actorId: null, controllerMemberId: memberId },
       ],
       placement: { isNot: null },
-    } as const
+    }
     const token = await prisma.campaignToken.findFirst({
       where: controlledTokenWhere,
       orderBy: { createdAt: 'asc' },

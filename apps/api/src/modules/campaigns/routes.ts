@@ -91,7 +91,7 @@ function presentCampaignToken(token: {
       user: { email: string }
     } | null
   } | null
-  controllerMember: { id: string; userId: string; user: { email: string } } | null
+  controllerMember: { id: string; userId: string; role: 'MASTER' | 'PLAYER'; user: { email: string } } | null
   placement: {
     sceneId: string
     hidden: boolean
@@ -140,6 +140,7 @@ function presentCampaignToken(token: {
 const campaignTokenInclude = {
   actor: {
     select: {
+      id: true,
       controllerMember: {
         select: { id: true, userId: true, role: true, user: { select: { email: true } } },
       },
