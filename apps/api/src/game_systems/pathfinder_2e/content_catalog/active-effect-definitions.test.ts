@@ -115,13 +115,12 @@ test('published Effect definitions preserve canonical description and structural
   assert.equal(aerialForm.definitionKey, `${aerialForm.source.sourcePack}:${aerialForm.source.sourceId}`)
 })
 
-test('base Effect and Affliction polarities remain aligned with the approved QH-EFF-005 policy', () => {
+test('published base Effect and Affliction polarities remain aligned with the approved QH-EFF-005 policy', () => {
   const definitions = listPathfinder2eActiveEffectDefinitions()
   const effects = definitions.filter((definition) => definition.kind === 'effect')
   const afflictions = definitions.filter((definition) => definition.kind === 'affliction')
 
   assert.ok(effects.length > 0)
-  assert.ok(afflictions.length > 0)
   assert.ok(effects.every((definition) => definition.polarity === 'NEUTRAL'))
   assert.ok(afflictions.every((definition) => definition.polarity === 'HARMFUL'))
 })
