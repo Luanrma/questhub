@@ -39,3 +39,17 @@ test('QH-EFF-013 exposes read-only list and exact-definition routes for PF2e Act
     /app\.(?:post|put|patch|delete)\('\/api\/game-systems\/pathfinder-2e\/content\/active-effects/,
   )
 })
+
+test('QH-EFF-015 exposes structural references through a read-only PF2e route', () => {
+  const source = routeSource()
+
+  assert.match(
+    source,
+    /app\.get\('\/api\/game-systems\/pathfinder-2e\/content\/active-effect-references\/:contentId'/,
+  )
+  assert.match(source, /getPathfinder2eActiveEffectReferences/)
+  assert.doesNotMatch(
+    source,
+    /app\.(?:post|put|patch|delete)\('\/api\/game-systems\/pathfinder-2e\/content\/active-effect-references/,
+  )
+})
