@@ -25,11 +25,13 @@ QH-EFF-012 mantém esse inventário completo e sobrepõe, por chave exata, decis
 
 Os overrides ficam materializados como dados estáticos nos manifests de `active-effect-polarity-editorial/` e são agregados por `active-effect-polarity-editorial.ts` sobre o conjunto canônico completo.
 
-O guard editorial usado durante desenvolvimento detecta Effects ainda `NEUTRAL` cuja descrição apresenta sinais unilateralmente benéficos ou prejudiciais. O resultado aprovado é materializado no repositório por `definitionKey`; **esse detector não participa da classificação em runtime**. Além dele, um teste exige igualdade exata entre o conjunto final de chaves editoriais resolvidas e o conjunto de Effects publicados.
+O guard editorial usado durante desenvolvimento detecta Effects ainda `NEUTRAL` cuja descrição apresenta sinais unilateralmente benéficos ou prejudiciais. Ele é somente uma ferramenta de triagem: uma sugestão heurística **não pode sobrescrever uma decisão contextual já revisada**. O resultado editorial aprovado é materializado no repositório por `definitionKey`; esse detector não participa da classificação em runtime. Além dele, um teste exige igualdade exata entre o conjunto final de chaves editoriais resolvidas e o conjunto de Effects publicados.
 
 ## Exemplos de NEUTRAL explícito
 
 `bestiary-effects:1toVzNVJZx0RwG1v` — **Effect: Darivan's Bloodline Magic** permanece `NEUTRAL`: a mesma definição pode conceder bônus de Diplomacy a Darivan ou impor penalidade de Will a outro alvo.
+
+`bestiary-effects:5w675gmnZqbND0mt` — **Effect: Flesh Mutation** permanece `NEUTRAL`: a decisão contextual já revisada prevalece mesmo quando o detector de desenvolvimento encontra um sinal textual unilateral.
 
 `bestiary-effects:6E8bOkwFzFuQ3ZAw` — **Effect: Lurker's Glow (Critical Failure)** permanece `NEUTRAL`: iluminação é contextual e não constitui, por si só, vantagem ou prejuízo universal para o portador/alvo.
 
@@ -78,6 +80,6 @@ Os testes devem impedir retorno à política blanket:
 - deve existir ao menos um `effect` explicitamente `NEUTRAL` por contexto misto;
 - Oceanic Armor é representante `BENEFICIAL`;
 - Swarming Bites é representante `HARMFUL`;
-- Darivan's Bloodline Magic é representante `NEUTRAL`;
+- Darivan's Bloodline Magic, Flesh Mutation e Lurker's Glow são regressões explícitas de `NEUTRAL` contextual;
 - todo override editorial deve apontar para uma chave publicada exata;
 - nenhuma inferência de polaridade deve ocorrer no VTT Core ou no runtime genérico.
