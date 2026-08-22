@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { getPathfinder2eActiveEffectDefinition } from './active-effect-definitions'
+import {
+  getPathfinder2eActiveEffectDefinition,
+  listPathfinder2eActiveEffectDefinitions,
+} from './active-effect-definitions'
 import { resolvePathfinder2eActiveEffectDisplay } from './active-effect-localization'
 import {
   getPathfinder2eActiveEffectDefinitionView,
@@ -88,17 +91,23 @@ test('Active Effect discovery can search by stable definitionKey but exact looku
   assert.equal(getPathfinder2eActiveEffectDefinitionView('Frightened', 'en-US'), null)
 })
 
-test('Active Effect listing exposes published Afflictions through the same read-only contract', () => {
+test('Active Effect listing mirrors the canonical published Affliction inventory without inventing entries', () => {
+  const canonicalAfflictionKeys = listPathfinder2eActiveEffectDefinitions()
+    .filter((definition) => definition.kind === 'affliction')
+    .map((definition) => definition.definitionKey)
+
   const result = listPathfinder2eActiveEffectDefinitionViews({
     locale: 'pt-BR',
     kind: 'affliction',
     limit: 5,
   })
 
-  assert.ok(result.page.total > 0)
-  assert.ok(result.items.length > 0)
+  assert.equal(result.page.total, canonicalAfflictionKeys.length)
+  assert.deepEqual(
+    result.items.map((definition) => definition.definitionKey),
+    canonicalAfflictionKeys.slice(0, 5),
+  )
   assert.ok(result.items.every((definition) => definition.kind === 'affliction'))
-  assert.ok(result.items.every((definition) => definition.description !== undefined))
 })
 
 test('Active Effect pagination is deterministic and clamps internal limits to the public maximum', () => {
