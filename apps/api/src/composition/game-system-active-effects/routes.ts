@@ -8,7 +8,10 @@ import {
   resolvePathfinder2eEffectApplication,
   type Pathfinder2eEffectResolutionFailure,
 } from '../../game_systems/pathfinder_2e/active-effects/application'
-import { listPathfinder2eActiveEffectDefinitionViews } from '../../game_systems/pathfinder_2e/content_catalog/active-effect-query'
+import {
+  getPathfinder2eActiveEffectDefinitionView,
+  listPathfinder2eActiveEffectDefinitionViews,
+} from '../../game_systems/pathfinder_2e/content_catalog/active-effect-query'
 import { requireAuth } from '../../http/auth'
 import { campaignRoom } from '../../modules/campaign-presence/rooms'
 import { createActorEffect } from '../../modules/campaign_actor_effects/service'
@@ -21,9 +24,17 @@ const actorParamsSchema = campaignParamsSchema.extend({
   actorId: z.string().trim().min(1),
 }).strict()
 
+const definitionParamsSchema = campaignParamsSchema.extend({
+  definitionKey: z.string().trim().min(1).max(240),
+}).strict()
+
 const definitionQuerySchema = z.object({
   q: z.string().trim().max(120).optional().default(''),
   limit: z.coerce.number().int().min(1).max(100).optional().default(50),
+}).strict()
+
+const definitionDetailQuerySchema = z.object({
+  locale: z.enum(['pt-BR', 'en-US']).optional().default('pt-BR'),
 }).strict()
 
 const candidateQuerySchema = z.object({
@@ -116,6 +127,47 @@ function sendResolutionFailure(
   return reply.status(404).send({ error: 'Definicao ou origem de efeito PF2e nao encontrada' })
 }
 
+function definitionPresentation(definition: NonNullable<ReturnType<typeof getPathfinder2eActiveEffectDefinitionView>>) {
+  const kindLabels = {
+    condition: 'Condição',
+    effect: 'Efeito',
+    affliction: 'Aflição',
+  } as const
+  const polarityLabels = {
+    BENEFICIAL: 'Benéfico',
+    HARMFUL: 'Prejudicial',
+    NEUTRAL: 'Neutro',
+  } as const
+
+  return {
+    definitionKey: definition.definitionKey,
+    headerLabel: 'Definição canônica PF2e',
+    name: definition.name,
+    description: definition.description,
+    descriptionBlocks: definition.descriptionBlocks,
+    iconUrl: definition.iconUrl,
+    polarity: definition.polarity,
+    tags: [
+      { label: kindLabels[definition.kind], tone: 'neutral' as const },
+      {
+        label: polarityLabels[definition.polarity],
+        tone: definition.polarity === 'HARMFUL'
+          ? 'harmful' as const
+          : definition.polarity === 'BENEFICIAL'
+            ? 'beneficial' as const
+            : 'neutral' as const,
+      },
+      ...(definition.group ? [{ label: definition.group, tone: 'neutral' as const }] : []),
+      ...(definition.kind === 'condition' && definition.conditionValue?.isValued
+        ? [{ label: 'Condição com valor', tone: 'accent' as const }]
+        : []),
+    ],
+    sourceLabel: definition.source.publicationTitle ?? null,
+    localization: definition.localization,
+    supportedLocales: ['pt-BR', 'en-US'] as const,
+  }
+}
+
 export function registerGameSystemActiveEffectCompositionRoutes(
   app: FastifyInstance,
   io: Server,
@@ -154,6 +206,34 @@ export function registerGameSystemActiveEffectCompositionRoutes(
     }))
 
     return reply.send({ gameSystem: campaign.gameSystem, definitions })
+  })
+
+  app.get('/api/campaigns/:campaignId/game-system-effects/definitions/:definitionKey', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = definitionParamsSchema.safeParse(req.params)
+    const query = definitionDetailQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) {
+      return reply.status(400).send({ error: 'Definicao de efeito invalida' })
+    }
+
+    const campaign = await findAccessibleCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+    if (!isPathfinder2e(campaign.gameSystem)) {
+      return reply.status(409).send({ error: 'O sistema da campanha nao fornece detalhes canonicos de efeito' })
+    }
+
+    const definition = getPathfinder2eActiveEffectDefinitionView(
+      params.data.definitionKey,
+      query.data.locale,
+    )
+    if (!definition) return reply.status(404).send({ error: 'Definicao de efeito nao encontrada' })
+
+    return reply.send({
+      gameSystem: campaign.gameSystem,
+      presentation: definitionPresentation(definition),
+    })
   })
 
   app.get('/api/campaigns/:campaignId/game-system-effects/candidates', async (req, reply) => {
