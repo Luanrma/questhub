@@ -24,7 +24,8 @@ A definição usada para apresentação é resolvida pelo contrato canônico de 
 `active-effect-description.ts` converte a descrição publicada em uma projeção segura para UI:
 
 - remove blocos executáveis `script`/`style`;
-- converte tags de bloco em separação textual;
+- converte parágrafos e demais tags de bloco em `descriptionBlocks`, preservando a separação editorial entre parágrafos;
+- preserva quebras internas de listas sem expor markup;
 - remove tags HTML remanescentes;
 - decodifica entidades HTML;
 - transforma referências `@Compendium[...]` e `@UUID[...]` em seus labels;
@@ -76,6 +77,8 @@ Essa rota é o seam usado pelo VTT para consultar uma definição já vinculada 
 4. devolve uma projeção genérica de apresentação.
 
 Para PF2e, a projeção contém nome, blocos de descrição já formatados, ícone, polaridade, tags, fonte e metadata de localização. O consumidor no VTT não precisa conhecer `condition`, source pack ou qualquer outra semântica PF2e.
+
+O teste de contrato da Composition Root fixa que essa rota é `GET`, usa acesso de membro e não contém criação de Actor Effect, publicação de invalidação, target `actorId` ou mutation verb.
 
 ### Web — referências de conteúdo
 
@@ -161,6 +164,8 @@ A query canônica cobre ainda:
 - remoção/conversão de macros suportadas;
 - fallback de localização explícito quando um campo não possui tradução.
 
+`active-effect-description.test.ts` cobre diretamente a regressão observada em Human Approval: múltiplos `<p>` viram blocos separados, `@Check[...]`/`@Compendium[...]` não vazam para a UI e markup executável é descartado.
+
 ## Não execução
 
 A navegação de conteúdo e o detalhe aberto pelo Token são somente leitura.
@@ -203,6 +208,7 @@ Além dos gates automatizados, validar:
 - mesmo card visual ao abrir uma definição por referência e pelo Token;
 - seleção `pt-BR` / `en-US`;
 - ausência de `<p>`, `@Check[...]` e referências Foundry cruas suportadas no texto final;
+- preservação visual de parágrafos separados;
 - aviso de fallback quando a tradução de um campo estiver ausente;
 - fallback seguro para Actor Effect manual/sem `definitionKey`;
 - ausência de qualquer alteração em Active Effects do ator após consultar o detalhe.
