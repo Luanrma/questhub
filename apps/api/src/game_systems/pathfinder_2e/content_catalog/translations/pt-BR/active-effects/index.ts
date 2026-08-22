@@ -10,6 +10,7 @@ import { PATHFINDER_2E_CAMPAIGN_EFFECT_PT_BR, type Pathfinder2eEffectPtBrTransla
 import { PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_01 } from './equipment-01'
 import { PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_02 } from './equipment-02'
 import { PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_03 } from './equipment-03'
+import { PATHFINDER_2E_MISC_EFFECT_PT_BR } from './misc'
 
 export const PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS = Object.freeze({
   ...PATHFINDER_2E_BESTIARY_EFFECT_PT_BR_01,
@@ -24,6 +25,7 @@ export const PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS = Object.freeze({
   ...PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_01,
   ...PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_02,
   ...PATHFINDER_2E_EQUIPMENT_EFFECT_PT_BR_03,
+  ...PATHFINDER_2E_MISC_EFFECT_PT_BR,
 } satisfies Readonly<Record<string, Pathfinder2eEffectPtBrTranslation>>)
 
 export type { Pathfinder2eEffectPtBrTranslation }
