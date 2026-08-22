@@ -1,0 +1,147 @@
+name: QH-EFF-016 API Type Repair
+
+on:
+  push:
+    branches:
+      - fix/qh-eff-016-api-build-gate
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/qh-eff-016-api-build-gate
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Apply strict API type fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_exact(path: str, old: str, new: str, expected: int = 1) -> None:
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != expected:
+                  raise SystemExit(f"{path}: expected {expected} occurrence(s), found {count}: {old!r}")
+              p.write_text(text.replace(old, new))
+
+          # inventory_api/routes.ts: preserve literal select inference while giving Prisma
+          # a mutable WhereInput for OR arrays.
+          path = 'apps/api/src/game_systems/inventory_api/routes.ts'
+          replace_exact(
+              path,
+              "import type { FastifyInstance } from 'fastify'\n",
+              "import type { FastifyInstance } from 'fastify'\nimport type { Prisma } from '@prisma/client'\n",
+          )
+          replace_exact(
+              path,
+              "    } as const\n    const catalogSheetSystemKey = catalogTokenSheetSystemKey(",
+              "    } satisfies Prisma.CampaignActorSelect\n    const catalogSheetSystemKey = catalogTokenSheetSystemKey(",
+          )
+          replace_exact(
+              path,
+              "    } as const\n\n    const actors = member.role === 'MASTER'",
+              "    } satisfies Prisma.CampaignActorWhereInput\n\n    const actors = member.role === 'MASTER'",
+          )
+
+          # registry/register.ts: withoutCampaignActorInventory intentionally accepts the
+          # checked create shape, so connect the Campaign relation instead of passing the
+          # unchecked campaignId scalar.
+          replace_exact(
+              'apps/api/src/game_systems/registry/register.ts',
+              "data: withoutCampaignActorInventory({\n          campaignId: campaign.id,",
+              "data: withoutCampaignActorInventory({\n          campaign: { connect: { id: campaign.id } },",
+              expected=2,
+          )
+
+          # presence-handlers.ts: dependency remains part of the contract but is not used
+          # by this handler module, so do not bind a dead local.
+          replace_exact(
+              'apps/api/src/modules/campaign-presence/handlers/presence-handlers.ts',
+              "    getCampaignSessionState,\n",
+              "",
+          )
+
+          # campaign-presence/socket.ts: remove two genuinely dead local helpers and type
+          # the Prisma where object rather than freezing OR into a readonly tuple.
+          path = 'apps/api/src/modules/campaign-presence/socket.ts'
+          replace_exact(
+              path,
+              "import { randomInt } from 'node:crypto'\n",
+              "import { randomInt } from 'node:crypto'\nimport type { Prisma } from '@prisma/client'\n",
+          )
+          replace_exact(
+              path,
+              "  function isSessionMaster(campaignId: string, socketId: string, userId: string) {\n    const online = state.getCampaignOnline(campaignId)\n    return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)\n  }\n\n",
+              "",
+          )
+          replace_exact(
+              path,
+              "    const controlledTokenWhere = {\n      campaignId,",
+              "    const controlledTokenWhere: Prisma.CampaignTokenWhereInput = {\n      campaignId,",
+          )
+          replace_exact(
+              path,
+              "      placement: { isNot: null },\n    } as const\n",
+              "      placement: { isNot: null },\n    }\n",
+          )
+          replace_exact(
+              path,
+              "  async function emitVisibleTableSnapshots(campaignId: string) {\n    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()\n    await Promise.all(sockets.map((campaignSocket) => emitVisibleTableSnapshot(campaignId, campaignSocket)))\n  }\n\n",
+              "",
+          )
+
+          # campaigns/routes.ts: the direct controller selection already includes role;
+          # reflect it in the presenter type. Also select actor.id so update logic never
+          # produces a union variant without id.
+          path = 'apps/api/src/modules/campaigns/routes.ts'
+          replace_exact(
+              path,
+              "  controllerMember: { id: string; userId: string; user: { email: string } } | null\n",
+              "  controllerMember: { id: string; userId: string; role: 'MASTER' | 'PLAYER'; user: { email: string } } | null\n",
+          )
+          replace_exact(
+              path,
+              "  actor: {\n    select: {\n      controllerMember:",
+              "  actor: {\n    select: {\n      id: true,\n      controllerMember:",
+          )
+
+          # area-repository.ts: same readonly OR issue; keep Prisma's mutable WhereInput.
+          path = 'apps/api/src/modules/effect_area/infra/area-repository.ts'
+          replace_exact(
+              path,
+              "    const controlledTokenWhere = {\n      campaignId,",
+              "    const controlledTokenWhere: Prisma.CampaignTokenWhereInput = {\n      campaignId,",
+          )
+          replace_exact(
+              path,
+              "      placement: { isNot: null },\n    } as const\n",
+              "      placement: { isNot: null },\n    }\n",
+          )
+          PY
+
+      - run: npm ci
+      - run: npm run db:generate
+      - run: npm run build:api
+      - run: git diff --check
+
+      - name: Commit verified repair
+        run: |
+          rm .github/workflows/qh-eff-016-fix-api-types.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "QH-EFF-016: fix API production type errors"
+          git push origin HEAD:fix/qh-eff-016-api-build-gate
