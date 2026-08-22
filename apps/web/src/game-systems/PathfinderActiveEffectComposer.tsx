@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Search, Sparkles, X } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
+import { publishLocalActorEffectsChanged } from '../vtt/actor-effects/localInvalidation'
+import { normalizeActorEffectPresentationText } from '../vtt/actor-effects/presentationText'
 import type { ActorEffectPresentation, ActorEffectView } from '../vtt/actor-effects/types'
 
 const PF2E_EFFECT_NAMESPACE = 'questhub:pathfinder-2e:active-effects:v1'
@@ -53,7 +55,7 @@ export function resolvePathfinderActorEffectPresentation(
   return {
     iconUrl: effect.iconUrl,
     originLabel: originLabels[type] ?? 'Pathfinder 2e',
-    summary: effect.description,
+    summary: normalizeActorEffectPresentationText(effect.description),
   }
 }
 
@@ -138,6 +140,7 @@ export function PathfinderActiveEffectComposer({ campaignId, actorId }: Props) {
           }),
         },
       )
+      publishLocalActorEffectsChanged({ campaignId, actorId })
       setOpen(false)
       setQuery('')
       setDefinitions([])
