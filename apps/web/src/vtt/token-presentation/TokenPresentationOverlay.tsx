@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { CircleDot, ShieldCheck, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { CircleDot, ShieldCheck, TriangleAlert, X } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import type { ActorEffectView } from '../actor-effects/types'
 import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
