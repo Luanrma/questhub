@@ -11,7 +11,10 @@ import { useCharacterSheetActorContext } from '../vtt/actor-effects/useCharacter
 import type { ActorEffectPresentationResolver } from '../vtt/actor-effects/types'
 import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 import { getCharacterSheetRenderer } from './character-sheet-renderers'
-import type { CharacterSheetRendererProps } from './character-sheet-renderers'
+import type {
+  ActiveEffectComposerProps,
+  CharacterSheetRendererProps,
+} from './character-sheet-renderers'
 import type { GameSystemKey } from './registry'
 
 type CampaignRole = 'MASTER' | 'PLAYER'
@@ -53,6 +56,7 @@ function CharacterSheetWindow({
   hidden,
   pages,
   Renderer,
+  ActiveEffectComposer,
   resolveActorEffectPresentation,
   onFocus,
   onPageChange,
@@ -66,6 +70,7 @@ function CharacterSheetWindow({
   hidden: boolean
   pages: readonly { id: string; label: string }[]
   Renderer: ComponentType<CharacterSheetRendererProps>
+  ActiveEffectComposer?: ComponentType<ActiveEffectComposerProps>
   resolveActorEffectPresentation?: ActorEffectPresentationResolver
   onFocus: () => void
   onPageChange: (pageId: string) => void
@@ -202,12 +207,17 @@ function CharacterSheetWindow({
       </nav> : null}
 
       {state.presentation === 'FULL' && actorId ? (
-        <ActorActiveEffectsPanel
-          campaignId={campaignId}
-          actorId={actorId}
-          canManage={role === 'MASTER'}
-          resolvePresentation={resolveActorEffectPresentation}
-        />
+        <>
+          {role === 'MASTER' && ActiveEffectComposer ? (
+            <ActiveEffectComposer campaignId={campaignId} actorId={actorId} />
+          ) : null}
+          <ActorActiveEffectsPanel
+            campaignId={campaignId}
+            actorId={actorId}
+            canManage={role === 'MASTER'}
+            resolvePresentation={resolveActorEffectPresentation}
+          />
+        </>
       ) : null}
 
       <div
@@ -304,6 +314,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem, role }
           hidden={state.minimized}
           pages={state.presentation === 'SIMPLIFIED' ? [] : registration.pages}
           Renderer={registration.Renderer}
+          ActiveEffectComposer={registration.ActiveEffectComposer}
           resolveActorEffectPresentation={registration.resolveActorEffectPresentation}
           onFocus={() => focusWindow(state.sheetId)}
           onPageChange={(activePage) => updateWindow(state.sheetId, { activePage })}
