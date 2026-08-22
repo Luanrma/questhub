@@ -31,7 +31,7 @@ export type Pathfinder2eActiveEffectDefinition = {
 }
 
 function assertSourceDocument(document: Pathfinder2eActiveEffectSourceDocument): void {
-  if (!document.definitionKey || !document.description.trim() || !document.name.trim()) {
+  if (!document.definitionKey || !document.name.trim() || typeof document.description !== 'string') {
     throw new Error(`Invalid PF2e active-effect source document: ${document.definitionKey}`)
   }
   if (document.definitionKey !== `${document.source.sourcePack}:${document.source.sourceId}`) {
