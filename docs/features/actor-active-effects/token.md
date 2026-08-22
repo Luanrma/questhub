@@ -19,14 +19,14 @@ Os efeitos ativos já podem ser persistidos, consultados na ficha e aplicados pe
 ## Escopo
 
 - exibir indicadores compactos junto a Tokens vinculados a `CampaignActor`;
-- consumir exclusivamente a API genérica de `CampaignActorEffect` de `QH-EFF-002`;
+- projetar o estado genérico de `CampaignActorEffect` por meio do vínculo estrutural `CampaignToken.actorId`;
 - exibir até 3 instâncias no resumo do Token e representar excedentes como `+N`;
 - diferenciar visualmente `BENEFICIAL`, `HARMFUL` e `NEUTRAL`;
 - exibir ícone persistido quando disponível e fallback genérico quando ausente;
 - exibir `displayValue` quando presente sem interpretá-lo matematicamente;
 - permitir abrir detalhes compactos de todos os efeitos sem abrir a ficha;
-- atualizar indicadores após `vtt:actor-effects:changed` e reconexão;
-- reutilizar as permissões de leitura já definidas em `QH-EFF-002`;
+- atualizar indicadores após `vtt:actor-effects:changed`, mudança de vínculo do Token e reconexão;
+- reutilizar a autorização de leitura definida em `QH-EFF-002`;
 - não criar persistência, namespace ou regra específica no Token.
 
 ## Fora de escopo
@@ -47,10 +47,12 @@ Os efeitos ativos já podem ser persistidos, consultados na ficha e aplicados pe
 Fluxo conceitual:
 
 ```text
-CampaignToken.actorId?
+CampaignToken
+  -> actorId opcional
   -> CampaignActor
-  -> GET /api/campaigns/:campaignId/actors/:actorId/effects
-  -> representação visual genérica no Token
+  -> CampaignActorEffect[]
+  -> projeção genérica somente leitura
+  -> indicadores no VTT
 ```
 
 Regras:
@@ -63,27 +65,73 @@ Regras:
 
 ## Permissões e visibilidade
 
-Esta feature não cria política nova de leitura. Ela reutiliza a autorização de `QH-EFF-002`:
+Esta feature não cria política nova de leitura. A projeção reutiliza `canReadActorEffects` de `QH-EFF-002`:
 
 - `MASTER`: pode consultar os efeitos de qualquer Actor ativo da própria Campaign;
 - `PLAYER`: pode consultar os efeitos de Actor ativo cujo `controllerMemberId` seja seu membership;
-- Actor arquivado, Actor de outra Campaign ou Actor sem permissão continua indisponível pela API;
-- o frontend pode evitar requisições obviamente não permitidas para reduzir ruído, mas o backend permanece a fronteira de segurança;
-- a visibilidade normal do próprio Token continua sendo responsabilidade do VTT; um Token oculto que não é renderizado para o Player não pode vazar seus efeitos por esta UI.
+- Actor arquivado não projeta efeitos;
+- Token de outra Campaign é rejeitado pela resolução conjunta de `campaignId + tokenId`;
+- Token inexistente retorna `404`;
+- membership ausente/inativo retorna `403`;
+- Player sem permissão sobre o Actor recebe `403`;
+- o frontend trata leitura negada/erro como ausência de projeção e não mantém conteúdo sensível obsoleto;
+- a visibilidade normal do próprio Token continua sendo responsabilidade do VTT.
+
+O backend continua sendo a fronteira de segurança.
+
+## Contrato HTTP
+
+### GET `/api/campaigns/:campaignId/tokens/:tokenId/actor-effects`
+
+Projeta de forma somente leitura os Active Effects do Actor atualmente vinculado ao Token.
+
+Resposta com Actor vinculado e acessível:
+
+```ts
+type TokenActorEffectsResponse = {
+  tokenId: string
+  actorId: string
+  effects: ActorEffectView[]
+}
+```
+
+Resposta para Token válido sem Actor ou com Actor arquivado:
+
+```json
+{
+  "tokenId": "...",
+  "actorId": null,
+  "effects": []
+}
+```
+
+Regras do endpoint:
+
+- não cria, altera ou remove `CampaignActorEffect`;
+- não grava nada no Token;
+- busca o Token pela mesma Campaign da URL;
+- usa o vínculo estrutural existente para chegar ao Actor;
+- reutiliza `canReadActorEffects`;
+- reutiliza `listActorEffects` como fonte de verdade;
+- não conhece Game System concreto;
+- não retorna apresentação derivada de regra mecânica além dos campos genéricos já persistidos no efeito.
+
+A API ator-scoped de `QH-EFF-002` continua inalterada e permanece usada pela ficha e pelas mutações genéricas.
 
 ## Layout e comportamento visual
 
 ### Resumo no Token
 
-Os indicadores ficam visualmente associados ao Token, sem alterar o tamanho lógico, posição, hitbox ou rotação do Token.
+Os indicadores ficam visualmente associados ao Token, sem alterar tamanho lógico, posição, hitbox ou rotação.
 
-- até 3 efeitos são mostrados como badges compactos;
-- cada badge prioriza o ícone persistido;
+- até 3 efeitos aparecem como badges compactos;
+- cada badge prioriza `iconUrl` persistido;
 - sem ícone, usa fallback visual genérico;
-- `displayValue`, quando presente, aparece como pequena marca textual no badge;
+- `displayValue`, quando presente, aparece como pequena marca textual;
 - efeitos excedentes aparecem como `+N`;
-- a ordem é a mesma da listagem genérica de efeitos (`createdAt`, `id`), sem priorização mecânica;
-- os badges não alteram seleção, targeting, movimento, resize, rotação ou iniciativa.
+- a ordem é a mesma da listagem genérica de efeitos, sem priorização mecânica;
+- o resumo não deduplica instâncias iguais;
+- badges não alteram seleção, targeting, movimento, resize, rotação ou iniciativa.
 
 ### Polaridade
 
@@ -97,9 +145,9 @@ Nenhuma cor ou polaridade gera consequência mecânica.
 
 ### Detalhes
 
-Ao clicar no agrupamento de indicadores, abre-se uma superfície compacta ancorada ao Token contendo todos os efeitos legíveis do Actor.
+Ao clicar no agrupamento, abre-se uma superfície compacta associada ao Token contendo todas as instâncias retornadas pela projeção.
 
-Para cada instância, podem ser mostrados:
+Para cada instância podem ser mostrados:
 
 - ícone ou fallback;
 - nome;
@@ -108,51 +156,58 @@ Para cada instância, podem ser mostrados:
 - descrição, quando disponível;
 - categoria, quando disponível.
 
-Não mostrar:
+Não mostrar ao usuário:
 
 - `payload` bruto;
 - `origin` bruto;
-- `namespace` como informação de usuário;
-- `definitionKey` como informação de usuário.
+- `namespace`;
+- `definitionKey`.
 
 O detalhe é somente leitura e não abre a ficha automaticamente.
 
 ## Integração com a apresentação atual do Token
 
-`TokenPresentationOverlay` continua responsável por recursos/indicadores produzidos pelo contrato de automação de Game System já existente.
+`TokenPresentationOverlay` já compõe recursos/indicadores produzidos pelo contrato de automação de Game System.
 
-Os indicadores desta feature pertencem ao estado genérico de `CampaignActorEffect` e são compostos separadamente no VTT Core. Eles não devem ser injetados em uma engine concreta nem exigir que um `GameSystemTokenPresentationProvider` conheça o serviço de Active Effects.
+Os indicadores desta feature pertencem ao estado genérico de `CampaignActorEffect` e são compostos separadamente no mesmo shell visual. Eles não são injetados em uma engine concreta e não exigem que `GameSystemTokenPresentationProvider` conheça Active Effects do Core.
 
 Consequências:
 
 - a engine concreta continua sem importar `apps/api/src/modules/**`;
-- a representação de `CampaignActorEffect` funciona mesmo sem interpretar uma ficha mecânica;
-- nenhuma semântica PF2e é adicionada a `BoardOverlays`, `TokenPresentationOverlay` ou ao contrato genérico do Token;
-- ícones/nome/descrição produzidos por um Game System podem chegar ao Token porque já foram persistidos nos campos genéricos do efeito.
+- o endpoint genérico de Active Effects não importa `apps/api/src/game_systems/**`;
+- a representação funciona sem interpretar uma ficha mecânica;
+- nenhuma semântica PF2e é adicionada ao contrato genérico do Token;
+- ícones/nome/descrição produzidos anteriormente por um Game System podem chegar ao Token porque já foram persistidos como apresentação genérica da instância.
 
 ## Dados e sincronização
 
-Leitura reutilizada:
+Leitura:
 
 ```http
-GET /api/campaigns/:campaignId/actors/:actorId/effects
+GET /api/campaigns/:campaignId/tokens/:tokenId/actor-effects
 ```
 
-Evento reutilizado:
+Eventos reutilizados:
 
 ```text
 vtt:actor-effects:changed
 { campaignId, actorId }
+
+vtt:token:changed
+{ campaignId, token }
 ```
 
 O frontend:
 
-- carrega somente quando existem `campaignId`, `actorId` e permissão estrutural conhecida para a visualização;
-- ignora evento de outra Campaign ou Actor;
-- recarrega após evento correspondente;
+- carrega quando existem `campaignId` e `tokenId`;
+- guarda o `actorId` retornado pela projeção apenas como contexto transitório de invalidação;
+- recarrega em `vtt:actor-effects:changed` somente para a mesma Campaign e Actor resolvido;
+- recarrega em `vtt:token:changed` para o mesmo Token, cobrindo vínculo/desvínculo/revínculo;
 - recarrega após reconexão;
 - não usa polling periódico;
-- falha de leitura não cria badge falso nem mantém estado otimista inventado.
+- em falha de leitura limpa os efeitos locais em vez de manter projeção obsoleta.
+
+O socket é mecanismo de invalidação, não fonte de verdade.
 
 ## Estados de UI
 
@@ -162,7 +217,7 @@ O frontend:
 - leitura negada/erro: nenhum conteúdo sensível é exibido; o Token continua funcional;
 - 1–3 efeitos: badges individuais;
 - 4+ efeitos: três badges + `+N`;
-- detalhe aberto: lista todas as instâncias retornadas pela API, sem deduplicação.
+- detalhe aberto: lista todas as instâncias retornadas, sem deduplicação.
 
 ## Regras
 
@@ -185,10 +240,10 @@ O frontend:
 Dado um Token vinculado, os indicadores derivam exclusivamente de `CampaignActorEffect[]` do Actor e nenhuma cópia é persistida no Token.
 
 ### AC-02 — Token sem Actor
-Dado `actorId = null`, o Token continua funcionando e nenhum indicador de efeito é mostrado.
+Dado um Token válido sem Actor, ele continua funcionando e a projeção retorna zero efeitos.
 
 ### AC-03 — Múltiplos efeitos compactos
-Dado um Actor com até 3 efeitos, cada instância aparece no resumo do Token; com mais de 3, o resumo mostra três badges e `+N`.
+Dado um Actor com até 3 efeitos, cada instância aparece no resumo; com mais de 3, o resumo mostra três badges e `+N`.
 
 ### AC-04 — Sem deduplicação
 Dadas duas instâncias iguais, ambas continuam representadas e aparecem separadamente nos detalhes.
@@ -212,10 +267,10 @@ Mestre ativo consegue visualizar indicadores de Actors ativos da própria Campai
 Player visualiza indicadores somente de Actors que pode ler conforme `QH-EFF-002`; Actor não controlado não vaza efeitos.
 
 ### AC-11 — Campaign isolation
-Actor de outra Campaign, arquivado ou inacessível não projeta efeitos para o usuário.
+Token de outra Campaign, Actor arquivado ou Actor inacessível não projeta efeitos para o usuário.
 
 ### AC-12 — Realtime
-Criação/remoção/alteração de efeito refletida após `vtt:actor-effects:changed`, sem polling.
+Criação/remoção/alteração de efeito é refletida após `vtt:actor-effects:changed`; mudança de vínculo é refletida após `vtt:token:changed`; não há polling.
 
 ### AC-13 — Desvinculação
 Ao desvincular o Token do Actor, os indicadores desaparecem sem remover ou alterar os efeitos do Actor.
@@ -231,16 +286,19 @@ Exibir ou consultar indicadores não altera ficha, HP, CA, saves, atributos, rol
 
 ## Testes esperados
 
-- overlay não monta conteúdo quando `actorId` é nulo;
+- endpoint de projeção é somente GET e campaign-scoped;
+- Token inexistente retorna `404`;
+- Token sem Actor/Actor arquivado retorna vazio;
+- autorização reutiliza `canReadActorEffects`;
+- projeção usa `listActorEffects` e não persiste no Token;
 - resumo limita a 3 + `+N` sem deduplicar;
 - polaridades genéricas possuem apresentação distinta;
 - `displayValue` é exibido como texto;
 - detalhe não renderiza campos opacos;
-- leitura reutiliza `/actors/:actorId/effects`;
-- Player não solicita/renderiza indicadores de Token cujo Actor não controla quando isso é conhecido no frontend, mantendo backend como enforcement;
-- evento `vtt:actor-effects:changed` atualiza o Actor correspondente;
-- Token presentation existente continua montado;
-- teste estrutural sem `PATHFINDER`, `PF2E`, `Frightened`, `Spell` ou `Condition` concreta no módulo genérico;
+- overlay preserva `useTokenPresentation` e compõe Active Effects separadamente;
+- `vtt:actor-effects:changed`, `vtt:token:changed` e reconnect invalidam corretamente;
+- ausência de polling e mutações no hook visual;
+- teste estrutural sem `PATHFINDER`, `PF2E`, `Frightened`, `Spell` ou Condition concreta no módulo genérico;
 - `npm run check:architecture`;
 - `npm run test:unit`;
 - `npm run build:web`.
@@ -251,14 +309,28 @@ Exibir ou consultar indicadores não altera ficha, HP, CA, saves, atributos, rol
 - [x] Usa ADR existente: `ADR-0002`, `ADR-0003`, `ADR-0004`, `ADR-0005`
 - [ ] Exige novo ADR
 
-A feature projeta estado pertencente ao Actor sobre uma representação visual independente. Isso é explicitamente compatível com ADR-0004, que permite informação mecânica/semântica chegar ao Token por contratos/projeções genéricas sem transferir ownership ao Token.
+A feature projeta estado pertencente ao Actor sobre uma representação visual independente. Isso é explicitamente compatível com ADR-0004, que permite informação mecânica chegar ao Token por contratos/projeções genéricas sem transferir ownership ao Token.
 
-Architecture Review: **PENDING**.
+O novo endpoint de projeção pertence ao VTT Core porque apenas atravessa a relação estrutural Token → Actor e reutiliza autorização/persistência genérica já existentes. Não interpreta Game System e não altera a direção de dependência definida pelo ADR-0005.
+
+Architecture Review: **APPROVED**. Nenhum novo ADR ou whitelist é necessário.
+
+Required enforcement:
+
+- `campaignId + tokenId` validados no backend;
+- política `canReadActorEffects` reutilizada;
+- Token sem Actor/Actor arquivado não vaza estado;
+- nenhum campo de efeito persistido no Token;
+- nenhuma semântica concreta de Game System no módulo genérico;
+- realtime por invalidação, sem polling;
+- `npm run check:architecture`, `npm run test:unit` e `npm run build:web`.
+
+Architecture debt introduced: **NO**.
 
 ## Dependências
 
 - `QH-EFF-001` — persistência genérica no Actor;
-- `QH-EFF-002` — API, autorização e realtime genéricos;
+- `QH-EFF-002` — autorização, ciclo de vida e realtime genéricos;
 - `QH-EFF-009` — aplicação PF2e capaz de gerar instâncias reais para visualização;
 - `ADR-0002` — Campaign como fronteira do mundo;
 - `ADR-0003` — efeito pertence ao Actor, não ao membership;
