@@ -26,5 +26,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: qh-eff-016-effect-inventory
-          path: qh-eff-016-artifact/effect-inventory.json
+          path: qh-eff-016-artifact/
           if-no-files-found: error
