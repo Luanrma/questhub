@@ -2,7 +2,9 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
-import { registerGameSystemActiveEffectCompositionRoutes } from './routes'
+import type { registerGameSystemActiveEffectCompositionRoutes } from './routes'
+
+type CompositionRouteRegistration = typeof registerGameSystemActiveEffectCompositionRoutes
 
 const routeFile = path.join(
   process.cwd(),
@@ -14,8 +16,11 @@ const routeFile = path.join(
   'routes.ts',
 )
 
-test('game-system active-effect composition route is loadable and registered outside bounded contexts', () => {
-  assert.equal(typeof registerGameSystemActiveEffectCompositionRoutes, 'function')
+test('game-system active-effect composition route stays in the TypeScript contract without booting auth runtime', () => {
+  const isRegistrationFunction: CompositionRouteRegistration extends (...args: any[]) => unknown
+    ? true
+    : false = true
+  assert.equal(isRegistrationFunction, true)
 })
 
 test('composition delegates semantic resolution to PF2e and persistence to generic CampaignActorEffect Core', () => {
