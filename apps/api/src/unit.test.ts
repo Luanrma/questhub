@@ -1,5 +1,6 @@
 import 'dotenv/config'
 
+import './composition/game-system-active-effects/routes.test'
 import './http/auth.test'
 import './modules/assets/token-library.test'
 import './modules/chat/presenter.test'
