@@ -1,0 +1,59 @@
+name: QH-EFF-012 optimize generated catalog typing
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    if: github.head_ref == 'fix/qh-eff-012-active-effect-catalog-fidelity'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Remove giant literal inference from generated catalog
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs'
+
+          const generatedPath = 'apps/api/src/game_systems/pathfinder_2e/content_catalog/generated/active-effect-source.ts'
+          let generated = readFileSync(generatedPath, 'utf8')
+          generated = generated.replace(
+            'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS = \n[',
+            'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS: readonly Pathfinder2eActiveEffectSourceDocument[] = \n[',
+          )
+          generated = generated.replace(
+            /\] as const satisfies readonly Pathfinder2eActiveEffectSourceDocument\[\]\s*$/,
+            ']\n',
+          )
+          writeFileSync(generatedPath, generated)
+
+          const generatorPath = 'scripts/generate-pf2e-active-effect-source.mjs'
+          let generator = readFileSync(generatorPath, 'utf8')
+          generator = generator.replace(
+            "'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS = ',",
+            "'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS: readonly Pathfinder2eActiveEffectSourceDocument[] = ',",
+          )
+          generator = generator.replace(
+            '`${JSON.stringify(records, null, 2)} as const satisfies readonly Pathfinder2eActiveEffectSourceDocument[]`,',
+            '`${JSON.stringify(records, null, 2)}`,',
+          )
+          writeFileSync(generatorPath, generator)
+          NODE
+      - name: Commit optimized generated typing and remove bootstrap workflow
+        run: |
+          git config user.name 'questhub-automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add apps/api/src/game_systems/pathfinder_2e/content_catalog/generated/active-effect-source.ts
+          git add scripts/generate-pf2e-active-effect-source.mjs
+          git rm .github/workflows/qh-eff-012-optimize-generated.yml
+          git commit -m 'QH-EFF-012 — bound generated catalog TypeScript inference'
+          git push origin HEAD:${{ github.head_ref }}
