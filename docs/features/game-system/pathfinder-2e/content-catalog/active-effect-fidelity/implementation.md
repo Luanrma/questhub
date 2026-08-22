@@ -16,7 +16,7 @@ Following Human Validation on 2026-08-22, the historical blanket policy `effect 
 
 QH-EFF-012 preserves the complete published Effect key set from the canonical generated source and overlays exact-key editorial decisions materialized under `active-effect-polarity-editorial/`. This avoids duplicating the whole canonical key inventory while ensuring that every published Effect resolves to an explicit versioned polarity.
 
-The development-time editorial guard identifies definitions that are still `NEUTRAL` despite having unambiguous one-sided presentation signals. Those results are materialized as static `definitionKey → polarity` data in the repository; the guard is never executed to classify an Effect in product runtime. A second regression requires the resolved editorial key set to match the published Effect key set exactly.
+The development-time editorial guard identifies definitions that are still `NEUTRAL` despite having one-sided presentation signals. It is only a review aid: a detector suggestion never overrides a previously reviewed contextual decision. Its approved results are materialized as static `definitionKey → polarity` data in the repository, and the guard is never executed to classify an Effect in product runtime. A second regression requires the resolved editorial key set to match the published Effect key set exactly.
 
 The catalog validates that every editorial override targets an existing `effect`. No decision is inferred from `kind`, name, description, Rule Elements, numeric signs, or AI at runtime.
 
@@ -25,6 +25,7 @@ Examples protected by regression tests:
 - `Effect: Oceanic Armor` → `BENEFICIAL`;
 - `Effect: Swarming Bites` → `HARMFUL`;
 - `Effect: Darivan's Bloodline Magic` → `NEUTRAL` because the same definition can grant a bonus to Darivan or impose a penalty on another target;
+- `Effect: Flesh Mutation` → `NEUTRAL` because its semantics are mixed/contextual and the reviewed decision must take precedence over detector heuristics;
 - `Effect: Lurker's Glow (Critical Failure)` → `NEUTRAL` because illumination is contextual rather than intrinsically beneficial or harmful.
 
 ## Reproducibility
