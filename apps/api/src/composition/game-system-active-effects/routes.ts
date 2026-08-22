@@ -7,6 +7,7 @@ import {
   listPathfinder2eEffectCandidates,
   resolvePathfinder2eEffectApplication,
   searchPathfinder2eEffectDefinitions,
+  type Pathfinder2eEffectResolutionFailure,
 } from '../../game_systems/pathfinder_2e/active-effects/application'
 import { requireAuth } from '../../http/auth'
 import { campaignRoom } from '../../modules/campaign-presence/rooms'
@@ -101,11 +102,7 @@ function publishActorEffectsChanged(io: Server, campaignId: string, actorId: str
 
 function sendResolutionFailure(
   reply: FastifyReply,
-  reason: 'DEFINITION_NOT_FOUND'
-    | 'SOURCE_NOT_FOUND'
-    | 'SOURCE_NOT_POTENTIAL'
-    | 'SOURCE_TYPE_MISMATCH'
-    | 'INVALID_VALUE',
+  reason: Pathfinder2eEffectResolutionFailure,
 ) {
   if (reason === 'INVALID_VALUE') {
     return reply.status(400).send({ error: 'Valor de efeito invalido para esta definicao' })
