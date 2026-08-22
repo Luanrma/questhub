@@ -1,4 +1,5 @@
 import type { Pathfinder2eActiveEffectDefinition } from './active-effect-definitions'
+import { getPathfinder2eActiveEffectPtBrTranslation } from './active-effect-pt-br'
 import type { Pathfinder2eContentLocale } from './models'
 
 export type Pathfinder2eActiveEffectTranslationFields = Readonly<{
@@ -10,8 +11,6 @@ export type Pathfinder2eActiveEffectTranslationOverlay = Readonly<
   Record<string, Pathfinder2eActiveEffectTranslationFields>
 >
 
-// QH-EFF-013 intentionally does not invent translations. Active Effect pt-BR
-// translations can be added here by stable definitionKey as they are reviewed.
 export const PATHFINDER_2E_ACTIVE_EFFECT_PT_BR_TRANSLATIONS = Object.freeze(
   {} satisfies Record<string, Pathfinder2eActiveEffectTranslationFields>,
 )
@@ -25,7 +24,10 @@ export function resolvePathfinder2eActiveEffectDisplay(
   locale: Pathfinder2eContentLocale,
   ptBrOverlay: Pathfinder2eActiveEffectTranslationOverlay = PATHFINDER_2E_ACTIVE_EFFECT_PT_BR_TRANSLATIONS,
 ) {
-  const translation = locale === 'pt-BR' ? ptBrOverlay[definition.definitionKey] : undefined
+  const translation = locale === 'pt-BR'
+    ? ptBrOverlay[definition.definitionKey]
+      ?? getPathfinder2eActiveEffectPtBrTranslation(definition.source.sourcePack, definition.name)
+    : undefined
   const translatedName = nonBlank(translation?.name)
   const translatedDescription = nonBlank(translation?.description)
 
