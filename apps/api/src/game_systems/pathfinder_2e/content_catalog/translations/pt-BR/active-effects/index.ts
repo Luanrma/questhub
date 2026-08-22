@@ -24,6 +24,9 @@ import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_04 } from './spell-04'
 import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_05 } from './spell-05'
 import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_06 } from './spell-06'
 import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_07 } from './spell-07'
+import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_08 } from './spell-08'
+import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_09 } from './spell-09'
+import { PATHFINDER_2E_SPELL_EFFECT_PT_BR_10 } from './spell-10'
 
 export const PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS = Object.freeze({
   ...PATHFINDER_2E_BESTIARY_EFFECT_PT_BR_01,
@@ -52,6 +55,9 @@ export const PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS = Object.freeze({
   ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_05,
   ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_06,
   ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_07,
+  ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_08,
+  ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_09,
+  ...PATHFINDER_2E_SPELL_EFFECT_PT_BR_10,
 } satisfies Readonly<Record<string, Pathfinder2eEffectPtBrTranslation>>)
 
 export type { Pathfinder2eEffectPtBrTranslation }
