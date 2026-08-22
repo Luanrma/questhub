@@ -3,9 +3,8 @@ import {
   listPathfinder2eActiveEffectDefinitions,
   type Pathfinder2eActiveEffectDefinition,
 } from './active-effect-definitions'
-import {
-  resolvePathfinder2eActiveEffectDisplay,
-} from './active-effect-localization'
+import { presentPathfinder2eActiveEffectDescription } from './active-effect-description'
+import { resolvePathfinder2eActiveEffectDisplay } from './active-effect-localization'
 import type { Pathfinder2eContentLocale } from './models'
 
 export type Pathfinder2eActiveEffectDefinitionKind = Pathfinder2eActiveEffectDefinition['kind']
@@ -16,6 +15,7 @@ export type Pathfinder2eActiveEffectDefinitionView = {
   source: Pathfinder2eActiveEffectDefinition['source']
   name: string
   description: string
+  descriptionBlocks: readonly string[]
   iconUrl: string | null
   usesIconFallback: boolean
   polarity: Pathfinder2eActiveEffectDefinition['polarity']
@@ -53,12 +53,14 @@ function toView(
   locale: Pathfinder2eContentLocale,
 ): Pathfinder2eActiveEffectDefinitionView {
   const display = resolvePathfinder2eActiveEffectDisplay(definition, locale)
+  const presentedDescription = presentPathfinder2eActiveEffectDescription(display.description, locale)
   return {
     definitionKey: definition.definitionKey,
     kind: definition.kind,
     source: definition.source,
     name: display.name,
-    description: display.description,
+    description: presentedDescription.description,
+    descriptionBlocks: presentedDescription.descriptionBlocks,
     iconUrl: definition.iconUrl,
     usesIconFallback: definition.iconUrl === null,
     polarity: definition.polarity,
