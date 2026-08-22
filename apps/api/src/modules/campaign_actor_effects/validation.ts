@@ -10,6 +10,11 @@ export const actorEffectsParamsSchema = z.object({
   actorId: z.string().trim().min(1),
 })
 
+export const tokenEffectsParamsSchema = z.object({
+  campaignId: z.string().trim().min(1),
+  tokenId: z.string().trim().min(1),
+})
+
 export const actorEffectParamsSchema = actorEffectsParamsSchema.extend({
   effectId: z.string().trim().min(1),
 })
