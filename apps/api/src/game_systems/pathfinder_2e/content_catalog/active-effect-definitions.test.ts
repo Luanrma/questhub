@@ -8,6 +8,52 @@ import {
   PATHFINDER_2E_MISSING_CANONICAL_CONDITION_SLUGS,
 } from './active-effect-definitions'
 
+const EXPECTED_CANONICAL_CONDITION_SLUGS = [
+  'blinded',
+  'broken',
+  'clumsy',
+  'concealed',
+  'confused',
+  'controlled',
+  'cursebound',
+  'dazzled',
+  'deafened',
+  'doomed',
+  'drained',
+  'dying',
+  'encumbered',
+  'enfeebled',
+  'fascinated',
+  'fatigued',
+  'fleeing',
+  'friendly',
+  'frightened',
+  'grabbed',
+  'helpful',
+  'hidden',
+  'hostile',
+  'immobilized',
+  'indifferent',
+  'invisible',
+  'observed',
+  'off-guard',
+  'paralyzed',
+  'persistent-damage',
+  'petrified',
+  'prone',
+  'quickened',
+  'restrained',
+  'sickened',
+  'slowed',
+  'stunned',
+  'stupefied',
+  'unconscious',
+  'undetected',
+  'unfriendly',
+  'unnoticed',
+  'wounded',
+] as const
+
 function definitionBySlug(slug: string) {
   return listPathfinder2eActiveEffectDefinitions().find((definition) => definition.source.slug === slug) ?? null
 }
@@ -19,7 +65,7 @@ test('PF2e active-effect definitions remain locked to the approved source revisi
   )
 })
 
-test('all 43 canonical Conditions are represented exactly once', () => {
+test('all and only the 43 canonical Conditions are represented exactly once', () => {
   assert.equal(PATHFINDER_2E_CANONICAL_CONDITIONS.length, 43)
   assert.deepEqual(PATHFINDER_2E_MISSING_CANONICAL_CONDITION_SLUGS, [])
 
@@ -27,6 +73,10 @@ test('all 43 canonical Conditions are represented exactly once', () => {
     .filter((definition) => definition.kind === 'condition')
   assert.equal(conditions.length, 43)
   assert.equal(new Set(conditions.map((definition) => definition.definitionKey)).size, 43)
+  assert.deepEqual(
+    conditions.map((definition) => definition.source.slug).sort(),
+    [...EXPECTED_CANONICAL_CONDITION_SLUGS].sort(),
+  )
   assert.equal(conditions.some((definition) => definition.source.slug === 'malevolence'), false)
   assert.ok(conditions.every((definition) => definition.description.trim().length > 0))
 })
@@ -63,6 +113,17 @@ test('published Effect definitions preserve canonical description and structural
   assert.ok(aerialForm.description.trim().length > 0)
   assert.ok(aerialForm.source.imagePath)
   assert.equal(aerialForm.definitionKey, `${aerialForm.source.sourcePack}:${aerialForm.source.sourceId}`)
+})
+
+test('base Effect and Affliction polarities remain aligned with the approved QH-EFF-005 policy', () => {
+  const definitions = listPathfinder2eActiveEffectDefinitions()
+  const effects = definitions.filter((definition) => definition.kind === 'effect')
+  const afflictions = definitions.filter((definition) => definition.kind === 'affliction')
+
+  assert.ok(effects.length > 0)
+  assert.ok(afflictions.length > 0)
+  assert.ok(effects.every((definition) => definition.polarity === 'NEUTRAL'))
+  assert.ok(afflictions.every((definition) => definition.polarity === 'HARMFUL'))
 })
 
 test('every published definition has a string description and an explicit polarity value', () => {
