@@ -7,6 +7,7 @@ import {
   PATHFINDER_2E_CANONICAL_CONDITIONS,
   PATHFINDER_2E_MISSING_CANONICAL_CONDITION_SLUGS,
 } from './active-effect-definitions'
+import { PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL } from './active-effect-polarity-editorial'
 
 const EXPECTED_CANONICAL_CONDITION_SLUGS = [
   'blinded',
@@ -115,13 +116,43 @@ test('published Effect definitions preserve canonical description and structural
   assert.equal(aerialForm.definitionKey, `${aerialForm.source.sourcePack}:${aerialForm.source.sourceId}`)
 })
 
-test('published base Effect and Affliction polarities remain aligned with the approved QH-EFF-005 policy', () => {
-  const definitions = listPathfinder2eActiveEffectDefinitions()
-  const effects = definitions.filter((definition) => definition.kind === 'effect')
-  const afflictions = definitions.filter((definition) => definition.kind === 'affliction')
+test('Effect polarity is individually editorial instead of blanket NEUTRAL', () => {
+  const beneficial = getPathfinder2eActiveEffectDefinition('bestiary-effects:0jo8CUzw5lWehNg3')
+  const harmful = getPathfinder2eActiveEffectDefinition('bestiary-effects:0aRm0b55015XPj7Y')
+  const contextual = getPathfinder2eActiveEffectDefinition('bestiary-effects:1toVzNVJZx0RwG1v')
 
-  assert.ok(effects.length > 0)
-  assert.ok(effects.every((definition) => definition.polarity === 'NEUTRAL'))
+  assert.ok(beneficial)
+  assert.equal(beneficial.name, 'Effect: Oceanic Armor')
+  assert.equal(beneficial.polarity, 'BENEFICIAL')
+
+  assert.ok(harmful)
+  assert.equal(harmful.name, 'Effect: Swarming Bites')
+  assert.equal(harmful.polarity, 'HARMFUL')
+
+  assert.ok(contextual)
+  assert.equal(contextual.name, "Effect: Darivan's Bloodline Magic")
+  assert.equal(contextual.polarity, 'NEUTRAL')
+
+  const effectPolarities = new Set(
+    listPathfinder2eActiveEffectDefinitions()
+      .filter((definition) => definition.kind === 'effect')
+      .map((definition) => definition.polarity),
+  )
+  assert.deepEqual([...effectPolarities].sort(), ['BENEFICIAL', 'HARMFUL', 'NEUTRAL'])
+})
+
+test('every editorial Effect polarity targets an exact published Effect definition', () => {
+  for (const [definitionKey, expectedPolarity] of Object.entries(PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL)) {
+    const definition = getPathfinder2eActiveEffectDefinition(definitionKey)
+    assert.ok(definition, `missing editorial target ${definitionKey}`)
+    assert.equal(definition.kind, 'effect')
+    assert.equal(definition.polarity, expectedPolarity)
+  }
+})
+
+test('published Affliction polarities remain explicitly versioned by definition', () => {
+  const afflictions = listPathfinder2eActiveEffectDefinitions()
+    .filter((definition) => definition.kind === 'affliction')
   assert.ok(afflictions.every((definition) => definition.polarity === 'HARMFUL'))
 })
 
