@@ -11,6 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import { api, ApiError } from '../../lib/api'
+import { publishLocalActorEffectsChanged } from './localInvalidation'
 import { useActorActiveEffects } from './useActorActiveEffects'
 import type {
   ActorEffectPolarity,
@@ -28,7 +29,6 @@ type Props = {
 type EffectDraft = {
   name: string
   description: string
-  iconUrl: string
   polarity: ActorEffectPolarity
   category: string
   displayValue: string
@@ -44,7 +44,6 @@ type OverlayState =
 const emptyDraft: EffectDraft = {
   name: '',
   description: '',
-  iconUrl: '',
   polarity: 'NEUTRAL',
   category: '',
   displayValue: '',
@@ -85,7 +84,6 @@ function draftFromEffect(effect: ActorEffectView): EffectDraft {
   return {
     name: effect.name,
     description: effect.description ?? '',
-    iconUrl: effect.iconUrl ?? '',
     polarity: effect.polarity,
     category: effect.category ?? '',
     displayValue: effect.displayValue ?? '',
@@ -101,6 +99,23 @@ function EffectIcon({ effect, resolvedIconUrl }: { effect: ActorEffectView; reso
   }
 
   return <visual.Icon className="h-4 w-4 shrink-0" />
+}
+
+function ManualIconPreview({ polarity }: { polarity: ActorEffectPolarity }) {
+  const visual = polarityPresentation[polarity]
+  return (
+    <div className="flex items-center gap-2 rounded-lg border border-[#7c6d59]/20 bg-[#f2e8d7]/70 px-3 py-2">
+      <span className={`grid h-8 w-8 place-items-center rounded-full border ${visual.badgeClass}`}>
+        <visual.Icon className="h-4 w-4" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-xs font-semibold text-[#44392e]">Ícone automático</span>
+        <span className="block text-[10px] leading-snug text-[#756653]">
+          Efeitos manuais usam um símbolo genérico de {visual.label.toLowerCase()}. Efeitos de Game System podem trazer seu próprio ícone.
+        </span>
+      </span>
+    </div>
+  )
 }
 
 export function ActorActiveEffectsPanel({
@@ -149,6 +164,11 @@ export function ActorActiveEffectsPanel({
     setOverlay({ kind: 'edit', effectId: effect.id })
   }
 
+  function invalidateAfterMutation() {
+    publishLocalActorEffectsChanged({ campaignId, actorId })
+    reload()
+  }
+
   async function saveEffect() {
     if (!canManage || saving || !draft.name.trim()) return
     setSaving(true)
@@ -157,7 +177,6 @@ export function ActorActiveEffectsPanel({
     const body = {
       name: draft.name.trim(),
       description: nullable(draft.description),
-      iconUrl: nullable(draft.iconUrl),
       polarity: draft.polarity,
       category: nullable(draft.category),
       displayValue: nullable(draft.displayValue),
@@ -177,7 +196,7 @@ export function ActorActiveEffectsPanel({
       }
 
       closeOverlay()
-      reload()
+      invalidateAfterMutation()
     } catch (cause) {
       setMutationError(cause instanceof ApiError ? cause.message : 'Não foi possível salvar o efeito.')
     } finally {
@@ -197,7 +216,7 @@ export function ActorActiveEffectsPanel({
         { method: 'DELETE' },
       )
       closeOverlay()
-      reload()
+      invalidateAfterMutation()
     } catch (cause) {
       setMutationError(cause instanceof ApiError ? cause.message : 'Não foi possível remover o efeito.')
     } finally {
@@ -283,8 +302,16 @@ export function ActorActiveEffectsPanel({
       </div>
 
       {overlay ? (
-        <div className="fixed inset-0 z-[260] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm">
-          <div className="max-h-[82vh] w-full max-w-lg overflow-y-auto rounded-xl border border-[#8c7a60]/60 bg-[#e1d3bd] p-4 text-[#352d24] shadow-2xl">
+        <div
+          className="fixed inset-0 z-[260] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+          onPointerDown={(event) => {
+            if (event.target === event.currentTarget) closeOverlay()
+          }}
+        >
+          <div
+            className={`max-h-[82vh] w-full overflow-y-auto rounded-xl border border-[#8c7a60]/60 bg-[#e1d3bd] p-4 text-[#352d24] shadow-2xl ${overlay.kind === 'create' || overlay.kind === 'edit' ? 'max-w-md' : 'max-w-lg'}`}
+            onPointerDown={(event) => event.stopPropagation()}
+          >
             <div className="mb-3 flex items-center justify-between gap-3">
               <h4 className="text-sm font-bold">
                 {overlay.kind === 'all' ? 'Todos os efeitos ativos' : null}
@@ -379,12 +406,15 @@ export function ActorActiveEffectsPanel({
 
             {(overlay.kind === 'create' || overlay.kind === 'edit') ? (
               <div className="space-y-3">
+                <ManualIconPreview polarity={draft.polarity} />
+
                 <label className="block text-xs font-semibold">
                   Nome
                   <input
                     value={draft.name}
                     onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))}
                     maxLength={120}
+                    autoFocus
                     className="mt-1 w-full rounded-md border border-[#7c6d59]/30 bg-[#f6ecdc] px-3 py-2 text-sm outline-none focus:border-[#6d4ac8]"
                   />
                 </label>
@@ -408,6 +438,7 @@ export function ActorActiveEffectsPanel({
                       value={draft.displayValue}
                       onChange={(event) => setDraft((current) => ({ ...current, displayValue: event.target.value }))}
                       maxLength={120}
+                      placeholder="Opcional"
                       className="mt-1 w-full rounded-md border border-[#7c6d59]/30 bg-[#f6ecdc] px-3 py-2 text-sm outline-none focus:border-[#6d4ac8]"
                     />
                   </label>
@@ -419,16 +450,7 @@ export function ActorActiveEffectsPanel({
                     value={draft.category}
                     onChange={(event) => setDraft((current) => ({ ...current, category: event.target.value }))}
                     maxLength={120}
-                    className="mt-1 w-full rounded-md border border-[#7c6d59]/30 bg-[#f6ecdc] px-3 py-2 text-sm outline-none focus:border-[#6d4ac8]"
-                  />
-                </label>
-
-                <label className="block text-xs font-semibold">
-                  URL do ícone
-                  <input
-                    value={draft.iconUrl}
-                    onChange={(event) => setDraft((current) => ({ ...current, iconUrl: event.target.value }))}
-                    maxLength={2048}
+                    placeholder="Opcional"
                     className="mt-1 w-full rounded-md border border-[#7c6d59]/30 bg-[#f6ecdc] px-3 py-2 text-sm outline-none focus:border-[#6d4ac8]"
                   />
                 </label>
@@ -440,6 +462,7 @@ export function ActorActiveEffectsPanel({
                     onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))}
                     maxLength={4000}
                     rows={4}
+                    placeholder="Opcional"
                     className="mt-1 w-full resize-y rounded-md border border-[#7c6d59]/30 bg-[#f6ecdc] px-3 py-2 text-sm outline-none focus:border-[#6d4ac8]"
                   />
                 </label>
