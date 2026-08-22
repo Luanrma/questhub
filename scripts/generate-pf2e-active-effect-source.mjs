@@ -263,8 +263,8 @@ function generatedSource(records) {
     '  schemaVersion: 1',
     '}',
     '',
-    'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS = ',
-    `${JSON.stringify(records, null, 2)} as const satisfies readonly Pathfinder2eActiveEffectSourceDocument[]`,
+    'export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS: readonly Pathfinder2eActiveEffectSourceDocument[] = ',
+    `${JSON.stringify(records, null, 2)}`,
     '',
   ].join('\n')
 }

@@ -20,7 +20,7 @@ export type Pathfinder2eActiveEffectSourceDocument = {
   schemaVersion: 1
 }
 
-export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS = 
+export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS: readonly Pathfinder2eActiveEffectSourceDocument[] = 
 [
   {
     "definitionKey": "bestiary-effects:0aRm0b55015XPj7Y",
@@ -28252,4 +28252,4 @@ export const PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS =
     "conditionValue": null,
     "schemaVersion": 1
   }
-] as const satisfies readonly Pathfinder2eActiveEffectSourceDocument[]
+]
