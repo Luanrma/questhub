@@ -69,12 +69,12 @@ export function useActorActiveEffects(
       setRefreshVersion((current) => current + 1)
     }
 
-    function matchesActor(payload: ActorEffectsChangedPayload | LocalActorEffectsChangedPayload) {
+    function matchesActor(payload: LocalActorEffectsChangedPayload) {
       return payload.campaignId === activeCampaignId && payload.actorId === activeActorId
     }
 
     function onEffectsChanged(payload: ActorEffectsChangedPayload) {
-      if (!matchesActor(payload)) return
+      if (payload.campaignId !== activeCampaignId || payload.actorId !== activeActorId) return
       refresh()
     }
 
