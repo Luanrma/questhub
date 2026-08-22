@@ -70,12 +70,24 @@ jobs:
           const ordered = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)))
           writeFileSync('apps/api/src/game_systems/pathfinder_2e/content_catalog/active-effect-polarity.json', `${JSON.stringify(ordered, null, 2)}\n`)
           NODE
+      - name: Preserve real absence of canonical descriptions without inventing text
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs'
+          const path = 'scripts/generate-pf2e-active-effect-source.mjs'
+          const current = readFileSync(path, 'utf8')
+          const before = `function description(document, definitionKey) {\n  const value = document?.system?.description?.value\n  if (typeof value !== 'string' || !value.trim()) {\n    fail(\`published definition has no canonical description: \${definitionKey}\`)\n  }\n  return value.trim()\n}`
+          const after = `function description(document) {\n  const value = document?.system?.description?.value\n  return typeof value === 'string' ? value.trim() : ''\n}`
+          if (!current.includes(before)) throw new Error('generator description contract changed unexpectedly')
+          writeFileSync(path, current.replace(before, after))
+          NODE
       - name: Generate frozen canonical source metadata
         run: npm run generate:pf2e-active-effects -- .tmp/pf2e-source
       - name: Commit materialized catalog and remove bootstrap workflow
         run: |
           git config user.name 'questhub-automation'
           git config user.email 'actions@users.noreply.github.com'
+          git add scripts/generate-pf2e-active-effect-source.mjs
           git add apps/api/src/game_systems/pathfinder_2e/content_catalog/active-effect-polarity.json
           git add apps/api/src/game_systems/pathfinder_2e/content_catalog/generated/active-effect-source.ts
           git rm .github/workflows/qh-eff-012-materialize.yml
