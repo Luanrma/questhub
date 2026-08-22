@@ -10,7 +10,7 @@ Dependências: **QH-EFF-013** e **QH-EFF-014**.
 
 Transformar referências semânticas já resolvidas por Spell, Item e Bestiary em elementos consultáveis pela UI do catálogo PF2e, abrindo a definição canônica de `condition`, `effect` ou `affliction` sem executar qualquer mecânica.
 
-Após feedback de Human Approval, o contrato também determina que uma instância canônica já aplicada a um Actor/Token reutilize **o mesmo componente visual de detalhe** usado pela referência de conteúdo. Não devem existir dois cards concorrentes para apresentar a mesma definição canônica.
+Após feedback de Human Approval, o contrato também determina que uma instância canônica já aplicada a um Actor reutilize **o mesmo fluxo e componente visual de detalhe**, independentemente de o clique partir da ficha ou dos ícones do Token. Referências de conteúdo convergem no mesmo shell visual. Não devem existir cards concorrentes para apresentar a mesma definição canônica.
 
 ## Identidade
 
@@ -80,13 +80,15 @@ Na ficha de conteúdo PF2e:
 5. o detalhe mostra separadamente definição canônica e contexto da ocorrência;
 6. o detalhe não possui ação de aplicar Effect.
 
-No Token:
+Para um Active Effect já aplicado ao Actor:
 
-1. o indicador continua sendo um elemento genérico do VTT;
-2. ao selecionar uma instância com `definitionKey`, a UI consulta a definição pela Composition Root;
-3. o detalhe é renderizado pelo **mesmo `ActiveEffectDefinitionModal`** usado pela referência de conteúdo;
-4. não existe um segundo layout escuro específico para o detalhe do Token;
-5. uma instância manual ou sem definição canônica continua usando o mesmo shell visual, mas em fallback de apresentação e sem alegar identidade canônica.
+1. clicar no efeito diretamente na ficha e clicar no mesmo efeito pelos ícones do Token entregam a mesma instância `ActorEffectView` ao mesmo `CampaignActiveEffectDefinitionModal`;
+2. esse modal resolve a mesma `definitionKey` pela mesma rota da Composition Root;
+3. ambos renderizam o mesmo `ActiveEffectDefinitionModal` compartilhado;
+4. a ficha não mantém um card de detalhe local baseado em `summary` ou nos campos materializados da instância;
+5. o Token não mantém um layout escuro específico para detalhe;
+6. editar/remover são ações de gerenciamento separadas da consulta da definição;
+7. uma instância manual ou sem definição canônica continua usando o mesmo shell visual, mas em fallback de apresentação e sem alegar identidade canônica.
 
 A lista estrutural não é um segundo catálogo: ela contém apenas referências pertencentes ao conteúdo atualmente aberto e resolve os detalhes no catálogo canônico.
 
@@ -102,6 +104,8 @@ A escolha de idiomas pertence à projeção de apresentação fornecida pelo Gam
 A localização é resolvida campo a campo. Uma tradução só substitui `name` ou `description` quando existe valor revisado para aquele campo. Na ausência de tradução, o campo permanece em `en-US` e a UI informa que houve fallback parcial. Não é permitido resumir, completar por inferência ou apresentar uma tradução inexistente como canônica.
 
 O overlay PT-BR usa correspondência estrutural exata por source pack + nome canônico, nunca fuzzy matching. O conjunto importado/revisado é versionado pela revisão da fonte de tradução utilizada na implementação.
+
+A cobertura editorial integral de todas as definições `kind: effect` é tratada separadamente no **QH-EFF-016**. O QH-EFF-015 entrega o contrato de localização e fallback, não a cobertura de tradução de 100% do catálogo.
 
 ## Descrição segura e legível
 
@@ -136,7 +140,7 @@ Em `pt-BR`, a definição de Frightened pode ser apresentada como **Assustado** 
 - a Composition Root pode transformar a definição específica do sistema em DTO de apresentação genérico;
 - o shell visual compartilhado permanece agnóstico e recebe somente nome, descrição, tags, polaridade, locale e contexto já resolvidos;
 - VTT Core não recebe conhecimento de Conditions, Effects, Afflictions, packs, Rule Elements ou identificadores PF2e;
-- o Token não importa módulo PF2e e não resolve semântica PF2e;
+- ficha e Token não importam módulo PF2e e não resolvem semântica PF2e;
 - nenhum click cria ou altera `CampaignActorEffect`;
 - nenhum save, attack, damage, duration, stacking ou Rule Element é executado;
 - o catálogo canônico não é duplicado.
@@ -153,7 +157,7 @@ Em `pt-BR`, a definição de Frightened pode ser apresentada como **Assustado** 
 - **AC08** — `REFERENCE_ONLY` continua somente consultivo;
 - **AC09** — referências não textuais continuam acessíveis pela lista estrutural;
 - **AC10** — testes unitários, `build:web` e gates de arquitetura/documentação permanecem verdes;
-- **AC11** — detalhe canônico aberto a partir do Token e detalhe aberto por referência de conteúdo usam o mesmo componente visual compartilhado;
+- **AC11** — ficha e Token abrem exatamente o mesmo `CampaignActiveEffectDefinitionModal` para a mesma instância aplicada, e referências de conteúdo convergem no mesmo `ActiveEffectDefinitionModal` compartilhado;
 - **AC12** — definição canônica PF2e permite alternar entre `pt-BR` e `en-US`;
 - **AC13** — fallback de localização é explícito por campo e nunca é tratado como tradução existente;
 - **AC14** — descrição apresentada não contém HTML cru nem comandos Foundry não resolvidos suportados pelo formatador;
