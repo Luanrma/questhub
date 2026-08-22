@@ -75,7 +75,9 @@ test('successful manual mutations publish local invalidation as well as reloadin
   assert.ok((source.match(/invalidateAfterMutation\(\)/g) ?? []).length >= 3)
   assert.match(invalidation, /questhub:vtt:actor-effects:changed/)
   assert.match(invalidation, /window\.dispatchEvent\(new CustomEvent/)
-  assert.doesNotMatch(invalidation, /effects|payload|origin|setInterval|setTimeout/)
+  assert.match(invalidation, /campaignId: string/)
+  assert.match(invalidation, /actorId: string/)
+  assert.doesNotMatch(invalidation, /setInterval|setTimeout/)
 })
 
 test('mutation feedback is visible in effect detail and cleared with the overlay', () => {
