@@ -656,7 +656,7 @@ export function registerGameSystemRoutes(
     const created = await prisma.$transaction(async (tx) => {
       const actor = await tx.campaignActor.create({
         data: withoutCampaignActorInventory({
-          campaignId: campaign.id,
+          campaign: { connect: { id: campaign.id } },
           name: catalogSheet.name,
           avatarUrl: catalogSheet.imageUrl ?? null,
           bio: null,
@@ -772,7 +772,7 @@ export function registerGameSystemRoutes(
     const created = await prisma.$transaction(async (tx) => {
       const actor = await tx.campaignActor.create({
         data: withoutCampaignActorInventory({
-          campaignId: campaign.id,
+          campaign: { connect: { id: campaign.id } },
           name: actorName,
           avatarUrl: source.actor?.avatarUrl ?? null,
           bio: null,

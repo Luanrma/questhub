@@ -6,6 +6,7 @@
     "dev": "concurrently -k -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "tsx watch apps/api/src/main.ts",
     "dev:web": "vite --config apps/web/vite.config.ts",
+    "build:api": "tsc -p apps/api/tsconfig.build.json",
     "build:web": "tsc -b apps/web/tsconfig.json && vite build --config apps/web/vite.config.ts",
     "build:agents": "tsc -p apps/agents/tsconfig.json",
     "lint:web": "eslint apps/web --config apps/web/eslint.config.js",

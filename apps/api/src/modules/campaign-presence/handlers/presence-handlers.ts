@@ -33,7 +33,6 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     io,
     state,
     isCampaignOnline,
-    getCampaignSessionState,
     getVisibleCampaignSessionState,
     emitCampaignSessionState,
     emitCampaignMeasurementSnapshot,

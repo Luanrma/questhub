@@ -48,4 +48,5 @@ jobs:
       - run: npm run db:deploy
       - run: npx prisma db execute --file apps/api/prisma/invariants.test.sql
       - run: npm run test:unit
+      - run: npm run build:api
       - run: npm run build:web
