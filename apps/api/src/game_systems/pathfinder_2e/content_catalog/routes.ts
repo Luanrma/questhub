@@ -10,6 +10,7 @@ import {
   getPathfinder2eActiveEffectDefinitionView,
   listPathfinder2eActiveEffectDefinitionViews,
 } from './active-effect-query'
+import { getPathfinder2eActiveEffectReferences } from './active-effect-references'
 
 const localeSchema = z.enum(['en-US', 'pt-BR']).default('pt-BR')
 const roundParamsSchema = z.object({ roundId: z.string().trim().min(1).max(100) })
@@ -57,6 +58,24 @@ export function registerPathfinder2eContentCatalogRoutes(app: FastifyInstance) {
     if (!entry) return reply.status(404).send({ error: 'Conteúdo não encontrado' })
 
     return reply.send(entry)
+  })
+
+  app.get('/api/game-systems/pathfinder-2e/content/active-effect-references/:contentId', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = entryParamsSchema.safeParse(req.params)
+    const query = querySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) {
+      return reply.status(400).send({ error: 'Consulta de referências PF2e inválida' })
+    }
+
+    const locale = query.data.locale ?? 'pt-BR'
+    return reply.send({
+      contentId: params.data.contentId,
+      locale,
+      references: getPathfinder2eActiveEffectReferences(params.data.contentId, locale),
+    })
   })
 
   app.get('/api/game-systems/pathfinder-2e/content/active-effects', async (req, reply) => {
