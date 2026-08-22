@@ -1,0 +1,28 @@
+// QH-EFF-012 — exact, versioned polarity decisions.
+// Static definitionKey metadata; no runtime semantic inference.
+export const PATHFINDER_2E_EFFECT_POLARITY_SPELL_3 = Object.freeze({
+  'spell-effects:uD13zIE22foqmFgt': 'HARMFUL',
+  'spell-effects:uHNehgyXeNsdd3or': 'BENEFICIAL',
+  'spell-effects:uHUcP59Z5fAdomda': 'BENEFICIAL',
+  'spell-effects:uPmHi7ZiCj7PWM9N': 'BENEFICIAL',
+  'spell-effects:v09uwq1eHEAy2bgh': 'BENEFICIAL',
+  'spell-effects:vFZ7hG2j2DIQGkXg': 'HARMFUL',
+  'spell-effects:vUjRvriyuHDZrsgc': 'BENEFICIAL',
+  'spell-effects:vWEYKF37OexA14Ki': 'BENEFICIAL',
+  'spell-effects:vhFnQBvguBXo6vxx': 'BENEFICIAL',
+  'spell-effects:wSlBL3pDzvwMxCSV': 'BENEFICIAL',
+  'spell-effects:xPVOvWNJORvm8EwP': 'BENEFICIAL',
+  'spell-effects:y4y0nusC97R7ZDL5': 'HARMFUL',
+  'spell-effects:y9PJdDYFemhk6Z5o': 'BENEFICIAL',
+  'spell-effects:yEQXaB7XyaROVqyb': 'BENEFICIAL',
+  'spell-effects:yGedCb78XX6TtTq3': 'BENEFICIAL',
+  'spell-effects:yKPb3VrVzBkr34eR': 'BENEFICIAL',
+  'spell-effects:yYDj0G4O3q5iGexx': 'BENEFICIAL',
+  'spell-effects:yl0Pm78RXW5R2k50': 'HARMFUL',
+  'spell-effects:zPGVOLz6xhsQN35C': 'BENEFICIAL',
+  'spell-effects:zPPZz6lcp87ALUde': 'BENEFICIAL',
+  'spell-effects:zRKw95WMezr6TgiT': 'BENEFICIAL',
+  'spell-effects:zbTpf11NtbmizuzR': 'HARMFUL',
+  'spell-effects:znwjWUvGOFQ6VYaE': 'HARMFUL',
+  'spell-effects:zpxIwEjnLUSO1B4z': 'BENEFICIAL',
+} as const)
