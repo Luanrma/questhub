@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import cookiePlugin from '@fastify/cookie'
+import { registerGameSystemActiveEffectCompositionRoutes } from './composition/game-system-active-effects/routes'
 import { registerAuthRoutes } from './modules/auth/routes'
 import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
@@ -67,6 +68,7 @@ export async function createVttServer() {
   registerCampaignRoutes(app, presence)
   registerCampaignActorRoutes(app)
   registerCampaignActorEffectRoutes(app, presence.io)
+  registerGameSystemActiveEffectCompositionRoutes(app, presence.io)
   registerCampaignCharacterSheetContextRoutes(app)
   registerCampaignDiaryRoutes(app)
   registerCampaignSceneRoutes(app, presence)
