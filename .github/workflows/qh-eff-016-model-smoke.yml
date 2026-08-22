@@ -1,9 +1,9 @@
 name: QH-EFF-016 Model Smoke
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/qh-eff-016-active-effects-pt-br
+      - main
   workflow_dispatch:
 
 permissions:
