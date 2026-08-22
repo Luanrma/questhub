@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { listPathfinder2eActiveEffectDefinitions } from '../content_catalog/active-effect-definitions'
 import { getPathfinder2eBestiaryEffectMappings } from '../content_catalog/bestiary-effect-mappings'
 import { getPathfinder2eSpellEffectMappings } from '../content_catalog/spell-effect-mappings'
 import {
@@ -8,6 +9,7 @@ import {
   resolvePathfinder2eEffectApplication,
   searchPathfinder2eEffectDefinitions,
 } from './application'
+import { normalizePathfinder2eAppliedEffectDescription } from './presentation'
 
 const FRIGHTENED = 'conditionitems:TBSHQspnbcqxsmjL'
 const PRONE = 'conditionitems:j91X7x0XSomq8d60'
@@ -27,8 +29,12 @@ test('manual PF2e application resolves a canonical valued Condition without mech
   assert.equal(result.effect.namespace, PATHFINDER_2E_ACTIVE_EFFECT_NAMESPACE)
   assert.equal(result.effect.definitionKey, FRIGHTENED)
   assert.equal(result.effect.name, 'Frightened')
+  assert.equal(result.effect.polarity, 'HARMFUL')
+  assert.equal(result.effect.category, 'condition')
   assert.equal(result.effect.displayValue, '1')
   assert.equal(result.effect.payload.value, 1)
+  assert.ok(result.effect.description)
+  assert.equal(result.effect.description.includes('<p'), false)
   assert.deepEqual(result.effect.origin, {
     system: 'PATHFINDER_2E',
     type: 'MANUAL',
@@ -41,6 +47,32 @@ test('manual PF2e application resolves a canonical valued Condition without mech
   for (const forbidden of ['hitPoints', 'armorClass', 'savingThrows', 'spellSlots']) {
     assert.equal(serialized.includes(forbidden), false)
   }
+})
+
+test('Quickened keeps its explicit BENEFICIAL catalog polarity when applied', () => {
+  const quickened = listPathfinder2eActiveEffectDefinitions()
+    .find((definition) => definition.source.slug === 'quickened')
+  assert.ok(quickened)
+
+  const result = resolvePathfinder2eEffectApplication({
+    source: { type: 'MANUAL', definitionKey: quickened.definitionKey },
+  })
+  assert.equal(result.ok, true)
+  if (!result.ok) return
+
+  assert.equal(result.effect.definitionKey, quickened.definitionKey)
+  assert.equal(result.effect.polarity, 'BENEFICIAL')
+  assert.equal(result.effect.category, 'condition')
+  assert.equal(result.effect.displayValue, null)
+})
+
+test('applied effect description normalizes markup without executing or exposing raw HTML', () => {
+  assert.equal(
+    normalizePathfinder2eAppliedEffectDescription(
+      '<p>Editorial <strong>text</strong> &amp; detail.</p><script>alert(1)</script><ul><li>Second line</li></ul>',
+    ),
+    'Editorial text & detail.\n• Second line',
+  )
 })
 
 test('explicit value overrides the base value only for valued Conditions', () => {
