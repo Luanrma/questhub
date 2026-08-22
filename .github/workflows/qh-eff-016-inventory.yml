@@ -6,7 +6,7 @@ on:
       - feat/qh-eff-016-active-effects-pt-br
   pull_request:
     branches:
-      - feat/qh-eff-015-clickable-effect-references
+      - main
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ permissions:
 jobs:
   inventory:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,7 +24,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx tsx scripts/qh-eff-016-inventory.mts
-      - run: npx tsx scripts/qh-eff-016-machine-draft.mts
       - uses: actions/upload-artifact@v4
         with:
           name: qh-eff-016-effect-inventory
