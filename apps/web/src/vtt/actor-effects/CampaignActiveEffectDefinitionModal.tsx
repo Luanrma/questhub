@@ -85,6 +85,7 @@ export function CampaignActiveEffectDefinitionModal({ campaignId, effect, onClos
       .then((response) => setPresentation(response.presentation))
       .catch((cause) => {
         if (controller.signal.aborted) return
+        setPresentation(null)
         setError(cause instanceof ApiError ? cause.message : 'Não foi possível carregar a definição canônica deste efeito.')
       })
       .finally(() => {
