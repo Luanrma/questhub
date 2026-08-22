@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { CircleDot, ShieldCheck, TriangleAlert, X } from 'lucide-react'
+import { CircleDot, ShieldCheck, TriangleAlert } from 'lucide-react'
 import { useParams } from 'react-router-dom'
+import { CampaignActiveEffectDefinitionModal } from '../actor-effects/CampaignActiveEffectDefinitionModal'
 import { normalizeActorEffectPresentationText } from '../actor-effects/presentationText'
 import type { ActorEffectView } from '../actor-effects/types'
 import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
@@ -80,84 +80,13 @@ function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; com
   )
 }
 
-function EffectDetailModal({ effect, onClose }: { effect: ActorEffectView; onClose: () => void }) {
-  if (typeof document === 'undefined') return null
-  const description = effectDescription(effect)
-
-  return createPortal(
-    <div
-      className="pointer-events-auto fixed inset-0 z-[320] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-      onPointerDown={(event) => {
-        event.stopPropagation()
-        if (event.target === event.currentTarget) onClose()
-      }}
-      role="presentation"
-    >
-      <section
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Detalhes do efeito ${effect.name}`}
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-white/15 bg-[#111218] text-white shadow-2xl"
-        onPointerDown={(event) => event.stopPropagation()}
-      >
-        <header className="flex items-start justify-between gap-4 border-b border-white/10 bg-white/[0.025] px-4 py-3.5">
-          <div className="flex min-w-0 items-center gap-3">
-            <EffectGlyph effect={effect} />
-            <div className="min-w-0">
-              <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-zinc-500">Detalhes do efeito</div>
-              <h3 className="mt-0.5 truncate text-base font-bold text-zinc-100">{effect.name}</h3>
-            </div>
-          </div>
-          <button
-            type="button"
-            aria-label="Fechar detalhes"
-            onClick={onClose}
-            className="rounded-md p-1.5 text-zinc-400 transition hover:bg-white/10 hover:text-white"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </header>
-
-        <div className="max-h-[70vh] space-y-3 overflow-y-auto p-4">
-          <div className="grid gap-2 sm:grid-cols-2" data-effect-detail-metadata>
-            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Polaridade</div>
-              <div className="mt-1 text-sm font-semibold text-zinc-100">{effectPolarityLabel(effect)}</div>
-            </div>
-
-            {effect.category ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Categoria</div>
-                <div className="mt-1 text-sm font-semibold text-zinc-100">{effect.category}</div>
-              </div>
-            ) : null}
-
-            {effect.displayValue ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Valor exibido</div>
-                <div className="mt-1 text-sm font-semibold text-zinc-100">{effect.displayValue}</div>
-              </div>
-            ) : null}
-          </div>
-
-          {description ? (
-            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-3">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Descrição</div>
-              <p className="mt-2 whitespace-pre-wrap text-xs leading-relaxed text-zinc-300">{description}</p>
-            </div>
-          ) : (
-            <p className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-3 text-xs text-zinc-500">
-              Este efeito não possui descrição de apresentação.
-            </p>
-          )}
-        </div>
-      </section>
-    </div>,
-    document.body,
-  )
-}
-
-function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
+function ActiveEffectIndicators({
+  campaignId,
+  effects,
+}: {
+  campaignId?: string
+  effects: ActorEffectView[]
+}) {
   const [open, setOpen] = useState(false)
   const [selectedEffect, setSelectedEffect] = useState<ActorEffectView | null>(null)
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -269,7 +198,11 @@ function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
       </div>
 
       {selectedEffect ? (
-        <EffectDetailModal effect={selectedEffect} onClose={closeDetail} />
+        <CampaignActiveEffectDefinitionModal
+          campaignId={campaignId}
+          effect={selectedEffect}
+          onClose={closeDetail}
+        />
       ) : null}
     </>
   )
@@ -334,7 +267,7 @@ export function TokenPresentationOverlay({
     >
       {(effects.length || indicators.length) ? (
         <div className="absolute bottom-full left-1/2 mb-1 flex max-w-[240px] -translate-x-1/2 flex-wrap items-end justify-center gap-1">
-          {effects.length ? <ActiveEffectIndicators effects={effects} /> : null}
+          {effects.length ? <ActiveEffectIndicators campaignId={campaignId} effects={effects} /> : null}
           {indicators.map((indicator) => (
             <span
               key={indicator.id}
