@@ -32,6 +32,7 @@ const normalizeText = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]
 const isAllowedAiFile = (repoPath) => /^\.ai\/agents\/[^/]+\.md$/.test(repoPath)
 const extractWorkItemIds = (value) => [...new Set(String(value ?? '').match(workItemPattern) ?? [])]
 const usesNoCard = (value) => noCardPattern.test(String(value ?? ''))
+const commitSubject = (value) => String(value ?? '').split(/\r?\n/, 1)[0].trim()
 
 const aiFiles = walkFiles(join(root, '.ai')).map(toRepoPath)
 for (const repoPath of aiFiles) {
@@ -130,6 +131,8 @@ const gitOutput = (args) => {
 }
 
 const readLocalCommitMessage = () => gitOutput(['log', '-1', '--pretty=%B'])
+const readCommitMessageAt = (sha) =>
+  sha ? gitOutput(['show', '-s', '--format=%B', sha]) : readLocalCommitMessage()
 
 const getChangedFiles = (event) => {
   let range = null
@@ -164,6 +167,53 @@ const validateNoCardScope = (event) => {
       )
     }
   }
+}
+
+const validateCommitTraceability = ({
+  commitMessage,
+  expectedWorkItemId = null,
+  requireNoCard = false,
+  label = 'commit',
+}) => {
+  const noCard = usesNoCard(commitMessage)
+  const commitIds = extractWorkItemIds(commitMessage)
+  const subject = commitSubject(commitMessage) || '<mensagem vazia>'
+
+  if (requireNoCard) {
+    if (!noCard || commitIds.length > 0) {
+      violations.push(`${label} deve declarar somente NO-CARD; mensagem: ${JSON.stringify(subject)}`)
+      return null
+    }
+    return 'NO-CARD'
+  }
+
+  if (noCard && commitIds.length > 0) {
+    violations.push(`${label} nao pode combinar NO-CARD com um identificador QH-*; mensagem: ${JSON.stringify(subject)}`)
+    return null
+  }
+
+  if (noCard) {
+    if (expectedWorkItemId) {
+      violations.push(`${label} deve referenciar ${expectedWorkItemId}, nao NO-CARD; mensagem: ${JSON.stringify(subject)}`)
+      return null
+    }
+    return 'NO-CARD'
+  }
+
+  if (commitIds.length !== 1) {
+    const expected = expectedWorkItemId ? ` exatamente ${expectedWorkItemId}` : ' exatamente um QH-* concreto'
+    violations.push(`${label} deve possuir${expected} ou declarar NO-CARD; mensagem: ${JSON.stringify(subject)}`)
+    return null
+  }
+
+  if (expectedWorkItemId && commitIds[0] !== expectedWorkItemId) {
+    violations.push(
+      `${label} deve referenciar ${expectedWorkItemId}; encontrado ${commitIds[0]}; mensagem: ${JSON.stringify(subject)}`,
+    )
+    return null
+  }
+
+  return commitIds[0]
 }
 
 const validateCardMode = ({ title, body }) => {
@@ -202,6 +252,9 @@ if (event?.pull_request) {
   const body = String(event.pull_request.body ?? '')
   const noCard = usesNoCard(title) || usesNoCard(body)
   const allIds = extractWorkItemIds(`${title}\n${body}`)
+  const headSha = String(event.pull_request.head?.sha ?? '')
+  const headLabel = headSha ? `head commit ${headSha.slice(0, 8)}` : 'head commit'
+  const headCommitMessage = readCommitMessageAt(headSha)
 
   if (noCard && allIds.length > 0) {
     violations.push('pull request nao pode combinar NO-CARD com um identificador QH-*')
@@ -213,24 +266,30 @@ if (event?.pull_request) {
       violations.push('pull request NO-CARD deve conter "Justificativa NO-CARD:"')
     }
     validateNoCardScope(event)
+    validateCommitTraceability({
+      commitMessage: headCommitMessage,
+      requireNoCard: true,
+      label: headLabel,
+    })
     traceability = 'NO-CARD'
   } else {
     traceability = validateCardMode({ title, body })
+    if (traceability) {
+      validateCommitTraceability({
+        commitMessage: headCommitMessage,
+        expectedWorkItemId: traceability,
+        label: headLabel,
+      })
+    }
   }
 } else {
+  const commitSha = String(event?.after ?? event?.head_commit?.id ?? '')
+  const label = commitSha ? `commit ${commitSha.slice(0, 8)}` : 'commit'
   const commitMessage = event?.head_commit?.message ?? readLocalCommitMessage()
-  const noCard = usesNoCard(commitMessage)
-  const commitIds = extractWorkItemIds(commitMessage)
+  traceability = validateCommitTraceability({ commitMessage, label })
 
-  if (noCard && commitIds.length > 0) {
-    violations.push('commit nao pode combinar NO-CARD com um identificador QH-*')
-  } else if (noCard) {
+  if (traceability === 'NO-CARD') {
     validateNoCardScope(event)
-    traceability = 'NO-CARD'
-  } else if (commitIds.length !== 1) {
-    violations.push('commit deve possuir exatamente um QH-* concreto ou declarar NO-CARD')
-  } else {
-    traceability = commitIds[0]
   }
 }
 
