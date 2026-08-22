@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync, mkdirSync } from 'node:fs'
-import { basename, dirname, join, relative, resolve, sep } from 'node:path'
+import { dirname, join, relative, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const EXPECTED_SOURCE_COMMIT = '01114da5851f31404078d8020809b13e4000bc4b'
@@ -7,6 +7,9 @@ const TARGET_TYPES = new Set(['condition', 'effect', 'affliction'])
 const SOURCE_INDEX_FILES = ['bestiary.ts', 'spells.ts', 'items.ts']
 const DEFAULT_OUTPUT = resolve(
   'apps/api/src/game_systems/pathfinder_2e/content_catalog/generated/active-effect-source.ts',
+)
+const POLARITY_MANIFEST = resolve(
+  'apps/api/src/game_systems/pathfinder_2e/content_catalog/active-effect-polarity.json',
 )
 
 const sourceRoot = resolve(process.argv[2] ?? '.tmp/pf2e-source')
@@ -32,9 +35,7 @@ function walkJson(directory) {
 }
 
 function assertSourceRevision() {
-  const revision = spawnSync('git', ['-C', sourceRoot, 'rev-parse', 'HEAD'], {
-    encoding: 'utf8',
-  })
+  const revision = spawnSync('git', ['-C', sourceRoot, 'rev-parse', 'HEAD'], { encoding: 'utf8' })
   if (revision.error) throw revision.error
   if (revision.status !== 0) {
     fail(`unable to read PF2e source revision: ${revision.stderr?.trim() || 'git failed'}`)
@@ -88,8 +89,7 @@ function parseReferenceIndexes() {
         const uuid = tuple[3]
         const sourceId = tuple[6]
         const kind = tuple[8]
-        if (!TARGET_TYPES.has(kind) || typeof sourceId !== 'string') continue
-        if (typeof uuid !== 'string') continue
+        if (!TARGET_TYPES.has(kind) || typeof sourceId !== 'string' || typeof uuid !== 'string') continue
 
         const uuidMatch = uuid.match(/^Compendium\.pf2e\.([^.]+)\.Item\.(.+)$/)
         if (!uuidMatch) continue
@@ -105,6 +105,17 @@ function parseReferenceIndexes() {
   }
 
   return targets
+}
+
+function readPolarityManifest() {
+  if (!existsSync(POLARITY_MANIFEST)) fail(`missing polarity manifest: ${POLARITY_MANIFEST}`)
+  const parsed = JSON.parse(readFileSync(POLARITY_MANIFEST, 'utf8'))
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) fail('invalid polarity manifest')
+  const allowed = new Set(['BENEFICIAL', 'HARMFUL', 'NEUTRAL'])
+  for (const [definitionKey, polarity] of Object.entries(parsed)) {
+    if (!allowed.has(polarity)) fail(`invalid polarity for ${definitionKey}: ${String(polarity)}`)
+  }
+  return parsed
 }
 
 function readDocument(path) {
@@ -141,15 +152,16 @@ function stringOrNull(value) {
 
 function conditionValue(document) {
   const value = document?.system?.value
-  if (!value || typeof value !== 'object') return null
-  if (typeof value.isValued !== 'boolean') return null
+  if (!value || typeof value !== 'object' || typeof value.isValued !== 'boolean') return null
   const baseValue = typeof value.value === 'number' && Number.isFinite(value.value)
     ? value.value
     : null
   return { isValued: value.isValued, baseValue }
 }
 
-function sourceRecord(target, document) {
+function sourceRecord(target, document, polarityManifest) {
+  const polarity = polarityManifest[target.definitionKey]
+  if (!polarity) fail(`missing explicit polarity classification: ${target.definitionKey}`)
   return {
     definitionKey: target.definitionKey,
     kind: target.kind,
@@ -162,6 +174,7 @@ function sourceRecord(target, document) {
     },
     name: String(document?.name ?? '').trim(),
     description: description(document, target.definitionKey),
+    polarity,
     group: stringOrNull(document?.system?.group),
     conditionValue: target.kind === 'condition' ? conditionValue(document) : null,
     schemaVersion: 1,
@@ -180,14 +193,13 @@ function canonicalConditionTargets(packDirectory) {
       sourcePack: 'conditionitems',
       sourceId: document._id,
       kind: 'condition',
-      path,
       document,
     })
   }
   return targets
 }
 
-function collectSourceRecords(packDirectories) {
+function collectSourceRecords(packDirectories, polarityManifest) {
   const references = parseReferenceIndexes()
   const records = new Map()
 
@@ -196,7 +208,7 @@ function collectSourceRecords(packDirectories) {
   if (!existsSync(conditionsDirectory)) fail('canonical conditionitems pack not found')
 
   for (const target of canonicalConditionTargets(conditionsDirectory)) {
-    records.set(target.definitionKey, sourceRecord(target, target.document))
+    records.set(target.definitionKey, sourceRecord(target, target.document, polarityManifest))
   }
 
   const nonConditionTargets = [...references.values()]
@@ -216,7 +228,12 @@ function collectSourceRecords(packDirectories) {
     if (candidates.length !== 1) {
       fail(`expected one source document for ${target.definitionKey}, found ${candidates.length}`)
     }
-    records.set(target.definitionKey, sourceRecord(target, candidates[0].document))
+    records.set(target.definitionKey, sourceRecord(target, candidates[0].document, polarityManifest))
+  }
+
+  const unknownManifestKeys = Object.keys(polarityManifest).filter((key) => !records.has(key))
+  if (unknownManifestKeys.length > 0) {
+    fail(`polarity manifest contains unpublished definitions: ${unknownManifestKeys.join(', ')}`)
   }
 
   return [...records.values()].sort((left, right) => (
@@ -242,6 +259,7 @@ function generatedSource(records) {
     '  }',
     '  name: string',
     '  description: string',
+    "  polarity: 'BENEFICIAL' | 'HARMFUL' | 'NEUTRAL'",
     '  group: string | null',
     '  conditionValue: { isValued: boolean; baseValue: number | null } | null',
     '  schemaVersion: 1',
@@ -254,8 +272,9 @@ function generatedSource(records) {
 }
 
 const sourceCommit = assertSourceRevision()
+const polarityManifest = readPolarityManifest()
 const packDirectories = readManifestPackDirectories()
-const records = collectSourceRecords(packDirectories)
+const records = collectSourceRecords(packDirectories, polarityManifest)
 const expected = generatedSource(records)
 const current = existsSync(outputPath) ? readFileSync(outputPath, 'utf8') : null
 const changed = current !== expected
