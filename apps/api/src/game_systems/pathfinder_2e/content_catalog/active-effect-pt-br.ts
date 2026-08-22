@@ -8,6 +8,8 @@ export const PATHFINDER_2E_ACTIVE_EFFECT_PT_BR_SOURCE_REPOSITORY =
 
 type TranslationMap = Readonly<Record<string, Pathfinder2eActiveEffectTranslationFields>>
 
+// The upstream PT-BR pack is sparse for some Effects. A missing field intentionally
+// falls back to en-US; we never shorten or synthesize a canonical rule description.
 const conditionitems: TranslationMap = {
   Blinded: {
     name: 'Cegado',
@@ -49,14 +51,8 @@ const conditionitems: TranslationMap = {
     name: 'Condenado',
     description: '<p>Uma força poderosa condenou sua alma, deixando-o mais perto da morte. Condenado sempre inclui um valor. O valor máximo de @Compendium[pf2e.conditionitems.yZRUzMqrMmfLu0V1]{Morrendo}, que determina quando você morre, é reduzido pelo seu valor de condenado. Se seu valor máximo de morrendo for reduzido para 0, você morre instantaneamente. Quando morre, você deixa de estar condenado.</p><p>Seu valor de condenado diminui em 1 para cada noite de descanso completa que você tiver.</p>',
   },
-  Drained: {
-    name: 'Drenado',
-    description: '<p>Quando uma criatura obtiver sucesso em drenar seu sangue ou força vital, você fica menos saudável. Drenado sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em testes baseados em Constituição, como salvamentos de Fortitude. Você também perde uma quantidade de Pontos de Vida igual ao seu nível (mínimo 1) multiplicado pelo valor de drenado, e seus Pontos de Vida máximos são reduzidos nesta mesma quantidade.</p><p>Cada vez que você tiver uma noite completa de descanso, seu valor de drenado diminui em 1. Isto aumenta seus Pontos de Vida máximos, mas você não recupera Pontos de Vida perdidos imediatamente.</p>',
-  },
-  Dying: {
-    name: 'Morrendo',
-    description: '<p>Você está sangrando ou de alguma forma à beira da morte. Enquanto tiver esta condição, você fica @Compendium[pf2e.conditionitems.fBnFDH2MTzgFijKf]{Inconsciente}. Morrendo sempre inclui um valor. Se em algum momento este valor chegar a morrendo 4, você morre. Se estiver morrendo, a cada rodada no início do seu turno, você deve fazer um teste de recuperação para determinar se sua condição melhora ou piora.</p><p>Se perder a condição morrendo ao obter sucesso em um teste de recuperação e ainda estiver com 0 Pontos de Vida, você permanece inconsciente. A qualquer momento em que perder a condição morrendo, você sofre a condição @Compendium[pf2e.conditionitems.Yl48xTdMh3aeQYL2]{Ferido} 1 — ou aumenta seu valor de ferido em 1 se já possuir essa condição.</p>',
-  },
+  Drained: { name: 'Drenado' },
+  Dying: { name: 'Morrendo' },
   Encumbered: {
     name: 'Sobrecarregado',
     description: '<p>Você está carregando mais peso do que consegue lidar. Enquanto estiver sobrecarregado, você fica @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Desajeitado} 1 e sofre –3 metros de penalidade em todas suas Velocidades. Assim como todas as penalidades em sua Velocidade, isto não pode reduzir sua Velocidade abaixo de 1,5 metros.</p>',
@@ -65,22 +61,13 @@ const conditionitems: TranslationMap = {
     name: 'Enfraquecido',
     description: '<p>Você está fisicamente enfraquecido. Enfraquecido sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em testes e CDs baseadas em Força, incluindo rolagens de ataques corpo a corpo baseados em Força, rolagens de dano baseadas em Força e testes de perícia utilizando Atletismo.</p>',
   },
-  Fascinated: {
-    name: 'Fascinado',
-    description: '<p>Você é compelido a focar sua atenção em algo, distraindo-se de qualquer outra coisa ao seu redor. Você sofre –2 de penalidade de estado em testes de Percepção e perícias e não pode usar ações com o traço concentração a menos que elas ou suas consequências pretendidas sejam relacionadas ao alvo de seu fascínio. Esta condição é encerrada se uma criatura usar ações hostis contra você ou qualquer de seus aliados.</p>',
-  },
+  Fascinated: { name: 'Fascinado' },
   Fatigued: {
     name: 'Fatigado',
     description: '<p>Você está cansado e não tem muita energia para gastar. Você sofre –1 de penalidade de estado na CA e em jogadas de salvamento. Enquanto explorar, você não pode escolher uma atividade de exploração.</p><p>Você se recupera da fadiga após uma noite completa de descanso.</p>',
   },
-  Fleeing: {
-    name: 'Fugindo',
-    description: '<p>Você é forçado a correr devido ao medo ou alguma outra compulsão. Em seu turno, você deve gastar cada uma de suas ações para escapar da fonte da condição fugindo da melhor forma possível. Você não pode @Compendium[pf2e.actionspf2e.A72nHGUtNXgY5Ey9]{Adiar} ou @Compendium[pf2e.actionspf2e.dLgAMt3TbkmLkUqE]{Preparar} enquanto estiver fugindo.</p>',
-  },
-  Friendly: {
-    name: 'Amistoso',
-    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular. Uma criatura que seja amistosa a um personagem gosta desse personagem e possivelmente concordará com pedidos simples e seguros que não sejam muito custosos para realizar.</p>',
-  },
+  Fleeing: { name: 'Fugindo' },
+  Friendly: { name: 'Amistoso' },
   Frightened: {
     name: 'Assustado',
     description: '<p>Você está com medo e se esforça para controlar seus nervos. Assustado sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em todos os seus testes e CDs. Exceto se especificado o contrário, ao final de cada um de seus turnos, o valor de sua condição assustado é reduzido em 1.</p>',
@@ -89,101 +76,60 @@ const conditionitems: TranslationMap = {
     name: 'Agarrado',
     description: '<p>Você é segurado por outra criatura, o que lhe impõe as condições @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Desprevenido} e @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Imobilizado}. Se tentar uma ação de manuseio enquanto estiver agarrado, você deve obter sucesso em um teste simples @Check[flat|dc:5] ou perde a ação; role o teste após gastar a ação, mas antes de quaisquer efeitos serem aplicados.</p>',
   },
-  Helpful: {
-    name: 'Prestativo',
-    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular. Uma criatura que seja prestativa a um personagem deseja ativamente ajudá-lo e aceitará pedidos razoáveis, desde que não prejudiquem seus próprios objetivos ou qualidade de vida.</p>',
-  },
-  Hidden: {
-    name: 'Escondido',
-    description: '<p>Enquanto estiver escondido para uma criatura, essa criatura sabe o espaço em que você está, mas é incapaz de determinar a sua localização precisa. Uma criatura para a qual você estiver escondido fica desprevenida para você e deve obter sucesso em um teste simples @Check[flat|dc:11] quando mirá-lo com um ataque, magia ou outro efeito, ou falha em afetá-lo.</p>',
-  },
-  Hostile: {
-    name: 'Hostil',
-    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular. Uma criatura que seja hostil a um personagem busca ativamente prejudicá-lo. Ela não necessariamente ataca, mas não aceitará pedidos do personagem.</p>',
-  },
+  Helpful: { name: 'Prestativo' },
+  Hidden: { name: 'Escondido' },
+  Hostile: { name: 'Hostil' },
   Immobilized: {
     name: 'Imobilizado',
-    description: '<p>Você não pode usar qualquer ação com o traço movimento. Se você estiver imobilizado por algo lhe segurando e uma força externa o moveria para fora de seu espaço, essa força deve obter sucesso em um teste contra a CD do efeito lhe segurando ou contra a defesa relevante da criatura lhe segurando.</p>',
+    description: '<p>Você não pode usar qualquer ação com o traço movimento. Se você estiver imobilizado por algo lhe segurando e uma força externa o moveria para fora de seu espaço, essa força deve obter sucesso em um teste contra a CD do efeito lhe segurando ou contra a defesa relevante (normalmente CD de Fortitude) do monstro lhe segurando.</p>',
   },
   Indifferent: {
     name: 'Indiferente',
-    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular. Uma criatura que seja indiferente a um personagem realmente não se importa com esse personagem de forma alguma.</p>',
+    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular, e somente efeitos sobrenaturais (como uma magia) podem impor estas condições a personagens jogadores. Uma criatura que seja indiferente a um personagem realmente não se importa com esse personagem de forma alguma. Assuma que a atitude de uma criatura a um determinado personagem é indiferente exceto se especificado o contrário.</p>',
   },
-  Invisible: {
-    name: 'Invisível',
-    description: '<p>Enquanto estiver invisível, você não pode ser visto. Você fica @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Indetectado} para todo mundo. Criaturas podem Buscar para tentar detectá-lo. Você não pode ficar Observado enquanto estiver invisível, exceto através de habilidades mágicas ou especiais.</p>',
-  },
-  Observed: {
-    name: 'Observado',
-    description: '<p>Qualquer coisa em plena vista está observada para você. Se uma criatura tomar medidas para evitar detecção, como utilizar Furtividade para se Esconder, ela pode ficar Escondida ou Indetectada em vez de observada.</p>',
-  },
+  Invisible: { name: 'Invisível' },
+  Observed: { name: 'Observado' },
   'Off-Guard': {
     name: 'Desprevenido',
-    description: '<p>Você está distraído ou de alguma forma incapaz de direcionar sua atenção total para a defesa. Você sofre –2 de penalidade de circunstância na CA. Alguns efeitos lhe impõem a condição desprevenido somente contra certas criaturas ou ataques.</p>',
+    description: '<p>Você está distraído ou de alguma forma incapaz de direcionar sua atenção total para a defesa. Você sofre –2 de penalidade de circunstância na CA. Alguns efeitos lhe impõem a condição desprevenido somente contra certas criaturas ou ataques. Outros efeitos — especialmente condições — podem lhe deixar desprevenido contra qualquer coisa. Se uma regra não especificar que a condição se aplica somente a determinadas circunstâncias, ela se aplica a todas, como em “O alvo fica desprevenido”.</p>',
   },
-  Paralyzed: {
-    name: 'Paralisado',
-    description: '<p>Seu corpo está congelado no lugar. Você sofre a condição @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Desprevenido} e não pode agir exceto para Recordar Conhecimento e usar ações que requeiram somente o uso de sua mente. Seus sentidos ainda funcionam, mas você não pode Buscar enquanto estiver paralisado.</p>',
-  },
-  'Persistent Damage': {
-    name: 'Dano Persistente',
-    description: '<p>Dano persistente origina de efeitos como ácido, estar em chamas ou muitas outras situações. Em vez de sofrer dano persistente imediatamente, você o sofre ao final de cada um de seus turnos enquanto possuir a condição. Após sofrer dano persistente, role um @Check[flat|dc:15] para conferir se consegue recuperar-se do dano persistente. Se obtiver sucesso, a condição acaba.</p>',
-  },
-  Petrified: {
-    name: 'Petrificado',
-    description: '<p>Você foi transformado em pedra. Você não pode agir nem sentir qualquer coisa. Você se torna um objeto com propriedades determinadas pela condição. Quando for transformado de volta em carne, você possui a mesma quantidade de Pontos de Vida que tinha quando era uma estátua. Se a estátua for destruída, você morre imediatamente.</p>',
-  },
-  Prone: {
-    name: 'Prostrado',
-    description: '<p>Você está deitado no chão. Você está @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Desprevenido} e sofre –2 de penalidade de circunstância em rolagens de ataque. As únicas ações de movimento que você pode usar enquanto estiver prostrado são Rastejar e Levantar. Levantar encerra a condição prostrado.</p>',
-  },
+  Paralyzed: { name: 'Paralisado' },
+  'Persistent Damage': { name: 'Dano Persistente' },
+  Petrified: { name: 'Petrificado' },
+  Prone: { name: 'Prostrado' },
   Quickened: {
     name: 'Acelerado',
-    description: '<p>Você ganha 1 ação adicional a cada rodada no início do seu turno. Muitos efeitos que lhe deixam acelerado especificam os tipos de ações que você pode usar com esta ação adicional.</p>',
+    description: '<p>Você ganha 1 ação adicional a cada rodada no início do seu turno. Muitos efeitos que lhe deixam acelerado especificam os tipos de ações que você pode usar com esta ação adicional. Se ficar acelerado por várias fontes, você pode usar a ação extra recebida para realizar qualquer ação única permitida por qualquer dos efeitos que o deixaram acelerado. Como o efeito de acelerado ocorre no início de seu turno, você não ganha ações imediatamente se ficar acelerado durante seu turno.</p>',
   },
   Restrained: {
     name: 'Restringido',
-    description: '<p>Você está amarrado e mal pode se mover, ou uma criatura lhe prendeu. Você sofre as condições Desprevenido e Imobilizado e não pode usar quaisquer ações com os traços ataque ou manuseio exceto para tentar Escapar ou Forçar suas amarras. Restringido sobrepõe Agarrado.</p>',
+    description: '<p>Você está amarrado e mal pode se mover, ou uma criatura lhe prendeu. Você sofre as condições @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Desprevenido} e @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Imobilizado} e não pode usar quaisquer ações com os traços ataque ou manuseio exceto para tentar @Compendium[pf2e.actionspf2e.SkZAQRkLLkmBQNB9]{Escapar} ou @Compendium[pf2e.actionspf2e.SjmKHgI7a5Z9JzBx]{Forçar} suas amarras. Restringido sobrepõe @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{Agarrado}.</p>',
   },
   Sickened: {
     name: 'Enjoado',
-    description: '<p>Você se sente mal. Enjoado sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em todos os seus testes e CDs. Você não pode ingerir nada voluntariamente enquanto estiver enjoado.</p><p>Você pode gastar uma ação única regurgitando para se recuperar, tentando imediatamente um salvamento de Fortitude contra a CD do efeito que lhe deixou enjoado.</p>',
+    description: '<p>Você se sente mal. Enjoado sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em todos os seus testes e CDs. Você não pode ingerir nada voluntariamente — incluindo elixires e venenos — enquanto estiver enjoado.</p><p>Você pode gastar uma ação única regurgitando para se recuperar, tentando imediatamente um salvamento de Fortitude contra a CD do efeito que lhe deixou enjoado. Em um sucesso, você reduz seu valor de enjoado em 1 (ou em 2 em um sucesso crítico).</p>',
   },
   Slowed: {
     name: 'Desacelerado',
-    description: '<p>Você possui menos ações. Lento sempre inclui um valor. Quando recuperar suas ações no início de seu turno, reduza a quantidade de ações recuperadas pelo seu valor de lento.</p>',
+    description: '<p>Você possui menos ações. Lento sempre inclui um valor. Quando recuperar suas ações no início de seu turno, reduza a quantidade de ações recuperadas pelo seu valor de lento. Como o efeito de lento ocorre no início de seu turno, você não perde ações imediatamente se ficar lento durante seu turno.</p>',
   },
-  Stunned: {
-    name: 'Atordoado',
-    description: '<p>Você fica atônito. Você não pode agir enquanto estiver atordoado. Atordoado sempre inclui um valor, que indica o total de ações que você perde, possivelmente ao longo de vários turnos.</p>',
-  },
-  Stupefied: {
-    name: 'Estupefato',
-    description: '<p>Seus pensamentos e instintos ficam nublados. Estupefato sempre inclui um valor. Você sofre uma penalidade de estado igual ao valor desta condição em testes e CDs baseadas em Inteligência, Sabedoria e Carisma.</p>',
-  },
-  Unconscious: {
-    name: 'Inconsciente',
-    description: '<p>Você está dormindo ou foi nocauteado. Você não pode agir. Você sofre –4 de penalidade de estado na CA, Percepção e salvamentos de Reflexos, além de possuir as condições Cego e Desprevenido. Quando sofrer esta condição, você fica Prostrado e larga itens que estiver segurando ou empunhando, exceto se o efeito especificar o contrário.</p>',
-  },
-  Undetected: {
-    name: 'Indetectado',
-    description: '<p>Quando estiver indetectado por uma criatura, essa criatura não pode vê-lo, não tem ideia do espaço que você ocupa e não pode mirá-lo — embora você ainda possa ser afetado por habilidades que mirem uma área.</p>',
-  },
+  Stunned: { name: 'Atordoado' },
+  Stupefied: { name: 'Estupefato' },
+  Unconscious: { name: 'Inconsciente' },
+  Undetected: { name: 'Indetectado' },
   Unfriendly: {
     name: 'Inamistoso',
-    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular. Uma criatura que seja inamistosa a um personagem não gosta do personagem e desconfia especificamente dele.</p>',
+    description: '<p>Esta condição reflete a disposição de uma criatura em relação a um personagem em particular, e somente efeitos sobrenaturais (como uma magia) podem impor estas condições a personagens jogadores. Uma criatura que seja inamistosa a um personagem não gosta do personagem e desconfia especificamente dele. Ela não aceitará @Compendium[pf2e.actionspf2e.DCb62iCBrJXy0Ik6]{Pedidos} do personagem.</p>',
   },
   Unnoticed: {
     name: 'Despercebido',
-    description: '<p>Se estiver despercebido por uma criatura, essa criatura não tem ideia de que você está presente. Se estiver despercebido, você também está Indetectado pela criatura.</p>',
+    description: '<p>Se estiver despercebido por uma criatura, essa criatura não tem ideia de que você está presente. Se estiver despercebido, você também está @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Indetectado} pela criatura. Esta condição é relevante para habilidades que podem ser usadas somente contra alvos que não estejam cientes de sua presença.</p>',
   },
-  Wounded: {
-    name: 'Ferido',
-    description: '<p>Você foi seriamente ferido durante um combate. A qualquer momento em que perder a condição Morrendo, você fica ferido 1 se já não possuir a condição ferido. Se já possuir a condição ferido, o valor dela aumenta em 1. Se sofrer a condição morrendo enquanto estiver ferido, aumente o valor dela pelo seu valor de ferido.</p>',
-  },
+  Wounded: { name: 'Ferido' },
 }
 
 const bestiaryEffects: TranslationMap = {
+  // Editorial translation of the example supplied during Human Approval review.
   'Effect: Swarming Bites': {
     name: 'Efeito: Mordidas do Enxame',
     description: '<p>Você fica desajeitado 1. Se tentar uma ação com os traços concentração ou manuseio enquanto estiver afetado, deve obter sucesso em um @Check[flat|dc:5] ou a ação é perdida; role o teste após gastar a ação, mas antes que quaisquer efeitos sejam aplicados.</p>',
@@ -194,52 +140,52 @@ const bestiaryEffects: TranslationMap = {
   },
   'Effect: Aura of Command': {
     name: 'Efeito: Aura de Comando',
-    description: '<p>A criatura recebe +1 de bônus de estado nas rolagens de ataque e +2 de bônus de estado em seus salvamentos de Vontade.</p>',
+    description: '<p>A criatura recebe a +1 de bônus de estado nas rolagens de ataque e +2 de bônus de estado em seus salvamentos de Vontade</p>',
   },
   'Effect: Oceanic Armor': {
-    description: '<p>A criatura recebe +2 de bônus de circunstância na CA.</p>',
+    description: '<p>A criatura recebe +2 de bônus de circusntância na CA.</p>',
   },
   'Effect: Lantern of Hope': {
     name: 'Efeito: Lanterna de Esperança',
-    description: '<p>A criatura recebe +1 de bônus de estado nas jogadas de dano e nos salvamentos contra Desespero Esmagador.</p>',
+    description: '<p>A criatura recebe +1 de bônus de estado nas jogadasde dano e nos salvamentos contra <em>@Compendium[pf2e.spells-srd.GaRQlC9Yw1BGKHfN]{Desespero Esmagador}</em>.</p>',
   },
 }
 
 const spellEffects: TranslationMap = {
   'Spell Effect: Courageous Anthem': {
     name: 'Efeito de Magia: Antífona da Coragem',
-    description: '<p>Você recebe +1 de bônus de estado em testes de ataque, jogadas de dano e testes de salvamento contra efeitos de medo.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY]{Antífona da Coragem}</p><p>Você recebe +1 de bônus de estado em testes de ataque, jogadas de dano e testes de salvamento contra efeitos de medo.</p>',
   },
   'Spell Effect: Guidance': {
     name: 'Efeito de Magia: Orientação',
-    description: '<p>Você recebe +1 de bônus de estado a uma jogada de salvamento, rolagem de ataque, teste de Percepção ou teste de perícia que você realizar. Você escolhe em qual rolagem usar o bônus antes de rolar o dado.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.izcxFQFwf3woCnFs]{Orientação}</p><p>Você recebe +1 de bônus de estado a uma jogada de salvamento, rolagem de ataque, teste de Percepção ou teste de perícia que você realizar. Você escolhe em qual rolagem usar o bônus antes de rolar o dado.</p>',
   },
   'Spell Effect: Light': {
     name: 'Efeito de Magia: Luz',
-    description: '<p>Você anexa um orbe de luz a uma criatura voluntária, fazendo-o flutuar próximo à criatura conforme ela se move.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4]{Luz}</p><p>Você anexa um orbe de luz a uma criatura voluntária, fazendo-o flutuar próximo à criatura conforme ela se move.</p>',
   },
   'Spell Effect: Mystic Armor': {
     name: 'Efeito de Magia: Armadura Mística',
-    description: '<p>Você recebe um bônus de item na CA e um modificador máximo de Destreza de +5. No 4º ranque ou maior, você recebe um bônus de item nos salvamentos.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.aAbfKn8maGjJjk2W]{Armadura Mística}</p><p>Você recebe um bônus de item na CA e um modificador máximo de Destreza de +5. No 4º ranque ou maior, você recebe um bônus de item nos salvamentos.</p>',
   },
   'Spell Effect: Runic Weapon': {
     name: 'Efeito de Magia: Arma Rúnica',
-    description: '<p>A arma alvo torna-se uma arma +1 impactante, recebendo +1 de bônus de item nos testes de ataque e aumentando a quantidade de dados de dano para dois.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.TFitdEOpQC4SzKQQ]{Arma Rúnica}</p><p>A arma alvo torna-se uma arma <em>+1 impactante</em>, recebendo +1 de bônus de item nos testes de ataque e aumentando a quantidade de dados de dano para dois.</p><hr /><p><strong>Elevada (6°)</strong> A arma é <em>+2 impactante maior</em>.</p><p><strong>Elevada (9°)</strong> A arma é <em>+3 impactante superior</em>.</p>',
   },
   'Spell Effect: Shield': {
     name: 'Efeito de Magia: Escudo Místico',
-    description: '<p>Você recebe +1 de bônus de circunstância na CA até o início de seu próximo turno. Enquanto esta magia estiver em efeito, você pode usar a reação Bloqueio com Escudo usando seu escudo mágico.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.TVKNbcgTee19PXZR]{Escudo Místico}</p><p>Você recebe +1 de bônus de circunstância na CA até o início de seu próximo turno. Enquanto esta magia estiver em efeito, você pode usar a reação Bloqueio com Escudo usando seu escudo mágico. Após usar Bloqueio com Escudo, a magia é encerrada.</p>',
   },
   'Spell Effect: Soothe': {
     name: 'Efeito de Magia: Abrandar',
-    description: '<p>Você recebe +2 de bônus de estado em testes de salvamento contra efeitos mentais.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n]{Abrandar}</p><p>Você recebe +2 de bônus de estado em testes de salvamento contra efeitos mentais.</p>',
   },
 }
 
 const featEffects: TranslationMap = {
   'Effect: Bon Mot': {
     name: 'Efeito: Comentário Maldoso',
-    description: '<p>Você recebe uma penalidade de estado na Percepção e salvamentos de Vontade.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.feats-srd.Item.0GF2j54roPFIDmXf]{Comentário Maldoso}</p><p>Você recebe uma penalidade de estado na Percepção e salvamentos de Vontade.</p>',
   },
   'Effect: Anadi Venom': { name: 'Efeito: Veneno de Anadi' },
   'Effect: Extravagant Parry': { name: 'Efeito: Aparada Extravagante' },
@@ -249,7 +195,7 @@ const featEffects: TranslationMap = {
 const equipmentEffects: TranslationMap = {
   'Effect: Bronze Bull Pendant': {
     name: 'Efeito: Pingente do Touro de Bronze',
-    description: '<p>Você recebe +1 de bônus de item em testes de Atletismo para Empurrar.</p>',
+    description: '<p>Concedido por @UUID[Compendium.pf2e.equipment-srd.Item.nXStoLxPrrP2b6WB]{Pingente do Touro de Bronze}</p><p>Você recebe +1 de bônus de item em testes de Atletismo para Empurrar.</p>',
   },
 }
 
