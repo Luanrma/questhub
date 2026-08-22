@@ -28,13 +28,20 @@ const definitionParamsSchema = campaignParamsSchema.extend({
   definitionKey: z.string().trim().min(1).max(240),
 }).strict()
 
+const localeSchema = z.enum(['pt-BR', 'en-US'])
+
 const definitionQuerySchema = z.object({
   q: z.string().trim().max(120).optional().default(''),
   limit: z.coerce.number().int().min(1).max(100).optional().default(50),
 }).strict()
 
 const definitionDetailQuerySchema = z.object({
-  locale: z.enum(['pt-BR', 'en-US']).optional().default('pt-BR'),
+  locale: localeSchema.optional().default('pt-BR'),
+}).strict()
+
+const definitionPresentationsQuerySchema = z.object({
+  definitionKeys: z.string().trim().min(1).max(12000),
+  locale: localeSchema.optional().default('pt-BR'),
 }).strict()
 
 const candidateQuerySchema = z.object({
@@ -147,6 +154,7 @@ function definitionPresentation(definition: NonNullable<ReturnType<typeof getPat
     descriptionBlocks: definition.descriptionBlocks,
     iconUrl: definition.iconUrl,
     polarity: definition.polarity,
+    category: definition.kind,
     tags: [
       { label: kindLabels[definition.kind], tone: 'neutral' as const },
       {
@@ -166,6 +174,15 @@ function definitionPresentation(definition: NonNullable<ReturnType<typeof getPat
     localization: definition.localization,
     supportedLocales: ['pt-BR', 'en-US'] as const,
   }
+}
+
+function parseDefinitionKeys(value: string) {
+  return [...new Set(
+    value
+      .split(',')
+      .map((key) => key.trim())
+      .filter(Boolean),
+  )]
 }
 
 export function registerGameSystemActiveEffectCompositionRoutes(
@@ -206,6 +223,39 @@ export function registerGameSystemActiveEffectCompositionRoutes(
     }))
 
     return reply.send({ gameSystem: campaign.gameSystem, definitions })
+  })
+
+  app.get('/api/campaigns/:campaignId/game-system-effects/presentations', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = campaignParamsSchema.safeParse(req.params)
+    const query = definitionPresentationsQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) {
+      return reply.status(400).send({ error: 'Consulta de apresentacoes de efeitos invalida' })
+    }
+
+    const definitionKeys = parseDefinitionKeys(query.data.definitionKeys)
+    if (definitionKeys.length > 100) {
+      return reply.status(400).send({ error: 'Limite de 100 definicoes por consulta' })
+    }
+
+    const campaign = await findAccessibleCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+    if (!isPathfinder2e(campaign.gameSystem)) {
+      return reply.status(409).send({ error: 'O sistema da campanha nao fornece apresentacoes canonicas de efeito' })
+    }
+
+    const presentations = definitionKeys.flatMap((definitionKey) => {
+      const definition = getPathfinder2eActiveEffectDefinitionView(definitionKey, query.data.locale)
+      return definition ? [definitionPresentation(definition)] : []
+    })
+
+    return reply.send({
+      gameSystem: campaign.gameSystem,
+      locale: query.data.locale,
+      presentations,
+    })
   })
 
   app.get('/api/campaigns/:campaignId/game-system-effects/definitions/:definitionKey', async (req, reply) => {
