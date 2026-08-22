@@ -1,6 +1,7 @@
 import type { Pathfinder2eActiveEffectDefinition } from './active-effect-definitions'
 import { getPathfinder2eActiveEffectPtBrTranslation } from './active-effect-pt-br'
 import type { Pathfinder2eContentLocale } from './models'
+import { PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS } from './translations/pt-BR/active-effects'
 
 export type Pathfinder2eActiveEffectTranslationFields = Readonly<{
   name?: string
@@ -24,9 +25,13 @@ export function resolvePathfinder2eActiveEffectDisplay(
   locale: Pathfinder2eContentLocale,
   ptBrOverlay: Pathfinder2eActiveEffectTranslationOverlay = PATHFINDER_2E_ACTIVE_EFFECT_PT_BR_TRANSLATIONS,
 ) {
+  const legacyTranslation = definition.kind === 'effect'
+    ? undefined
+    : getPathfinder2eActiveEffectPtBrTranslation(definition.source.sourcePack, definition.name)
   const translation = locale === 'pt-BR'
     ? ptBrOverlay[definition.definitionKey]
-      ?? getPathfinder2eActiveEffectPtBrTranslation(definition.source.sourcePack, definition.name)
+      ?? PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS[definition.definitionKey]
+      ?? legacyTranslation
     : undefined
   const translatedName = nonBlank(translation?.name)
   const translatedDescription = nonBlank(translation?.description)
