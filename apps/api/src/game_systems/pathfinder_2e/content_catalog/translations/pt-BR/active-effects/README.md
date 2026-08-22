@@ -30,6 +30,8 @@ Revisão congelada em 2026-08-22 para o inventário de 1.610 Effects canônicos 
 | `spell-effects` | 479 |
 | **Total** | **1.610** |
 
+As traduções de `spell-effects` estão versionadas nos módulos `spell-01.ts` a `spell-10.ts`; os demais packs seguem a mesma separação por módulos para manter revisão e manutenção localizadas.
+
 O gate `QH-EFF-016 Translation Inventory` percorre o catálogo integral e falha se:
 
 - o total ou a distribuição por pack divergirem do inventário congelado;
