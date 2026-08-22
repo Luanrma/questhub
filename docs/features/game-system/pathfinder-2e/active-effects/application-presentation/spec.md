@@ -69,9 +69,11 @@ Os hooks genéricos já existentes de ficha e Token escutam a invalidação loca
 
 O contrato introduzido por este card exige que o detalhe permaneça genérico e não exponha campos opacos ou semântica PF2e no VTT.
 
-Na implementação original, a apresentação utilizava somente metadata materializada no `CampaignActorEffect`/presentation resolver. QH-EFF-015 evolui esse ponto sem invalidar a fronteira: quando existe `definitionKey`, o VTT chama uma rota genérica da Composition Root e recebe uma projeção atual da definição do Game System. O mesmo renderer visual compartilhado é usado para o detalhe aberto pelo Token e por referências de conteúdo.
+Na implementação original, a apresentação utilizava somente metadata materializada no `CampaignActorEffect`/presentation resolver. QH-EFF-015 evolui esse ponto sem invalidar a fronteira: quando existe `definitionKey`, o VTT chama uma rota genérica da Composition Root e recebe uma projeção atual da definição do Game System.
 
-Se não houver definição canônica consultável, permanecem válidos os campos seguros da instância como fallback:
+**Existe um único fluxo de detalhe para um Active Effect aplicado.** O clique no efeito pela ficha e o clique no mesmo efeito pelos ícones do Token abrem `CampaignActiveEffectDefinitionModal`, que por sua vez renderiza o mesmo `ActiveEffectDefinitionModal`. Referências de conteúdo PF2e também convergem no mesmo renderer visual compartilhado. A ficha não mantém um segundo card de detalhe baseado em `presentation.summary` ou nos campos materializados da instância.
+
+Se não houver definição canônica consultável, permanecem válidos os campos seguros da instância como fallback, através do mesmo modal compartilhado:
 
 - nome;
 - polaridade;
@@ -81,6 +83,8 @@ Se não houver definição canônica consultável, permanecem válidos os campos
 - ícone ou fallback visual.
 
 Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump técnico. A consulta posterior da definição também é somente leitura e não altera a instância aplicada.
+
+Ações de gerenciamento como editar/remover são controles separados da consulta do detalhe e não criam uma segunda apresentação da definição.
 
 ## Fronteiras
 
@@ -100,7 +104,7 @@ Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump t�
 - **AC05** — não há `dangerouslySetInnerHTML` para descrições de Effects;
 - **AC06** — aplicação PF2e bem-sucedida invalida imediatamente ficha e Token no mesmo cliente;
 - **AC07** — realtime continua filtrado por Campaign/Actor e sem polling;
-- **AC08** — modal do Token mostra metadata útil de apresentação sem payload/origin bruto;
+- **AC08** — ficha e Token abrem exatamente o mesmo `CampaignActiveEffectDefinitionModal` para a mesma instância aplicada;
 - **AC09** — `definitionKey` e provenance permanecem persistidos para rastreabilidade;
 - **AC10** — aplicação manual e mappings continuam convergindo no mesmo resolver de definição;
 - **AC11** — nenhum estado mecânico da ficha/Token é alterado por esta entrega;
