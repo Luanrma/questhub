@@ -10,11 +10,15 @@ A canonical document that genuinely has no description is represented by an empt
 
 ## Polarity
 
-Every published definition still has an explicit versioned baseline decision in `active-effect-polarity.json`; generation fails if a published target is missing from that manifest.
+Every published definition has an explicit versioned baseline decision in `active-effect-polarity.json`; generation fails if a published target is missing from that manifest.
 
 Following Human Validation on 2026-08-22, the historical blanket policy `effect → NEUTRAL` was rejected as insufficient. The approved product rule is individual editorial classification: semantically unequivocal advantages are `BENEFICIAL`, unequivocal disadvantages are `HARMFUL`, and `NEUTRAL` is retained only for mixed/contextual/ambiguous definitions.
 
-Reviewed exact-key decisions live in `active-effect-polarity-editorial.ts`. The catalog applies that versioned exact-key overlay after materialization and validates that every editorial target exists and is an `effect`. No decision is inferred from `kind`, name, description, Rule Elements, numeric signs, or AI at runtime.
+QH-EFF-012 now materializes an exact-key editorial decision for **every published Effect** in static manifests under `active-effect-polarity-editorial/`, aggregated by `active-effect-polarity-editorial.ts`. For the frozen source revision this is 1,188 Effects: 855 `BENEFICIAL`, 331 `HARMFUL`, and 2 explicitly contextual `NEUTRAL` definitions.
+
+The development-time editorial guard identifies definitions that are still `NEUTRAL` despite having unambiguous one-sided presentation signals. Those results are materialized as static `definitionKey → polarity` data in the repository; the guard is never executed to classify an Effect in product runtime. A second regression requires the editorial key set to match the published Effect key set exactly.
+
+The catalog validates that every editorial target exists and is an `effect`. No decision is inferred from `kind`, name, description, Rule Elements, numeric signs, or AI at runtime.
 
 Examples protected by regression tests:
 
@@ -22,13 +26,13 @@ Examples protected by regression tests:
 - `Effect: Swarming Bites` → `HARMFUL`;
 - `Effect: Darivan's Bloodline Magic` → `NEUTRAL` because the same definition can grant a bonus to Darivan or impose a penalty on another target.
 
-The final runtime catalog therefore contains all three effect polarities and cannot regress to an all-`NEUTRAL` result unnoticed.
+`Effect: Lurker's Glow (Critical Failure)` is the other explicit `NEUTRAL` decision because illumination is contextual rather than intrinsically beneficial or harmful.
 
 ## Reproducibility
 
 `scripts/generate-pf2e-active-effect-source.mjs` validates the frozen source commit, ignores pack folder metadata such as `_folders.json`, resolves only canonical Conditions plus Effect/Affliction targets already structurally published by the QuestHub source-reference indexes, and emits deterministic source data. The generated array uses an explicit element type instead of a repository-scale `as const` tuple so TypeScript does not perform unnecessary literal inference over the full catalog.
 
-The generated canonical source and the versioned exact-key editorial overlay are both repository inputs. Runtime performs only key lookup; it does not perform semantic classification.
+The generated canonical source and the versioned exact-key editorial manifests are repository inputs. Runtime performs only key lookup; it does not perform semantic classification.
 
 ## Presentation boundary
 
