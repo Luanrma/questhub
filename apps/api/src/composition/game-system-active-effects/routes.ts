@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client'
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyReply } from 'fastify'
 import type { Server } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
@@ -100,7 +100,7 @@ function publishActorEffectsChanged(io: Server, campaignId: string, actorId: str
 }
 
 function sendResolutionFailure(
-  reply: Parameters<Parameters<FastifyInstance['post']>[1]>[1],
+  reply: FastifyReply,
   reason: 'DEFINITION_NOT_FOUND'
     | 'SOURCE_NOT_FOUND'
     | 'SOURCE_NOT_POTENTIAL'
