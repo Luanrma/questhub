@@ -4,6 +4,14 @@ import { api } from '../lib/api'
 import { AreaEffectBindingModal } from '../vtt/tool-bindings/AreaEffectBindingModal'
 import { CatalogItemSendModal } from './CatalogItemSendModal'
 import {
+  PathfinderActiveEffectDefinitionModal,
+  type PathfinderActiveEffectReference,
+} from './PathfinderActiveEffectDefinitionModal'
+import {
+  PathfinderActiveEffectReferenceList,
+  PathfinderReferenceText,
+} from './PathfinderActiveEffectReferences'
+import {
   catalogDomainPaths,
   type GameSystemCatalogDomain,
   type GameSystemContentLocale,
@@ -52,6 +60,12 @@ type CatalogSheetResponse = {
   entry: CatalogSheet
 }
 
+type PathfinderActiveEffectReferencesResponse = {
+  contentId: string
+  locale: GameSystemContentLocale
+  references: PathfinderActiveEffectReference[]
+}
+
 type Props = {
   campaignId: string
   contentId: string
@@ -92,6 +106,8 @@ export function CatalogEntitySheetModal({
   const [sendOpen, setSendOpen] = useState(false)
   const [areaEffectOpen, setAreaEffectOpen] = useState(false)
   const [creatingToken, setCreatingToken] = useState(false)
+  const [effectReferences, setEffectReferences] = useState<PathfinderActiveEffectReference[]>([])
+  const [selectedEffectReference, setSelectedEffectReference] = useState<PathfinderActiveEffectReference | null>(null)
   const Icon = domainIcons[domain]
   const sendPermissionKey = `${campaignId}:${domain}`
   const canSendToActor =
@@ -122,6 +138,29 @@ export function CatalogEntitySheetModal({
 
     return () => controller.abort()
   }, [campaignId, contentId, domain, locale])
+
+  useEffect(() => {
+    if (data?.system.key !== 'PATHFINDER_2E') {
+      setEffectReferences([])
+      setSelectedEffectReference(null)
+      return
+    }
+
+    const controller = new AbortController()
+    setEffectReferences([])
+    setSelectedEffectReference(null)
+
+    api<PathfinderActiveEffectReferencesResponse>(
+      `/api/game-systems/pathfinder-2e/content/active-effect-references/${encodeURIComponent(contentId)}?locale=${locale}`,
+      { signal: controller.signal },
+    )
+      .then((response) => setEffectReferences(response.references))
+      .catch(() => {
+        if (!controller.signal.aborted) setEffectReferences([])
+      })
+
+    return () => controller.abort()
+  }, [contentId, data?.system.key, locale])
 
   useEffect(() => {
     if (domain !== 'ITEMS') return
@@ -168,7 +207,12 @@ export function CatalogEntitySheetModal({
       aria-modal="true"
       aria-label={entry?.name ?? 'Ficha da entidade'}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !sendOpen && !areaEffectOpen) onClose()
+        if (
+          event.target === event.currentTarget
+          && !sendOpen
+          && !areaEffectOpen
+          && !selectedEffectReference
+        ) onClose()
       }}
     >
       <section className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218] text-white shadow-[0_35px_120px_rgba(0,0,0,0.8)]">
@@ -285,7 +329,13 @@ export function CatalogEntitySheetModal({
                 </div>
 
                 {entry.description ? (
-                  <p className="mt-5 whitespace-pre-line text-sm leading-7 text-zinc-300">{entry.description}</p>
+                  <p className="mt-5 whitespace-pre-line text-sm leading-7 text-zinc-300">
+                    <PathfinderReferenceText
+                      text={entry.description}
+                      references={effectReferences}
+                      onOpen={setSelectedEffectReference}
+                    />
+                  </p>
                 ) : null}
               </div>
 
@@ -304,13 +354,22 @@ export function CatalogEntitySheetModal({
                           {sheetField.label}
                         </div>
                         <div className="mt-1 whitespace-pre-line text-sm leading-6 text-zinc-200">
-                          {sheetField.value}
+                          <PathfinderReferenceText
+                            text={sheetField.value}
+                            references={effectReferences}
+                            onOpen={setSelectedEffectReference}
+                          />
                         </div>
                       </div>
                     ))}
                   </div>
                 </section>
               ))}
+
+              <PathfinderActiveEffectReferenceList
+                references={effectReferences}
+                onOpen={setSelectedEffectReference}
+              />
 
               {entry.source?.publication || entry.source?.license ? (
                 <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs text-zinc-500">
@@ -342,6 +401,16 @@ export function CatalogEntitySheetModal({
           }}
           actionName={entry.name}
           onClose={() => setAreaEffectOpen(false)}
+        />
+      ) : null}
+
+      {selectedEffectReference ? (
+        <PathfinderActiveEffectDefinitionModal
+          definitionKey={selectedEffectReference.definitionKey}
+          locale={locale}
+          reference={selectedEffectReference}
+          zIndex={zIndex + 40}
+          onClose={() => setSelectedEffectReference(null)}
         />
       ) : null}
     </div>

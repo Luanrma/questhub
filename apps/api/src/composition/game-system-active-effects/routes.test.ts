@@ -42,6 +42,31 @@ test('QH-EFF-014 composes manual definition discovery from the QH-EFF-013 query 
   assert.doesNotMatch(source, /searchPathfinder2eEffectDefinitions/)
 })
 
+test('canonical effect detail is exposed through a read-only campaign composition seam', () => {
+  const source = readFileSync(routeFile, 'utf8')
+
+  assert.match(
+    source,
+    /app\.get\('\/api\/campaigns\/:campaignId\/game-system-effects\/definitions\/:definitionKey'/,
+  )
+  assert.match(source, /definitionDetailQuerySchema/)
+  assert.match(source, /z\.enum\(\['pt-BR', 'en-US'\]\)/)
+  assert.match(source, /findAccessibleCampaign/)
+  assert.match(source, /getPathfinder2eActiveEffectDefinitionView/)
+  assert.match(source, /definitionPresentation\(definition\)/)
+})
+
+test('canonical effect detail presentation contains no mutation or actor target contract', () => {
+  const source = readFileSync(routeFile, 'utf8')
+  const detailStart = source.indexOf("app.get('/api/campaigns/:campaignId/game-system-effects/definitions/:definitionKey'")
+  const candidateStart = source.indexOf("app.get('/api/campaigns/:campaignId/game-system-effects/candidates'", detailStart)
+  assert.ok(detailStart >= 0 && candidateStart > detailStart)
+
+  const detailRoute = source.slice(detailStart, candidateStart)
+  assert.doesNotMatch(detailRoute, /createActorEffect|publishActorEffectsChanged|findMasterCampaign|actorId/)
+  assert.doesNotMatch(detailRoute, /app\.(?:post|patch|delete)\(/)
+})
+
 test('composition never mutates mechanical sheet or token state', () => {
   const source = readFileSync(routeFile, 'utf8')
   assert.doesNotMatch(source, /hitPoints|armorClass|savingThrows|spellSlots|campaignToken\.(?:update|delete|create)/)

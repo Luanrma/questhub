@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { CircleDot, ShieldCheck, TriangleAlert, X } from 'lucide-react'
+import { CircleDot, ShieldCheck, TriangleAlert } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import { normalizeActorEffectPresentationText } from '../actor-effects/presentationText'
+import { CampaignActiveEffectDefinitionModal } from '../actor-effects/CampaignActiveEffectDefinitionModal'
 import type { ActorEffectView } from '../actor-effects/types'
 import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
 import type {
@@ -43,8 +42,11 @@ function effectPolarityLabel(effect: ActorEffectView) {
   return 'Neutro'
 }
 
-function effectDescription(effect: ActorEffectView) {
-  return normalizeActorEffectPresentationText(effect.description)
+function effectCategoryLabel(effect: ActorEffectView) {
+  if (effect.category === 'condition') return 'Condição'
+  if (effect.category === 'effect') return 'Efeito'
+  if (effect.category === 'affliction') return 'Aflição'
+  return effect.category
 }
 
 function EffectFallbackIcon({ effect, compact }: { effect: ActorEffectView; compact: boolean }) {
@@ -55,7 +57,7 @@ function EffectFallbackIcon({ effect, compact }: { effect: ActorEffectView; comp
 }
 
 function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; compact?: boolean }) {
-  const sizeClass = compact ? 'h-[18px] w-[18px]' : 'h-8 w-8'
+  const sizeClass = compact ? 'h-[18px] w-[18px]' : 'h-9 w-9'
   return (
     <span
       className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border shadow-lg ${sizeClass} ${effectClass(effect)}`}
@@ -80,84 +82,13 @@ function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; com
   )
 }
 
-function EffectDetailModal({ effect, onClose }: { effect: ActorEffectView; onClose: () => void }) {
-  if (typeof document === 'undefined') return null
-  const description = effectDescription(effect)
-
-  return createPortal(
-    <div
-      className="pointer-events-auto fixed inset-0 z-[320] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-      onPointerDown={(event) => {
-        event.stopPropagation()
-        if (event.target === event.currentTarget) onClose()
-      }}
-      role="presentation"
-    >
-      <section
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Detalhes do efeito ${effect.name}`}
-        className="w-full max-w-lg overflow-hidden rounded-xl border border-white/15 bg-[#111218] text-white shadow-2xl"
-        onPointerDown={(event) => event.stopPropagation()}
-      >
-        <header className="flex items-start justify-between gap-4 border-b border-white/10 bg-white/[0.025] px-4 py-3.5">
-          <div className="flex min-w-0 items-center gap-3">
-            <EffectGlyph effect={effect} />
-            <div className="min-w-0">
-              <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-zinc-500">Detalhes do efeito</div>
-              <h3 className="mt-0.5 truncate text-base font-bold text-zinc-100">{effect.name}</h3>
-            </div>
-          </div>
-          <button
-            type="button"
-            aria-label="Fechar detalhes"
-            onClick={onClose}
-            className="rounded-md p-1.5 text-zinc-400 transition hover:bg-white/10 hover:text-white"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </header>
-
-        <div className="max-h-[70vh] space-y-3 overflow-y-auto p-4">
-          <div className="grid gap-2 sm:grid-cols-2" data-effect-detail-metadata>
-            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Polaridade</div>
-              <div className="mt-1 text-sm font-semibold text-zinc-100">{effectPolarityLabel(effect)}</div>
-            </div>
-
-            {effect.category ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Categoria</div>
-                <div className="mt-1 text-sm font-semibold text-zinc-100">{effect.category}</div>
-              </div>
-            ) : null}
-
-            {effect.displayValue ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Valor exibido</div>
-                <div className="mt-1 text-sm font-semibold text-zinc-100">{effect.displayValue}</div>
-              </div>
-            ) : null}
-          </div>
-
-          {description ? (
-            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-3">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Descrição</div>
-              <p className="mt-2 whitespace-pre-wrap text-xs leading-relaxed text-zinc-300">{description}</p>
-            </div>
-          ) : (
-            <p className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-3 text-xs text-zinc-500">
-              Este efeito não possui descrição de apresentação.
-            </p>
-          )}
-        </div>
-      </section>
-    </div>,
-    document.body,
-  )
-}
-
-function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
+function ActiveEffectIndicators({
+  campaignId,
+  effects,
+}: {
+  campaignId?: string
+  effects: ActorEffectView[]
+}) {
   const [open, setOpen] = useState(false)
   const [selectedEffect, setSelectedEffect] = useState<ActorEffectView | null>(null)
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -225,51 +156,61 @@ function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
 
         {open ? (
           <div
-            className="absolute bottom-full left-1/2 z-[60] mb-2 max-h-64 w-64 -translate-x-1/2 overflow-y-auto rounded-lg border border-white/15 bg-[#111218]/98 p-2 text-left text-white shadow-2xl backdrop-blur"
+            className="absolute bottom-full left-1/2 z-[60] mb-2 w-[min(22rem,calc(100vw-1.5rem))] max-w-[calc(100vw-1.5rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-white/15 bg-[#111218]/98 text-left text-white shadow-2xl backdrop-blur"
             onPointerDown={(event) => event.stopPropagation()}
             onClick={(event) => event.stopPropagation()}
+            data-token-active-effects-popover
           >
-            <div className="mb-2 border-b border-white/10 px-1 pb-2 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
-              Efeitos ativos · {effects.length}
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-white/[0.035] px-3 py-2.5">
+              <div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-zinc-500">Status do ator</div>
+                <div className="mt-0.5 text-xs font-semibold text-zinc-100">Efeitos ativos</div>
+              </div>
+              <span className="grid h-6 min-w-6 place-items-center rounded-full border border-white/10 bg-black/30 px-1.5 text-[10px] font-bold text-zinc-300">
+                {effects.length}
+              </span>
             </div>
-            <div className="grid gap-1.5">
-              {effects.map((effect) => {
-                const description = effectDescription(effect)
-                return (
+
+            <div className="max-h-[min(20rem,55vh)] overflow-y-auto overflow-x-hidden p-2" data-token-active-effects-list>
+              <div className="grid min-w-0 gap-1.5">
+                {effects.map((effect) => (
                   <button
                     key={effect.id}
                     type="button"
                     onClick={() => openDetail(effect)}
-                    className="flex w-full gap-2 rounded-md border border-white/10 bg-white/[0.04] p-2 text-left transition hover:border-white/20 hover:bg-white/[0.08]"
+                    className="group flex min-w-0 w-full items-center gap-2.5 rounded-lg border border-white/8 bg-white/[0.035] px-2.5 py-2 text-left transition hover:border-white/18 hover:bg-white/[0.075] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30"
                   >
                     <EffectGlyph effect={effect} />
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-start justify-between gap-2">
-                        <span className="truncate text-xs font-bold text-zinc-100">{effect.name}</span>
-                        {effect.displayValue ? (
-                          <span className="shrink-0 rounded border border-white/10 bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-zinc-200">
-                            {effect.displayValue}
-                          </span>
+                    <span className="min-w-0 flex-1 overflow-hidden">
+                      <span className="block min-w-0 break-words text-xs font-semibold leading-4 text-zinc-100">
+                        {effect.name}
+                        {effect.displayValue ? ` ${effect.displayValue}` : ''}
+                      </span>
+                      <span className="mt-1 flex min-w-0 flex-wrap items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.08em] text-zinc-500">
+                        <span>{effectPolarityLabel(effect)}</span>
+                        {effectCategoryLabel(effect) ? (
+                          <>
+                            <span aria-hidden="true">•</span>
+                            <span>{effectCategoryLabel(effect)}</span>
+                          </>
                         ) : null}
                       </span>
-                      <span className="mt-0.5 flex flex-wrap gap-x-2 text-[9px] uppercase tracking-wide text-zinc-500">
-                        <span>{effectPolarityLabel(effect)}</span>
-                        {effect.category ? <span>{effect.category}</span> : null}
-                      </span>
-                      {description ? (
-                        <span className="mt-1 line-clamp-2 block whitespace-pre-line text-[10px] leading-snug text-zinc-300">{description}</span>
-                      ) : null}
                     </span>
+                    <span aria-hidden="true" className="shrink-0 text-sm text-zinc-600 transition group-hover:translate-x-0.5 group-hover:text-zinc-300">›</span>
                   </button>
-                )
-              })}
+                ))}
+              </div>
             </div>
           </div>
         ) : null}
       </div>
 
       {selectedEffect ? (
-        <EffectDetailModal effect={selectedEffect} onClose={closeDetail} />
+        <CampaignActiveEffectDefinitionModal
+          campaignId={campaignId}
+          effect={selectedEffect}
+          onClose={closeDetail}
+        />
       ) : null}
     </>
   )
@@ -334,7 +275,7 @@ export function TokenPresentationOverlay({
     >
       {(effects.length || indicators.length) ? (
         <div className="absolute bottom-full left-1/2 mb-1 flex max-w-[240px] -translate-x-1/2 flex-wrap items-end justify-center gap-1">
-          {effects.length ? <ActiveEffectIndicators effects={effects} /> : null}
+          {effects.length ? <ActiveEffectIndicators campaignId={campaignId} effects={effects} /> : null}
           {indicators.map((indicator) => (
             <span
               key={indicator.id}

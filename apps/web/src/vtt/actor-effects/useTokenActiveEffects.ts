@@ -44,12 +44,14 @@ export function useTokenActiveEffects(
 
     const activeCampaignId = campaignId
     const activeTokenId = tokenId
+    const controller = new AbortController()
     let cancelled = false
 
     setState((current) => ({ ...current, loading: true, error: false }))
 
     api<TokenActorEffectsResponse>(
       `/api/campaigns/${encodeURIComponent(activeCampaignId)}/tokens/${encodeURIComponent(activeTokenId)}/actor-effects`,
+      { signal: controller.signal },
     )
       .then((response) => {
         if (cancelled) return
@@ -61,7 +63,7 @@ export function useTokenActiveEffects(
         })
       })
       .catch(() => {
-        if (cancelled) return
+        if (cancelled || controller.signal.aborted) return
         setState({
           actorId: null,
           effects: [],
@@ -72,6 +74,7 @@ export function useTokenActiveEffects(
 
     return () => {
       cancelled = true
+      controller.abort()
     }
   }, [campaignId, refreshVersion, tokenId])
 

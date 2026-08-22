@@ -55,6 +55,8 @@ A normalização:
 
 A UI também normaliza defensivamente a descrição para instâncias antigas criadas antes do QH-EFF-014.
 
+QH-EFF-015 posteriormente acrescenta uma projeção canônica de apresentação para consulta: nesse fluxo, o texto exibido é resolvido novamente pela definição atual, formatado em blocos seguros e pode ser localizado. A normalização persistida neste card continua sendo o fallback compatível para instâncias antigas/manuais.
+
 ## Atualização imediata
 
 O backend mantém o evento realtime `vtt:actor-effects:changed` restrito à Campaign.
@@ -65,17 +67,24 @@ Os hooks genéricos já existentes de ficha e Token escutam a invalidação loca
 
 ## Modal de detalhe
 
-O detalhe continua genérico. Ele pode apresentar apenas metadata segura já materializada no `CampaignActorEffect`/presentation resolver:
+O contrato introduzido por este card exige que o detalhe permaneça genérico e não exponha campos opacos ou semântica PF2e no VTT.
+
+Na implementação original, a apresentação utilizava somente metadata materializada no `CampaignActorEffect`/presentation resolver. QH-EFF-015 evolui esse ponto sem invalidar a fronteira: quando existe `definitionKey`, o VTT chama uma rota genérica da Composition Root e recebe uma projeção atual da definição do Game System.
+
+**Existe um único fluxo de detalhe para um Active Effect aplicado.** O clique no efeito pela ficha e o clique no mesmo efeito pelos ícones do Token abrem `CampaignActiveEffectDefinitionModal`, que por sua vez renderiza o mesmo `ActiveEffectDefinitionModal`. Referências de conteúdo PF2e também convergem no mesmo renderer visual compartilhado. A ficha não mantém um segundo card de detalhe baseado em `presentation.summary` ou nos campos materializados da instância.
+
+Se não houver definição canônica consultável, permanecem válidos os campos seguros da instância como fallback, através do mesmo modal compartilhado:
 
 - nome;
 - polaridade;
 - categoria;
 - valor exibido;
-- origem segura quando o resolver de Game System a fornecer na ficha;
 - descrição normalizada;
 - ícone ou fallback visual.
 
-Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump técnico.
+Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump técnico. A consulta posterior da definição também é somente leitura e não altera a instância aplicada.
+
+Ações de gerenciamento como editar/remover são controles separados da consulta do detalhe e não criam uma segunda apresentação da definição.
 
 ## Fronteiras
 
@@ -95,7 +104,7 @@ Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump t�
 - **AC05** — não há `dangerouslySetInnerHTML` para descrições de Effects;
 - **AC06** — aplicação PF2e bem-sucedida invalida imediatamente ficha e Token no mesmo cliente;
 - **AC07** — realtime continua filtrado por Campaign/Actor e sem polling;
-- **AC08** — modal do Token mostra metadata útil de apresentação sem payload/origin bruto;
+- **AC08** — ficha e Token abrem exatamente o mesmo `CampaignActiveEffectDefinitionModal` para a mesma instância aplicada;
 - **AC09** — `definitionKey` e provenance permanecem persistidos para rastreabilidade;
 - **AC10** — aplicação manual e mappings continuam convergindo no mesmo resolver de definição;
 - **AC11** — nenhum estado mecânico da ficha/Token é alterado por esta entrega;
