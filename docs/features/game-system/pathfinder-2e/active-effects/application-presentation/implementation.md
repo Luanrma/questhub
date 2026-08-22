@@ -32,19 +32,31 @@ publishLocalActorEffectsChanged({ campaignId, actorId })
 
 A UI possui normalização defensiva em `vtt/actor-effects/presentationText.ts`. Assim, uma instância PF2e persistida antes deste card com `<p>...</p>` também deixa de mostrar tags cruas quando precisa usar a descrição persistida como fallback.
 
-O resolver PF2e da ficha continua normalizando `summary`.
+O resolver PF2e da ficha continua normalizando `summary` para apresentações compactas, mas esse resumo não é mais fonte do card de detalhe.
 
-### Evolução posterior do detalhe do Token
+### Evolução posterior do detalhe aplicado
 
 O detalhe criado inicialmente neste card era read-only e genérico, com metadata explícita de polaridade, categoria, valor e descrição normalizada.
 
-QH-EFF-015 evolui essa apresentação após feedback de Human Approval: quando a instância possui `definitionKey`, o Token consulta novamente a definição canônica pela Composition Root e usa o mesmo `ActiveEffectDefinitionModal` compartilhado pelas referências de conteúdo. Assim:
+QH-EFF-015 evolui essa apresentação após feedback de Human Approval: quando a instância possui `definitionKey`, a consulta de detalhe resolve novamente a definição canônica pela Composition Root e usa `CampaignActiveEffectDefinitionModal` → `ActiveEffectDefinitionModal`.
+
+Esse fluxo é agora único para **qualquer Active Effect aplicado**:
+
+- clique no efeito diretamente na ficha → `CampaignActiveEffectDefinitionModal`;
+- clique no efeito pelos ícones sobre o Token → `CampaignActiveEffectDefinitionModal`;
+- ambos recebem a mesma `ActorEffectView`, usam a mesma `definitionKey`, a mesma rota canônica e o mesmo renderer;
+- a ficha não possui mais `overlay.kind === 'detail'` nem um card local baseado em `summary`;
+- referências de conteúdo PF2e usam o mesmo `ActiveEffectDefinitionModal` compartilhado;
+- `pt-BR`/`en-US` e descrição formatada são fornecidos pelo contrato canônico atual;
+- efeitos manuais/sem `definitionKey` continuam usando fallback genérico seguro dentro do mesmo modal.
+
+Editar/remover continuam ações de gerenciamento da instância e ficam fora do card de consulta, evitando que controles mutáveis produzam uma segunda UI de definição.
+
+Assim:
 
 - a instância persistida não vira uma segunda fonte de verdade da definição;
 - o VTT continua sem semântica PF2e;
-- o visual de detalhe deixa de ter duas implementações concorrentes;
-- `pt-BR`/`en-US` e descrição formatada são fornecidos pelo contrato canônico atual;
-- efeitos manuais/sem `definitionKey` continuam usando fallback genérico seguro.
+- o visual de detalhe deixa de ter implementações concorrentes.
 
 ## Regressões cobertas
 
@@ -54,6 +66,8 @@ QH-EFF-015 evolui essa apresentação após feedback de Human Approval: quando a
 - Composition Root consome a query layer QH-EFF-013;
 - Composer publica invalidação local somente depois do POST bem-sucedido;
 - Token continua escutando socket + invalidation local sem polling;
+- ficha e Token convergem no mesmo `CampaignActiveEffectDefinitionModal`;
+- não existe detalhe local alternativo na ficha;
 - campos opacos não são renderizados como JSON;
 - arquitetura VTT/Game System continua coberta pelos gates existentes.
 
