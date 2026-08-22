@@ -1,80 +1,70 @@
-# QH-EFF-005 — Política de polaridade de definições PF2e
+# PF2e Active Effects — Política editorial de polaridade
 
-Status: **BA READY**
-
-Complementa e, nos pontos explicitamente tratados abaixo, **refina** `active-effect-definitions.md`.
-
-Card: `QH-EFF-005`
-
+Status: **VIGENTE — QH-EFF-012**  
 Source lock: `01114da5851f31404078d8020809b13e4000bc4b`
 
-> **Evolução vigente — QH-EFF-012:** as decisões editoriais de polaridade deste documento permanecem válidas, mas a política histórica de apresentação nullable descrita mais abaixo foi substituída pelo QH-EFF-012. O catálogo agora materializa metadados canônicos a partir do source travado e versiona as polaridades por `definitionKey`; não existe fallback de polaridade em runtime. `iconUrl` continua local/fallback, enquanto o caminho canônico da imagem pode ser preservado como metadata de origem.
+Este documento substitui, para o catálogo vigente, a política histórica do QH-EFF-005 que tratava todo documento PF2e `effect` como `NEUTRAL` no catálogo-base.
 
-## Decisão
+## Decisão de produto — 2026-08-22
 
-A polaridade de `CampaignActorEffect` continua sendo metadata visual genérica. O catálogo PF2e não usa texto, Rule Elements, sinais numéricos, nome aproximado, IA ou qualquer outra heurística em runtime para inferi-la.
+A polaridade de `CampaignActorEffect` continua sendo metadata visual genérica do QuestHub. O PF2e não fornece um campo universal equivalente a `BENEFICIAL | HARMFUL | NEUTRAL`, portanto a classificação é editorial e versionada pelo QuestHub.
 
-Para o QH-EFF-005, a classificação editorial das definições segue estas regras explícitas e versionadas:
+A decisão aprovada é **classificação individual por definição**:
 
-1. **Conditions canônicas** usam o mapa individual aprovado em `active-effect-definitions.md`.
-2. **Afflictions** incluídas por referência estrutural resolvida do QH-EFF-004 são `HARMFUL` no nível de definição. Uma affliction PF2e representa uma progressão adversa sobre o portador; esta classificação é apenas visual e não executa a affliction.
-3. **Effects** incluídos por referência estrutural resolvida do QH-EFF-004 são `NEUTRAL` no nível de definição.
+1. **BENEFICIAL** — a definição representa de forma semanticamente inequívoca uma vantagem para o portador/alvo da instância: bônus, proteção, resistência, mitigação ou outra melhoria sem contrapartida adversa relevante descrita pela própria definição.
+2. **HARMFUL** — a definição representa de forma semanticamente inequívoca uma desvantagem para o portador/alvo: penalidade, fraqueza, restrição, Condition adversa ou outra piora sem benefício relevante descrito pela própria definição.
+3. **NEUTRAL** — reservado a definições realmente mistas, contextuais ou ambíguas, nas quais a mesma definição pode beneficiar ou prejudicar dependendo de alvo, resultado ou uso.
 
-A regra 3 é deliberada: `effect` é um documento genérico do PF2e/Foundry e pode representar buff, debuff, transformação, aura, stance ou estado cujo sentido depende de origem, alvo e resultado. O QH-EFF-005 não possui contexto de aplicação suficiente para classificar cada instância sem interpretar a mecânica que pertence aos cards QH-EFF-006/007/008/009.
+A decisão é registrada por `definitionKey = {sourcePack}:{sourceId}`. O runtime não interpreta nome, descrição, Rule Elements, sinais numéricos ou IA para decidir polaridade.
 
-`NEUTRAL` aqui **não é fallback silencioso**. É a classificação editorial explícita de toda definição cujo `kind = effect` neste card. No estado vigente após QH-EFF-012, essa decisão é materializada individualmente em manifesto versionado por `definitionKey`; novos targets sem classificação explícita falham na geração.
+## Exemplo de NEUTRAL válido
 
-## Polaridade da instância futura
+`bestiary-effects:1toVzNVJZx0RwG1v` — **Effect: Darivan's Bloodline Magic** permanece `NEUTRAL` por decisão explícita. A própria definição pode conceder bônus de Diplomacy a Darivan **ou** impor penalidade de Will a outro alvo. Não existe uma única polaridade correta no nível da definição.
 
-Quando QH-EFF-006/007/008 mapearem como uma Spell, Item, Creature ou Hazard produz um efeito e QH-EFF-009 materializar `CampaignActorEffect`, o Game System PF2e poderá definir a polaridade da **instância** com base naquele mapeamento explícito. Essa decisão contextual não altera a definição-base e não pertence ao QH-EFF-005.
+Isso é diferente do comportamento rejeitado em Human Validation, no qual praticamente todos os `effect` permaneciam `NEUTRAL` por uma política blanket.
 
-Exemplo conceitual:
+## Materialização vigente
 
-```text
-Definition: spell-effects:<sourceId>
-kind: effect
-polarity: NEUTRAL
+O catálogo continua contendo uma classificação explícita para toda definição publicada. Sobre a base materializada pelo gerador, `active-effect-polarity-editorial.ts` registra decisões individuais revisadas para Effects semanticamente inequívocos e para casos neutros deliberados.
 
-Mapping futuro de uma Spell:
-resultado X -> aplicar definitionKey Y ao alvo -> instance polarity HARMFUL
-```
+O carregamento do catálogo:
 
-O VTT Core continua recebendo apenas `BENEFICIAL | HARMFUL | NEUTRAL`; nunca interpreta a razão da classificação.
+- aplica somente decisões por chave exata;
+- valida que toda decisão editorial aponta para uma definição publicada de `kind = effect`;
+- não possui fallback do tipo `effect → NEUTRAL` ou `affliction → HARMFUL`;
+- preserva a classificação base explicitamente versionada quando não existe uma revisão editorial adicional para aquela chave.
 
-## Metadados de apresentação — comportamento histórico do QH-EFF-005
+A ausência de override não é autorização para inferência em runtime. Novas definições continuam exigindo entrada explícita no manifesto de materialização antes de serem publicadas.
 
-A identidade estrutural é obrigatória e nunca depende do nome:
+## Conditions
 
-```text
-definitionKey = {sourcePack}:{sourceId}
-```
+As 43 Conditions canônicas mantêm a classificação individual já aprovada e versionada. Exemplos:
 
-No momento da entrega original do QH-EFF-005, o catálogo ainda não rematerializava os documentos do source PF2e. Por isso, quando a metadata completa do target não estava versionada localmente, a implementação admitia `description`, `iconUrl` e `group` ausentes/`null`.
+- `Frightened` → `HARMFUL`;
+- `Quickened` → `BENEFICIAL`;
+- `Concealed` → `NEUTRAL`.
 
-**Esse comportamento de apresentação foi substituído pelo QH-EFF-012.** O estado vigente é:
+## Afflictions
 
-- nome, descrição canônica disponível, publicação, grupo, valor de Condition e caminho da imagem de origem são materializados deterministicamente a partir do source travado;
-- `description` permanece uma string; quando o documento canônico realmente não possui descrição, a ausência é preservada sem inventar conteúdo;
-- `iconUrl` continua `null` até existir resolução segura para asset local do QuestHub; o caminho da imagem canônica é apenas metadata de origem;
-- não existe acesso ao Foundry/PF2e em runtime;
-- nenhum dado de apresentação é fabricado por aproximação, scraping, IA ou inferência textual.
+Afflictions atualmente publicadas continuam com suas decisões explícitas versionadas. `kind = affliction` não é usado em runtime como regra para produzir `HARMFUL`.
 
-Para Conditions canônicas, `conditionValue` permanece metadata explícita versionada a partir da estrutura congelada do source PF2e; não se extrai intensidade de labels como `Frightened 2`.
+## Regras de segurança arquitetural
 
-## Critérios adicionais
+- nenhuma classificação executa regra PF2e;
+- nenhuma classificação altera dano, AC, saves, HP, duração, stacking ou Rule Elements;
+- o VTT Core recebe somente a enum genérica `BENEFICIAL | HARMFUL | NEUTRAL`;
+- semântica e decisões concretas permanecem na engine PF2e;
+- classificação contextual de uma **instância** futura pode ser refinada por Spell/Item/Creature/Hazard sem mudar automaticamente a definição-base.
 
-- **AC19** — toda definição `effect` incluída pelo QH-EFF-004 recebe explicitamente `NEUTRAL` no catálogo-base;
-- **AC20** — toda definição `affliction` incluída pelo QH-EFF-004 recebe explicitamente `HARMFUL` no catálogo-base;
-- **AC21** — nenhum target `effect`/`affliction` exige inferência textual para entrar no catálogo;
-- **AC22 (histórico QH-EFF-005)** — a ausência de metadata ainda não importada não autorizava fabricação de dados; QH-EFF-012 posteriormente passou a materializar a metadata canônica disponível;
-- **AC23** — cards posteriores podem escolher polaridade de instância por mapeamento explícito sem alterar a polaridade editorial da definição-base;
-- **AC24** — nenhum comportamento dessa política é implementado no VTT Core;
-- **AC25** — uma definição semanticamente válida não é descartada somente porque metadata opcional de apresentação não havia sido importada historicamente; após QH-EFF-012 a metadata canônica disponível é preservada.
+## Regressões obrigatórias
 
-## Resultado do BA
+Os testes devem impedir retorno à política blanket:
 
-```text
-BA: READY
-Architecture review required: YES
-Open product questions: 0
-```
+- deve existir ao menos um `effect` publicado `BENEFICIAL`;
+- deve existir ao menos um `effect` publicado `HARMFUL`;
+- deve existir ao menos um `effect` explicitamente `NEUTRAL` por contexto misto;
+- Oceanic Armor é representante `BENEFICIAL`;
+- Swarming Bites é representante `HARMFUL`;
+- Darivan's Bloodline Magic é representante `NEUTRAL`;
+- toda decisão editorial deve apontar para uma chave publicada exata;
+- nenhuma inferência de polaridade deve ocorrer no VTT Core ou no runtime genérico.
