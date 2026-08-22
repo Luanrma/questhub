@@ -12,6 +12,7 @@ import {
 
 const FRIGHTENED = 'conditionitems:TBSHQspnbcqxsmjL'
 const OCEANIC_ARMOR = 'bestiary-effects:0jo8CUzw5lWehNg3'
+const SWARMING_BITES = 'bestiary-effects:0aRm0b55015XPj7Y'
 
 test('exact Active Effect lookup exposes the complete canonical Frightened definition', () => {
   const definition = getPathfinder2eActiveEffectDefinitionView(FRIGHTENED, 'en-US')
@@ -21,6 +22,8 @@ test('exact Active Effect lookup exposes the complete canonical Frightened defin
   assert.equal(definition.name, 'Frightened')
   assert.equal(definition.polarity, 'HARMFUL')
   assert.ok(definition.description.trim().length > 0)
+  assert.ok(definition.descriptionBlocks.length > 0)
+  assert.equal(definition.description.includes('<p>'), false)
   assert.deepEqual(definition.conditionValue, { isValued: true, baseValue: 1 })
   assert.equal(definition.source.sourcePack, 'conditionitems')
   assert.equal(definition.source.sourceId, 'TBSHQspnbcqxsmjL')
@@ -32,21 +35,20 @@ test('exact Active Effect lookup exposes the complete canonical Frightened defin
   })
 })
 
-test('pt-BR Active Effect presentation falls back field-by-field to en-US when no overlay exists', () => {
-  const original = getPathfinder2eActiveEffectDefinitionView(FRIGHTENED, 'en-US')
+test('pt-BR Active Effect presentation uses reviewed catalog translation when available', () => {
   const localized = getPathfinder2eActiveEffectDefinitionView(FRIGHTENED, 'pt-BR')
-  assert.ok(original)
   assert.ok(localized)
-  assert.equal(localized.name, original.name)
-  assert.equal(localized.description, original.description)
+  assert.equal(localized.name, 'Assustado')
+  assert.match(localized.description, /medo/i)
+  assert.equal(localized.description.includes('<p>'), false)
   assert.deepEqual(localized.localization, {
     requestedLocale: 'pt-BR',
-    nameLocale: 'en-US',
-    descriptionLocale: 'en-US',
+    nameLocale: 'pt-BR',
+    descriptionLocale: 'pt-BR',
   })
 })
 
-test('pt-BR Active Effect presentation uses an exact definitionKey overlay when one is available', () => {
+test('pt-BR Active Effect presentation keeps exact definitionKey overlay precedence', () => {
   const definition = getPathfinder2eActiveEffectDefinition(FRIGHTENED)
   assert.ok(definition)
 
@@ -64,6 +66,29 @@ test('pt-BR Active Effect presentation uses an exact definitionKey overlay when 
     nameLocale: 'pt-BR',
     descriptionLocale: 'pt-BR',
   })
+})
+
+test('formatted Effect descriptions remove source HTML and Foundry macros', () => {
+  const localized = getPathfinder2eActiveEffectDefinitionView(SWARMING_BITES, 'pt-BR')
+  assert.ok(localized)
+  assert.equal(localized.name, 'Efeito: Mordidas do Enxame')
+  assert.equal(localized.description.includes('<p>'), false)
+  assert.equal(localized.description.includes('@Check['), false)
+  assert.match(localized.description, /teste simples CD 5/i)
+  assert.ok(localized.descriptionBlocks.length > 0)
+})
+
+test('pt-BR localization reports explicit field fallback when a translation is unavailable', () => {
+  const canonical = listPathfinder2eActiveEffectDefinitions().find((definition) => (
+    definition.kind === 'affliction'
+  ))
+  if (!canonical) return
+
+  const localized = getPathfinder2eActiveEffectDefinitionView(canonical.definitionKey, 'pt-BR')
+  assert.ok(localized)
+  assert.equal(localized.localization.requestedLocale, 'pt-BR')
+  assert.ok(['pt-BR', 'en-US'].includes(localized.localization.nameLocale))
+  assert.ok(['pt-BR', 'en-US'].includes(localized.localization.descriptionLocale))
 })
 
 test('Active Effect listing filters by semantic kind and performs bounded discovery without changing identity', () => {
