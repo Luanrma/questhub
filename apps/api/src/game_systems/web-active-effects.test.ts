@@ -11,6 +11,7 @@ const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacter
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
 const workspaceFile = path.join(webRoot, 'game-systems', 'CampaignCharacterSheetWorkspace.tsx')
 const renderersFile = path.join(webRoot, 'game-systems', 'character-sheet-renderers.tsx')
+const pf2eComposerFile = path.join(webRoot, 'game-systems', 'PathfinderActiveEffectComposer.tsx')
 const asideFile = path.join(webRoot, 'components', 'Aside.tsx')
 
 function read(file: string) {
@@ -80,6 +81,18 @@ test('sheet actor context is resolved by Core and not by a concrete game-system 
   assert.match(contextSource, /character-sheets\/\$\{encodeURIComponent\(sheetId\)\}\/context/)
   assert.match(rendererSource, /resolveActorEffectPresentation\?: ActorEffectPresentationResolver/)
   assert.doesNotMatch(rendererSource, /onActorResolved/)
+})
+
+test('PF2e effect composer is registered in the game-system shell and mounted only for the Master', () => {
+  const workspace = read(workspaceFile)
+  const renderers = read(renderersFile)
+  const composer = read(pf2eComposerFile)
+
+  assert.match(renderers, /PATHFINDER_2E:[\s\S]*ActiveEffectComposer: PathfinderActiveEffectComposer/)
+  assert.match(workspace, /role === 'MASTER' && ActiveEffectComposer/)
+  assert.match(composer, /game-system-effects\/definitions/)
+  assert.match(composer, /actors\/\$\{encodeURIComponent\(actorId\)\}\/game-system-effects/)
+  assert.match(composer, /source: \{ type: 'MANUAL', definitionKey: selected\.definitionKey \}/)
 })
 
 test('generic actor effects UI contains no concrete game-system semantics', () => {
