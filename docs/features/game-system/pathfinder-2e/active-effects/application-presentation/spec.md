@@ -55,6 +55,8 @@ A normalização:
 
 A UI também normaliza defensivamente a descrição para instâncias antigas criadas antes do QH-EFF-014.
 
+QH-EFF-015 posteriormente acrescenta uma projeção canônica de apresentação para consulta: nesse fluxo, o texto exibido é resolvido novamente pela definição atual, formatado em blocos seguros e pode ser localizado. A normalização persistida neste card continua sendo o fallback compatível para instâncias antigas/manuais.
+
 ## Atualização imediata
 
 O backend mantém o evento realtime `vtt:actor-effects:changed` restrito à Campaign.
@@ -65,17 +67,20 @@ Os hooks genéricos já existentes de ficha e Token escutam a invalidação loca
 
 ## Modal de detalhe
 
-O detalhe continua genérico. Ele pode apresentar apenas metadata segura já materializada no `CampaignActorEffect`/presentation resolver:
+O contrato introduzido por este card exige que o detalhe permaneça genérico e não exponha campos opacos ou semântica PF2e no VTT.
+
+Na implementação original, a apresentação utilizava somente metadata materializada no `CampaignActorEffect`/presentation resolver. QH-EFF-015 evolui esse ponto sem invalidar a fronteira: quando existe `definitionKey`, o VTT chama uma rota genérica da Composition Root e recebe uma projeção atual da definição do Game System. O mesmo renderer visual compartilhado é usado para o detalhe aberto pelo Token e por referências de conteúdo.
+
+Se não houver definição canônica consultável, permanecem válidos os campos seguros da instância como fallback:
 
 - nome;
 - polaridade;
 - categoria;
 - valor exibido;
-- origem segura quando o resolver de Game System a fornecer na ficha;
 - descrição normalizada;
 - ícone ou fallback visual.
 
-Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump técnico.
+Não exibir `payload`, `origin` bruto, namespace ou `definitionKey` como dump técnico. A consulta posterior da definição também é somente leitura e não altera a instância aplicada.
 
 ## Fronteiras
 
