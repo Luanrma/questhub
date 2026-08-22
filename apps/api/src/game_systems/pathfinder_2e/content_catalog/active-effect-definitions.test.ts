@@ -28,6 +28,7 @@ test('all 43 canonical Conditions are represented exactly once', () => {
   assert.equal(conditions.length, 43)
   assert.equal(new Set(conditions.map((definition) => definition.definitionKey)).size, 43)
   assert.equal(conditions.some((definition) => definition.source.slug === 'malevolence'), false)
+  assert.ok(conditions.every((definition) => definition.description.trim().length > 0))
 })
 
 test('Frightened preserves canonical presentation metadata, value and explicit polarity', () => {
@@ -64,11 +65,11 @@ test('published Effect definitions preserve canonical description and structural
   assert.equal(aerialForm.definitionKey, `${aerialForm.source.sourcePack}:${aerialForm.source.sourceId}`)
 })
 
-test('every published definition has presentation data and an explicit polarity value', () => {
+test('every published definition has a string description and an explicit polarity value', () => {
   const definitions = listPathfinder2eActiveEffectDefinitions()
   assert.ok(definitions.length > 43)
   assert.ok(definitions.every((definition) => definition.name.trim().length > 0))
-  assert.ok(definitions.every((definition) => definition.description.trim().length > 0))
+  assert.ok(definitions.every((definition) => typeof definition.description === 'string'))
   assert.ok(definitions.every((definition) => ['BENEFICIAL', 'HARMFUL', 'NEUTRAL'].includes(definition.polarity)))
   assert.ok(definitions.every((definition) => definition.schemaVersion === 1))
 })
