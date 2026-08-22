@@ -1,5 +1,6 @@
 import 'dotenv/config'
 
+import './composition/game-system-active-effects/routes.test'
 import './http/auth.test'
 import './modules/assets/token-library.test'
 import './modules/chat/presenter.test'
@@ -54,6 +55,7 @@ import './game_systems/pathfinder_2e/content_catalog/active-effect-definitions.t
 import './game_systems/pathfinder_2e/content_catalog/spell-effect-mappings.test'
 import './game_systems/pathfinder_2e/content_catalog/item-effect-mappings.test'
 import './game_systems/pathfinder_2e/content_catalog/bestiary-effect-mappings.test'
+import './game_systems/pathfinder_2e/active-effects/application.test'
 import './game_systems/pathfinder_2e/automation/catalog-token-sheet.test'
 import './game_systems/pathfinder_2e/automation/character-spell-actions.test'
 import './game_systems/pathfinder_2e/character-sheet/character-options.test'

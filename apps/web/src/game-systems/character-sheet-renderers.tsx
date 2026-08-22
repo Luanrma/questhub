@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import type { ActorEffectPresentationResolver } from '../vtt/actor-effects/types'
+import { PathfinderActiveEffectComposer, resolvePathfinderActorEffectPresentation } from './PathfinderActiveEffectComposer'
 import { PathfinderCharacterSheetAdapter } from './PathfinderCharacterSheetAdapter'
 import type { GameSystemKey } from './registry'
 
@@ -17,9 +18,15 @@ export type CharacterSheetPageDescriptor = {
   label: string
 }
 
+export type ActiveEffectComposerProps = {
+  campaignId: string
+  actorId: string
+}
+
 export type CharacterSheetRendererRegistration = {
   pages: readonly CharacterSheetPageDescriptor[]
   Renderer: ComponentType<CharacterSheetRendererProps>
+  ActiveEffectComposer?: ComponentType<ActiveEffectComposerProps>
   resolveActorEffectPresentation?: ActorEffectPresentationResolver
 }
 
@@ -36,6 +43,8 @@ const registrations: Partial<Record<GameSystemKey, CharacterSheetRendererRegistr
   PATHFINDER_2E: {
     pages: pathfinderPages,
     Renderer: PathfinderCharacterSheetAdapter,
+    ActiveEffectComposer: PathfinderActiveEffectComposer,
+    resolveActorEffectPresentation: resolvePathfinderActorEffectPresentation,
   },
 }
 

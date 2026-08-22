@@ -31,7 +31,9 @@ export type UpdateActorEffectPresentationInput = {
   displayValue?: string | null
 }
 
-async function lockActiveActor(tx: Prisma.TransactionClient, actorId: string) {
+type ActorLockClient = Pick<Prisma.TransactionClient, '$queryRaw'>
+
+async function lockActiveActor(tx: ActorLockClient, actorId: string) {
   const actors = await tx.$queryRaw<Array<{ id: string }>>`
     SELECT "id"
     FROM "CampaignActor"
