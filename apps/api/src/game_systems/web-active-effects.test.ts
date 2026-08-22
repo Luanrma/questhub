@@ -7,8 +7,10 @@ const root = process.cwd()
 const webRoot = path.join(root, 'apps', 'web', 'src')
 const panelFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActorActiveEffectsPanel.tsx')
 const hookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useActorActiveEffects.ts')
+const tokenEffectHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useTokenActiveEffects.ts')
 const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacterSheetActorContext.ts')
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
+const tokenPresentationOverlayFile = path.join(webRoot, 'vtt', 'token-presentation', 'TokenPresentationOverlay.tsx')
 const workspaceFile = path.join(webRoot, 'game-systems', 'CampaignCharacterSheetWorkspace.tsx')
 const renderersFile = path.join(webRoot, 'game-systems', 'character-sheet-renderers.tsx')
 const pf2eComposerFile = path.join(webRoot, 'game-systems', 'PathfinderActiveEffectComposer.tsx')
@@ -95,8 +97,57 @@ test('PF2e effect composer is registered in the game-system shell and mounted on
   assert.match(composer, /source: \{ type: 'MANUAL', definitionKey: selected\.definitionKey \}/)
 })
 
+test('token overlay composes generic actor effects separately from game-system token presentation', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+  const tokenHook = read(tokenEffectHookFile)
+
+  assert.match(overlay, /useTokenPresentation\(campaignId, tokenId\)/)
+  assert.match(overlay, /useTokenActiveEffects\(campaignId, tokenId\)/)
+  assert.match(tokenHook, /tokens\/\$\{encodeURIComponent\(activeTokenId\)\}\/actor-effects/)
+  assert.doesNotMatch(tokenHook, /game-system-effects/)
+})
+
+test('token effect summary caps at three plus overflow and preserves all detail instances', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.match(overlay, /effects\.slice\(0, 3\)/)
+  assert.match(overlay, /\+\{hiddenCount\}/)
+  assert.match(overlay, /effects\.map\(\(effect\) =>/)
+  assert.match(overlay, /effect\.displayValue/)
+  assert.match(overlay, /effect\.polarity/)
+  assert.match(overlay, /effect\.description/)
+  assert.match(overlay, /effect\.category/)
+})
+
+test('token effect detail never renders opaque effect identity or payload fields', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.doesNotMatch(overlay, /effect\.(?:payload|origin|namespace|definitionKey)/)
+  assert.doesNotMatch(overlay, /JSON\.stringify\([^)]*(?:payload|origin)/)
+})
+
+test('token actor-effect hook refreshes on matching effect/token changes and reconnect without polling', () => {
+  const source = read(tokenEffectHookFile)
+
+  assert.match(source, /'vtt:actor-effects:changed'/)
+  assert.match(source, /payload\.campaignId !== activeCampaignId/)
+  assert.match(source, /payload\.actorId !== state\.actorId/)
+  assert.match(source, /'vtt:token:changed'/)
+  assert.match(source, /payload\.token\.id !== activeTokenId/)
+  assert.match(source, /socket\?\.on\('connect', refresh\)/)
+  assert.doesNotMatch(source, /setInterval|setTimeout/)
+  assert.doesNotMatch(source, /method:\s*'(?:POST|PATCH|DELETE)'/)
+})
+
 test('generic actor effects UI contains no concrete game-system semantics', () => {
-  const source = [read(panelFile), read(hookFile), read(contextHookFile), read(typesFile)].join('\n')
+  const source = [
+    read(panelFile),
+    read(hookFile),
+    read(tokenEffectHookFile),
+    read(contextHookFile),
+    read(typesFile),
+    read(tokenPresentationOverlayFile),
+  ].join('\n')
   assert.doesNotMatch(source, /PATHFINDER|PF2E|Frightened|\bCondition\b|\bSpell\b/)
 })
 

@@ -19,6 +19,7 @@ import {
   actorEffectParamsSchema,
   actorEffectsParamsSchema,
   createManualActorEffectSchema,
+  tokenEffectsParamsSchema,
   updateActorEffectSchema,
 } from './validation'
 
@@ -98,6 +99,57 @@ export function registerCampaignActorEffectRoutes(app: FastifyInstance, io: Serv
     return reply.send({
       actorId: access.actor.id,
       effects: await listActorEffects(access.actor.id),
+    })
+  })
+
+  app.get('/api/campaigns/:campaignId/tokens/:tokenId/actor-effects', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = tokenEffectsParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Token invalido' })
+
+    const member = await findActiveMember(params.data.campaignId, auth.id)
+    if (!member) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const token = await prisma.campaignToken.findFirst({
+      where: {
+        id: params.data.tokenId,
+        campaignId: params.data.campaignId,
+      },
+      select: {
+        id: true,
+        actor: {
+          select: {
+            id: true,
+            controllerMemberId: true,
+            archivedAt: true,
+          },
+        },
+      },
+    })
+    if (!token) return reply.status(404).send({ error: 'Token nao encontrado' })
+
+    if (!token.actor || token.actor.archivedAt) {
+      return reply.send({
+        tokenId: token.id,
+        actorId: null,
+        effects: [],
+      })
+    }
+
+    if (!canReadActorEffects({
+      role: member.role,
+      memberId: member.id,
+      controllerMemberId: token.actor.controllerMemberId,
+    })) {
+      return reply.status(403).send({ error: 'Sem permissao para acessar os efeitos deste ator' })
+    }
+
+    return reply.send({
+      tokenId: token.id,
+      actorId: token.actor.id,
+      effects: await listActorEffects(token.actor.id),
     })
   })
 

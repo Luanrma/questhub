@@ -1,5 +1,8 @@
 import { useMemo } from 'react'
+import { Sparkles } from 'lucide-react'
 import { useParams } from 'react-router-dom'
+import type { ActorEffectView } from '../actor-effects/types'
+import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
 import type {
   TokenIndicatorPresentation,
   TokenResourcePresentation,
@@ -24,6 +27,104 @@ function indicatorClass(indicator: TokenIndicatorPresentation) {
   if (indicator.severity === 'warning') return 'border-amber-300/60 bg-amber-950/90 text-amber-100'
   if (indicator.severity === 'positive') return 'border-emerald-300/60 bg-emerald-950/90 text-emerald-100'
   return 'border-zinc-300/40 bg-zinc-950/90 text-zinc-100'
+}
+
+function effectClass(effect: ActorEffectView) {
+  if (effect.polarity === 'HARMFUL') return 'border-rose-300/70 bg-rose-950/95 text-rose-100'
+  if (effect.polarity === 'BENEFICIAL') return 'border-emerald-300/70 bg-emerald-950/95 text-emerald-100'
+  return 'border-zinc-300/50 bg-zinc-950/95 text-zinc-100'
+}
+
+function effectPolarityLabel(effect: ActorEffectView) {
+  if (effect.polarity === 'HARMFUL') return 'Prejudicial'
+  if (effect.polarity === 'BENEFICIAL') return 'Benéfico'
+  return 'Neutro'
+}
+
+function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; compact?: boolean }) {
+  const sizeClass = compact ? 'h-[18px] w-[18px]' : 'h-7 w-7'
+  return (
+    <span
+      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border shadow-lg ${sizeClass} ${effectClass(effect)}`}
+      title={`${effect.name}${effect.displayValue ? ` ${effect.displayValue}` : ''}`}
+    >
+      {effect.iconUrl ? (
+        <img
+          src={effect.iconUrl}
+          alt=""
+          draggable={false}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <Sparkles className={compact ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5'} />
+      )}
+      {compact && effect.displayValue ? (
+        <span className="absolute -bottom-px -right-px max-w-[14px] truncate rounded bg-black/90 px-0.5 text-[7px] font-black leading-[9px] text-white">
+          {effect.displayValue}
+        </span>
+      ) : null}
+    </span>
+  )
+}
+
+function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
+  const visibleEffects = effects.slice(0, 3)
+  const hiddenCount = Math.max(0, effects.length - visibleEffects.length)
+
+  return (
+    <details className="pointer-events-auto relative mx-auto w-max max-w-[220px]">
+      <summary
+        aria-label={`${effects.length} efeito${effects.length === 1 ? '' : 's'} ativo${effects.length === 1 ? '' : 's'}`}
+        title="Efeitos ativos — clique para ver detalhes"
+        className="flex cursor-pointer list-none items-center justify-center gap-0.5 rounded-full border border-black/70 bg-black/55 px-1 py-0.5 shadow-lg backdrop-blur-sm [&::-webkit-details-marker]:hidden"
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
+      >
+        {visibleEffects.map((effect) => (
+          <EffectGlyph key={effect.id} effect={effect} compact />
+        ))}
+        {hiddenCount > 0 ? (
+          <span className="grid h-[18px] min-w-[18px] place-items-center rounded-full border border-zinc-300/50 bg-zinc-950/95 px-1 text-[8px] font-black text-zinc-100 shadow-lg">
+            +{hiddenCount}
+          </span>
+        ) : null}
+      </summary>
+
+      <div
+        className="absolute bottom-full left-1/2 z-[40] mb-2 max-h-64 w-64 -translate-x-1/2 overflow-y-auto rounded-lg border border-white/15 bg-[#111218]/98 p-2 text-left text-white shadow-2xl backdrop-blur"
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="mb-2 border-b border-white/10 px-1 pb-2 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
+          Efeitos ativos · {effects.length}
+        </div>
+        <div className="grid gap-1.5">
+          {effects.map((effect) => (
+            <div key={effect.id} className="flex gap-2 rounded-md border border-white/10 bg-white/[0.04] p-2">
+              <EffectGlyph effect={effect} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="truncate text-xs font-bold text-zinc-100">{effect.name}</span>
+                  {effect.displayValue ? (
+                    <span className="shrink-0 rounded border border-white/10 bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-zinc-200">
+                      {effect.displayValue}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="mt-0.5 flex flex-wrap gap-x-2 text-[9px] uppercase tracking-wide text-zinc-500">
+                  <span>{effectPolarityLabel(effect)}</span>
+                  {effect.category ? <span>{effect.category}</span> : null}
+                </div>
+                {effect.description ? (
+                  <p className="mt-1 line-clamp-3 text-[10px] leading-snug text-zinc-300">{effect.description}</p>
+                ) : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
+  )
 }
 
 function ResourceBar({ resource }: { resource: TokenResourcePresentation }) {
@@ -66,14 +167,15 @@ export function TokenPresentationOverlay({
 }) {
   const { campaignId } = useParams()
   const { presentation: currentPresentation } = useTokenPresentation(campaignId, tokenId)
+  const { effects } = useTokenActiveEffects(campaignId, tokenId)
   const resources = useMemo(
     () => currentPresentation?.resources.filter((resource) => resource.presentation === 'bar') ?? [],
     [currentPresentation],
   )
   const indicators = currentPresentation?.indicators ?? []
-  if (!resources.length && !indicators.length) return null
+  if (!resources.length && !indicators.length && !effects.length) return null
 
-  const overlayWidth = Math.max(48, size)
+  const overlayWidth = Math.max(64, size)
   const overlayLeft = left + (size - overlayWidth) / 2
 
   return (
@@ -91,6 +193,7 @@ export function TokenPresentationOverlay({
         </div>
       ) : null}
       <div className="grid gap-1">
+        {effects.length ? <ActiveEffectIndicators effects={effects} /> : null}
         {resources.map((resource) => <ResourceBar key={resource.id} resource={resource} />)}
       </div>
     </div>
