@@ -2,6 +2,7 @@ import {
   PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS,
   type Pathfinder2eActiveEffectSourceDocument,
 } from './generated/active-effect-source'
+import { PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL } from './active-effect-polarity-editorial'
 
 export const PATHFINDER_2E_ACTIVE_EFFECT_DEFINITION_SOURCE_COMMIT =
   '01114da5851f31404078d8020809b13e4000bc4b' as const
@@ -42,6 +43,15 @@ function assertSourceDocument(document: Pathfinder2eActiveEffectSourceDocument):
   }
 }
 
+function editorialPolarity(
+  document: Pathfinder2eActiveEffectSourceDocument,
+): Pathfinder2eActiveEffectPolarity {
+  const exactDecision = PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL[
+    document.definitionKey as keyof typeof PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL
+  ]
+  return exactDecision ?? document.polarity
+}
+
 function toDefinition(
   document: Pathfinder2eActiveEffectSourceDocument,
 ): Pathfinder2eActiveEffectDefinition {
@@ -63,7 +73,7 @@ function toDefinition(
     // Canonical Foundry image paths are retained as source metadata only. The generic
     // QuestHub UI keeps using its local fallback until a safe local-asset resolver exists.
     iconUrl: null,
-    polarity: document.polarity,
+    polarity: editorialPolarity(document),
     group: document.group,
     conditionValue: document.conditionValue,
     schemaVersion: 1,
@@ -78,6 +88,16 @@ for (const document of PATHFINDER_2E_ACTIVE_EFFECT_SOURCE_DOCUMENTS) {
     throw new Error(`Duplicate PF2e active-effect definition: ${definition.definitionKey}`)
   }
   definitionsByKey.set(definition.definitionKey, definition)
+}
+
+for (const definitionKey of Object.keys(PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL)) {
+  const definition = definitionsByKey.get(definitionKey)
+  if (!definition) {
+    throw new Error(`PF2e editorial polarity targets unpublished definition: ${definitionKey}`)
+  }
+  if (definition.kind !== 'effect') {
+    throw new Error(`PF2e editorial effect polarity targets ${definition.kind}: ${definitionKey}`)
+  }
 }
 
 const DEFINITIONS = Object.freeze(
