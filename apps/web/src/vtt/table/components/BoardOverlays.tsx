@@ -528,7 +528,7 @@ export function PlayerToken({
     <TokenPresentationOverlay
       tokenId={token.id}
       left={position.x}
-      top={position.y + displaySize + 4}
+      top={position.y}
       size={displaySize}
     />
     {transformSelected && canSelect ? <div
