@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feat/qh-eff-016-active-effects-pt-br
+  pull_request:
+    branches:
+      - feat/qh-eff-015-clickable-effect-references
   workflow_dispatch:
 
 permissions:
