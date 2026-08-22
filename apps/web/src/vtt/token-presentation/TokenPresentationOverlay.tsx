@@ -42,47 +42,6 @@ function effectPolarityLabel(effect: ActorEffectView) {
   return 'Neutro'
 }
 
-function effectCategoryLabel(effect: ActorEffectView) {
-  const category = effect.category?.trim()
-  if (!category) return null
-  return category
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (letter) => letter.toLocaleUpperCase('pt-BR'))
-}
-
-function effectDescriptionText(value: string | null) {
-  if (!value) return null
-
-  const decoded = value
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<li\b[^>]*>/gi, '• ')
-    .replace(/<\/(?:p|div|li|ul|ol|h[1-6]|tr)>/gi, '\n')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&apos;/gi, "'")
-    .replace(/&#x([0-9a-f]+);/gi, (_match, code: string) => String.fromCodePoint(Number.parseInt(code, 16)))
-    .replace(/&#(\d+);/g, (_match, code: string) => String.fromCodePoint(Number.parseInt(code, 10)))
-    .replace(/[ \t]+\n/g, '\n')
-    .replace(/\n[ \t]+/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim()
-
-  return decoded || null
-}
-
-function formatEffectTimestamp(value: string) {
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return null
-  return date.toLocaleString('pt-BR', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  })
-}
-
 function EffectFallbackIcon({ effect, compact }: { effect: ActorEffectView; compact: boolean }) {
   const className = compact ? 'h-2.5 w-2.5' : 'h-4 w-4'
   if (effect.polarity === 'HARMFUL') return <TriangleAlert className={className} />
@@ -119,11 +78,6 @@ function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; com
 function EffectDetailModal({ effect, onClose }: { effect: ActorEffectView; onClose: () => void }) {
   if (typeof document === 'undefined') return null
 
-  const description = effectDescriptionText(effect.description)
-  const category = effectCategoryLabel(effect)
-  const appliedAt = formatEffectTimestamp(effect.createdAt)
-  const updatedAt = effect.updatedAt !== effect.createdAt ? formatEffectTimestamp(effect.updatedAt) : null
-
   return createPortal(
     <div
       className="pointer-events-auto fixed inset-0 z-[320] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
@@ -137,17 +91,17 @@ function EffectDetailModal({ effect, onClose }: { effect: ActorEffectView; onClo
         role="dialog"
         aria-modal="true"
         aria-label={`Detalhes do efeito ${effect.name}`}
-        className="w-full max-w-lg rounded-xl border border-white/15 bg-[#111218] p-4 text-white shadow-2xl"
+        className="w-full max-w-md rounded-xl border border-white/15 bg-[#111218] p-4 text-white shadow-2xl"
         onPointerDown={(event) => event.stopPropagation()}
       >
         <header className="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
           <div className="flex min-w-0 items-center gap-3">
             <EffectGlyph effect={effect} />
             <div className="min-w-0">
-              <h3 className="text-sm font-bold text-zinc-100">{effect.name}</h3>
+              <h3 className="truncate text-sm font-bold text-zinc-100">{effect.name}</h3>
               <div className="mt-1 flex flex-wrap gap-1.5 text-[10px] uppercase tracking-wide text-zinc-400">
                 <span>{effectPolarityLabel(effect)}</span>
-                {category ? <span>· {category}</span> : null}
+                {effect.category ? <span>· {effect.category}</span> : null}
               </div>
             </div>
           </div>
@@ -162,41 +116,17 @@ function EffectDetailModal({ effect, onClose }: { effect: ActorEffectView; onClo
         </header>
 
         <div className="mt-3 space-y-3">
-          <div className="grid gap-2 sm:grid-cols-2">
+          {effect.displayValue ? (
             <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Polaridade</div>
-              <div className="mt-1 text-xs font-semibold text-zinc-100">{effectPolarityLabel(effect)}</div>
+              <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Valor exibido</div>
+              <div className="mt-1 text-sm font-semibold text-zinc-100">{effect.displayValue}</div>
             </div>
-            {category ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Tipo</div>
-                <div className="mt-1 text-xs font-semibold text-zinc-100">{category}</div>
-              </div>
-            ) : null}
-            {effect.displayValue ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Valor exibido</div>
-                <div className="mt-1 text-xs font-semibold text-zinc-100">{effect.displayValue}</div>
-              </div>
-            ) : null}
-            {appliedAt ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Aplicado em</div>
-                <div className="mt-1 text-xs font-semibold text-zinc-100">{appliedAt}</div>
-              </div>
-            ) : null}
-            {updatedAt ? (
-              <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Atualizado em</div>
-                <div className="mt-1 text-xs font-semibold text-zinc-100">{updatedAt}</div>
-              </div>
-            ) : null}
-          </div>
+          ) : null}
 
-          {description ? (
-            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-3">
+          {effect.description ? (
+            <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
               <div className="text-[9px] font-bold uppercase tracking-wider text-zinc-500">Descrição</div>
-              <p className="mt-1.5 whitespace-pre-wrap text-xs leading-relaxed text-zinc-300">{description}</p>
+              <p className="mt-1 whitespace-pre-wrap text-xs leading-relaxed text-zinc-300">{effect.description}</p>
             </div>
           ) : (
             <p className="text-xs text-zinc-500">Este efeito não possui descrição de apresentação.</p>
@@ -284,36 +214,33 @@ function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
               Efeitos ativos · {effects.length}
             </div>
             <div className="grid gap-1.5">
-              {effects.map((effect) => {
-                const description = effectDescriptionText(effect.description)
-                return (
-                  <button
-                    key={effect.id}
-                    type="button"
-                    onClick={() => openDetail(effect)}
-                    className="flex w-full gap-2 rounded-md border border-white/10 bg-white/[0.04] p-2 text-left transition hover:border-white/20 hover:bg-white/[0.08]"
-                  >
-                    <EffectGlyph effect={effect} />
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-start justify-between gap-2">
-                        <span className="truncate text-xs font-bold text-zinc-100">{effect.name}</span>
-                        {effect.displayValue ? (
-                          <span className="shrink-0 rounded border border-white/10 bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-zinc-200">
-                            {effect.displayValue}
-                          </span>
-                        ) : null}
-                      </span>
-                      <span className="mt-0.5 flex flex-wrap gap-x-2 text-[9px] uppercase tracking-wide text-zinc-500">
-                        <span>{effectPolarityLabel(effect)}</span>
-                        {effect.category ? <span>{effectCategoryLabel(effect)}</span> : null}
-                      </span>
-                      {description ? (
-                        <span className="mt-1 line-clamp-2 block text-[10px] leading-snug text-zinc-300">{description}</span>
+              {effects.map((effect) => (
+                <button
+                  key={effect.id}
+                  type="button"
+                  onClick={() => openDetail(effect)}
+                  className="flex w-full gap-2 rounded-md border border-white/10 bg-white/[0.04] p-2 text-left transition hover:border-white/20 hover:bg-white/[0.08]"
+                >
+                  <EffectGlyph effect={effect} />
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-start justify-between gap-2">
+                      <span className="truncate text-xs font-bold text-zinc-100">{effect.name}</span>
+                      {effect.displayValue ? (
+                        <span className="shrink-0 rounded border border-white/10 bg-black/30 px-1.5 py-0.5 text-[9px] font-bold text-zinc-200">
+                          {effect.displayValue}
+                        </span>
                       ) : null}
                     </span>
-                  </button>
-                )
-              })}
+                    <span className="mt-0.5 flex flex-wrap gap-x-2 text-[9px] uppercase tracking-wide text-zinc-500">
+                      <span>{effectPolarityLabel(effect)}</span>
+                      {effect.category ? <span>{effect.category}</span> : null}
+                    </span>
+                    {effect.description ? (
+                      <span className="mt-1 line-clamp-2 block text-[10px] leading-snug text-zinc-300">{effect.description}</span>
+                    ) : null}
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
         ) : null}
