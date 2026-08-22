@@ -15,6 +15,7 @@ permissions:
 jobs:
   inventory:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,15 +24,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx tsx scripts/qh-eff-016-inventory.mts
-      - name: Translation draft endpoint smoke test
-        run: |
-          curl --fail --silent --show-error --get \
-            --data-urlencode 'client=gtx' \
-            --data-urlencode 'sl=en' \
-            --data-urlencode 'tl=pt' \
-            --data-urlencode 'dt=t' \
-            --data-urlencode 'q=You gain a +1 status bonus to attack and damage rolls.' \
-            'https://translate.googleapis.com/translate_a/single'
+      - run: npx tsx scripts/qh-eff-016-machine-draft.mts
       - uses: actions/upload-artifact@v4
         with:
           name: qh-eff-016-effect-inventory
