@@ -10,6 +10,8 @@ const hookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useActorActiveEffec
 const tokenEffectHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useTokenActiveEffects.ts')
 const localInvalidationFile = path.join(webRoot, 'vtt', 'actor-effects', 'localInvalidation.ts')
 const presentationTextFile = path.join(webRoot, 'vtt', 'actor-effects', 'presentationText.ts')
+const sharedDefinitionModalFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActiveEffectDefinitionModal.tsx')
+const campaignDefinitionModalFile = path.join(webRoot, 'vtt', 'actor-effects', 'CampaignActiveEffectDefinitionModal.tsx')
 const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacterSheetActorContext.ts')
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
 const tokenPresentationOverlayFile = path.join(webRoot, 'vtt', 'token-presentation', 'TokenPresentationOverlay.tsx')
@@ -17,6 +19,7 @@ const boardOverlaysFile = path.join(webRoot, 'vtt', 'table', 'components', 'Boar
 const workspaceFile = path.join(webRoot, 'game-systems', 'CampaignCharacterSheetWorkspace.tsx')
 const renderersFile = path.join(webRoot, 'game-systems', 'character-sheet-renderers.tsx')
 const pf2eComposerFile = path.join(webRoot, 'game-systems', 'PathfinderActiveEffectComposer.tsx')
+const pf2eDefinitionModalFile = path.join(webRoot, 'game-systems', 'PathfinderActiveEffectDefinitionModal.tsx')
 const asideFile = path.join(webRoot, 'components', 'Aside.tsx')
 
 function read(file: string) {
@@ -142,7 +145,7 @@ test('active effects occupy the lane above the token while resources stay below 
   const boardOverlays = read(boardOverlaysFile)
 
   assert.match(overlay, /style=\{\{ left: overlayLeft, top, width: overlayWidth, height: size \}\}/)
-  assert.match(overlay, /absolute bottom-full[\s\S]*<ActiveEffectIndicators effects=\{effects\}/)
+  assert.match(overlay, /absolute bottom-full[\s\S]*<ActiveEffectIndicators campaignId=\{campaignId\} effects=\{effects\}/)
   assert.match(overlay, /absolute left-0 right-0 top-full mt-1 grid gap-1/)
   assert.match(boardOverlays, /<TokenPresentationOverlay[\s\S]*top=\{position\.y\}[\s\S]*size=\{displaySize\}/)
   assert.doesNotMatch(boardOverlays, /<TokenPresentationOverlay[\s\S]*top=\{position\.y \+ displaySize/)
@@ -155,7 +158,7 @@ test('token effect summary caps at three plus overflow and preserves all detail 
   assert.match(overlay, /\+\{hiddenCount\}/)
   assert.match(overlay, /effects\.map\(\(effect\) =>/)
   assert.match(overlay, /openDetail\(effect\)/)
-  assert.match(overlay, /EffectDetailModal/)
+  assert.match(overlay, /CampaignActiveEffectDefinitionModal/)
   assert.match(overlay, /effect\.displayValue/)
   assert.match(overlay, /effect\.polarity/)
   assert.match(overlay, /effect\.description/)
@@ -171,31 +174,44 @@ test('expanded token effects close on outside click and protect their internal p
   assert.match(overlay, /onPointerDown=\{\(event\) => event\.stopPropagation\(\)\}/)
 })
 
-test('token effect detail is richer, read-only, normalized and never renders opaque fields', () => {
+test('token and content references use the exact same shared read-only definition card', () => {
   const overlay = read(tokenPresentationOverlayFile)
+  const campaignDefinition = read(campaignDefinitionModalFile)
+  const pf2eDefinition = read(pf2eDefinitionModalFile)
+  const sharedDefinition = read(sharedDefinitionModalFile)
+
+  assert.match(overlay, /CampaignActiveEffectDefinitionModal/)
+  assert.match(campaignDefinition, /<ActiveEffectDefinitionModal/)
+  assert.match(pf2eDefinition, /<ActiveEffectDefinitionModal/)
+  assert.match(campaignDefinition, /game-system-effects\/definitions\/\$\{encodeURIComponent\(effect\.definitionKey\)\}\?locale=\$\{locale\}/)
+  assert.match(campaignDefinition, /localeEnabled=\{canonical\}/)
+  assert.match(pf2eDefinition, /localeEnabled/)
+  assert.match(sharedDefinition, /Português \(Brasil\)/)
+  assert.match(sharedDefinition, /English \(US\)/)
+  assert.match(sharedDefinition, /descriptionBlocks\.map/)
+  assert.match(sharedDefinition, /createPortal\(/)
+  assert.doesNotMatch(sharedDefinition, /dangerouslySetInnerHTML/)
+})
+
+test('token effect canonical lookup falls back safely for manual or unavailable definitions', () => {
+  const source = read(campaignDefinitionModalFile)
   const presentationText = read(presentationTextFile)
 
-  assert.match(overlay, /createPortal\(/)
-  assert.match(overlay, /role="dialog"/)
-  assert.match(overlay, /Detalhes do efeito/)
-  assert.match(overlay, /data-effect-detail-metadata/)
-  assert.match(overlay, /Polaridade/)
-  assert.match(overlay, /Categoria/)
-  assert.match(overlay, /Valor exibido/)
-  assert.match(overlay, /Descrição/)
-  assert.match(overlay, /normalizeActorEffectPresentationText/)
+  assert.match(source, /if \(!campaignId \|\| !effect\.definitionKey\)/)
+  assert.match(source, /normalizeActorEffectPresentationText\(effect\.description\)/)
+  assert.match(source, /presentation\?\.descriptionBlocks \?\? fallbackDescription/)
+  assert.match(source, /presentation\?\.name \?\? effect\.name/)
   assert.match(presentationText, /executableBlocks/)
   assert.match(presentationText, /remainingTags/)
-  assert.doesNotMatch(overlay, /dangerouslySetInnerHTML/)
-  assert.doesNotMatch(overlay, /effect\.(?:payload|origin|namespace|definitionKey)/)
-  assert.doesNotMatch(overlay, /JSON\.stringify\([^)]*(?:payload|origin)/)
+  assert.doesNotMatch(source, /dangerouslySetInnerHTML/)
+  assert.doesNotMatch(source, /JSON\.stringify\([^)]*(?:payload|origin)/)
 })
 
 test('closing token effect detail restores the expanded effect list', () => {
   const overlay = read(tokenPresentationOverlayFile)
 
   assert.match(overlay, /function closeDetail\(\)[\s\S]*setSelectedEffect\(null\)[\s\S]*setOpen\(true\)/)
-  assert.match(overlay, /<EffectDetailModal effect=\{selectedEffect\} onClose=\{closeDetail\}/)
+  assert.match(overlay, /<CampaignActiveEffectDefinitionModal[\s\S]*onClose=\{closeDetail\}/)
 })
 
 test('token actor-effect hook refreshes on socket, local invalidation, token changes and reconnect without polling', () => {
@@ -219,6 +235,8 @@ test('generic actor effects UI contains no concrete game-system semantics', () =
     read(tokenEffectHookFile),
     read(localInvalidationFile),
     read(presentationTextFile),
+    read(sharedDefinitionModalFile),
+    read(campaignDefinitionModalFile),
     read(contextHookFile),
     read(typesFile),
     read(tokenPresentationOverlayFile),
