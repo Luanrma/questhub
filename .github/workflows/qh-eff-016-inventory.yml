@@ -1,0 +1,27 @@
+name: QH-EFF-016 Translation Inventory
+
+on:
+  push:
+    branches:
+      - feat/qh-eff-016-active-effects-pt-br
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/qh-eff-016-inventory.mts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qh-eff-016-effect-inventory
+          path: qh-eff-016-artifact/effect-inventory.json
+          if-no-files-found: error
