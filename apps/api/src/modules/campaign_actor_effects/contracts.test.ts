@@ -22,6 +22,24 @@ test('active effect API exposes the approved actor-scoped CRUD routes', () => {
   assert.match(source, /app\.delete\('\/api\/campaigns\/:campaignId\/actors\/:actorId\/effects\/:effectId'/)
 })
 
+test('token effect projection is read-only, campaign-scoped and derived from the linked actor', () => {
+  const source = read(routesFile)
+
+  assert.match(source, /app\.get\('\/api\/campaigns\/:campaignId\/tokens\/:tokenId\/actor-effects'/)
+  assert.match(source, /campaignToken\.findFirst\(\{[\s\S]*id: params\.data\.tokenId,[\s\S]*campaignId: params\.data\.campaignId/)
+  assert.match(source, /actor:[\s\S]*id: true,[\s\S]*controllerMemberId: true,[\s\S]*archivedAt: true/)
+  assert.match(source, /canReadActorEffects\(\{[\s\S]*role: member\.role,[\s\S]*memberId: member\.id,[\s\S]*controllerMemberId: token\.actor\.controllerMemberId/)
+  assert.match(source, /effects: await listActorEffects\(token\.actor\.id\)/)
+  assert.doesNotMatch(source, /campaignToken\.(?:update|create|delete)[\s\S]*actor-effects/)
+})
+
+test('token effect projection keeps token and actor lifecycles independent', () => {
+  const source = read(routesFile)
+
+  assert.match(source, /if \(!token\.actor \|\| token\.actor\.archivedAt\) \{[\s\S]*actorId: null,[\s\S]*effects: \[\]/)
+  assert.match(source, /if \(!token\) return reply\.status\(404\)/)
+})
+
 test('actor access is campaign-scoped and excludes archived actors', () => {
   const source = read(routesFile)
 
