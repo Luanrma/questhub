@@ -5,6 +5,12 @@ import { PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL } from './active-effect-polarit
 
 type SuggestedPolarity = 'BENEFICIAL' | 'HARMFUL'
 
+const REVIEWED_CONTEXTUAL_NEUTRAL_KEYS = new Set([
+  'bestiary-effects:1toVzNVJZx0RwG1v', // Darivan's Bloodline Magic
+  'bestiary-effects:5w675gmnZqbND0mt', // Flesh Mutation
+  'bestiary-effects:6E8bOkwFzFuQ3ZAw', // Lurker's Glow (Critical Failure)
+])
+
 function plainText(markup: string) {
   return markup
     .replace(/<[^>]*>/g, ' ')
@@ -71,9 +77,19 @@ test('editorial polarity covers every published Effect exactly once by definitio
   assert.deepEqual(editorialKeys, publishedEffectKeys)
 })
 
+test('reviewed contextual Effects remain NEUTRAL even when the development detector sees one-sided signals', () => {
+  for (const definitionKey of REVIEWED_CONTEXTUAL_NEUTRAL_KEYS) {
+    assert.equal(PATHFINDER_2E_EFFECT_POLARITY_EDITORIAL[definitionKey], 'NEUTRAL')
+  }
+})
+
 test('obviously one-sided Effects are not left at the historical blanket NEUTRAL baseline', () => {
   const leftovers = listPathfinder2eActiveEffectDefinitions()
-    .filter((definition) => definition.kind === 'effect' && definition.polarity === 'NEUTRAL')
+    .filter((definition) => (
+      definition.kind === 'effect'
+      && definition.polarity === 'NEUTRAL'
+      && !REVIEWED_CONTEXTUAL_NEUTRAL_KEYS.has(definition.definitionKey)
+    ))
     .flatMap((definition) => {
       const suggestion = suggestedPolarity(definition.description)
       if (!suggestion) return []
