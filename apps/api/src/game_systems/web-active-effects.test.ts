@@ -151,7 +151,7 @@ test('active effects occupy the lane above the token while resources stay below 
   assert.doesNotMatch(boardOverlays, /<TokenPresentationOverlay[\s\S]*top=\{position\.y \+ displaySize/)
 })
 
-test('token effect summary caps at three plus overflow and preserves all detail instances', () => {
+test('token effect summary caps at three and the expanded list stays compact without horizontal scrolling', () => {
   const overlay = read(tokenPresentationOverlayFile)
 
   assert.match(overlay, /effects\.slice\(0, 3\)/)
@@ -161,8 +161,10 @@ test('token effect summary caps at three plus overflow and preserves all detail 
   assert.match(overlay, /CampaignActiveEffectDefinitionModal/)
   assert.match(overlay, /effect\.displayValue/)
   assert.match(overlay, /effect\.polarity/)
-  assert.match(overlay, /effect\.description/)
   assert.match(overlay, /effect\.category/)
+  assert.match(overlay, /overflow-y-auto overflow-x-hidden/)
+  assert.doesNotMatch(overlay, /overflow-x-(?:auto|scroll)/)
+  assert.doesNotMatch(overlay, /effect\.description/)
 })
 
 test('expanded token effects close on outside click and protect their internal pointer interactions', () => {
