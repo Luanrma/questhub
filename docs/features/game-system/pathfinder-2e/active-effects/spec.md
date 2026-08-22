@@ -260,9 +260,9 @@ Bloqueia `QH-EFF-010`.
 
 ## Decisões relacionadas
 
-- `ADR-0002` — Game System separado do VTT/Core;
-- `ADR-0003` — persistência estrutural e fronteiras de domínio;
-- `ADR-0005` — integração/automação sem vazamento de regra concreta;
+- `ADR-0002` — Campaign é a fronteira de isolamento; aplicação e alvo permanecem limitados ao mesmo mundo;
+- `ADR-0003` — CampaignMember e CampaignActor permanecem conceitos separados; a permissão vem do membership e o efeito pertence ao Actor;
+- `ADR-0005` — integração/automação sem vazamento de regra concreta entre Game System e VTT Core;
 - contrato de `QH-EFF-002` — composition root é responsável por persistir dados resolvidos pela engine.
 
 ## Questões abertas
