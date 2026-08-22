@@ -11,6 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import { api, ApiError } from '../../lib/api'
+import { CampaignActiveEffectDefinitionModal } from './CampaignActiveEffectDefinitionModal'
 import { publishLocalActorEffectsChanged } from './localInvalidation'
 import { useActorActiveEffects } from './useActorActiveEffects'
 import type {
@@ -36,7 +37,6 @@ type EffectDraft = {
 
 type OverlayState =
   | { kind: 'all' }
-  | { kind: 'detail'; effectId: string }
   | { kind: 'create' }
   | { kind: 'edit'; effectId: string }
   | null
@@ -126,23 +126,23 @@ export function ActorActiveEffectsPanel({
 }: Props) {
   const { effects, loading, error, reload } = useActorActiveEffects(campaignId, actorId)
   const [overlay, setOverlay] = useState<OverlayState>(null)
+  const [detailEffectId, setDetailEffectId] = useState<string | null>(null)
+  const [detailReturnsToAll, setDetailReturnsToAll] = useState(false)
   const [draft, setDraft] = useState<EffectDraft>(emptyDraft)
   const [saving, setSaving] = useState(false)
   const [mutationError, setMutationError] = useState<string | null>(null)
 
   const visibleEffects = effects.slice(0, 6)
   const hiddenCount = Math.max(0, effects.length - visibleEffects.length)
-  const selectedEffect = useMemo(() => {
-    if (!overlay || !('effectId' in overlay)) return null
-    return effects.find((effect) => effect.id === overlay.effectId) ?? null
-  }, [effects, overlay])
+  const selectedDetailEffect = useMemo(
+    () => effects.find((effect) => effect.id === detailEffectId) ?? null,
+    [detailEffectId, effects],
+  )
 
   function resolved(effect: ActorEffectView) {
     const presentation = resolvePresentation?.(effect) ?? null
     return {
       iconUrl: presentation?.iconUrl ?? effect.iconUrl,
-      originLabel: presentation?.originLabel
-        ?? (effect.namespace === 'questhub:manual-effects:v1' ? 'Manual' : null),
       summary: presentation?.summary ?? effect.description,
     }
   }
@@ -152,13 +152,30 @@ export function ActorActiveEffectsPanel({
     setOverlay(null)
   }
 
+  function openDetail(effect: ActorEffectView, returnToAll = false) {
+    setMutationError(null)
+    setOverlay(null)
+    setDetailReturnsToAll(returnToAll)
+    setDetailEffectId(effect.id)
+  }
+
+  function closeDetail() {
+    setDetailEffectId(null)
+    if (detailReturnsToAll) setOverlay({ kind: 'all' })
+    setDetailReturnsToAll(false)
+  }
+
   function openCreate() {
+    setDetailEffectId(null)
+    setDetailReturnsToAll(false)
     setDraft(emptyDraft)
     setMutationError(null)
     setOverlay({ kind: 'create' })
   }
 
   function openEdit(effect: ActorEffectView) {
+    setDetailEffectId(null)
+    setDetailReturnsToAll(false)
     setDraft(draftFromEffect(effect))
     setMutationError(null)
     setOverlay({ kind: 'edit', effectId: effect.id })
@@ -215,6 +232,8 @@ export function ActorActiveEffectsPanel({
         `/api/campaigns/${encodeURIComponent(campaignId)}/actors/${encodeURIComponent(actorId)}/effects/${encodeURIComponent(effect.id)}`,
         { method: 'DELETE' },
       )
+      setDetailEffectId(null)
+      setDetailReturnsToAll(false)
       closeOverlay()
       invalidateAfterMutation()
     } catch (cause) {
@@ -239,14 +258,26 @@ export function ActorActiveEffectsPanel({
           </span>
         </div>
         {canManage ? (
-          <button
-            type="button"
-            onClick={openCreate}
-            className="inline-flex shrink-0 items-center gap-1 rounded-md border border-[#6d4ac8]/30 bg-[#6d4ac8]/10 px-2 py-1 text-[11px] font-semibold text-[#4d2c91] transition hover:bg-[#6d4ac8]/20"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            Adicionar efeito
-          </button>
+          <div className="flex shrink-0 items-center gap-1.5">
+            {effects.length ? (
+              <button
+                type="button"
+                onClick={() => setOverlay({ kind: 'all' })}
+                className="inline-flex items-center gap-1 rounded-md border border-[#6f6252]/25 bg-[#ede2cf]/45 px-2 py-1 text-[11px] font-semibold text-[#584c3e] transition hover:bg-[#ede2cf]/70"
+              >
+                <List className="h-3.5 w-3.5" />
+                Gerenciar
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={openCreate}
+              className="inline-flex items-center gap-1 rounded-md border border-[#6d4ac8]/30 bg-[#6d4ac8]/10 px-2 py-1 text-[11px] font-semibold text-[#4d2c91] transition hover:bg-[#6d4ac8]/20"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Adicionar efeito
+            </button>
+          </div>
         ) : null}
       </div>
 
@@ -276,7 +307,7 @@ export function ActorActiveEffectsPanel({
             <button
               key={effect.id}
               type="button"
-              onClick={() => setOverlay({ kind: 'detail', effectId: effect.id })}
+              onClick={() => openDetail(effect)}
               className={`inline-flex max-w-56 items-center gap-1.5 rounded-md border px-2 py-1 text-left text-xs font-semibold text-[#3f352b] transition ${visual.chipClass}`}
               title={effect.name}
             >
@@ -314,10 +345,9 @@ export function ActorActiveEffectsPanel({
           >
             <div className="mb-3 flex items-center justify-between gap-3">
               <h4 className="text-sm font-bold">
-                {overlay.kind === 'all' ? 'Todos os efeitos ativos' : null}
+                {overlay.kind === 'all' ? 'Gerenciar efeitos ativos' : null}
                 {overlay.kind === 'create' ? 'Adicionar efeito' : null}
                 {overlay.kind === 'edit' ? 'Editar efeito' : null}
-                {overlay.kind === 'detail' ? 'Detalhes do efeito' : null}
               </h4>
               <button
                 type="button"
@@ -335,74 +365,53 @@ export function ActorActiveEffectsPanel({
                   const visual = polarityPresentation[effect.polarity]
                   const presentation = resolved(effect)
                   return (
-                    <button
+                    <div
                       key={effect.id}
-                      type="button"
-                      onClick={() => setOverlay({ kind: 'detail', effectId: effect.id })}
-                      className={`flex w-full items-center gap-2 rounded-lg border p-2 text-left ${visual.chipClass}`}
+                      className={`flex min-w-0 items-center gap-2 rounded-lg border p-2 ${visual.chipClass}`}
                     >
-                      <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-sm font-semibold">{effect.name}</span>
-                        <span className="block truncate text-xs text-[#6b5d4d]">
-                          {effect.displayValue || presentation.summary || visual.label}
+                      <button
+                        type="button"
+                        onClick={() => openDetail(effect, true)}
+                        className="flex min-w-0 flex-1 items-center gap-2 text-left"
+                      >
+                        <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-semibold">{effect.name}</span>
+                          <span className="block truncate text-xs text-[#6b5d4d]">
+                            {effect.displayValue || presentation.summary || visual.label}
+                          </span>
                         </span>
-                      </span>
-                    </button>
+                      </button>
+                      {canManage ? (
+                        <div className="flex shrink-0 items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => openEdit(effect)}
+                            className="rounded-md border border-[#6d4ac8]/25 bg-[#6d4ac8]/10 p-1.5 text-[#4d2c91] hover:bg-[#6d4ac8]/20"
+                            aria-label={`Editar ${effect.name}`}
+                            title="Editar"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void removeEffect(effect)}
+                            className="rounded-md border border-rose-700/25 bg-rose-950/10 p-1.5 text-rose-900 hover:bg-rose-950/20"
+                            aria-label={`Remover ${effect.name}`}
+                            title="Remover"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
                   )
                 })}
+                {mutationError ? (
+                  <p className="rounded-md border border-rose-700/25 bg-rose-950/10 px-3 py-2 text-xs font-semibold text-rose-800">{mutationError}</p>
+                ) : null}
               </div>
             ) : null}
-
-            {overlay.kind === 'detail' && selectedEffect ? (() => {
-              const visual = polarityPresentation[selectedEffect.polarity]
-              const presentation = resolved(selectedEffect)
-              return (
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[#7c6d59]/25 bg-[#f2e8d7]">
-                      <EffectIcon effect={selectedEffect} resolvedIconUrl={presentation.iconUrl} />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-base font-bold">{selectedEffect.name}</div>
-                      <div className="mt-1 flex flex-wrap gap-1.5">
-                        <span className={`rounded-full border px-2 py-0.5 text-[10px] font-bold ${visual.badgeClass}`}>{visual.label}</span>
-                        {selectedEffect.displayValue ? <span className="rounded-full border border-[#6f6252]/25 bg-[#f2e8d7] px-2 py-0.5 text-[10px] font-bold">{selectedEffect.displayValue}</span> : null}
-                        {selectedEffect.category ? <span className="rounded-full border border-[#6f6252]/25 bg-[#f2e8d7] px-2 py-0.5 text-[10px]">{selectedEffect.category}</span> : null}
-                        {presentation.originLabel ? <span className="rounded-full border border-[#6f6252]/25 bg-[#f2e8d7] px-2 py-0.5 text-[10px]">{presentation.originLabel}</span> : null}
-                      </div>
-                    </div>
-                  </div>
-
-                  {presentation.summary ? (
-                    <p className="whitespace-pre-wrap rounded-lg border border-[#7c6d59]/20 bg-[#f2e8d7]/75 p-3 text-sm leading-relaxed text-[#514537]">{presentation.summary}</p>
-                  ) : null}
-
-                  {mutationError ? (
-                    <p className="rounded-md border border-rose-700/25 bg-rose-950/10 px-3 py-2 text-xs font-semibold text-rose-800">{mutationError}</p>
-                  ) : null}
-
-                  {canManage ? (
-                    <div className="flex justify-end gap-2 border-t border-[#7c6d59]/20 pt-3">
-                      <button
-                        type="button"
-                        onClick={() => openEdit(selectedEffect)}
-                        className="inline-flex items-center gap-1 rounded-md border border-[#6d4ac8]/30 bg-[#6d4ac8]/10 px-3 py-1.5 text-xs font-semibold text-[#4d2c91]"
-                      >
-                        <Pencil className="h-3.5 w-3.5" /> Editar
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => void removeEffect(selectedEffect)}
-                        className="inline-flex items-center gap-1 rounded-md border border-rose-700/30 bg-rose-950/10 px-3 py-1.5 text-xs font-semibold text-rose-900"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" /> Remover
-                      </button>
-                    </div>
-                  ) : null}
-                </div>
-              )
-            })() : null}
 
             {(overlay.kind === 'create' || overlay.kind === 'edit') ? (
               <div className="space-y-3">
@@ -490,6 +499,14 @@ export function ActorActiveEffectsPanel({
             ) : null}
           </div>
         </div>
+      ) : null}
+
+      {selectedDetailEffect ? (
+        <CampaignActiveEffectDefinitionModal
+          campaignId={campaignId}
+          effect={selectedDetailEffect}
+          onClose={closeDetail}
+        />
       ) : null}
     </section>
   )
