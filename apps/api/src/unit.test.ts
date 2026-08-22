@@ -54,6 +54,7 @@ import './game_systems/pathfinder_2e/content_catalog/active-effect-definitions.t
 import './game_systems/pathfinder_2e/content_catalog/spell-effect-mappings.test'
 import './game_systems/pathfinder_2e/content_catalog/item-effect-mappings.test'
 import './game_systems/pathfinder_2e/content_catalog/bestiary-effect-mappings.test'
+import './game_systems/pathfinder_2e/active-effects/application.test'
 import './game_systems/pathfinder_2e/automation/catalog-token-sheet.test'
 import './game_systems/pathfinder_2e/automation/character-spell-actions.test'
 import './game_systems/pathfinder_2e/character-sheet/character-options.test'
