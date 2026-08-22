@@ -85,9 +85,14 @@ test('successful manual mutations publish local invalidation as well as reloadin
   assert.doesNotMatch(invalidation, /setInterval|setTimeout/)
 })
 
-test('mutation feedback is visible in effect detail and cleared with the overlay', () => {
+test('sheet management stays separate from the canonical read-only detail modal', () => {
   const source = read(panelFile)
-  assert.match(source, /overlay\.kind === 'detail'[\s\S]*mutationError[\s\S]*canManage/)
+
+  assert.match(source, /CampaignActiveEffectDefinitionModal/)
+  assert.match(source, /function openDetail\(effect: ActorEffectView/)
+  assert.match(source, /function openEdit\(effect: ActorEffectView/)
+  assert.match(source, /removeEffect\(effect\)/)
+  assert.doesNotMatch(source, /kind: 'detail'/)
   assert.match(source, /function closeOverlay\(\)[\s\S]*setMutationError\(null\)[\s\S]*setOverlay\(null\)/)
 })
 
@@ -176,13 +181,15 @@ test('expanded token effects close on outside click and protect their internal p
   assert.match(overlay, /onPointerDown=\{\(event\) => event\.stopPropagation\(\)\}/)
 })
 
-test('token and content references use the exact same shared read-only definition card', () => {
+test('sheet, token and content references converge on the same shared definition card', () => {
+  const panel = read(panelFile)
   const overlay = read(tokenPresentationOverlayFile)
   const campaignDefinition = read(campaignDefinitionModalFile)
   const pf2eDefinition = read(pf2eDefinitionModalFile)
   const sharedDefinition = read(sharedDefinitionModalFile)
 
-  assert.match(overlay, /CampaignActiveEffectDefinitionModal/)
+  assert.match(panel, /<CampaignActiveEffectDefinitionModal[\s\S]*campaignId=\{campaignId\}[\s\S]*effect=\{selectedDetailEffect\}/)
+  assert.match(overlay, /<CampaignActiveEffectDefinitionModal[\s\S]*campaignId=\{campaignId\}[\s\S]*effect=\{selectedEffect\}/)
   assert.match(campaignDefinition, /<ActiveEffectDefinitionModal/)
   assert.match(pf2eDefinition, /<ActiveEffectDefinitionModal/)
   assert.match(campaignDefinition, /game-system-effects\/definitions\/\$\{encodeURIComponent\(effect\.definitionKey\)\}\?locale=\$\{locale\}/)
