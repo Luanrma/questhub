@@ -13,11 +13,25 @@ type Effect = {
 }
 type Inventory = { effects: Effect[] }
 type Upstream = { repository: string; commit: string; packs: Record<string, Record<string, Translation>> }
+type Provenance = 'questhub-reviewed' | 'upstream' | 'editorial-draft' | 'empty-source'
+type DraftEntry = {
+  name: string
+  description: string
+  provenance: { name: Provenance; description: Provenance }
+}
+type TranslationTask = {
+  id: number
+  definitionKey: string
+  field: 'name' | 'description'
+  source: string
+  prefix: string
+}
 
 const artifactDir = path.resolve('qh-eff-016-artifact')
 const inventory = JSON.parse(await readFile(path.join(artifactDir, 'effect-inventory.json'), 'utf8')) as Inventory
 const upstream = JSON.parse(await readFile(path.join(artifactDir, 'upstream-pt-br.json'), 'utf8')) as Upstream
-const separator = '\uE000'
+const partialFile = path.join(artifactDir, 'machine-draft.partial.json')
+const finalFile = path.join(artifactDir, 'machine-draft.json')
 
 function titleParts(name: string) {
   if (name.startsWith('Spell Effect: ')) return { prefix: 'Efeito de Magia: ', body: name.slice('Spell Effect: '.length) }
@@ -50,10 +64,6 @@ function normalizeTerminology(value: string) {
     [/\bDC\b/g, 'CD'],
     [/\bpontos de vida temporários\b/gi, 'Pontos de Vida temporários'],
     [/\bpontos de vida\b/gi, 'Pontos de Vida'],
-    [/\bdano espiritual\b/gi, 'dano espiritual'],
-    [/\bdano vazio\b/gi, 'dano de vazio'],
-    [/\bdano de vazio\b/gi, 'dano de vazio'],
-    [/\bdano de vitalidade\b/gi, 'dano de vitalidade'],
     [/\bcondição desajeitada\b/gi, 'condição desajeitado'],
     [/\bcondição assustada\b/gi, 'condição assustado'],
     [/\bcondição doente\b/gi, 'condição enjoado'],
@@ -61,7 +71,6 @@ function normalizeTerminology(value: string) {
     [/\bfora de guarda\b/gi, 'desprevenido'],
     [/\bdesprevenida\b/gi, 'desprevenido'],
     [/\bteste plano\b/gi, 'teste simples'],
-    [/\brolagem de iniciativa\b/gi, 'rolagem de iniciativa'],
   ]
   for (const [pattern, replacement] of replacements) text = text.replace(pattern, replacement)
 
@@ -79,8 +88,10 @@ async function translateGoogle(value: string, attempt = 0): Promise<string> {
   const params = new URLSearchParams({ client: 'gtx', sl: 'en', tl: 'pt', dt: 't', q: value })
   const response = await fetch(`https://translate.googleapis.com/translate_a/single?${params.toString()}`)
   if (!response.ok) {
-    if (attempt < 5 && (response.status === 429 || response.status >= 500)) {
-      await new Promise((resolve) => setTimeout(resolve, 300 * (attempt + 1) ** 2))
+    if (attempt < 9 && (response.status === 429 || response.status >= 500)) {
+      const delay = Math.min(30_000, 750 * 2 ** attempt)
+      console.log(`translation endpoint ${response.status}; retrying in ${delay}ms`)
+      await new Promise((resolve) => setTimeout(resolve, delay))
       return translateGoogle(value, attempt + 1)
     }
     throw new Error(`translation request failed: ${response.status}`)
@@ -93,66 +104,139 @@ async function translateGoogle(value: string, attempt = 0): Promise<string> {
     .join('')
 }
 
-async function translateMissing(effect: Effect, upstreamTranslation: Translation | undefined) {
-  const preferredName = effect.existingPtBr?.name?.trim() || upstreamTranslation?.name?.trim() || ''
-  const preferredDescription = effect.existingPtBr?.description?.trim() || upstreamTranslation?.description?.trim() || ''
-  const { prefix, body } = titleParts(effect.name)
-  const sourceDescription = presentPathfinder2eActiveEffectDescription(effect.description, 'en-US').description
+function marker(id: number) {
+  return `[[QH${id}]]`
+}
 
-  let translatedBody = ''
-  let translatedDescription = ''
-  if (!preferredName || (!preferredDescription && sourceDescription)) {
-    const combined = `${!preferredName ? body : ''}${separator}${!preferredDescription ? sourceDescription : ''}`
-    const translated = await translateGoogle(combined)
-    const split = translated.split(separator)
-    if (split.length === 2) {
-      translatedBody = split[0] ?? ''
-      translatedDescription = split[1] ?? ''
-    } else {
-      if (!preferredName) translatedBody = await translateGoogle(body)
-      if (!preferredDescription && sourceDescription) translatedDescription = await translateGoogle(sourceDescription)
+async function translateBatch(tasks: TranslationTask[]): Promise<Map<number, string>> {
+  if (!tasks.length) return new Map()
+  const input = tasks.map((task) => `${marker(task.id)}\n${task.source}`).join('\n')
+  const translated = await translateGoogle(input)
+  const positions = tasks
+    .map((task) => ({ task, index: translated.indexOf(marker(task.id)) }))
+    .filter((entry) => entry.index >= 0)
+    .sort((a, b) => a.index - b.index)
+
+  if (positions.length !== tasks.length) {
+    if (tasks.length === 1) {
+      return new Map([[tasks[0].id, await translateGoogle(tasks[0].source)]])
     }
+    const middle = Math.ceil(tasks.length / 2)
+    const left = await translateBatch(tasks.slice(0, middle))
+    await new Promise((resolve) => setTimeout(resolve, 250))
+    const right = await translateBatch(tasks.slice(middle))
+    return new Map([...left, ...right])
   }
 
-  const localizedName = preferredName || `${prefix}${normalizeTerminology(translatedBody)}`
-  const rawDescription = preferredDescription
-    ? presentPathfinder2eActiveEffectDescription(preferredDescription, 'pt-BR').description
-    : translatedDescription
-  return {
-    name: normalizeTerminology(localizedName),
-    description: normalizeTerminology(rawDescription),
+  const output = new Map<number, string>()
+  for (let i = 0; i < positions.length; i += 1) {
+    const current = positions[i]
+    const next = positions[i + 1]
+    const start = current.index + marker(current.task.id).length
+    const end = next?.index ?? translated.length
+    output.set(current.task.id, translated.slice(start, end).trim())
+  }
+  return output
+}
+
+const results: Record<string, DraftEntry> = {}
+const tasks: TranslationTask[] = []
+let nextTaskId = 1
+for (const effect of inventory.effects) {
+  const upstreamTranslation = upstream.packs[effect.sourcePack]?.[effect.name]
+  const reviewedName = effect.existingPtBr?.name?.trim()
+  const upstreamName = upstreamTranslation?.name?.trim()
+  const reviewedDescription = effect.existingPtBr?.description?.trim()
+  const upstreamDescription = upstreamTranslation?.description?.trim()
+  const sourceDescription = presentPathfinder2eActiveEffectDescription(effect.description, 'en-US').description
+  const { prefix, body } = titleParts(effect.name)
+
+  results[effect.definitionKey] = {
+    name: normalizeTerminology(reviewedName || upstreamName || ''),
+    description: normalizeTerminology(
+      reviewedDescription
+        ? presentPathfinder2eActiveEffectDescription(reviewedDescription, 'pt-BR').description
+        : upstreamDescription
+          ? presentPathfinder2eActiveEffectDescription(upstreamDescription, 'pt-BR').description
+          : '',
+    ),
     provenance: {
-      name: effect.existingPtBr?.name?.trim() ? 'questhub-reviewed' : upstreamTranslation?.name?.trim() ? 'upstream' : 'editorial-draft',
-      description: effect.existingPtBr?.description?.trim() ? 'questhub-reviewed' : upstreamTranslation?.description?.trim() ? 'upstream' : sourceDescription ? 'editorial-draft' : 'empty-source',
+      name: reviewedName ? 'questhub-reviewed' : upstreamName ? 'upstream' : 'editorial-draft',
+      description: reviewedDescription
+        ? 'questhub-reviewed'
+        : upstreamDescription
+          ? 'upstream'
+          : sourceDescription
+            ? 'editorial-draft'
+            : 'empty-source',
     },
   }
-}
 
-const results: Record<string, Awaited<ReturnType<typeof translateMissing>>> = {}
-const concurrency = 8
-let cursor = 0
-let completed = 0
-async function worker() {
-  while (true) {
-    const index = cursor++
-    if (index >= inventory.effects.length) return
-    const effect = inventory.effects[index]
-    const upstreamTranslation = upstream.packs[effect.sourcePack]?.[effect.name]
-    results[effect.definitionKey] = await translateMissing(effect, upstreamTranslation)
-    completed += 1
-    if (completed % 100 === 0 || completed === inventory.effects.length) {
-      console.log(`translated ${completed}/${inventory.effects.length}`)
-    }
+  if (!reviewedName && !upstreamName) {
+    tasks.push({ id: nextTaskId++, definitionKey: effect.definitionKey, field: 'name', source: body, prefix })
+  }
+  if (!reviewedDescription && !upstreamDescription && sourceDescription) {
+    tasks.push({ id: nextTaskId++, definitionKey: effect.definitionKey, field: 'description', source: sourceDescription, prefix: '' })
   }
 }
-await Promise.all(Array.from({ length: concurrency }, () => worker()))
+
+const batches: TranslationTask[][] = []
+let batch: TranslationTask[] = []
+let chars = 0
+for (const task of tasks) {
+  const cost = task.source.length + marker(task.id).length + 2
+  if (batch.length && chars + cost > 2800) {
+    batches.push(batch)
+    batch = []
+    chars = 0
+  }
+  batch.push(task)
+  chars += cost
+}
+if (batch.length) batches.push(batch)
+
+console.log(`translation tasks: ${tasks.length}; batches: ${batches.length}`)
+let completed = 0
+for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
+  const currentBatch = batches[batchIndex]
+  const translated = await translateBatch(currentBatch)
+  for (const task of currentBatch) {
+    const value = translated.get(task.id)
+    if (!value?.trim()) throw new Error(`empty translation for task ${task.id} (${task.definitionKey} ${task.field})`)
+    if (task.field === 'name') {
+      results[task.definitionKey].name = `${task.prefix}${normalizeTerminology(value)}`
+    } else {
+      results[task.definitionKey].description = normalizeTerminology(value)
+    }
+    completed += 1
+  }
+
+  if ((batchIndex + 1) % 10 === 0 || batchIndex + 1 === batches.length) {
+    console.log(`translated ${completed}/${tasks.length} fields (${batchIndex + 1}/${batches.length} batches)`)
+    await writeFile(
+      partialFile,
+      JSON.stringify({ definitions: inventory.effects.length, translatedFields: completed, entries: results }, null, 2),
+      'utf8',
+    )
+  }
+  await new Promise((resolve) => setTimeout(resolve, 350))
+}
+
+for (const effect of inventory.effects) {
+  const entry = results[effect.definitionKey]
+  if (!entry.name.trim()) throw new Error(`missing translated name: ${effect.definitionKey}`)
+  if (effect.description.trim() && !entry.description.trim()) {
+    throw new Error(`missing translated description: ${effect.definitionKey}`)
+  }
+}
 
 await writeFile(
-  path.join(artifactDir, 'machine-draft.json'),
+  finalFile,
   JSON.stringify({
     generatedAt: new Date().toISOString(),
     upstream: { repository: upstream.repository, commit: upstream.commit },
     definitions: inventory.effects.length,
+    translatedFields: completed,
     entries: results,
   }, null, 2),
   'utf8',
