@@ -25,10 +25,13 @@ export function resolvePathfinder2eActiveEffectDisplay(
   locale: Pathfinder2eContentLocale,
   ptBrOverlay: Pathfinder2eActiveEffectTranslationOverlay = PATHFINDER_2E_ACTIVE_EFFECT_PT_BR_TRANSLATIONS,
 ) {
+  const legacyTranslation = definition.kind === 'effect'
+    ? undefined
+    : getPathfinder2eActiveEffectPtBrTranslation(definition.source.sourcePack, definition.name)
   const translation = locale === 'pt-BR'
     ? ptBrOverlay[definition.definitionKey]
       ?? PATHFINDER_2E_EFFECT_PT_BR_TRANSLATIONS[definition.definitionKey]
-      ?? getPathfinder2eActiveEffectPtBrTranslation(definition.source.sourcePack, definition.name)
+      ?? legacyTranslation
     : undefined
   const translatedName = nonBlank(translation?.name)
   const translatedDescription = nonBlank(translation?.description)
