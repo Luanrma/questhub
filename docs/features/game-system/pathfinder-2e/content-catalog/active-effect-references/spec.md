@@ -92,10 +92,12 @@ A lista estrutural não é um segundo catálogo: ela contém apenas referências
 
 ## Idioma e fidelidade de tradução
 
-Definições canônicas oferecem seleção explícita entre:
+No contrato PF2e deste card, definições canônicas oferecem seleção explícita entre:
 
 - `pt-BR`;
 - `en-US`.
+
+A escolha de idiomas pertence à projeção de apresentação fornecida pelo Game System; ela não transforma idioma em regra do VTT.
 
 A localização é resolvida campo a campo. Uma tradução só substitui `name` ou `description` quando existe valor revisado para aquele campo. Na ausência de tradução, o campo permanece em `en-US` e a UI informa que houve fallback parcial. Não é permitido resumir, completar por inferência ou apresentar uma tradução inexistente como canônica.
 
@@ -152,7 +154,7 @@ Em `pt-BR`, a definição de Frightened pode ser apresentada como **Assustado** 
 - **AC09** — referências não textuais continuam acessíveis pela lista estrutural;
 - **AC10** — testes unitários, `build:web` e gates de arquitetura/documentação permanecem verdes;
 - **AC11** — detalhe canônico aberto a partir do Token e detalhe aberto por referência de conteúdo usam o mesmo componente visual compartilhado;
-- **AC12** — definição canônica permite alternar entre `pt-BR` e `en-US`;
+- **AC12** — definição canônica PF2e permite alternar entre `pt-BR` e `en-US`;
 - **AC13** — fallback de localização é explícito por campo e nunca é tratado como tradução existente;
 - **AC14** — descrição apresentada não contém HTML cru nem comandos Foundry não resolvidos suportados pelo formatador;
 - **AC15** — instâncias manuais/sem `definitionKey` continuam consultáveis no mesmo shell, com fallback genérico e sem falsa identidade canônica.
