@@ -37,13 +37,39 @@ function stripHtml(value: string) {
     .replace(htmlEntity, (_match, entity: string) => decodeEntity(entity))
 }
 
+function readableCheck(options: string, label: string | undefined, locale: Pathfinder2eContentLocale) {
+  const parts = options.split('|').map((part) => part.trim()).filter(Boolean)
+  const type = parts[0]?.toLowerCase() ?? 'check'
+  const dc = parts.map((part) => part.match(/^(?:dc|cd):(\d+)$/i)?.[1]).find(Boolean)
+  if (label?.trim()) return label.trim()
+
+  if (locale === 'pt-BR') {
+    const typeLabel = type === 'flat' ? 'teste simples' : `teste de ${type}`
+    return `${typeLabel}${dc ? ` CD ${dc}` : ''}`
+  }
+  const typeLabel = type === 'flat' ? 'flat check' : `${type} check`
+  return `${dc ? `DC ${dc} ` : ''}${typeLabel}`
+}
+
+function resolveFoundryReferences(value: string, locale: Pathfinder2eContentLocale) {
+  return value
+    .replace(/@(?:Compendium|UUID)\[[^\]\n]+\]\{([^}\n]+)\}/gi, (_match, label: string) => label.trim())
+    .replace(/@Check\[([^\]\n]+)\](?:\{([^}\n]+)\})?/gi, (_match, options: string, label?: string) => (
+      readableCheck(options, label, locale)
+    ))
+    .replace(/@(?:Compendium|UUID)\[[^\]\n]+\]/gi, locale === 'pt-BR' ? 'referência' : 'reference')
+}
+
 export function presentPathfinder2eActiveEffectDescription(
   value: string | null | undefined,
   locale: Pathfinder2eContentLocale,
 ) {
   if (!value?.trim()) return { description: '', descriptionBlocks: [] as string[] }
 
-  const resolved = resolvePathfinder2eInlineText(stripHtml(value), { locale })
+  const resolved = resolvePathfinder2eInlineText(
+    resolveFoundryReferences(stripHtml(value), locale),
+    { locale },
+  )
     .replace(/\r\n?/g, '\n')
     .split('\n')
     .map((line) => line.replace(/[ \t]+/g, ' ').trim())
