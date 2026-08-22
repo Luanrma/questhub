@@ -15,6 +15,7 @@ import {
   getPathfinder2eSpellEffectMappings,
   type Pathfinder2eSpellEffectMapping,
 } from '../content_catalog/spell-effect-mappings'
+import { normalizePathfinder2eAppliedEffectDescription } from './presentation'
 
 export const PATHFINDER_2E_ACTIVE_EFFECT_NAMESPACE =
   'questhub:pathfinder-2e:active-effects:v1' as const
@@ -204,7 +205,7 @@ export function resolvePathfinder2eEffectApplication(
       namespace: PATHFINDER_2E_ACTIVE_EFFECT_NAMESPACE,
       definitionKey: definition.definitionKey,
       name: definition.name,
-      description: definition.description,
+      description: normalizePathfinder2eAppliedEffectDescription(definition.description),
       iconUrl: definition.iconUrl,
       polarity: definition.polarity,
       category: definition.kind,
