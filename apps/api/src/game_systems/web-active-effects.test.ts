@@ -253,10 +253,9 @@ test('generic actor effects UI contains no concrete game-system semantics', () =
   assert.doesNotMatch(source, /PATHFINDER|PF2E|Frightened|\bCondition\b|\bSpell\b/)
 })
 
-test('raw opaque payload and origin are never rendered as user-facing JSON', () => {
-  const source = read(panelFile)
+test('raw opaque payload, origin and internal namespaces never become user-facing detail', () => {
+  const source = [read(panelFile), read(campaignDefinitionModalFile)].join('\n')
   assert.doesNotMatch(source, /JSON\.stringify\((?:effect\.)?(?:payload|origin)/)
   assert.doesNotMatch(source, /<pre[^>]*>[\s\S]*(?:payload|origin)/)
-  assert.match(source, /questhub:manual-effects:v1/)
-  assert.match(source, /'Manual'/)
+  assert.doesNotMatch(source, /questhub:manual-effects:v1/)
 })
