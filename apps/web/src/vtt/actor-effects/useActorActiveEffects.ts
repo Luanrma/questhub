@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSession } from '../../contexts/session-context'
 import { api, ApiError } from '../../lib/api'
-import {
-  subscribeLocalActorEffectsChanged,
-  type LocalActorEffectsChangedPayload,
-} from './localInvalidation'
 import type { ActorEffectsChangedPayload, ActorEffectsResponse, ActorEffectView } from './types'
 
 type ActorEffectsState = {
@@ -74,17 +70,10 @@ export function useActorActiveEffects(
       refresh()
     }
 
-    function onLocalEffectsChanged(payload: LocalActorEffectsChangedPayload) {
-      if (payload.campaignId !== activeCampaignId || payload.actorId !== activeActorId) return
-      refresh()
-    }
-
-    const unsubscribeLocal = subscribeLocalActorEffectsChanged(onLocalEffectsChanged)
     socket?.on('vtt:actor-effects:changed', onEffectsChanged)
     socket?.on('connect', refresh)
 
     return () => {
-      unsubscribeLocal()
       socket?.off('vtt:actor-effects:changed', onEffectsChanged)
       socket?.off('connect', refresh)
     }
