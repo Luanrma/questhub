@@ -6,9 +6,9 @@ import { prisma } from '../../db/prisma'
 import {
   listPathfinder2eEffectCandidates,
   resolvePathfinder2eEffectApplication,
-  searchPathfinder2eEffectDefinitions,
   type Pathfinder2eEffectResolutionFailure,
 } from '../../game_systems/pathfinder_2e/active-effects/application'
+import { listPathfinder2eActiveEffectDefinitionViews } from '../../game_systems/pathfinder_2e/content_catalog/active-effect-query'
 import { requireAuth } from '../../http/auth'
 import { campaignRoom } from '../../modules/campaign-presence/rooms'
 import { createActorEffect } from '../../modules/campaign_actor_effects/service'
@@ -136,18 +136,22 @@ export function registerGameSystemActiveEffectCompositionRoutes(
       return reply.status(409).send({ error: 'O sistema da campanha nao fornece este catalogo de efeitos' })
     }
 
-    const definitions = searchPathfinder2eEffectDefinitions(query.data.q, query.data.limit)
-      .map((definition) => ({
-        definitionKey: definition.definitionKey,
-        kind: definition.kind,
-        name: definition.name,
-        description: definition.description,
-        iconUrl: definition.iconUrl,
-        polarity: definition.polarity,
-        group: definition.group,
-        valued: definition.kind === 'condition' && definition.conditionValue?.isValued === true,
-        baseValue: definition.conditionValue?.baseValue ?? null,
-      }))
+    const catalog = listPathfinder2eActiveEffectDefinitionViews({
+      locale: 'pt-BR',
+      ...(query.data.q ? { query: query.data.q } : {}),
+      limit: query.data.limit,
+    })
+    const definitions = catalog.items.map((definition) => ({
+      definitionKey: definition.definitionKey,
+      kind: definition.kind,
+      name: definition.name,
+      description: definition.description,
+      iconUrl: definition.iconUrl,
+      polarity: definition.polarity,
+      group: definition.group,
+      valued: definition.kind === 'condition' && definition.conditionValue?.isValued === true,
+      baseValue: definition.conditionValue?.baseValue ?? null,
+    }))
 
     return reply.send({ gameSystem: campaign.gameSystem, definitions })
   })

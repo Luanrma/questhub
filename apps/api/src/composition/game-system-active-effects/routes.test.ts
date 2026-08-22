@@ -33,6 +33,15 @@ test('composition delegates semantic resolution to PF2e and persistence to gener
   assert.match(source, /archivedAt: null/)
 })
 
+test('QH-EFF-014 composes manual definition discovery from the QH-EFF-013 query contract', () => {
+  const source = readFileSync(routeFile, 'utf8')
+
+  assert.match(source, /listPathfinder2eActiveEffectDefinitionViews/)
+  assert.match(source, /locale: 'pt-BR'/)
+  assert.match(source, /conditionValue\?\.isValued/)
+  assert.doesNotMatch(source, /searchPathfinder2eEffectDefinitions/)
+})
+
 test('composition never mutates mechanical sheet or token state', () => {
   const source = readFileSync(routeFile, 'utf8')
   assert.doesNotMatch(source, /hitPoints|armorClass|savingThrows|spellSlots|campaignToken\.(?:update|delete|create)/)

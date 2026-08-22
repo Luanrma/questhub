@@ -9,6 +9,7 @@ const panelFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActorActiveEffects
 const hookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useActorActiveEffects.ts')
 const tokenEffectHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useTokenActiveEffects.ts')
 const localInvalidationFile = path.join(webRoot, 'vtt', 'actor-effects', 'localInvalidation.ts')
+const presentationTextFile = path.join(webRoot, 'vtt', 'actor-effects', 'presentationText.ts')
 const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacterSheetActorContext.ts')
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
 const tokenPresentationOverlayFile = path.join(webRoot, 'vtt', 'token-presentation', 'TokenPresentationOverlay.tsx')
@@ -115,6 +116,17 @@ test('PF2e effect composer is registered in the game-system shell and mounted on
   assert.match(composer, /source: \{ type: 'MANUAL', definitionKey: selected\.definitionKey \}/)
 })
 
+test('PF2e application publishes same-tab actor invalidation immediately after a successful POST', () => {
+  const composer = read(pf2eComposerFile)
+
+  assert.match(composer, /publishLocalActorEffectsChanged/)
+  assert.match(
+    composer,
+    /await api<ActorEffectView>\([\s\S]*method: 'POST'[\s\S]*publishLocalActorEffectsChanged\(\{ campaignId, actorId \}\)/,
+  )
+  assert.match(composer, /summary: normalizeActorEffectPresentationText\(effect\.description\)/)
+})
+
 test('token overlay composes generic actor effects separately from game-system token presentation', () => {
   const overlay = read(tokenPresentationOverlayFile)
   const tokenHook = read(tokenEffectHookFile)
@@ -159,14 +171,22 @@ test('expanded token effects close on outside click and protect their internal p
   assert.match(overlay, /onPointerDown=\{\(event\) => event\.stopPropagation\(\)\}/)
 })
 
-test('token effect detail is a dedicated read-only modal and never renders opaque fields', () => {
+test('token effect detail is richer, read-only, normalized and never renders opaque fields', () => {
   const overlay = read(tokenPresentationOverlayFile)
+  const presentationText = read(presentationTextFile)
 
   assert.match(overlay, /createPortal\(/)
   assert.match(overlay, /role="dialog"/)
   assert.match(overlay, /Detalhes do efeito/)
+  assert.match(overlay, /data-effect-detail-metadata/)
+  assert.match(overlay, /Polaridade/)
+  assert.match(overlay, /Categoria/)
   assert.match(overlay, /Valor exibido/)
   assert.match(overlay, /Descrição/)
+  assert.match(overlay, /normalizeActorEffectPresentationText/)
+  assert.match(presentationText, /executableBlocks/)
+  assert.match(presentationText, /remainingTags/)
+  assert.doesNotMatch(overlay, /dangerouslySetInnerHTML/)
   assert.doesNotMatch(overlay, /effect\.(?:payload|origin|namespace|definitionKey)/)
   assert.doesNotMatch(overlay, /JSON\.stringify\([^)]*(?:payload|origin)/)
 })
@@ -198,6 +218,7 @@ test('generic actor effects UI contains no concrete game-system semantics', () =
     read(hookFile),
     read(tokenEffectHookFile),
     read(localInvalidationFile),
+    read(presentationTextFile),
     read(contextHookFile),
     read(typesFile),
     read(tokenPresentationOverlayFile),
