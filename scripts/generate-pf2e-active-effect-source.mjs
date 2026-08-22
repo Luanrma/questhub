@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync, mkdirSync } from 'node:fs'
-import { dirname, join, relative, resolve } from 'node:path'
+import { basename, dirname, join, relative, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 const EXPECTED_SOURCE_COMMIT = '01114da5851f31404078d8020809b13e4000bc4b'
@@ -165,12 +165,12 @@ function sourceRecord(target, document, polarityManifest) {
     source: {
       sourcePack: target.sourcePack,
       sourceId: target.sourceId,
-      slug: stringOrNull(document?.system?.slug),
+      slug: stringOrNull(target.sourceSlug) ?? stringOrNull(document?.system?.slug),
       publicationTitle: stringOrNull(document?.system?.publication?.title),
       imagePath: stringOrNull(document?.img),
     },
     name: String(document?.name ?? '').trim(),
-    description: description(document, target.definitionKey),
+    description: description(document),
     polarity,
     group: stringOrNull(document?.system?.group),
     conditionValue: target.kind === 'condition' ? conditionValue(document) : null,
@@ -189,6 +189,7 @@ function canonicalConditionTargets(packDirectory) {
       definitionKey: `conditionitems:${document._id}`,
       sourcePack: 'conditionitems',
       sourceId: document._id,
+      sourceSlug: basename(path, '.json'),
       kind: 'condition',
       document,
     })
