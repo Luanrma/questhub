@@ -23,6 +23,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx tsx scripts/qh-eff-016-inventory.mts
+      - name: Translation draft endpoint smoke test
+        run: |
+          curl --fail --silent --show-error --get \
+            --data-urlencode 'client=gtx' \
+            --data-urlencode 'sl=en' \
+            --data-urlencode 'tl=pt' \
+            --data-urlencode 'dt=t' \
+            --data-urlencode 'q=You gain a +1 status bonus to attack and damage rolls.' \
+            'https://translate.googleapis.com/translate_a/single'
       - uses: actions/upload-artifact@v4
         with:
           name: qh-eff-016-effect-inventory
