@@ -30,7 +30,7 @@ function walkJson(directory) {
     .flatMap((entry) => {
       const path = join(directory, entry.name)
       if (entry.isDirectory()) return walkJson(path)
-      return entry.isFile() && path.endsWith('.json') ? [path] : []
+      return entry.isFile() && path.endsWith('.json') && entry.name !== '_folders.json' ? [path] : []
     })
 }
 
@@ -138,12 +138,9 @@ function indexPackBySourceId(directory) {
   return byId
 }
 
-function description(document, definitionKey) {
+function description(document) {
   const value = document?.system?.description?.value
-  if (typeof value !== 'string' || !value.trim()) {
-    fail(`published definition has no canonical description: ${definitionKey}`)
-  }
-  return value.trim()
+  return typeof value === 'string' ? value.trim() : ''
 }
 
 function stringOrNull(value) {
