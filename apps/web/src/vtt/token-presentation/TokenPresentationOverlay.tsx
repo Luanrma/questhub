@@ -174,6 +174,11 @@ function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
     setSelectedEffect(effect)
   }
 
+  function closeDetail() {
+    setSelectedEffect(null)
+    setOpen(true)
+  }
+
   return (
     <>
       <div ref={rootRef} className="pointer-events-auto relative w-max max-w-[220px]">
@@ -242,7 +247,7 @@ function ActiveEffectIndicators({ effects }: { effects: ActorEffectView[] }) {
       </div>
 
       {selectedEffect ? (
-        <EffectDetailModal effect={selectedEffect} onClose={() => setSelectedEffect(null)} />
+        <EffectDetailModal effect={selectedEffect} onClose={closeDetail} />
       ) : null}
     </>
   )

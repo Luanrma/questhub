@@ -12,6 +12,7 @@ const localInvalidationFile = path.join(webRoot, 'vtt', 'actor-effects', 'localI
 const contextHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCharacterSheetActorContext.ts')
 const typesFile = path.join(webRoot, 'vtt', 'actor-effects', 'types.ts')
 const tokenPresentationOverlayFile = path.join(webRoot, 'vtt', 'token-presentation', 'TokenPresentationOverlay.tsx')
+const boardOverlaysFile = path.join(webRoot, 'vtt', 'table', 'components', 'BoardOverlays.tsx')
 const workspaceFile = path.join(webRoot, 'game-systems', 'CampaignCharacterSheetWorkspace.tsx')
 const renderersFile = path.join(webRoot, 'game-systems', 'character-sheet-renderers.tsx')
 const pf2eComposerFile = path.join(webRoot, 'game-systems', 'PathfinderActiveEffectComposer.tsx')
@@ -126,10 +127,13 @@ test('token overlay composes generic actor effects separately from game-system t
 
 test('active effects occupy the lane above the token while resources stay below it', () => {
   const overlay = read(tokenPresentationOverlayFile)
+  const boardOverlays = read(boardOverlaysFile)
 
   assert.match(overlay, /style=\{\{ left: overlayLeft, top, width: overlayWidth, height: size \}\}/)
   assert.match(overlay, /absolute bottom-full[\s\S]*<ActiveEffectIndicators effects=\{effects\}/)
   assert.match(overlay, /absolute left-0 right-0 top-full mt-1 grid gap-1/)
+  assert.match(boardOverlays, /<TokenPresentationOverlay[\s\S]*top=\{position\.y\}[\s\S]*size=\{displaySize\}/)
+  assert.doesNotMatch(boardOverlays, /<TokenPresentationOverlay[\s\S]*top=\{position\.y \+ displaySize/)
 })
 
 test('token effect summary caps at three plus overflow and preserves all detail instances', () => {
@@ -165,6 +169,13 @@ test('token effect detail is a dedicated read-only modal and never renders opaqu
   assert.match(overlay, /Descrição/)
   assert.doesNotMatch(overlay, /effect\.(?:payload|origin|namespace|definitionKey)/)
   assert.doesNotMatch(overlay, /JSON\.stringify\([^)]*(?:payload|origin)/)
+})
+
+test('closing token effect detail restores the expanded effect list', () => {
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.match(overlay, /function closeDetail\(\)[\s\S]*setSelectedEffect\(null\)[\s\S]*setOpen\(true\)/)
+  assert.match(overlay, /<EffectDetailModal effect=\{selectedEffect\} onClose=\{closeDetail\}/)
 })
 
 test('token actor-effect hook refreshes on socket, local invalidation, token changes and reconnect without polling', () => {

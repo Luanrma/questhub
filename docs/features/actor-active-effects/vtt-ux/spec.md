@@ -150,6 +150,7 @@ Esse sinal não substitui Socket.IO nem altera contrato backend; ele serve somen
 - somente leitura;
 - backdrop/camada própria sobre o VTT;
 - fecha por ação explícita ou clique no backdrop;
+- ao fechar, retorna para a visão expandida da lista de efeitos;
 - não abre ficha automaticamente.
 
 ### Modal manual
@@ -199,7 +200,7 @@ Outro cliente conectado continua recebendo `vtt:actor-effects:changed` e recarre
 Com a visão expandida aberta, clicar fora da superfície fecha o popover sem acionar uma ação de Token/canvas.
 
 ### AC-08 — Detalhe individual
-Na visão expandida, clicar em uma instância abre um detalhe próprio daquela instância.
+Na visão expandida, clicar em uma instância abre um detalhe próprio daquela instância e, ao fechá-lo, retorna para a lista expandida de efeitos.
 
 ### AC-09 — Campos do detalhe
 O detalhe mostra apenas campos genéricos de apresentação e nunca expõe `payload`, `origin`, `namespace` ou `definitionKey` brutos.
