@@ -38,7 +38,7 @@ export const PATHFINDER_2E_EFFECT_POLARITY_BESTIARY_1 = Object.freeze({
   'bestiary-effects:5ZK22sNW7o26aST0': 'HARMFUL',
   'bestiary-effects:5roCV7EbPx1G5xOd': 'HARMFUL',
   'bestiary-effects:5syHrFGAE6lo0FUr': 'BENEFICIAL',
-  'bestiary-effects:5w675gmnZqbND0mt': 'HARMFUL',
+  'bestiary-effects:5w675gmnZqbND0mt': 'NEUTRAL',
   'bestiary-effects:5x0XpNftvx9uGbXt': 'BENEFICIAL',
   'bestiary-effects:64wrP9IbfHbj1mrA': 'BENEFICIAL',
   'bestiary-effects:6E8bOkwFzFuQ3ZAw': 'NEUTRAL',
