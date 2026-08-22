@@ -1,0 +1,79 @@
+name: QH-EFF-012 materialize canonical catalog
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.head_ref == 'fix/qh-eff-012-active-effect-catalog-fidelity'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Checkout frozen PF2e source
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/foundryvtt/pf2e.git .tmp/pf2e-source
+          git -C .tmp/pf2e-source checkout 01114da5851f31404078d8020809b13e4000bc4b
+      - name: Bootstrap exact polarity manifest for existing published definitions
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
+          import { join } from 'node:path'
+
+          const targetTypes = new Set(['condition', 'effect', 'affliction'])
+          const manifest = {}
+          const beneficial = new Set(['invisible', 'quickened'])
+          const neutral = new Set(['concealed','friendly','helpful','hidden','hostile','indifferent','observed','undetected','unfriendly','unnoticed'])
+
+          for (const file of ['bestiary.ts', 'spells.ts', 'items.ts']) {
+            const text = readFileSync(`apps/api/src/game_systems/pathfinder_2e/content_catalog/source_reference_index/generated/${file}`, 'utf8')
+            for (const line of text.split(/\r?\n/)) {
+              const match = line.match(/^\s*"[^"]+":\s*(\[.*\]),\s*$/)
+              if (!match) continue
+              for (const tuple of JSON.parse(match[1])) {
+                const uuid = tuple[3]
+                const sourceId = tuple[6]
+                const kind = tuple[8]
+                if (!targetTypes.has(kind) || typeof sourceId !== 'string' || typeof uuid !== 'string') continue
+                const parsed = uuid.match(/^Compendium\.pf2e\.([^.]+)\.Item\.(.+)$/)
+                if (!parsed || kind === 'condition') continue
+                const key = `${parsed[1]}:${sourceId}`
+                // One-time migration: materialize the current QH-EFF-005 editorial state by exact identity.
+                // Runtime/generation never infer this again; future definitions must be classified explicitly.
+                manifest[key] = kind === 'affliction' ? 'HARMFUL' : 'NEUTRAL'
+              }
+            }
+          }
+
+          const conditionsDir = '.tmp/pf2e-source/packs/pf2e/conditions'
+          for (const file of readdirSync(conditionsDir).filter((name) => name.endsWith('.json')).sort()) {
+            const doc = JSON.parse(readFileSync(join(conditionsDir, file), 'utf8'))
+            const slug = doc?.system?.slug
+            if (typeof doc?._id !== 'string' || typeof slug !== 'string') throw new Error(`invalid condition ${file}`)
+            const polarity = beneficial.has(slug) ? 'BENEFICIAL' : neutral.has(slug) ? 'NEUTRAL' : 'HARMFUL'
+            manifest[`conditionitems:${doc._id}`] = polarity
+          }
+
+          const ordered = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)))
+          writeFileSync('apps/api/src/game_systems/pathfinder_2e/content_catalog/active-effect-polarity.json', `${JSON.stringify(ordered, null, 2)}\n`)
+          NODE
+      - name: Generate frozen canonical source metadata
+        run: npm run generate:pf2e-active-effects -- .tmp/pf2e-source
+      - name: Commit materialized catalog and remove bootstrap workflow
+        run: |
+          git config user.name 'questhub-automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add apps/api/src/game_systems/pathfinder_2e/content_catalog/active-effect-polarity.json
+          git add apps/api/src/game_systems/pathfinder_2e/content_catalog/generated/active-effect-source.ts
+          git rm .github/workflows/qh-eff-012-materialize.yml
+          git commit -m 'QH-EFF-012 — materialize canonical active-effect catalog'
+          git push origin HEAD:${{ github.head_ref }}
