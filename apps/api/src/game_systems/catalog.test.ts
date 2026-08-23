@@ -129,7 +129,7 @@ test('catalog Token defaults accept valid grid sizes and fall back safely', () =
   assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 21 } }), 1)
 })
 
-test('shared compendium navigation opens opaque domains as independent stackable windows', () => {
+test('shared compendium navigation opens opaque domains as independent standard VTT windows', () => {
   const aside = readFileSync(
     path.join(process.cwd(), 'apps', 'web', 'src', 'components', 'Aside.tsx'),
     'utf8',
@@ -142,26 +142,40 @@ test('shared compendium navigation opens opaque domains as independent stackable
     path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CatalogEntitySheetModal.tsx'),
     'utf8',
   )
+  const resizableEdges = readFileSync(
+    path.join(process.cwd(), 'apps', 'web', 'src', 'components', 'ResizableEdges.tsx'),
+    'utf8',
+  )
 
-  assert.match(aside, /openCompendiumDomainKeys/)
+  assert.match(aside, /compendiumWindows/)
   assert.match(aside, /catalogDomains\.map\(\(domain\)/)
   assert.match(aside, /domains=\{\[domain\]\}/)
-  assert.match(aside, /current\.filter\(\(key\) => key !== domain\.key\)/)
+  assert.match(aside, /minimized=\{windowState\.minimized\}/)
+  assert.match(aside, /onMinimize=/)
+  assert.match(aside, /Maximize2/)
   assert.match(aside, /COMPACT_SIDEBAR_QUERY/)
   assert.match(aside, /leftInset=\{compendiumLeftInset\}/)
   assert.match(aside, /bottomInset=\{compendiumBottomInset\}/)
+  assert.doesNotMatch(aside, />Aberto</)
   assert.doesNotMatch(aside, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
 
-  assert.match(modal, /zIndex\?: number/)
-  assert.match(modal, /leftInset\?: number/)
-  assert.match(modal, /bottomInset\?: number/)
-  assert.match(modal, /style=\{\{ zIndex, left: leftInset, bottom: bottomInset \}\}/)
+  assert.match(modal, /ResizableEdges/)
+  assert.match(modal, /Minimize2/)
+  assert.match(modal, /minimized\?: boolean/)
+  assert.match(modal, /isVisible: \(\) => !minimized/)
+  assert.match(modal, /left: box\.x/)
+  assert.match(modal, /width: box\.width/)
   assert.match(modal, /aria-modal="false"/)
   assert.match(modal, /campaign-compendium:\$\{campaignId\}:\$\{domainKey/)
   assert.match(modal, /zIndex=\{zIndex \+ 20\}/)
   assert.match(modal, /leftInset=\{leftInset\}/)
   assert.match(modal, /bottomInset=\{bottomInset\}/)
+  assert.doesNotMatch(
+    modal,
+    /fixed inset-y-0 right-0 flex items-center justify-center bg-black\/75/,
+  )
 
+  assert.match(resizableEdges, /minX\?: number/)
   assert.match(entitySheet, /leftInset\?: number/)
   assert.match(entitySheet, /bottomInset\?: number/)
   assert.match(entitySheet, /style=\{\{ zIndex, left: leftInset, bottom: bottomInset \}\}/)
