@@ -48,12 +48,14 @@ domínio é movida para o topo da ordem de stacking, trazendo a janela existente
 frente e preservando seu estado. Fechar uma janela remove somente aquele domínio;
 as demais continuam montadas.
 
-As janelas do Compêndio reservam a faixa ocupada pela barra lateral em vez de
-alterar globalmente o z-index da navegação. Assim, a sidebar continua acessível
-para abrir ou trazer outro domínio à frente sem mudar o comportamento dos demais
-modais do VTT. O submenu usa uma camada própria acima das janelas do Compêndio.
-A ficha de uma entidade recebe o mesmo inset lateral e z-index relativo à janela
-que a originou, mantendo acesso rápido e ordem de foco coerente.
+As janelas do Compêndio reservam a área ocupada pela navegação da campanha em vez
+de alterar globalmente o z-index da sidebar. No layout desktop, essa reserva é a
+faixa lateral da sidebar; no layout compacto, é a faixa inferior da barra de
+navegação. Assim, a navegação continua acessível para abrir ou trazer outro domínio
+à frente sem mudar o comportamento dos demais modais do VTT. O submenu usa uma
+camada própria acima das janelas do Compêndio e, no layout compacto, aparece acima
+da barra inferior. A ficha de uma entidade recebe os mesmos insets da janela que
+a originou, mantendo acesso rápido e ordem de foco coerente.
 
 A `key` é opaca para o Core; o `slug` é usado na rota e validado pelo backend
 contra o descriptor do sistema da campanha. Quando um novo domínio for registrado
