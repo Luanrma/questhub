@@ -72,6 +72,23 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.catalogDomainKey, 'ITEMS')
 })
 
+test('shared inventory forwards opaque catalog routing without concrete domain names', () => {
+  const source = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'web',
+      'src',
+      'game-systems',
+      'CampaignInventoryModal.tsx',
+    ),
+    'utf8',
+  )
+
+  assert.match(source, /catalogDomainKey/)
+  assert.doesNotMatch(source, /\b(?:BESTIARY|SPELLS|ITEMS)\b/)
+})
+
 test('campaign actor persistence replaces the global Character model', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const actorModel = prismaModel(schema, 'CampaignActor')
