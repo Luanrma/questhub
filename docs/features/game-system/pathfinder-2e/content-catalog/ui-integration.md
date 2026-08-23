@@ -47,8 +47,10 @@ domínio enquanto ela estiver aberta.
 Clicar novamente em um domínio já aberto não recria sua janela: restaura a
 instância se estiver minimizada e a traz para frente, preservando seu estado.
 Fechar uma janela remove somente aquele domínio; as demais continuam montadas.
-O submenu usa somente o indicador visual de estado do item e não repete o texto
-`Aberto` ao lado do nome do domínio.
+O submenu não exibe texto, ponto, badge ou qualquer outra sinalização de que uma
+janela daquele domínio já está aberta. Cada entrada segue o mesmo padrão visual
+do menu lateral pai, incluindo espaçamento, tipografia, fundo e ícone genérico do
+Compêndio à esquerda.
 
 ### Padrão de janela
 
@@ -64,6 +66,10 @@ As janelas do Compêndio seguem o mesmo comportamento de janela usado pelo VTT:
 A ausência de backdrop é intencional: o Compêndio é uma ferramenta de consulta
 simultânea à mesa, e não um modal bloqueante. O conteúdo da cena continua visível
 e utilizável fora da área ocupada pelas janelas.
+
+A ficha detalhada de uma entidade também não adiciona escurecimento ou blur sobre
+a mesa ao ser aberta. O próprio painel da ficha continua com seu fundo e sombra,
+mas a área externa permanece visualmente livre.
 
 As janelas preservam a área ocupada pela navegação da campanha. No layout desktop,
 a posição e o redimensionamento respeitam a faixa lateral da sidebar; no layout
@@ -344,8 +350,9 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 
 - o menu e o shell compartilhado do Compêndio não conhecem domínios Pathfinder específicos;
 - o submenu é derivado somente dos descriptors registrados pelo Game System;
+- o submenu não sinaliza quais domínios já possuem janela aberta e mantém o padrão visual do menu lateral pai;
 - múltiplas janelas podem coexistir, ser redimensionadas e minimizadas sem introduzir nomes concretos no Core;
-- a mesa não é bloqueada por backdrop enquanto uma janela do Compêndio está aberta;
+- a mesa não é escurecida por backdrop enquanto uma janela do Compêndio ou uma ficha detalhada está aberta;
 - o frontend não conhece campos Pathfinder específicos;
 - o VTT não calcula regras;
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
