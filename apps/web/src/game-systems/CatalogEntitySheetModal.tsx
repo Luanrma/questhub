@@ -60,6 +60,12 @@ type CatalogSheetResponse = {
   entry: CatalogSheet
 }
 
+type CampaignGameSystemResponse = {
+  descriptor: {
+    catalogDomains: GameSystemCatalogDomainDescriptor[]
+  }
+}
+
 type PathfinderActiveEffectReferencesResponse = {
   contentId: string
   locale: GameSystemContentLocale
@@ -69,7 +75,7 @@ type PathfinderActiveEffectReferencesResponse = {
 type Props = {
   campaignId: string
   contentId: string
-  domain: GameSystemCatalogDomainDescriptor
+  domain: GameSystemCatalogDomainDescriptor | GameSystemCatalogDomain
   locale: GameSystemContentLocale
   canManageTokens?: boolean
   zIndex?: number
@@ -92,6 +98,9 @@ export function CatalogEntitySheetModal({
   zIndex = 120,
   onClose,
 }: Props) {
+  const [resolvedDomain, setResolvedDomain] = useState<GameSystemCatalogDomainDescriptor | null>(
+    typeof domain === 'string' ? null : domain,
+  )
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -102,14 +111,51 @@ export function CatalogEntitySheetModal({
   const [creatingToken, setCreatingToken] = useState(false)
   const [effectReferences, setEffectReferences] = useState<PathfinderActiveEffectReference[]>([])
   const [selectedEffectReference, setSelectedEffectReference] = useState<PathfinderActiveEffectReference | null>(null)
-  const sendPermissionKey = `${campaignId}:${domain.key}`
+  const sendPermissionKey = resolvedDomain ? `${campaignId}:${resolvedDomain.key}` : ''
   const canSendToActor =
-    domain.capabilities?.canSendToActorInventory === true
+    resolvedDomain?.capabilities?.canSendToActorInventory === true
     && sendPermission.key === sendPermissionKey
     && sendPermission.allowed
-  const areaEffectBindingNamespace = domain.capabilities?.areaEffectBindingNamespace ?? null
+  const areaEffectBindingNamespace = resolvedDomain?.capabilities?.areaEffectBindingNamespace ?? null
 
   useEffect(() => {
+    if (typeof domain !== 'string') {
+      setResolvedDomain(domain)
+      return
+    }
+
+    const controller = new AbortController()
+    setResolvedDomain(null)
+    setData(null)
+    setLoading(true)
+    setError(null)
+
+    api<CampaignGameSystemResponse>(`/api/campaigns/${campaignId}/game-system`, {
+      signal: controller.signal,
+    })
+      .then((response) => {
+        const registeredDomain = response.descriptor.catalogDomains.find(
+          (candidate) => candidate.key === domain,
+        )
+        if (!registeredDomain) {
+          setError('Este domínio não está registrado no Compêndio da campanha.')
+          setLoading(false)
+          return
+        }
+        setResolvedDomain(registeredDomain)
+      })
+      .catch((cause) => {
+        if (controller.signal.aborted) return
+        setError(cause instanceof Error ? cause.message : 'Não foi possível resolver o domínio do Compêndio.')
+        setLoading(false)
+      })
+
+    return () => controller.abort()
+  }, [campaignId, domain])
+
+  useEffect(() => {
+    if (!resolvedDomain) return
+
     const controller = new AbortController()
     queueMicrotask(() => {
       if (controller.signal.aborted) return
@@ -118,7 +164,7 @@ export function CatalogEntitySheetModal({
     })
 
     api<CatalogSheetResponse>(
-      `/api/campaigns/${campaignId}/catalog/${encodeURIComponent(domain.slug)}/${encodeURIComponent(contentId)}?locale=${locale}`,
+      `/api/campaigns/${campaignId}/catalog/${encodeURIComponent(resolvedDomain.slug)}/${encodeURIComponent(contentId)}?locale=${locale}`,
       { signal: controller.signal },
     )
       .then((response) => setData(response))
@@ -131,7 +177,7 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, contentId, domain.slug, locale])
+  }, [campaignId, contentId, locale, resolvedDomain])
 
   useEffect(() => {
     if (data?.system.key !== 'PATHFINDER_2E') {
@@ -157,7 +203,7 @@ export function CatalogEntitySheetModal({
   }, [contentId, data?.system.key, locale])
 
   useEffect(() => {
-    if (domain.capabilities?.canSendToActorInventory !== true) {
+    if (resolvedDomain?.capabilities?.canSendToActorInventory !== true) {
       setSendPermission({ key: sendPermissionKey, allowed: false })
       return
     }
@@ -174,17 +220,17 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, domain.capabilities?.canSendToActorInventory, sendPermissionKey])
+  }, [campaignId, resolvedDomain?.capabilities?.canSendToActorInventory, sendPermissionKey])
 
   const entry = data?.entry
   const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
 
   async function handleCreateToken() {
-    if (!entry || creatingToken) return
+    if (!entry || creatingToken || !resolvedDomain) return
     setCreatingToken(true)
     setError(null)
     try {
-      await createCatalogToken({ campaignId, contentId, domain, locale })
+      await createCatalogToken({ campaignId, contentId, domain: resolvedDomain, locale })
       notifyCampaignTokenLibraryChanged(campaignId)
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Nao foi possivel criar o Token.')
@@ -228,7 +274,7 @@ export function CatalogEntitySheetModal({
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-indigo-200/70">
                 <BookOpen className="h-3.5 w-3.5" />
-                {domain.label}
+                {resolvedDomain?.label ?? 'Compêndio'}
               </div>
               <h1 className="mt-1 truncate text-2xl font-semibold text-white">
                 {entry?.name ?? 'Carregando...'}
