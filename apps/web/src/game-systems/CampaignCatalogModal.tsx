@@ -68,6 +68,7 @@ type Props = {
   domains: readonly GameSystemCatalogDomainDescriptor[]
   canManageTokens?: boolean
   zIndex?: number
+  leftInset?: number
   onClose: () => void
 }
 
@@ -107,6 +108,7 @@ export function CampaignCatalogModal({
   campaignId,
   canManageTokens = false,
   zIndex = 100,
+  leftInset = 0,
   onClose,
 }: Props) {
   const [selectedDomainKey, setSelectedDomainKey] = useState<GameSystemCatalogDomain | null>(domains[0]?.key ?? null)
@@ -226,10 +228,10 @@ export function CampaignCatalogModal({
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
-      style={{ zIndex }}
+      className="fixed inset-y-0 right-0 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+      style={{ zIndex, left: leftInset }}
       role="dialog"
-      aria-modal="true"
+      aria-modal="false"
       aria-label={domain ? `Compêndio — ${domainLabel}` : 'Compêndio'}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget && !selectedEntryId) onClose()
@@ -496,6 +498,7 @@ export function CampaignCatalogModal({
           locale={locale}
           canManageTokens={canManageTokens}
           zIndex={zIndex + 20}
+          leftInset={leftInset}
           onClose={() => setSelectedEntryId(null)}
         />
       ) : null}
