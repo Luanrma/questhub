@@ -242,7 +242,7 @@ test('Pathfinder applies Effects kind and polarity filters before Compendium pag
   }
 })
 
-test('Pathfinder Effects detail resolves only by stable definitionKey and never creates a Token', async () => {
+test('Pathfinder Effects detail resolves only by stable definitionKey and hides internal metadata', async () => {
   const canonical = listPathfinder2eActiveEffectDefinitions()
   const candidate = canonical[0]
   assert.ok(candidate)
@@ -263,6 +263,16 @@ test('Pathfinder Effects detail resolves only by stable definitionKey and never 
   assert.equal(sheet?.id, candidate.definitionKey)
   assert.ok(sheet?.description?.trim().length)
   assert.equal(sheet?.canCreateToken, undefined)
-  assert.ok(sheet?.sections.some((section) => section.title === 'Identidade'))
+
+  const identity = sheet?.sections.find((section) => section.title === 'Identidade')
+  assert.deepEqual(identity?.fields.map((field) => field.label), ['Polaridade', 'Grupo'])
+  assert.equal(sheet?.sections.some((section) => section.title === 'Fonte'), false)
+  const visibleFieldLabels = sheet?.sections.flatMap((section) => section.fields.map((field) => field.label)) ?? []
+  assert.equal(visibleFieldLabels.includes('Definition key'), false)
+  assert.equal(visibleFieldLabels.includes('Tipo'), false)
+  assert.equal(visibleFieldLabels.includes('Source ID'), false)
+  assert.equal(visibleFieldLabels.includes('Slug'), false)
+  assert.equal(visibleFieldLabels.includes('Pacote'), false)
+
   assert.equal(byName, null)
 })
