@@ -10,6 +10,7 @@ test('Pathfinder 2e registers its Compendium domains and neutral capabilities', 
       { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
       { key: 'SPELLS', slug: 'spells', label: 'Magias' },
       { key: 'ITEMS', slug: 'items', label: 'Itens' },
+      { key: 'EFFECTS', slug: 'effects', label: 'Efeitos' },
     ],
   )
 
