@@ -335,33 +335,27 @@ export function Aside({
       {!collapsed && compendiumMenuOpen && catalogDomains.length > 0 ? (
         <div
           className={[
-            'fixed z-[10001] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur',
+            'fixed z-[10001] bg-zinc-800/90 p-2 text-white shadow-2xl backdrop-blur',
             compactSidebar
-              ? 'left-3 right-3 w-auto'
-              : 'left-[244px] w-60 max-w-[calc(100vw-256px)]',
+              ? 'left-3 right-3 w-auto rounded-xl'
+              : 'left-[240px] w-60 max-w-[calc(100vw-240px)] rounded-r-2xl',
           ].join(' ')}
           style={{ top: compendiumMenuTop }}
           role="menu"
           aria-label="Domínios do Compêndio"
         >
-          {catalogDomains.map((domain) => {
-            const open = compendiumWindows.some((windowState) => windowState.domainKey === domain.key)
-            return (
-              <button
-                key={domain.key}
-                type="button"
-                role="menuitem"
-                onClick={() => openCompendiumDomain(domain)}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-zinc-300 transition hover:bg-white/10 hover:text-white"
-              >
-                <span className={[
-                  'h-2 w-2 shrink-0 rounded-full border',
-                  open ? 'border-violet-300 bg-violet-400' : 'border-zinc-600 bg-transparent',
-                ].join(' ')} />
-                <span className="min-w-0 flex-1 truncate">{domain.label}</span>
-              </button>
-            )
-          })}
+          {catalogDomains.map((domain) => (
+            <button
+              key={domain.key}
+              type="button"
+              role="menuitem"
+              onClick={() => openCompendiumDomain(domain)}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            >
+              <span className="text-[#6e3fae]"><BookOpen size={18} /></span>
+              <span className="min-w-0 flex-1 truncate">{domain.label}</span>
+            </button>
+          ))}
         </div>
       ) : null}
 
