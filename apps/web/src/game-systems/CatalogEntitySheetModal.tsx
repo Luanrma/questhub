@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BookOpen, CopyPlus, Package, PawPrint, Send, Settings2, Sparkles, X } from 'lucide-react'
+import { BookOpen, CopyPlus, Send, Settings2, X } from 'lucide-react'
 import { api } from '../lib/api'
 import { AreaEffectBindingModal } from '../vtt/tool-bindings/AreaEffectBindingModal'
 import { CatalogItemSendModal } from './CatalogItemSendModal'
@@ -11,11 +11,11 @@ import {
   PathfinderActiveEffectReferenceList,
   PathfinderReferenceText,
 } from './PathfinderActiveEffectReferences'
-import {
-  catalogDomainPaths,
-  type GameSystemCatalogDomain,
-  type GameSystemContentLocale,
-  type GameSystemKey,
+import type {
+  GameSystemCatalogDomain,
+  GameSystemCatalogDomainDescriptor,
+  GameSystemContentLocale,
+  GameSystemKey,
 } from './registry'
 import { notifyCampaignTokenLibraryChanged } from '../lib/campaign-token-library-events'
 import { createCatalogToken } from './catalogTokenApi'
@@ -69,18 +69,12 @@ type PathfinderActiveEffectReferencesResponse = {
 type Props = {
   campaignId: string
   contentId: string
-  domain: GameSystemCatalogDomain
+  domain: GameSystemCatalogDomainDescriptor
   locale: GameSystemContentLocale
   canManageTokens?: boolean
   zIndex?: number
   onClose: () => void
 }
-
-const domainIcons = {
-  BESTIARY: PawPrint,
-  SPELLS: Sparkles,
-  ITEMS: Package,
-} satisfies Record<GameSystemCatalogDomain, typeof PawPrint>
 
 const statusClasses: Record<EditorialStatus['tone'], string> = {
   review: 'border-amber-300/35 bg-amber-500/15 text-amber-100',
@@ -108,12 +102,12 @@ export function CatalogEntitySheetModal({
   const [creatingToken, setCreatingToken] = useState(false)
   const [effectReferences, setEffectReferences] = useState<PathfinderActiveEffectReference[]>([])
   const [selectedEffectReference, setSelectedEffectReference] = useState<PathfinderActiveEffectReference | null>(null)
-  const Icon = domainIcons[domain]
-  const sendPermissionKey = `${campaignId}:${domain}`
+  const sendPermissionKey = `${campaignId}:${domain.key}`
   const canSendToActor =
-    domain === 'ITEMS' &&
-    sendPermission.key === sendPermissionKey &&
-    sendPermission.allowed
+    domain.capabilities?.canSendToActorInventory === true
+    && sendPermission.key === sendPermissionKey
+    && sendPermission.allowed
+  const areaEffectBindingNamespace = domain.capabilities?.areaEffectBindingNamespace ?? null
 
   useEffect(() => {
     const controller = new AbortController()
@@ -124,7 +118,7 @@ export function CatalogEntitySheetModal({
     })
 
     api<CatalogSheetResponse>(
-      `/api/campaigns/${campaignId}/catalog/${catalogDomainPaths[domain]}/${encodeURIComponent(contentId)}?locale=${locale}`,
+      `/api/campaigns/${campaignId}/catalog/${encodeURIComponent(domain.slug)}/${encodeURIComponent(contentId)}?locale=${locale}`,
       { signal: controller.signal },
     )
       .then((response) => setData(response))
@@ -137,7 +131,7 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, contentId, domain, locale])
+  }, [campaignId, contentId, domain.slug, locale])
 
   useEffect(() => {
     if (data?.system.key !== 'PATHFINDER_2E') {
@@ -163,7 +157,10 @@ export function CatalogEntitySheetModal({
   }, [contentId, data?.system.key, locale])
 
   useEffect(() => {
-    if (domain !== 'ITEMS') return
+    if (domain.capabilities?.canSendToActorInventory !== true) {
+      setSendPermission({ key: sendPermissionKey, allowed: false })
+      return
+    }
 
     const controller = new AbortController()
     api<{ recipients: unknown[] }>(`/api/campaigns/${campaignId}/inventory/actor-recipients`, {
@@ -177,13 +174,10 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, domain, sendPermissionKey])
+  }, [campaignId, domain.capabilities?.canSendToActorInventory, sendPermissionKey])
 
   const entry = data?.entry
   const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
-  const spellBindingNamespace = data?.system.key === 'PATHFINDER_2E'
-    ? 'questhub:pathfinder_2e:spells:v1'
-    : null
 
   async function handleCreateToken() {
     if (!entry || creatingToken) return
@@ -228,13 +222,13 @@ export function CatalogEntitySheetModal({
               />
             ) : (
               <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg">
-                <Icon className="h-7 w-7" />
+                <BookOpen className="h-7 w-7" />
               </div>
             )}
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-indigo-200/70">
                 <BookOpen className="h-3.5 w-3.5" />
-                Ficha
+                {domain.label}
               </div>
               <h1 className="mt-1 truncate text-2xl font-semibold text-white">
                 {entry?.name ?? 'Carregando...'}
@@ -244,7 +238,7 @@ export function CatalogEntitySheetModal({
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-2">
-            {canManageTokens && domain === 'SPELLS' && spellBindingNamespace && entry ? (
+            {canManageTokens && areaEffectBindingNamespace && entry ? (
               <button
                 type="button"
                 onClick={() => setAreaEffectOpen(true)}
@@ -391,12 +385,12 @@ export function CatalogEntitySheetModal({
         />
       ) : null}
 
-      {areaEffectOpen && entry && spellBindingNamespace ? (
+      {areaEffectOpen && entry && areaEffectBindingNamespace ? (
         <AreaEffectBindingModal
           campaignId={campaignId}
           source={{
             kind: 'CATALOG_CONTENT',
-            namespace: spellBindingNamespace,
+            namespace: areaEffectBindingNamespace,
             id: contentId,
           }}
           actionName={entry.name}
