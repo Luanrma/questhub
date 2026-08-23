@@ -156,7 +156,10 @@ test('shared compendium navigation opens opaque domains as independent standard 
   assert.match(aside, /COMPACT_SIDEBAR_QUERY/)
   assert.match(aside, /leftInset=\{compendiumLeftInset\}/)
   assert.match(aside, /bottomInset=\{compendiumBottomInset\}/)
+  assert.match(aside, /bg-zinc-800\/90 p-2 text-white shadow-2xl backdrop-blur/)
+  assert.match(aside, /<BookOpen size=\{18\} \/><\/span>\s*<span className="min-w-0 flex-1 truncate">\{domain\.label\}/)
   assert.doesNotMatch(aside, />Aberto</)
+  assert.doesNotMatch(aside, /const open = compendiumWindows/)
   assert.doesNotMatch(aside, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
 
   assert.match(modal, /ResizableEdges/)
@@ -179,4 +182,6 @@ test('shared compendium navigation opens opaque domains as independent standard 
   assert.match(entitySheet, /leftInset\?: number/)
   assert.match(entitySheet, /bottomInset\?: number/)
   assert.match(entitySheet, /style=\{\{ zIndex, left: leftInset, bottom: bottomInset \}\}/)
+  assert.doesNotMatch(entitySheet, /bg-black\/80/)
+  assert.doesNotMatch(entitySheet, /backdrop-blur-md/)
 })
