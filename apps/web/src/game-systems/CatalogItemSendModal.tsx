@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Loader2, Package, Send, UserRound, X } from 'lucide-react'
 import { api } from '../lib/api'
+import type { GameSystemCatalogDomainDescriptor } from './registry'
 
 type Recipient = {
   recipientActorId: string
@@ -34,6 +35,7 @@ type SendResponse = {
 type Props = {
   campaignId: string
   contentId: string
+  domain: GameSystemCatalogDomainDescriptor
   itemName: string
   onClose: () => void
 }
@@ -44,7 +46,7 @@ function recipientLabel(recipient: Recipient) {
   return `${recipient.actor.name} — ${role}: ${recipient.controller.email}`
 }
 
-export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose }: Props) {
+export function CatalogItemSendModal({ campaignId, contentId, domain, itemName, onClose }: Props) {
   const [recipients, setRecipients] = useState<Recipient[]>([])
   const [recipientActorId, setRecipientActorId] = useState('')
   const [quantity, setQuantity] = useState('1')
@@ -91,7 +93,7 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
 
     try {
       const response = await api<SendResponse>(
-        `/api/campaigns/${campaignId}/catalog/items/${encodeURIComponent(contentId)}/send-to-actor`,
+        `/api/campaigns/${campaignId}/catalog/${encodeURIComponent(domain.slug)}/${encodeURIComponent(contentId)}/send-to-actor`,
         {
           method: 'POST',
           body: JSON.stringify({ recipientActorId, quantity: parsedQuantity }),
