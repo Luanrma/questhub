@@ -1,5 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import {
   createCatalogTokenSheetEnvelope,
   getGameSystemCatalogDomainDescriptor,
@@ -125,4 +127,26 @@ test('catalog Token defaults accept valid grid sizes and fall back safely', () =
   assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 4 } }), 4)
   assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 0.3 } }), 1)
   assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 21 } }), 1)
+})
+
+test('shared compendium navigation opens opaque domains as independent stackable windows', () => {
+  const aside = readFileSync(
+    path.join(process.cwd(), 'apps', 'web', 'src', 'components', 'Aside.tsx'),
+    'utf8',
+  )
+  const modal = readFileSync(
+    path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CampaignCatalogModal.tsx'),
+    'utf8',
+  )
+
+  assert.match(aside, /openCompendiumDomainKeys/)
+  assert.match(aside, /catalogDomains\.map\(\(domain\)/)
+  assert.match(aside, /domains=\{\[domain\]\}/)
+  assert.match(aside, /current\.filter\(\(key\) => key !== domain\.key\)/)
+  assert.doesNotMatch(aside, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
+
+  assert.match(modal, /zIndex\?: number/)
+  assert.match(modal, /style=\{\{ zIndex \}\}/)
+  assert.match(modal, /campaign-compendium:\$\{campaignId\}:\$\{domainKey/)
+  assert.match(modal, /zIndex=\{zIndex \+ 20\}/)
 })
