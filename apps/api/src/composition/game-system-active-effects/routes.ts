@@ -33,15 +33,16 @@ const localeSchema = z.enum(['pt-BR', 'en-US'])
 const definitionQuerySchema = z.object({
   q: z.string().trim().max(120).optional().default(''),
   limit: z.coerce.number().int().min(1).max(100).optional().default(50),
+  locale: localeSchema.optional(),
 }).strict()
 
 const definitionDetailQuerySchema = z.object({
-  locale: localeSchema.optional().default('pt-BR'),
+  locale: localeSchema.optional(),
 }).strict()
 
 const definitionPresentationsQuerySchema = z.object({
   definitionKeys: z.string().trim().min(1).max(12000),
-  locale: localeSchema.optional().default('pt-BR'),
+  locale: localeSchema.optional(),
 }).strict()
 
 const candidateQuerySchema = z.object({
@@ -80,6 +81,32 @@ const applicationBodySchema = z.object({
   source: applicationSourceSchema,
   value: z.number().int().positive().optional(),
 }).strict()
+
+type ContentLocale = z.infer<typeof localeSchema>
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function pathfinder2eContentLocaleFromSettings(settings: unknown): ContentLocale {
+  if (!isRecord(settings)) return 'pt-BR'
+  const pathfinder2e = settings.pathfinder2e
+  if (!isRecord(pathfinder2e)) return 'pt-BR'
+  return pathfinder2e.contentLocale === 'en-US' ? 'en-US' : 'pt-BR'
+}
+
+async function resolvePathfinder2eContentLocale(
+  campaignId: string,
+  userId: string,
+  override?: ContentLocale,
+): Promise<ContentLocale> {
+  if (override) return override
+  const stored = await prisma.campaignUserSettings.findUnique({
+    where: { campaignId_userId: { campaignId, userId } },
+    select: { settings: true },
+  })
+  return pathfinder2eContentLocaleFromSettings(stored?.settings)
+}
 
 async function findAccessibleCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
@@ -205,8 +232,13 @@ export function registerGameSystemActiveEffectCompositionRoutes(
       return reply.status(409).send({ error: 'O sistema da campanha nao fornece este catalogo de efeitos' })
     }
 
+    const locale = await resolvePathfinder2eContentLocale(
+      campaign.id,
+      auth.id,
+      query.data.locale,
+    )
     const catalog = listPathfinder2eActiveEffectDefinitionViews({
-      locale: 'pt-BR',
+      locale,
       ...(query.data.q ? { query: query.data.q } : {}),
       limit: query.data.limit,
     })
@@ -222,7 +254,7 @@ export function registerGameSystemActiveEffectCompositionRoutes(
       baseValue: definition.conditionValue?.baseValue ?? null,
     }))
 
-    return reply.send({ gameSystem: campaign.gameSystem, definitions })
+    return reply.send({ gameSystem: campaign.gameSystem, locale, definitions })
   })
 
   app.get('/api/campaigns/:campaignId/game-system-effects/presentations', async (req, reply) => {
@@ -246,14 +278,19 @@ export function registerGameSystemActiveEffectCompositionRoutes(
       return reply.status(409).send({ error: 'O sistema da campanha nao fornece apresentacoes canonicas de efeito' })
     }
 
+    const locale = await resolvePathfinder2eContentLocale(
+      campaign.id,
+      auth.id,
+      query.data.locale,
+    )
     const presentations = definitionKeys.flatMap((definitionKey) => {
-      const definition = getPathfinder2eActiveEffectDefinitionView(definitionKey, query.data.locale)
+      const definition = getPathfinder2eActiveEffectDefinitionView(definitionKey, locale)
       return definition ? [definitionPresentation(definition)] : []
     })
 
     return reply.send({
       gameSystem: campaign.gameSystem,
-      locale: query.data.locale,
+      locale,
       presentations,
     })
   })
@@ -274,14 +311,20 @@ export function registerGameSystemActiveEffectCompositionRoutes(
       return reply.status(409).send({ error: 'O sistema da campanha nao fornece detalhes canonicos de efeito' })
     }
 
+    const locale = await resolvePathfinder2eContentLocale(
+      campaign.id,
+      auth.id,
+      query.data.locale,
+    )
     const definition = getPathfinder2eActiveEffectDefinitionView(
       params.data.definitionKey,
-      query.data.locale,
+      locale,
     )
     if (!definition) return reply.status(404).send({ error: 'Definicao de efeito nao encontrada' })
 
     return reply.send({
       gameSystem: campaign.gameSystem,
+      locale,
       presentation: definitionPresentation(definition),
     })
   })
