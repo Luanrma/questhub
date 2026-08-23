@@ -261,7 +261,6 @@ function activeEffectSheet(
   view: Pathfinder2eActiveEffectDefinitionView,
   locale: GameSystemContentLocale,
 ): GameSystemCatalogSheet {
-  const kindLabel = activeEffectKindLabel(view.kind, locale)
   const polarityLabel = activeEffectPolarityLabel(view.polarity, locale)
   const conditionSection = view.conditionValue
     ? [{
@@ -287,25 +286,11 @@ function activeEffectSheet(
       {
         title: locale === 'pt-BR' ? 'Identidade' : 'Identity',
         fields: [
-          { label: 'Definition key', value: view.definitionKey, wide: true },
-          { label: locale === 'pt-BR' ? 'Tipo' : 'Type', value: kindLabel },
           { label: locale === 'pt-BR' ? 'Polaridade' : 'Polarity', value: polarityLabel },
           { label: locale === 'pt-BR' ? 'Grupo' : 'Group', value: view.group ?? '—' },
         ],
       },
       ...conditionSection,
-      {
-        title: locale === 'pt-BR' ? 'Fonte' : 'Source',
-        fields: [
-          { label: locale === 'pt-BR' ? 'Pacote' : 'Pack', value: view.source.sourcePack },
-          { label: 'Source ID', value: view.source.sourceId },
-          { label: 'Slug', value: view.source.slug ?? '—' },
-          {
-            label: locale === 'pt-BR' ? 'Publicação' : 'Publication',
-            value: view.source.publicationTitle ?? '—',
-          },
-        ],
-      },
     ],
     source: {
       publication: view.source.publicationTitle ?? null,
