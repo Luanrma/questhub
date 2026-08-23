@@ -138,15 +138,26 @@ test('shared compendium navigation opens opaque domains as independent stackable
     path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CampaignCatalogModal.tsx'),
     'utf8',
   )
+  const entitySheet = readFileSync(
+    path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CatalogEntitySheetModal.tsx'),
+    'utf8',
+  )
 
   assert.match(aside, /openCompendiumDomainKeys/)
   assert.match(aside, /catalogDomains\.map\(\(domain\)/)
   assert.match(aside, /domains=\{\[domain\]\}/)
   assert.match(aside, /current\.filter\(\(key\) => key !== domain\.key\)/)
+  assert.match(aside, /leftInset=\{collapsed \? 48 : 240\}/)
   assert.doesNotMatch(aside, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
 
   assert.match(modal, /zIndex\?: number/)
-  assert.match(modal, /style=\{\{ zIndex \}\}/)
+  assert.match(modal, /leftInset\?: number/)
+  assert.match(modal, /style=\{\{ zIndex, left: leftInset \}\}/)
+  assert.match(modal, /aria-modal="false"/)
   assert.match(modal, /campaign-compendium:\$\{campaignId\}:\$\{domainKey/)
   assert.match(modal, /zIndex=\{zIndex \+ 20\}/)
+  assert.match(modal, /leftInset=\{leftInset\}/)
+
+  assert.match(entitySheet, /leftInset\?: number/)
+  assert.match(entitySheet, /style=\{\{ zIndex, left: leftInset \}\}/)
 })
