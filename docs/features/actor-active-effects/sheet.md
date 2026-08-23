@@ -3,7 +3,7 @@
 Status: **IMPLEMENTED / EVOLVED**
 
 Origem: `QH-EFF-003`  
-Evoluções relevantes: `QH-EFF-015`, `QH-EFF-017`  
+Evoluções relevantes: `QH-EFF-015`, `QH-EFF-017`, `QH-EFF-018`  
 Domínio: `VTT Core / Campaign Character Sheet Composition / CampaignActorEffect`
 
 ## Objetivo
@@ -39,7 +39,16 @@ O painel:
 
 ### Instâncias canônicas
 
-Quando `effect.definitionKey != null`, o painel consulta o endpoint genérico de apresentações canônicas. Ele usa o nome/ícone devolvidos pela Composition Root em vez de tratar `effect.name` persistido como fonte editorial atual.
+Quando `effect.definitionKey != null`, o painel consulta o endpoint genérico de apresentações canônicas. Quando a definição estiver disponível, a mesma projeção é autoridade para:
+
+- nome;
+- ícone;
+- polaridade;
+- categoria.
+
+A UI não deve combinar nome canônico com polaridade/categoria antigas da instância. `effect.name`, `effect.iconUrl`, `effect.polarity` e `effect.category` persistidos são apenas fallback caso a apresentação canônica não possa ser obtida.
+
+O caso `bestiary-effects:1UHjPz8hgdnrN3zL` (`Efeito: Negar o Destino`) é uma regressão explícita: sua polaridade canônica é `HARMFUL`, portanto a ficha o apresenta como **Prejudicial**, ainda que uma instância antiga tenha snapshot `NEUTRAL`.
 
 A UI genérica conhece somente `definitionKey` e o contrato de apresentação. Ela não conhece PF2e, Conditions, Spells ou `pathfinder2e.contentLocale`.
 
@@ -63,7 +72,7 @@ Somente Mestre recebe `Adicionar efeito`. O formulário cria uma instância manu
 
 Somente Effects manuais (`definitionKey == null`) exibem a ação Editar.
 
-Effects vinculados a uma definição canônica (`definitionKey != null`) são somente leitura quanto aos campos de apresentação. A UI não mostra o lápis e mantém guarda defensiva contra estado obsoleto. O backend continua sendo a autoridade e rejeita PATCH canônico com `409`.
+Effects vinculados a uma definição canônica (`definitionKey != null`) são somente leitura quanto aos campos de apresentação. A UI não mostra o lápis e mantém guarda defensiva contra estado obsoleto. O backend rejeita PATCH canônico com `409`.
 
 ### Remover
 
@@ -113,27 +122,30 @@ Não há polling periódico.
 2. A presença de `definitionKey` é um fato estrutural genérico, não uma regra PF2e.
 3. Resolver locale/conteúdo da definição pertence à Composition Root/Game System.
 4. O painel não importa settings, catálogo ou engine de um Game System.
-5. Nenhuma interação do painel altera HP, CA, saves, atributos, rolagens ou estado mecânico da ficha.
+5. Polaridade/categoria da projeção são apresentação, não regras mecânicas.
+6. Nenhuma interação do painel altera HP, CA, saves, atributos, rolagens ou estado mecânico da ficha.
 
 ## Critérios de aceite atuais
 
 1. Até 6 Effects aparecem no resumo sem rolagem horizontal.
-2. Nome canônico localizado substitui o nome persistido quando há apresentação disponível.
-3. Alteração da preferência geral de conteúdo provoca atualização de nome/apresentação.
-4. Ficha e Token convergem no mesmo modal de detalhe.
-5. Effect canônico não exibe ação Editar.
-6. Effect manual continua editável pelo Mestre.
-7. DELETE continua disponível para Effect canônico e manual conforme autorização.
-8. Player não recebe controles de mutação.
-9. `payload`/`origin` opacos não são apresentados.
-10. O módulo genérico permanece sem semântica específica de Game System.
+2. Nome, ícone, polaridade e categoria canônicos substituem o snapshot persistido quando há apresentação disponível.
+3. `Deny Fate` é exibido como `HARMFUL` / Prejudicial.
+4. Alteração da preferência geral de conteúdo provoca atualização da apresentação.
+5. Ficha e Token convergem no mesmo modal de detalhe.
+6. Effect canônico não exibe ação Editar.
+7. Effect manual continua editável pelo Mestre.
+8. DELETE continua disponível para Effect canônico e manual conforme autorização.
+9. Player não recebe controles de mutação.
+10. `payload`/`origin` opacos não são apresentados.
+11. O módulo genérico permanece sem semântica específica de Game System.
 
 ## Testes esperados
 
 - limite visual 6 + `Ver todos` e ausência de overflow horizontal;
 - preload de apresentação canônica por `definitionKey`;
 - refetch em Campaign User Settings changed;
-- Token/ficha mostram `presentation.name` para instância canônica;
+- Token/ficha mostram nome, ícone, polaridade e categoria canônicos;
+- `Deny Fate` canônico aparece Prejudicial mesmo contra snapshot `NEUTRAL`;
 - ausência do Pencil quando `definitionKey != null`;
 - guardas de edição na UI e `409` no backend;
 - manual continua editável;
@@ -145,5 +157,6 @@ Não há polling periódico.
 ## Referências
 
 - `docs/features/actor-active-effects/api.md`
+- `docs/features/actor-active-effects/token.md`
 - `docs/features/game-system/pathfinder-2e/active-effects/locale-readonly.md`
 - `docs/architecture/adr/ADR-0005-vtt-game-system-boundary.md`
