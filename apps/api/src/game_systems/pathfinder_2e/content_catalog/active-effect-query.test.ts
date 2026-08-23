@@ -145,3 +145,45 @@ test('Active Effect pagination is deterministic and clamps internal limits to th
     second.items.map((definition) => definition.definitionKey),
   )
 })
+
+test('Active Effect listing filters canonical polarity before pagination', () => {
+  const candidate = listPathfinder2eActiveEffectDefinitions()[0]
+  assert.ok(candidate)
+
+  const result = listPathfinder2eActiveEffectDefinitionViews({
+    locale: 'en-US',
+    polarity: candidate.polarity,
+    limit: 100,
+  })
+
+  assert.ok(result.page.total > 0)
+  assert.ok(result.items.every((definition) => definition.polarity === candidate.polarity))
+})
+
+test('Active Effect editorial filtering partitions pt-BR ready and fallback definitions before pagination', () => {
+  const all = listPathfinder2eActiveEffectDefinitionViews({
+    locale: 'pt-BR',
+    editorialStatus: 'all',
+    limit: 100,
+  })
+  const ready = listPathfinder2eActiveEffectDefinitionViews({
+    locale: 'pt-BR',
+    editorialStatus: 'ready',
+    limit: 100,
+  })
+  const review = listPathfinder2eActiveEffectDefinitionViews({
+    locale: 'pt-BR',
+    editorialStatus: 'review',
+    limit: 100,
+  })
+
+  assert.equal(ready.page.total + review.page.total, all.page.total)
+  assert.equal(ready.items.every((definition) => (
+    definition.localization.nameLocale === 'pt-BR'
+      && definition.localization.descriptionLocale === 'pt-BR'
+  )), true)
+  assert.equal(review.items.every((definition) => (
+    definition.localization.nameLocale !== 'pt-BR'
+      || definition.localization.descriptionLocale !== 'pt-BR'
+  )), true)
+})

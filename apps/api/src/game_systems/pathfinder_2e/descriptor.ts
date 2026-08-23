@@ -22,5 +22,6 @@ export const pathfinder2eGameSystemDescriptor = {
         canSendToActorInventory: true,
       },
     },
+    { key: 'EFFECTS', slug: 'effects', label: 'Efeitos' },
   ],
 } as const satisfies GameSystemDescriptor

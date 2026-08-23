@@ -32,6 +32,8 @@ export type Pathfinder2eActiveEffectDefinitionView = {
 export type Pathfinder2eActiveEffectDefinitionListOptions = {
   locale: Pathfinder2eContentLocale
   kind?: Pathfinder2eActiveEffectDefinitionKind
+  polarity?: Pathfinder2eActiveEffectDefinition['polarity']
+  editorialStatus?: 'all' | 'review' | 'ready'
   query?: string
   offset?: number
   limit?: number
@@ -87,6 +89,24 @@ function matchesQuery(
   ].some((candidate) => normalizedSearchText(candidate).includes(normalizedQuery))
 }
 
+function isTranslationReady(
+  view: Pathfinder2eActiveEffectDefinitionView,
+  locale: Pathfinder2eContentLocale,
+) {
+  return view.localization.nameLocale === locale
+    && view.localization.descriptionLocale === locale
+}
+
+function matchesEditorialStatus(
+  view: Pathfinder2eActiveEffectDefinitionView,
+  locale: Pathfinder2eContentLocale,
+  editorialStatus: Pathfinder2eActiveEffectDefinitionListOptions['editorialStatus'] = 'all',
+) {
+  if (editorialStatus === 'all') return true
+  const ready = isTranslationReady(view, locale)
+  return editorialStatus === 'ready' ? ready : !ready
+}
+
 export function getPathfinder2eActiveEffectDefinitionView(
   definitionKey: string,
   locale: Pathfinder2eContentLocale,
@@ -104,8 +124,14 @@ export function listPathfinder2eActiveEffectDefinitionViews(
 
   const matching = listPathfinder2eActiveEffectDefinitions()
     .filter((definition) => !options.kind || definition.kind === options.kind)
+    .filter((definition) => !options.polarity || definition.polarity === options.polarity)
     .map((definition) => ({ definition, view: toView(definition, options.locale) }))
     .filter(({ definition, view }) => !options.query || matchesQuery(definition, view, options.query))
+    .filter(({ view }) => matchesEditorialStatus(
+      view,
+      options.locale,
+      options.editorialStatus,
+    ))
 
   const total = matching.length
   const items = matching

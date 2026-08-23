@@ -15,6 +15,7 @@ type ResizeLimits = {
   maxWidth?: number
   maxHeight?: number
   viewportMargin?: number
+  minX?: number
   minY?: number
 }
 
@@ -46,27 +47,34 @@ function startEdgeResize({
   const startY = event.clientY
   const startBox = box
   const viewportMargin = limits.viewportMargin ?? 16
+  const minX = limits.minX ?? viewportMargin
   const minY = limits.minY ?? viewportMargin
 
   function onPointerMove(pointerEvent: globalThis.PointerEvent) {
     const deltaX = pointerEvent.clientX - startX
     const deltaY = pointerEvent.clientY - startY
-    const maxWidth = limits.maxWidth ?? window.innerWidth - viewportMargin * 2
-    const maxHeight = limits.maxHeight ?? window.innerHeight - minY - viewportMargin
+    const viewportMaxWidth = Math.max(1, window.innerWidth - minX - viewportMargin)
+    const viewportMaxHeight = Math.max(1, window.innerHeight - minY - viewportMargin)
+    const maxWidth = Math.max(1, Math.min(limits.maxWidth ?? viewportMaxWidth, viewportMaxWidth))
+    const maxHeight = Math.max(1, Math.min(limits.maxHeight ?? viewportMaxHeight, viewportMaxHeight))
+    const minWidth = Math.min(limits.minWidth, maxWidth)
+    const minHeight = Math.min(limits.minHeight, maxHeight)
     const horizontalDelta = edge.includes('e') ? deltaX : edge.includes('w') ? -deltaX : 0
     const verticalDelta = edge.includes('s') ? deltaY : edge.includes('n') ? -deltaY : 0
-    const nextWidth = clamp(startBox.width + horizontalDelta, limits.minWidth, Math.min(maxWidth, window.innerWidth - viewportMargin))
-    const nextHeight = clamp(startBox.height + verticalDelta, limits.minHeight, Math.min(maxHeight, window.innerHeight - minY))
+    const nextWidth = clamp(startBox.width + horizontalDelta, minWidth, maxWidth)
+    const nextHeight = clamp(startBox.height + verticalDelta, minHeight, maxHeight)
     const nextX = edge.includes('w') ? startBox.x + (startBox.width - nextWidth) : startBox.x
     const nextY = edge.includes('n') ? startBox.y + (startBox.height - nextHeight) : startBox.y
-    const clampedX = clamp(nextX, viewportMargin, window.innerWidth - nextWidth - viewportMargin)
-    const clampedY = clamp(nextY, minY, window.innerHeight - nextHeight - viewportMargin)
+    const maxX = Math.max(minX, window.innerWidth - nextWidth - viewportMargin)
+    const maxY = Math.max(minY, window.innerHeight - nextHeight - viewportMargin)
+    const clampedX = clamp(nextX, minX, maxX)
+    const clampedY = clamp(nextY, minY, maxY)
 
     setBox({
       x: clampedX,
       y: clampedY,
-      width: Math.min(nextWidth, window.innerWidth - clampedX - viewportMargin),
-      height: Math.min(nextHeight, window.innerHeight - clampedY - viewportMargin),
+      width: Math.min(nextWidth, Math.max(1, window.innerWidth - clampedX - viewportMargin)),
+      height: Math.min(nextHeight, Math.max(1, window.innerHeight - clampedY - viewportMargin)),
     })
   }
 

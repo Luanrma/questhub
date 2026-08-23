@@ -1,13 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import type { PointerEvent as ReactPointerEvent } from 'react'
 import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
   CopyPlus,
+  Grip,
   ListFilter,
+  Minimize2,
   Search,
   X,
 } from 'lucide-react'
+import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import { api } from '../lib/api'
 import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
 import type {
@@ -70,6 +74,10 @@ type Props = {
   zIndex?: number
   leftInset?: number
   bottomInset?: number
+  initialOffset?: number
+  minimized?: boolean
+  onFocus?: () => void
+  onMinimize?: () => void
   onClose: () => void
 }
 
@@ -81,6 +89,31 @@ const statusClasses: Record<EditorialStatus['tone'], string> = {
 }
 
 const EMPTY_FILTER_SELECTION: CatalogFilterSelection = {}
+const WINDOW_MARGIN = 12
+const WINDOW_MIN_Y = 76
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value))
+}
+
+function initialCatalogBox(leftInset: number, bottomInset: number, offset: number): ResizableBox {
+  const viewportWidth = typeof window === 'undefined' ? 1440 : window.innerWidth
+  const viewportHeight = typeof window === 'undefined' ? 900 : window.innerHeight
+  const minX = leftInset + WINDOW_MARGIN
+  const availableWidth = Math.max(360, viewportWidth - minX - WINDOW_MARGIN)
+  const availableHeight = Math.max(320, viewportHeight - bottomInset - WINDOW_MIN_Y - WINDOW_MARGIN)
+  const width = Math.min(1120, availableWidth)
+  const height = Math.min(820, availableHeight)
+  const maxX = Math.max(minX, viewportWidth - width - WINDOW_MARGIN)
+  const maxY = Math.max(WINDOW_MIN_Y, viewportHeight - bottomInset - height - WINDOW_MARGIN)
+
+  return {
+    x: clamp(minX + (availableWidth - width) / 2 + offset, minX, maxX),
+    y: clamp(WINDOW_MIN_Y + (availableHeight - height) / 2 + offset, WINDOW_MIN_Y, maxY),
+    width,
+    height,
+  }
+}
 
 function CatalogImage({ entry }: { entry: CatalogCard }) {
   const [failed, setFailed] = useState(false)
@@ -111,6 +144,10 @@ export function CampaignCatalogModal({
   zIndex = 100,
   leftInset = 0,
   bottomInset = 0,
+  initialOffset = 0,
+  minimized = false,
+  onFocus,
+  onMinimize,
   onClose,
 }: Props) {
   const [selectedDomainKey, setSelectedDomainKey] = useState<GameSystemCatalogDomain | null>(domains[0]?.key ?? null)
@@ -127,6 +164,9 @@ export function CampaignCatalogModal({
   const [error, setError] = useState<string | null>(null)
   const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null)
   const [creatingTokenId, setCreatingTokenId] = useState<string | null>(null)
+  const [box, setBox] = useState<ResizableBox>(() => initialCatalogBox(leftInset, bottomInset, initialOffset))
+  const [dragging, setDragging] = useState(false)
+  const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
 
   const domain = useMemo(
     () => domains.find((candidate) => candidate.key === selectedDomainKey) ?? domains[0] ?? null,
@@ -151,6 +191,84 @@ export function CampaignCatalogModal({
     setSelectedDomainKey(domainKey)
   }, [domainKey, selectedDomainKey])
 
+  useEffect(() => registerVttWindow({
+    id: `campaign-compendium:${campaignId}:${domainKey ?? 'unregistered'}`,
+    getZIndex: () => selectedEntryId ? zIndex + 20 : zIndex,
+    close: () => selectedEntryId ? setSelectedEntryId(null) : onClose(),
+    isVisible: () => !minimized,
+  }), [campaignId, domainKey, minimized, onClose, selectedEntryId, zIndex])
+
+  useEffect(() => {
+    function clampWindowToViewport() {
+      setBox((current) => {
+        const minX = leftInset + WINDOW_MARGIN
+        const maxWidth = Math.max(320, window.innerWidth - minX - WINDOW_MARGIN)
+        const maxHeight = Math.max(280, window.innerHeight - bottomInset - WINDOW_MIN_Y - WINDOW_MARGIN)
+        const width = Math.min(current.width, maxWidth)
+        const height = Math.min(current.height, maxHeight)
+        const maxX = Math.max(minX, window.innerWidth - width - WINDOW_MARGIN)
+        const maxY = Math.max(WINDOW_MIN_Y, window.innerHeight - bottomInset - height - WINDOW_MARGIN)
+        return {
+          x: clamp(current.x, minX, maxX),
+          y: clamp(current.y, WINDOW_MIN_Y, maxY),
+          width,
+          height,
+        }
+      })
+    }
+
+    clampWindowToViewport()
+    window.addEventListener('resize', clampWindowToViewport)
+    return () => window.removeEventListener('resize', clampWindowToViewport)
+  }, [bottomInset, leftInset])
+
+  useEffect(() => {
+    function onPointerMove(event: PointerEvent) {
+      if (!dragging) return
+      setBox((current) => {
+        const minX = leftInset + WINDOW_MARGIN
+        const maxX = Math.max(minX, window.innerWidth - current.width - WINDOW_MARGIN)
+        const maxY = Math.max(WINDOW_MIN_Y, window.innerHeight - bottomInset - current.height - WINDOW_MARGIN)
+        return {
+          ...current,
+          x: clamp(
+            dragStartRef.current.panelX + event.clientX - dragStartRef.current.pointerX,
+            minX,
+            maxX,
+          ),
+          y: clamp(
+            dragStartRef.current.panelY + event.clientY - dragStartRef.current.pointerY,
+            WINDOW_MIN_Y,
+            maxY,
+          ),
+        }
+      })
+    }
+
+    function onPointerUp() {
+      setDragging(false)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+    }
+  }, [bottomInset, dragging, leftInset])
+
+  function startDrag(event: ReactPointerEvent<HTMLElement>) {
+    if ((event.target as HTMLElement).closest('button, input, select, label, a')) return
+    onFocus?.()
+    dragStartRef.current = {
+      pointerX: event.clientX,
+      pointerY: event.clientY,
+      panelX: box.x,
+      panelY: box.y,
+    }
+    setDragging(true)
+  }
+
   async function createToken(entry: CatalogCard) {
     if (creatingTokenId || !domain) return
     setCreatingTokenId(entry.id)
@@ -169,13 +287,6 @@ export function CampaignCatalogModal({
       setCreatingTokenId(null)
     }
   }
-
-  useEffect(() => registerVttWindow({
-    id: `campaign-compendium:${campaignId}:${domainKey ?? 'unregistered'}`,
-    getZIndex: () => selectedEntryId ? zIndex + 20 : zIndex,
-    close: () => selectedEntryId ? setSelectedEntryId(null) : onClose(),
-    isVisible: () => true,
-  }), [campaignId, domainKey, onClose, selectedEntryId, zIndex])
 
   useEffect(() => {
     if (!domain) {
@@ -228,20 +339,45 @@ export function CampaignCatalogModal({
     setSelectedEntryId(null)
   }
 
+  if (minimized) return null
+
   return (
-    <div
-      className="fixed inset-y-0 right-0 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
-      style={{ zIndex, left: leftInset, bottom: bottomInset }}
-      role="dialog"
-      aria-modal="false"
-      aria-label={domain ? `Compêndio — ${domainLabel}` : 'Compêndio'}
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !selectedEntryId) onClose()
-      }}
-    >
-      <section className="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]">
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 bg-black/30 px-5 py-4">
+    <>
+      <section
+        className="fixed flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]"
+        style={{
+          left: box.x,
+          top: box.y,
+          width: box.width,
+          height: box.height,
+          zIndex,
+        }}
+        role="dialog"
+        aria-modal="false"
+        aria-label={domain ? `Compêndio — ${domainLabel}` : 'Compêndio'}
+        onPointerDown={onFocus}
+        onWheel={(event) => event.stopPropagation()}
+      >
+        <ResizableEdges
+          box={box}
+          setBox={setBox}
+          limits={{
+            minWidth: 420,
+            minHeight: 320,
+            minX: leftInset + WINDOW_MARGIN,
+            minY: WINDOW_MIN_Y,
+            maxWidth: window.innerWidth - leftInset - WINDOW_MARGIN * 2,
+            maxHeight: window.innerHeight - bottomInset - WINDOW_MIN_Y - WINDOW_MARGIN,
+            viewportMargin: WINDOW_MARGIN,
+          }}
+        />
+
+        <header
+          className="flex shrink-0 cursor-grab flex-wrap items-center justify-between gap-4 border-b border-white/10 bg-black/30 px-5 py-4 active:cursor-grabbing"
+          onPointerDown={startDrag}
+        >
           <div className="flex min-w-0 items-center gap-3">
+            <Grip className="h-4 w-4 shrink-0 text-zinc-500" />
             <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
               <BookOpen className="h-5 w-5" />
             </div>
@@ -283,6 +419,16 @@ export function CampaignCatalogModal({
                 EN-US
               </button>
             </div>
+            {onMinimize ? (
+              <button
+                type="button"
+                title="Minimizar Compêndio"
+                onClick={onMinimize}
+                className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+              >
+                <Minimize2 className="h-5 w-5" />
+              </button>
+            ) : null}
             <button
               type="button"
               title="Fechar"
@@ -505,6 +651,6 @@ export function CampaignCatalogModal({
           onClose={() => setSelectedEntryId(null)}
         />
       ) : null}
-    </div>
+    </>
   )
 }

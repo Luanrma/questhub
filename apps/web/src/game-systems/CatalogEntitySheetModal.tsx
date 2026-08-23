@@ -245,7 +245,7 @@ export function CatalogEntitySheetModal({
 
   return (
     <div
-      className="fixed inset-y-0 right-0 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+      className="fixed inset-y-0 right-0 flex items-center justify-center p-4"
       style={{ zIndex, left: leftInset, bottom: bottomInset }}
       role="dialog"
       aria-modal="false"
