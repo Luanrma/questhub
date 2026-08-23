@@ -5,10 +5,16 @@ export type GameSystemContentLocale = 'en-US' | 'pt-BR'
 export type GameSystemCatalogEditorialFilter = 'all' | 'review' | 'ready'
 export type GameSystemCatalogFilterSelection = Readonly<Record<string, readonly string[]>>
 
+export type GameSystemCatalogDomainCapabilities = {
+  canSendToActorInventory?: boolean
+  areaEffectBindingNamespace?: string
+}
+
 export type GameSystemCatalogDomainDescriptor = {
   key: GameSystemCatalogDomain
   slug: string
   label: string
+  capabilities?: GameSystemCatalogDomainCapabilities
 }
 
 export type GameSystemCatalogFilterDefinition = {
@@ -198,6 +204,10 @@ function assertValidCatalogDomains(descriptor: GameSystemDescriptor) {
     if (!domain.label.trim()) throw new Error(`Catalog domain label cannot be empty for ${descriptor.key}`)
     if (keys.has(domain.key)) throw new Error(`Duplicate catalog domain key ${domain.key} for ${descriptor.key}`)
     if (slugs.has(domain.slug)) throw new Error(`Duplicate catalog domain slug ${domain.slug} for ${descriptor.key}`)
+    if (domain.capabilities?.areaEffectBindingNamespace !== undefined
+      && !domain.capabilities.areaEffectBindingNamespace.trim()) {
+      throw new Error(`Area effect binding namespace cannot be empty for ${descriptor.key}:${domain.key}`)
+    }
     keys.add(domain.key)
     slugs.add(domain.slug)
   }
