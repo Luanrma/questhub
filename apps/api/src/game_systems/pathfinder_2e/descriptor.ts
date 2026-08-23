@@ -6,7 +6,21 @@ export const pathfinder2eGameSystemDescriptor = {
   label: 'Pathfinder 2e',
   catalogDomains: [
     { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
-    { key: 'SPELLS', slug: 'spells', label: 'Magias' },
-    { key: 'ITEMS', slug: 'items', label: 'Itens' },
+    {
+      key: 'SPELLS',
+      slug: 'spells',
+      label: 'Magias',
+      capabilities: {
+        areaEffectBindingNamespace: 'questhub:pathfinder_2e:spells:v1',
+      },
+    },
+    {
+      key: 'ITEMS',
+      slug: 'items',
+      label: 'Itens',
+      capabilities: {
+        canSendToActorInventory: true,
+      },
+    },
   ],
 } as const satisfies GameSystemDescriptor
