@@ -21,7 +21,12 @@ ao adapter Pathfinder 2e.
 ## Navegação do Compêndio
 
 A barra lateral da campanha não possui entradas próprias para Bestiário, Magias
-ou Itens. Ela abre somente o shell `Compêndio`.
+ou Itens. Ela possui uma única entrada pai `Compêndio`.
+
+Ao acionar `Compêndio`, a composição compartilhada abre um submenu/flyout ao lado
+da barra lateral. Esse submenu é montado exclusivamente a partir de
+`descriptor.catalogDomains` do Game System da campanha; não existe enum, lista ou
+mapa compartilhado contendo nomes concretos de domínio.
 
 O Pathfinder 2e registra seus domínios em seu próprio descriptor:
 
@@ -33,17 +38,32 @@ catalogDomains: [
 ]
 ```
 
-O componente compartilhado recebe essa lista e monta as abas internas sem mapa
-de labels, paths ou ícones por domínio. A `key` é opaca para o Core; o `slug` é
-usado na rota e validado pelo backend contra o descriptor do sistema da campanha.
+Cada item do submenu abre uma janela própria de Compêndio para aquele descriptor.
+As janelas são independentes e podem permanecer abertas simultaneamente. Busca,
+filtros, idioma, página e ficha selecionada permanecem associados à instância do
+domínio enquanto ela estiver aberta.
+
+Clicar novamente em um domínio já aberto não recria sua janela. A chave opaca do
+domínio é movida para o topo da ordem de stacking, trazendo a janela existente à
+frente e preservando seu estado. Fechar uma janela remove somente aquele domínio;
+as demais continuam montadas.
+
+A barra lateral e o submenu permanecem acima das janelas do Compêndio para que o
+usuário possa alternar rapidamente entre domínios abertos. A ficha de uma entidade
+recebe z-index relativo à janela que a originou, mantendo a ordem de foco coerente.
+
+A `key` é opaca para o Core; o `slug` é usado na rota e validado pelo backend
+contra o descriptor do sistema da campanha. Quando um novo domínio for registrado
+pelo Game System, ele aparece automaticamente no submenu sem alteração no Core.
 
 Capabilities opcionais anunciam integrações neutras com ferramentas existentes.
 No recorte atual, Magias anuncia o namespace de Area Effect e Itens anuncia que
 pode usar o fluxo genérico de envio ao inventário de um ator. A UI não infere
 essas capacidades a partir das strings `SPELLS` ou `ITEMS`.
 
-Effects não faz parte do QH-CMP-001. Sua inclusão como quarto domínio do PF2e é
-o escopo do QH-CMP-002.
+Effects não faz parte do QH-CMP-001/QH-CMP-003. Sua inclusão como quarto domínio
+do PF2e é o escopo do QH-CMP-002; quando registrado, `Efeitos` surgirá no submenu
+automaticamente.
 
 Hazards usam o mesmo domínio visual `BESTIARY`, porém a ficha respeita
 `entryType = "HAZARD"`. Cards exibem tipo simples/complexo, Furtividade, CA, PV
@@ -108,9 +128,10 @@ independentes do idioma e do status editorial, podem ser combinados com a busca
 e são aplicados antes da paginação. Qualquer alteração de seleção retorna à
 primeira página.
 
-Ao trocar de domínio, busca, filtros e paginação são reiniciados. O VTT e os
-componentes compartilhados não contêm enums, labels, paths ou branches de
-capacidade baseados nos nomes concretos dos domínios PF2e.
+Cada janela de domínio mantém seu próprio estado de busca, filtros e paginação.
+Trazer outra janela à frente não reinicia esse estado. O VTT e os componentes
+compartilhados não contêm enums, labels, paths ou branches de capacidade baseados
+nos nomes concretos dos domínios PF2e.
 
 ## Ficha
 
@@ -269,6 +290,8 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 ## Fronteira
 
 - o menu e o shell compartilhado do Compêndio não conhecem domínios Pathfinder específicos;
+- o submenu é derivado somente dos descriptors registrados pelo Game System;
+- múltiplas janelas podem coexistir sem introduzir nomes concretos no Core;
 - o frontend não conhece campos Pathfinder específicos;
 - o VTT não calcula regras;
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
