@@ -235,6 +235,13 @@ function activeEffectCard(
   view: Pathfinder2eActiveEffectDefinitionView,
   locale: GameSystemContentLocale,
 ): GameSystemCatalogCard {
+  const stats = view.conditionValue?.isValued
+    ? [{
+        label: locale === 'pt-BR' ? 'Valor base' : 'Base value',
+        value: view.conditionValue.baseValue === null ? '—' : String(view.conditionValue.baseValue),
+      }]
+    : null
+
   return {
     id: view.definitionKey,
     name: view.name,
@@ -246,12 +253,7 @@ function activeEffectCard(
       ...(view.group ? [view.group] : []),
     ],
     editorialStatus: activeEffectTranslationStatus(view, locale),
-    stats: view.conditionValue?.isValued
-      ? [{
-          label: locale === 'pt-BR' ? 'Valor base' : 'Base value',
-          value: view.conditionValue.baseValue === null ? '—' : String(view.conditionValue.baseValue),
-        }]
-      : undefined,
+    ...(stats ? { stats } : {}),
   }
 }
 
@@ -314,14 +316,12 @@ function activeEffectSheet(
 export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   async list(query) {
     if (query.domain === 'EFFECTS') {
+      const kind = selectedActiveEffectKind(query.filters)
+      const polarity = selectedActiveEffectPolarity(query.filters)
       const result = listPathfinder2eActiveEffectDefinitionViews({
         locale: query.locale,
-        ...(selectedActiveEffectKind(query.filters)
-          ? { kind: selectedActiveEffectKind(query.filters) }
-          : {}),
-        ...(selectedActiveEffectPolarity(query.filters)
-          ? { polarity: selectedActiveEffectPolarity(query.filters) }
-          : {}),
+        ...(kind ? { kind } : {}),
+        ...(polarity ? { polarity } : {}),
         ...(query.search ? { query: query.search } : {}),
         editorialStatus: query.editorialStatus ?? 'all',
         offset: (query.page - 1) * query.limit,
