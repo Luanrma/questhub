@@ -170,7 +170,7 @@ export function Aside({
   return (
     <>
       {collapsed ? (
-        <aside className="campaign-sidebar campaign-sidebar-collapsed z-[10000] text-white">
+        <aside className="campaign-sidebar campaign-sidebar-collapsed z-40 text-white">
           <button
             type="button"
             title="Expandir menu da campanha"
@@ -182,7 +182,7 @@ export function Aside({
           </button>
         </aside>
       ) : (
-        <aside className="campaign-sidebar campaign-sidebar-expanded z-[10000] text-white">
+        <aside className="campaign-sidebar campaign-sidebar-expanded z-40 text-white">
           <div
             className={[
               'campaign-sidebar-panel w-60 rounded-r-2xl bg-zinc-800/90 shadow-2xl backdrop-blur',
@@ -303,6 +303,7 @@ export function Aside({
             domains={[domain]}
             canManageTokens={role === 'MASTER'}
             zIndex={COMPENDIUM_WINDOW_BASE_Z_INDEX + index * COMPENDIUM_WINDOW_Z_INDEX_STEP}
+            leftInset={collapsed ? 48 : 240}
             onClose={() => closeCompendiumDomain(domain.key)}
           />
         )
