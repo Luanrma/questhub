@@ -102,6 +102,18 @@ test('shared inventory delivery resolves a registered domain instead of naming I
     ),
     'utf8',
   )
+  const legacyBackend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'api',
+      'src',
+      'game_systems',
+      'inventory_api',
+      'routes.ts',
+    ),
+    'utf8',
+  )
   const frontend = readFileSync(
     path.join(
       process.cwd(),
@@ -118,6 +130,8 @@ test('shared inventory delivery resolves a registered domain instead of naming I
   assert.match(backend, /getGameSystemCatalogDomainDescriptor/)
   assert.match(backend, /canSendToActorInventory/)
   assert.doesNotMatch(backend, /domain:\s*['"]ITEMS['"]/)
+  assert.doesNotMatch(legacyBackend, /catalog\/items/)
+  assert.doesNotMatch(legacyBackend, /domain:\s*['"]ITEMS['"]/)
   assert.match(frontend, /domain\.slug/)
   assert.doesNotMatch(frontend, /catalog\/items/)
 })
