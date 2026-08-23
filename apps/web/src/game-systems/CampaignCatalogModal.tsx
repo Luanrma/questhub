@@ -210,6 +210,7 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
     if (nextDomain.key === domainKey) return
     setSelectedDomainKey(nextDomain.key)
     setSearch('')
+    setFilterState({ domain: nextDomain.key, selection: {} })
     setPage(1)
     setData(null)
     setError(null)
