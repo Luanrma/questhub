@@ -91,8 +91,16 @@ function draftFromEffect(effect: ActorEffectView): EffectDraft {
   }
 }
 
-function EffectIcon({ effect, resolvedIconUrl }: { effect: ActorEffectView; resolvedIconUrl?: string | null }) {
-  const visual = polarityPresentation[effect.polarity]
+function EffectIcon({
+  effect,
+  resolvedIconUrl,
+  resolvedPolarity,
+}: {
+  effect: ActorEffectView
+  resolvedIconUrl?: string | null
+  resolvedPolarity?: ActorEffectPolarity
+}) {
+  const visual = polarityPresentation[resolvedPolarity ?? effect.polarity]
   const iconUrl = resolvedIconUrl ?? effect.iconUrl
 
   if (iconUrl) {
@@ -149,6 +157,8 @@ export function ActorActiveEffectsPanel({
     return {
       name: canonical?.name ?? effect.name,
       iconUrl: canonical?.iconUrl ?? presentation?.iconUrl ?? effect.iconUrl,
+      polarity: canonical?.polarity ?? effect.polarity,
+      category: canonical?.category ?? effect.category,
       summary: presentation?.summary ?? effect.description,
     }
   }
@@ -316,8 +326,8 @@ export function ActorActiveEffectsPanel({
         ) : null}
 
         {visibleEffects.map((effect) => {
-          const visual = polarityPresentation[effect.polarity]
           const presentation = resolved(effect)
+          const visual = polarityPresentation[presentation.polarity]
           return (
             <button
               key={effect.id}
@@ -326,7 +336,11 @@ export function ActorActiveEffectsPanel({
               className={`inline-flex max-w-56 items-center gap-1.5 rounded-md border px-2 py-1 text-left text-xs font-semibold text-[#3f352b] transition ${visual.chipClass}`}
               title={presentation.name}
             >
-              <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
+              <EffectIcon
+                effect={effect}
+                resolvedIconUrl={presentation.iconUrl}
+                resolvedPolarity={presentation.polarity}
+              />
               <span className="truncate">{presentation.name}</span>
               {effect.displayValue ? (
                 <span className="shrink-0 rounded bg-black/10 px-1 py-0.5 text-[10px] font-bold">{effect.displayValue}</span>
@@ -377,8 +391,8 @@ export function ActorActiveEffectsPanel({
             {overlay.kind === 'all' ? (
               <div className="space-y-2">
                 {effects.map((effect) => {
-                  const visual = polarityPresentation[effect.polarity]
                   const presentation = resolved(effect)
+                  const visual = polarityPresentation[presentation.polarity]
                   return (
                     <div
                       key={effect.id}
@@ -389,7 +403,11 @@ export function ActorActiveEffectsPanel({
                         onClick={() => openDetail(effect, true)}
                         className="flex min-w-0 flex-1 items-center gap-2 text-left"
                       >
-                        <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
+                        <EffectIcon
+                          effect={effect}
+                          resolvedIconUrl={presentation.iconUrl}
+                          resolvedPolarity={presentation.polarity}
+                        />
                         <span className="min-w-0 flex-1">
                           <span className="block truncate text-sm font-semibold">{presentation.name}</span>
                           <span className="block truncate text-xs text-[#6b5d4d]">
