@@ -13,9 +13,9 @@ test('Pathfinder 2e registers its Compendium domains and neutral capabilities', 
     ],
   )
 
-  const spells = pathfinder2eGameSystemDescriptor.catalogDomains.find((domain) => domain.key === 'SPELLS')
-  const items = pathfinder2eGameSystemDescriptor.catalogDomains.find((domain) => domain.key === 'ITEMS')
+  const spells = pathfinder2eGameSystemDescriptor.catalogDomains[1]
+  const items = pathfinder2eGameSystemDescriptor.catalogDomains[2]
 
-  assert.equal(spells?.capabilities?.areaEffectBindingNamespace, 'questhub:pathfinder_2e:spells:v1')
-  assert.equal(items?.capabilities?.canSendToActorInventory, true)
+  assert.equal(spells.capabilities.areaEffectBindingNamespace, 'questhub:pathfinder_2e:spells:v1')
+  assert.equal(items.capabilities.canSendToActorInventory, true)
 })
