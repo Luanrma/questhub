@@ -2,16 +2,14 @@ import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   Backpack,
+  BookOpen,
   BookUser,
   ChevronDown,
   ChevronUp,
   House,
   Map,
-  Package,
-  PawPrint,
   ScrollText,
   Settings,
-  Sparkles,
   Users,
 } from 'lucide-react'
 import { api } from '../lib/api'
@@ -20,10 +18,9 @@ import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterS
 import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharacterSheetWorkspace'
 import { CampaignGameSystemTokenIntegration } from '../game-systems/CampaignGameSystemTokenIntegration'
 import { CampaignInventoryModal } from '../game-systems/CampaignInventoryModal'
-import {
-  catalogDomainLabels,
-  type GameSystemCatalogDomain,
-  type GameSystemKey,
+import type {
+  GameSystemCatalogDomainDescriptor,
+  GameSystemKey,
 } from '../game-systems/registry'
 import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
@@ -36,7 +33,7 @@ type CampaignSystemResponse = {
   descriptor: {
     key: GameSystemKey
     label: string
-    catalogDomains: GameSystemCatalogDomain[]
+    catalogDomains: GameSystemCatalogDomainDescriptor[]
   }
   catalogAvailable: boolean
   characterSheetsAvailable: boolean
@@ -49,12 +46,6 @@ type Props = {
   onOpenCampaignPanel?: (path: string) => void
 }
 
-const catalogIcons = {
-  BESTIARY: PawPrint,
-  SPELLS: Sparkles,
-  ITEMS: Package,
-} satisfies Record<GameSystemCatalogDomain, typeof PawPrint>
-
 export function Aside({
   campaignId,
   role,
@@ -63,7 +54,7 @@ export function Aside({
 }: Props) {
   const [collapsed, setCollapsed] = useState(true)
   const [system, setSystem] = useState<CampaignSystemResponse | null>(null)
-  const [catalogDomain, setCatalogDomain] = useState<GameSystemCatalogDomain | null>(null)
+  const [compendiumOpen, setCompendiumOpen] = useState(false)
   const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
 
@@ -199,21 +190,18 @@ export function Aside({
                   </button>
                 </li> : null}
 
-                {catalogDomains.map((domain) => {
-                  const Icon = catalogIcons[domain]
-                  return (
-                    <li key={domain}>
-                      <button
-                        type="button"
-                        onClick={() => setCatalogDomain(domain)}
-                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
-                      >
-                        <span className="text-[#6e3fae]"><Icon size={18} /></span>
-                        <span>{catalogDomainLabels[domain]}</span>
-                      </button>
-                    </li>
-                  )
-                })}
+                {catalogDomains.length > 0 ? (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => setCompendiumOpen(true)}
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                    >
+                      <span className="text-[#6e3fae]"><BookOpen size={18} /></span>
+                      <span>Compêndio</span>
+                    </button>
+                  </li>
+                ) : null}
 
                 {secondaryItems.map(renderNavItem)}
               </ul>
@@ -222,12 +210,12 @@ export function Aside({
         </aside>
       )}
 
-      {catalogDomain ? (
+      {compendiumOpen ? (
         <CampaignCatalogModal
           campaignId={campaignId}
-          domain={catalogDomain}
+          domains={catalogDomains}
           canManageTokens={role === 'MASTER'}
-          onClose={() => setCatalogDomain(null)}
+          onClose={() => setCompendiumOpen(false)}
         />
       ) : null}
 
