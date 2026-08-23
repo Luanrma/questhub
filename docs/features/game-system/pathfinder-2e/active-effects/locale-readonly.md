@@ -1,12 +1,13 @@
-# QH-EFF-017 — Locale e imutabilidade de Active Effects canônicos
+# Active Effects canônicos — Locale, imutabilidade e apresentação atual
+
+Origem: `QH-EFF-017`  
+Evolução de apresentação/UX: `QH-EFF-018`
 
 ## Objetivo
 
-Garantir que instâncias de Active Effects vinculadas a definições canônicas sejam apresentadas no locale configurado pelo usuário para o conteúdo do Game System e não possam ter sua apresentação editada como se fossem Effects manuais.
+Garantir que instâncias de Active Effects vinculadas a definições canônicas sejam apresentadas no locale configurado pelo usuário para o conteúdo do Game System, usem a apresentação canônica atual e não possam ter sua apresentação editada como se fossem Effects manuais.
 
-## Regras
-
-### Locale
+## Locale
 
 Para campanhas Pathfinder 2e, a preferência existente `pathfinder2e.contentLocale` continua sendo a fonte de verdade:
 
@@ -16,9 +17,32 @@ Para campanhas Pathfinder 2e, a preferência existente `pathfinder2e.contentLoca
 
 Token e ficha não interpretam essa configuração. Os componentes genéricos enviam apenas as `definitionKey` para a Composition Root de Active Effects. A Composition Root resolve a preferência do usuário/campanha e devolve a apresentação canônica já localizada.
 
-A consulta de detalhe também omite o locale na primeira abertura. O backend resolve a preferência persistida. O seletor de idioma do modal continua disponível como override temporário daquela consulta e não altera as configurações gerais.
+A consulta de detalhe omite o locale na primeira abertura. O backend resolve a preferência persistida. O seletor de idioma do modal permanece como override temporário daquela consulta e não altera as configurações gerais.
 
-Mudanças de Campaign User Settings disparam nova consulta das apresentações canônicas, mantendo Token e ficha sincronizados com a preferência atual.
+Mudanças de Campaign User Settings disparam nova consulta das apresentações canônicas, mantendo Token e ficha sincronizados sem polling.
+
+## Autoridade da apresentação canônica
+
+Quando uma instância possui `definitionKey` e a definição canônica está disponível, a projeção canônica é a fonte de verdade de apresentação para:
+
+- nome;
+- ícone;
+- polaridade;
+- categoria.
+
+Os valores materializados no `CampaignActorEffect` permanecem como snapshot/fallback para compatibilidade e para o caso de a definição canônica ficar temporariamente indisponível. Eles não devem sobrescrever a definição atual na UI.
+
+Isso evita que instâncias antigas continuem exibindo, por exemplo, `NEUTRAL` depois que o catálogo canônico classifica a mesma `definitionKey` como `HARMFUL`.
+
+Regressão explícita de `QH-EFF-018`:
+
+```text
+bestiary-effects:1UHjPz8hgdnrN3zL
+Effect: Deny Fate / Efeito: Negar o Destino
+polarity = HARMFUL
+```
+
+Token e ficha devem exibir essa instância como **Prejudicial**, mesmo quando o snapshot persistido for antigo.
 
 ## Imutabilidade de definição canônica
 
@@ -32,15 +56,32 @@ Mudanças de Campaign User Settings disparam nova consulta das apresentações c
 
 Quando `definitionKey == null`, o Effect é manual/customizado e continua editável pelas mesmas regras de autorização existentes.
 
+## Modal de aplicação PF2e
+
+O compositor **Aplicar efeito Pathfinder 2e** é um modal global da aplicação, não um elemento visual pertencente ao scroll/clipping da ficha.
+
+Regras de layout:
+
+- renderizar por `createPortal(..., document.body)`;
+- cobrir a viewport com camada própria acima da ficha;
+- limitar a altura à viewport (`100dvh`);
+- manter cabeçalho e busca fora da área rolável;
+- somente a lista de definições possui rolagem vertical;
+- não existe rolagem horizontal;
+- o rodapé com seleção, valor/intensidade e botão **Aplicar efeito** permanece sempre visível;
+- `Escape`, botão Fechar e clique no backdrop fecham o modal sem depender do container da ficha.
+
 ## Fronteira arquitetural
 
 A regra de imutabilidade baseada em `definitionKey` é genérica e pertence ao Core de Actor Effects.
 
 A interpretação de `pathfinder2e.contentLocale` permanece fora do VTT Core e dentro da Composition Root/Game System. Os componentes genéricos conhecem apenas o endpoint de apresentações canônicas e o contrato de `definitionKey`.
 
+O modal de aplicação continua pertencendo ao renderer/compositor PF2e; transformá-lo em portal global não move semântica Pathfinder para o VTT Core.
+
 Não são adicionadas regras de PF2e, Conditions, Spells, Rule Elements, duração, stacking, dano ou saves ao VTT Core.
 
-## Critérios de aceite
+## Critérios de aceite atuais
 
 1. Token e ficha exibem o nome canônico em `pt-BR` quando essa é a preferência efetiva.
 2. Com `en-US`, Token, ficha e detalhe apresentam a definição original em inglês.
@@ -51,21 +92,28 @@ Não são adicionadas regras de PF2e, Conditions, Spells, Rule Elements, duraç�
 7. Effects manuais (`definitionKey == null`) continuam editáveis.
 8. DELETE de instâncias canônicas continua permitido conforme autorização existente.
 9. Token e ficha continuam usando o mesmo modal canônico de detalhe.
-10. Game System Boundaries, unit tests e builds permanecem verdes.
+10. Nome, ícone, polaridade e categoria de Effects canônicos vêm da mesma projeção por `definitionKey`; snapshot persistido é somente fallback.
+11. `Efeito: Negar o Destino` é apresentado como `HARMFUL`/`Prejudicial`.
+12. O compositor de aplicação PF2e é renderizado em `document.body`, fora do clipping da ficha.
+13. A lista do compositor rola internamente sem barra horizontal e o rodapé com **Aplicar efeito** permanece visível.
+14. Game System Boundaries, unit tests e builds permanecem verdes.
 
 ## Implementação
 
 - `apps/api/src/modules/campaign_actor_effects/service.ts`: bloqueio genérico de PATCH canônico.
-- `apps/api/src/modules/campaign_actor_effects/routes.ts`: exposição do conflito como HTTP 409.
+- `apps/api/src/modules/campaign_actor_effects/routes.ts`: conflito canônico exposto como HTTP 409.
 - `apps/api/src/composition/game-system-active-effects/routes.ts`: resolução de locale por Campaign User Settings quando não há override explícito.
 - `apps/web/src/vtt/actor-effects/useCanonicalActorEffectPresentations.ts`: preload genérico e em lote de apresentações por `definitionKey`.
-- `apps/web/src/vtt/actor-effects/ActorActiveEffectsPanel.tsx`: nome canônico localizado e edição apenas para Effects manuais.
-- `apps/web/src/vtt/token-presentation/TokenPresentationOverlay.tsx`: nome/ícone canônicos localizados na lista do Token.
+- `apps/web/src/vtt/actor-effects/ActorActiveEffectsPanel.tsx`: nome, ícone, polaridade e categoria canônicos; edição apenas para Effects manuais.
+- `apps/web/src/vtt/token-presentation/TokenPresentationOverlay.tsx`: nome, ícone, polaridade e categoria canônicos na apresentação do Token.
 - `apps/web/src/vtt/actor-effects/CampaignActiveEffectDefinitionModal.tsx`: primeira consulta usa locale global; seletor funciona como override temporário.
+- `apps/web/src/game-systems/PathfinderActiveEffectComposer.tsx`: modal global via portal, lista com scroll interno e footer de aplicação sempre visível.
 
 ## Referências
 
+- `docs/features/actor-active-effects/api.md`
+- `docs/features/actor-active-effects/sheet.md`
+- `docs/features/actor-active-effects/token.md`
 - `docs/features/game-system-user-settings-boundary/spec.md`
 - `docs/features/game-system/pathfinder-2e/active-effects/spec.md`
-- `docs/features/actor-active-effects/api.md`
 - `docs/architecture/adr/ADR-0005-vtt-game-system-boundary.md`
