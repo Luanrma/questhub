@@ -3,6 +3,7 @@ import type {
   GameSystemCatalogCard,
   GameSystemCatalogDomain,
   GameSystemCatalogEditorialFilter,
+  GameSystemCatalogFilterDefinition,
   GameSystemCatalogProvider,
   GameSystemCatalogSheet,
   GameSystemContentLocale,
@@ -17,6 +18,13 @@ import {
 } from './bestiary-filter'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
 import { pathfinder2eContextualCatalogProvider } from './contextual-provider'
+import {
+  getPathfinder2eActiveEffectDefinitionView,
+  listPathfinder2eActiveEffectDefinitionViews,
+  type Pathfinder2eActiveEffectDefinitionKind,
+  type Pathfinder2eActiveEffectDefinitionView,
+} from './active-effect-query'
+import type { Pathfinder2eActiveEffectPolarity } from './active-effect-definitions'
 import {
   translatePathfinder2eRarity,
   translatePathfinder2eTradition,
@@ -33,6 +41,8 @@ const DOMAIN_MAP: Record<Pathfinder2eContentEntry['original']['domain'], GameSys
   ITEM: 'ITEMS',
 }
 
+const ACTIVE_EFFECT_KINDS = ['condition', 'effect', 'affliction'] as const
+const ACTIVE_EFFECT_POLARITIES = ['BENEFICIAL', 'HARMFUL', 'NEUTRAL'] as const
 const LOCAL_ICON_ROUTE_PREFIX = '/api/game-systems/pathfinder-2e/icons/'
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -142,8 +152,196 @@ function sheetToCard(sheet: GameSystemCatalogSheet): GameSystemCatalogCard {
   }
 }
 
+function activeEffectKindLabel(
+  kind: Pathfinder2eActiveEffectDefinitionKind,
+  locale: GameSystemContentLocale,
+) {
+  if (locale === 'pt-BR') {
+    if (kind === 'condition') return 'Condição'
+    if (kind === 'effect') return 'Efeito'
+    return 'Aflição'
+  }
+  if (kind === 'condition') return 'Condition'
+  if (kind === 'effect') return 'Effect'
+  return 'Affliction'
+}
+
+function activeEffectPolarityLabel(
+  polarity: Pathfinder2eActiveEffectPolarity,
+  locale: GameSystemContentLocale,
+) {
+  if (locale === 'pt-BR') {
+    if (polarity === 'BENEFICIAL') return 'Benéfico'
+    if (polarity === 'HARMFUL') return 'Prejudicial'
+    return 'Neutro'
+  }
+  if (polarity === 'BENEFICIAL') return 'Beneficial'
+  if (polarity === 'HARMFUL') return 'Harmful'
+  return 'Neutral'
+}
+
+function activeEffectTranslationStatus(
+  view: Pathfinder2eActiveEffectDefinitionView,
+  locale: GameSystemContentLocale,
+): GameSystemCatalogCard['editorialStatus'] {
+  if (locale !== 'pt-BR') return null
+  const ready = view.localization.nameLocale === locale
+    && view.localization.descriptionLocale === locale
+  return ready
+    ? null
+    : { label: 'Tradução em revisão', tone: 'review' }
+}
+
+function activeEffectFilterDefinitions(
+  locale: GameSystemContentLocale,
+): readonly GameSystemCatalogFilterDefinition[] {
+  return [
+    {
+      id: 'kind',
+      label: locale === 'pt-BR' ? 'Tipo' : 'Type',
+      kind: 'single',
+      options: ACTIVE_EFFECT_KINDS.map((kind) => ({
+        value: kind,
+        label: activeEffectKindLabel(kind, locale),
+      })),
+    },
+    {
+      id: 'polarity',
+      label: locale === 'pt-BR' ? 'Polaridade' : 'Polarity',
+      kind: 'single',
+      options: ACTIVE_EFFECT_POLARITIES.map((polarity) => ({
+        value: polarity,
+        label: activeEffectPolarityLabel(polarity, locale),
+      })),
+    },
+  ]
+}
+
+function selectedActiveEffectKind(
+  filters: Readonly<Record<string, readonly string[]>> | undefined,
+): Pathfinder2eActiveEffectDefinitionKind | undefined {
+  const value = filters?.kind?.[0]
+  return ACTIVE_EFFECT_KINDS.find((candidate) => candidate === value)
+}
+
+function selectedActiveEffectPolarity(
+  filters: Readonly<Record<string, readonly string[]>> | undefined,
+): Pathfinder2eActiveEffectPolarity | undefined {
+  const value = filters?.polarity?.[0]
+  return ACTIVE_EFFECT_POLARITIES.find((candidate) => candidate === value)
+}
+
+function activeEffectCard(
+  view: Pathfinder2eActiveEffectDefinitionView,
+  locale: GameSystemContentLocale,
+): GameSystemCatalogCard {
+  return {
+    id: view.definitionKey,
+    name: view.name,
+    subtitle: activeEffectKindLabel(view.kind, locale),
+    description: view.description,
+    imageUrl: view.iconUrl,
+    traits: [
+      activeEffectPolarityLabel(view.polarity, locale),
+      ...(view.group ? [view.group] : []),
+    ],
+    editorialStatus: activeEffectTranslationStatus(view, locale),
+    stats: view.conditionValue?.isValued
+      ? [{
+          label: locale === 'pt-BR' ? 'Valor base' : 'Base value',
+          value: view.conditionValue.baseValue === null ? '—' : String(view.conditionValue.baseValue),
+        }]
+      : undefined,
+  }
+}
+
+function activeEffectSheet(
+  view: Pathfinder2eActiveEffectDefinitionView,
+  locale: GameSystemContentLocale,
+): GameSystemCatalogSheet {
+  const kindLabel = activeEffectKindLabel(view.kind, locale)
+  const polarityLabel = activeEffectPolarityLabel(view.polarity, locale)
+  const conditionSection = view.conditionValue
+    ? [{
+        title: locale === 'pt-BR' ? 'Condição' : 'Condition',
+        fields: [
+          {
+            label: locale === 'pt-BR' ? 'Possui valor' : 'Valued',
+            value: view.conditionValue.isValued
+              ? (locale === 'pt-BR' ? 'Sim' : 'Yes')
+              : (locale === 'pt-BR' ? 'Não' : 'No'),
+          },
+          {
+            label: locale === 'pt-BR' ? 'Valor base' : 'Base value',
+            value: view.conditionValue.baseValue === null ? '—' : String(view.conditionValue.baseValue),
+          },
+        ],
+      }]
+    : []
+
+  return {
+    ...activeEffectCard(view, locale),
+    sections: [
+      {
+        title: locale === 'pt-BR' ? 'Identidade' : 'Identity',
+        fields: [
+          { label: 'Definition key', value: view.definitionKey, wide: true },
+          { label: locale === 'pt-BR' ? 'Tipo' : 'Type', value: kindLabel },
+          { label: locale === 'pt-BR' ? 'Polaridade' : 'Polarity', value: polarityLabel },
+          { label: locale === 'pt-BR' ? 'Grupo' : 'Group', value: view.group ?? '—' },
+        ],
+      },
+      ...conditionSection,
+      {
+        title: locale === 'pt-BR' ? 'Fonte' : 'Source',
+        fields: [
+          { label: locale === 'pt-BR' ? 'Pacote' : 'Pack', value: view.source.sourcePack },
+          { label: 'Source ID', value: view.source.sourceId },
+          { label: 'Slug', value: view.source.slug ?? '—' },
+          {
+            label: locale === 'pt-BR' ? 'Publicação' : 'Publication',
+            value: view.source.publicationTitle ?? '—',
+          },
+        ],
+      },
+    ],
+    source: {
+      publication: view.source.publicationTitle ?? null,
+    },
+  }
+}
+
 export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   async list(query) {
+    if (query.domain === 'EFFECTS') {
+      const result = listPathfinder2eActiveEffectDefinitionViews({
+        locale: query.locale,
+        ...(selectedActiveEffectKind(query.filters)
+          ? { kind: selectedActiveEffectKind(query.filters) }
+          : {}),
+        ...(selectedActiveEffectPolarity(query.filters)
+          ? { polarity: selectedActiveEffectPolarity(query.filters) }
+          : {}),
+        ...(query.search ? { query: query.search } : {}),
+        editorialStatus: query.editorialStatus ?? 'all',
+        offset: (query.page - 1) * query.limit,
+        limit: query.limit,
+      })
+
+      return {
+        entries: result.items.map((view) => activeEffectCard(view, query.locale)),
+        filterDefinitions: activeEffectFilterDefinitions(query.locale),
+        pagination: {
+          page: query.page,
+          limit: result.page.limit,
+          total: result.page.total,
+          totalPages: result.page.total === 0
+            ? 0
+            : Math.ceil(result.page.total / result.page.limit),
+        },
+      }
+    }
+
     const normalizedSearch = query.search?.trim().toLocaleLowerCase(query.locale) ?? ''
     const filterDefinitions = createPathfinder2eBestiaryFilterDefinitions(
       PATHFINDER_2E_CONTENT_ENTRIES,
@@ -185,6 +383,11 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   },
 
   async get(query) {
+    if (query.domain === 'EFFECTS') {
+      const view = getPathfinder2eActiveEffectDefinitionView(query.contentId, query.locale)
+      return view ? activeEffectSheet(view, query.locale) : null
+    }
+
     const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
       (candidate) => candidate.original.contentId === query.contentId
         && DOMAIN_MAP[candidate.original.domain] === query.domain,
