@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { pathfinder2eCatalogProvider } from './catalog-provider'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
+import { listPathfinder2eActiveEffectDefinitions } from './active-effect-definitions'
 
 function bestiaryEntry(entryType: 'CREATURE' | 'HAZARD') {
   return PATHFINDER_2E_CONTENT_ENTRIES.find((entry) => {
@@ -186,4 +187,82 @@ test('Pathfinder resolves the original catalog icon for existing inventory items
     await pathfinder2eCatalogProvider.resolveInventoryItemImageUrl?.('unknown-item'),
     null,
   )
+})
+
+test('Pathfinder exposes canonical Active Effects as a read-only Compendium domain', async () => {
+  const canonical = listPathfinder2eActiveEffectDefinitions()
+  assert.ok(canonical.length > 0)
+
+  const result = await pathfinder2eCatalogProvider.list({
+    campaignId: 'campaign-1',
+    domain: 'EFFECTS',
+    locale: 'pt-BR',
+    page: 1,
+    limit: 5,
+  })
+
+  assert.equal(result.pagination.total, canonical.length)
+  assert.deepEqual(
+    result.entries.map((entry) => entry.id),
+    canonical.slice(0, 5).map((definition) => definition.definitionKey),
+  )
+  assert.deepEqual(
+    result.filterDefinitions?.map(({ id, kind }) => ({ id, kind })),
+    [
+      { id: 'kind', kind: 'single' },
+      { id: 'polarity', kind: 'single' },
+    ],
+  )
+  assert.equal(result.entries.every((entry) => entry.canCreateToken === undefined), true)
+})
+
+test('Pathfinder applies Effects kind and polarity filters before Compendium pagination', async () => {
+  const canonical = listPathfinder2eActiveEffectDefinitions()
+  const candidate = canonical.find((definition) => definition.kind === 'condition') ?? canonical[0]
+  assert.ok(candidate)
+
+  const result = await pathfinder2eCatalogProvider.list({
+    campaignId: 'campaign-1',
+    domain: 'EFFECTS',
+    locale: 'en-US',
+    filters: {
+      kind: [candidate.kind],
+      polarity: [candidate.polarity],
+    },
+    page: 1,
+    limit: 100,
+  })
+
+  assert.ok(result.pagination.total > 0)
+  for (const card of result.entries) {
+    const definition = canonical.find((item) => item.definitionKey === card.id)
+    assert.ok(definition)
+    assert.equal(definition.kind, candidate.kind)
+    assert.equal(definition.polarity, candidate.polarity)
+  }
+})
+
+test('Pathfinder Effects detail resolves only by stable definitionKey and never creates a Token', async () => {
+  const canonical = listPathfinder2eActiveEffectDefinitions()
+  const candidate = canonical[0]
+  assert.ok(candidate)
+
+  const sheet = await pathfinder2eCatalogProvider.get({
+    campaignId: 'campaign-1',
+    domain: 'EFFECTS',
+    locale: 'pt-BR',
+    contentId: candidate.definitionKey,
+  })
+  const byName = await pathfinder2eCatalogProvider.get({
+    campaignId: 'campaign-1',
+    domain: 'EFFECTS',
+    locale: 'pt-BR',
+    contentId: candidate.name,
+  })
+
+  assert.equal(sheet?.id, candidate.definitionKey)
+  assert.ok(sheet?.description?.trim().length)
+  assert.equal(sheet?.canCreateToken, undefined)
+  assert.ok(sheet?.sections.some((section) => section.title === 'Identidade'))
+  assert.equal(byName, null)
 })
