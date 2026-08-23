@@ -2,10 +2,16 @@ export type GameSystemKey = 'PATHFINDER_2E'
 export type GameSystemCatalogDomain = string
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
 
+export type GameSystemCatalogDomainCapabilities = {
+  canSendToActorInventory?: boolean
+  areaEffectBindingNamespace?: string
+}
+
 export type GameSystemCatalogDomainDescriptor = {
   key: GameSystemCatalogDomain
   slug: string
   label: string
+  capabilities?: GameSystemCatalogDomainCapabilities
 }
 
 export type GameSystemOption = {
