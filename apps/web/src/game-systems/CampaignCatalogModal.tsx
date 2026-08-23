@@ -69,6 +69,7 @@ type Props = {
   canManageTokens?: boolean
   zIndex?: number
   leftInset?: number
+  bottomInset?: number
   onClose: () => void
 }
 
@@ -109,6 +110,7 @@ export function CampaignCatalogModal({
   canManageTokens = false,
   zIndex = 100,
   leftInset = 0,
+  bottomInset = 0,
   onClose,
 }: Props) {
   const [selectedDomainKey, setSelectedDomainKey] = useState<GameSystemCatalogDomain | null>(domains[0]?.key ?? null)
@@ -229,7 +231,7 @@ export function CampaignCatalogModal({
   return (
     <div
       className="fixed inset-y-0 right-0 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
-      style={{ zIndex, left: leftInset }}
+      style={{ zIndex, left: leftInset, bottom: bottomInset }}
       role="dialog"
       aria-modal="false"
       aria-label={domain ? `Compêndio — ${domainLabel}` : 'Compêndio'}
@@ -499,6 +501,7 @@ export function CampaignCatalogModal({
           canManageTokens={canManageTokens}
           zIndex={zIndex + 20}
           leftInset={leftInset}
+          bottomInset={bottomInset}
           onClose={() => setSelectedEntryId(null)}
         />
       ) : null}
