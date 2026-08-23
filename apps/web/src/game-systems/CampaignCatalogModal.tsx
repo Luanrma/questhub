@@ -67,6 +67,7 @@ type Props = {
   campaignId: string
   domains: readonly GameSystemCatalogDomainDescriptor[]
   canManageTokens?: boolean
+  zIndex?: number
   onClose: () => void
 }
 
@@ -101,7 +102,13 @@ function CatalogImage({ entry }: { entry: CatalogCard }) {
   )
 }
 
-export function CampaignCatalogModal({ domains, campaignId, canManageTokens = false, onClose }: Props) {
+export function CampaignCatalogModal({
+  domains,
+  campaignId,
+  canManageTokens = false,
+  zIndex = 100,
+  onClose,
+}: Props) {
   const [selectedDomainKey, setSelectedDomainKey] = useState<GameSystemCatalogDomain | null>(domains[0]?.key ?? null)
   const [locale, setLocale] = useState<GameSystemContentLocale>('pt-BR')
   const [search, setSearch] = useState('')
@@ -160,11 +167,11 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
   }
 
   useEffect(() => registerVttWindow({
-    id: `campaign-compendium:${campaignId}`,
-    getZIndex: () => selectedEntryId ? 160 : 100,
+    id: `campaign-compendium:${campaignId}:${domainKey ?? 'unregistered'}`,
+    getZIndex: () => selectedEntryId ? zIndex + 20 : zIndex,
     close: () => selectedEntryId ? setSelectedEntryId(null) : onClose(),
     isVisible: () => true,
-  }), [campaignId, onClose, selectedEntryId])
+  }), [campaignId, domainKey, onClose, selectedEntryId, zIndex])
 
   useEffect(() => {
     if (!domain) {
@@ -219,10 +226,11 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
+      style={{ zIndex }}
       role="dialog"
       aria-modal="true"
-      aria-label="Compêndio"
+      aria-label={domain ? `Compêndio — ${domainLabel}` : 'Compêndio'}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget && !selectedEntryId) onClose()
       }}
@@ -234,7 +242,7 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="min-w-0">
-              <h1 className="truncate text-lg font-semibold">Compêndio</h1>
+              <h1 className="truncate text-lg font-semibold">Compêndio · {domainLabel}</h1>
               <p className="truncate text-xs text-zinc-400">
                 {data?.system.label ?? 'Conteúdo do sistema da campanha'}
               </p>
@@ -282,27 +290,29 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
           </div>
         </header>
 
-        <div className="border-b border-white/10 bg-black/15 px-5 py-3">
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Domínios do Compêndio">
-            {domains.map((candidate) => (
-              <button
-                key={candidate.key}
-                type="button"
-                role="tab"
-                aria-selected={candidate.key === domainKey}
-                onClick={() => selectDomain(candidate)}
-                className={[
-                  'rounded-lg border px-3 py-2 text-xs font-semibold transition',
-                  candidate.key === domainKey
-                    ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100'
-                    : 'border-white/10 bg-white/[0.03] text-zinc-400 hover:bg-white/[0.08] hover:text-white',
-                ].join(' ')}
-              >
-                {candidate.label}
-              </button>
-            ))}
+        {domains.length > 1 ? (
+          <div className="border-b border-white/10 bg-black/15 px-5 py-3">
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Domínios do Compêndio">
+              {domains.map((candidate) => (
+                <button
+                  key={candidate.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={candidate.key === domainKey}
+                  onClick={() => selectDomain(candidate)}
+                  className={[
+                    'rounded-lg border px-3 py-2 text-xs font-semibold transition',
+                    candidate.key === domainKey
+                      ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100'
+                      : 'border-white/10 bg-white/[0.03] text-zinc-400 hover:bg-white/[0.08] hover:text-white',
+                  ].join(' ')}
+                >
+                  {candidate.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {domain ? (
           <>
@@ -485,6 +495,7 @@ export function CampaignCatalogModal({ domains, campaignId, canManageTokens = fa
           domain={domain}
           locale={locale}
           canManageTokens={canManageTokens}
+          zIndex={zIndex + 20}
           onClose={() => setSelectedEntryId(null)}
         />
       ) : null}
