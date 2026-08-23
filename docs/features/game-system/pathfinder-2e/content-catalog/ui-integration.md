@@ -2,17 +2,48 @@
 
 ## Objetivo
 
-Bestiário, Magias e Itens são exibidos dentro do VTT por meio do contrato neutro de catálogo definido em `apps/api/src/game_systems/catalog.ts`.
+Bestiário, Magias e Itens são registrados pelo Pathfinder 2e e exibidos dentro
+de uma única entrada genérica `Compêndio` no VTT, por meio do contrato neutro de
+catálogo definido em `apps/api/src/game_systems/catalog.ts`.
 
 O VTT sabe apenas renderizar:
 
+- os domínios anunciados pelo sistema;
 - cards resumidos;
 - traits;
 - status editorial pendente;
 - imagem local opcional com fallback;
 - uma ficha composta por seções e campos.
 
-A escolha dos campos e toda interpretação do conteúdo pertencem ao adapter Pathfinder 2e.
+A escolha dos domínios, labels, campos e toda interpretação do conteúdo pertencem
+ao adapter Pathfinder 2e.
+
+## Navegação do Compêndio
+
+A barra lateral da campanha não possui entradas próprias para Bestiário, Magias
+ou Itens. Ela abre somente o shell `Compêndio`.
+
+O Pathfinder 2e registra seus domínios em seu próprio descriptor:
+
+```ts
+catalogDomains: [
+  { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
+  { key: 'SPELLS', slug: 'spells', label: 'Magias', capabilities: { /* ... */ } },
+  { key: 'ITEMS', slug: 'items', label: 'Itens', capabilities: { /* ... */ } },
+]
+```
+
+O componente compartilhado recebe essa lista e monta as abas internas sem mapa
+de labels, paths ou ícones por domínio. A `key` é opaca para o Core; o `slug` é
+usado na rota e validado pelo backend contra o descriptor do sistema da campanha.
+
+Capabilities opcionais anunciam integrações neutras com ferramentas existentes.
+No recorte atual, Magias anuncia o namespace de Area Effect e Itens anuncia que
+pode usar o fluxo genérico de envio ao inventário de um ator. A UI não infere
+essas capacidades a partir das strings `SPELLS` ou `ITEMS`.
+
+Effects não faz parte do QH-CMP-001. Sua inclusão como quarto domínio do PF2e é
+o escopo do QH-CMP-002.
 
 Hazards usam o mesmo domínio visual `BESTIARY`, porém a ficha respeita
 `entryType = "HAZARD"`. Cards exibem tipo simples/complexo, Furtividade, CA, PV
@@ -77,8 +108,9 @@ independentes do idioma e do status editorial, podem ser combinados com a busca
 e são aplicados antes da paginação. Qualquer alteração de seleção retorna à
 primeira página.
 
-Ao trocar de domínio, as seleções anteriores são limpas. O VTT e os componentes
-compartilhados não contêm branches, enums ou labels específicos de PF2e.
+Ao trocar de domínio, busca, filtros e paginação são reiniciados. O VTT e os
+componentes compartilhados não contêm enums, labels, paths ou branches de
+capacidade baseados nos nomes concretos dos domínios PF2e.
 
 ## Ficha
 
@@ -90,7 +122,8 @@ Rota neutra:
 GET /api/campaigns/:campaignId/catalog/:domain/:contentId?locale=pt-BR
 ```
 
-A resposta usa seções genéricas. Pathfinder 2e define internamente:
+`:domain` é o `slug` registrado pelo Game System, não uma enumeração mantida pelo
+VTT. A resposta usa seções genéricas. Pathfinder 2e define internamente:
 
 - Bestiário: defesas, percepção, atributos, perícias, ataques e habilidades;
 - Magias: conjuração, alcance, alvo, defesa, dano ou cura e aprimoramento;
@@ -235,9 +268,10 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 
 ## Fronteira
 
+- o menu e o shell compartilhado do Compêndio não conhecem domínios Pathfinder específicos;
 - o frontend não conhece campos Pathfinder específicos;
 - o VTT não calcula regras;
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
-- a ficha é somente visualização nesta etapa;
-- não há criação de tokens, aplicação de dano, conjuração ou equipamento automático;
+- ações adicionais são expostas por capabilities ou flags neutras, como `canCreateToken`;
+- a ficha permanece uma projeção de apresentação; aplicar regras mecânicas não é responsabilidade do Compêndio;
 - não há dependência de assets externos em runtime.

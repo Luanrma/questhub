@@ -1,9 +1,21 @@
 export type GameSystemKey = 'PATHFINDER_2E'
 
-export type GameSystemCatalogDomain = 'BESTIARY' | 'SPELLS' | 'ITEMS'
+export type GameSystemCatalogDomain = string
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
 export type GameSystemCatalogEditorialFilter = 'all' | 'review' | 'ready'
 export type GameSystemCatalogFilterSelection = Readonly<Record<string, readonly string[]>>
+
+export type GameSystemCatalogDomainCapabilities = {
+  canSendToActorInventory?: boolean
+  areaEffectBindingNamespace?: string
+}
+
+export type GameSystemCatalogDomainDescriptor = {
+  key: GameSystemCatalogDomain
+  slug: string
+  label: string
+  capabilities?: GameSystemCatalogDomainCapabilities
+}
 
 export type GameSystemCatalogFilterDefinition = {
   id: string
@@ -19,7 +31,7 @@ export type GameSystemDescriptor = {
   key: GameSystemKey
   slug: string
   label: string
-  catalogDomains: readonly GameSystemCatalogDomain[]
+  catalogDomains: readonly GameSystemCatalogDomainDescriptor[]
 }
 
 export type GameSystemCatalogCardStat = {
@@ -169,7 +181,7 @@ export function parseCatalogTokenSheetEnvelope(input: unknown): CatalogTokenShee
 
   if (envelope.kind !== 'CATALOG_TOKEN_SHEET' || envelope.version !== 1) return null
   if (!source || typeof source !== 'object') return null
-  if (!['BESTIARY', 'SPELLS', 'ITEMS'].includes(source.domain)) return null
+  if (typeof source.domain !== 'string' || !source.domain.trim()) return null
   if (!['en-US', 'pt-BR'].includes(source.locale)) return null
   if (typeof source.contentId !== 'string' || !source.contentId.trim()) return null
   if (!sheet || typeof sheet !== 'object') return null
@@ -177,19 +189,51 @@ export function parseCatalogTokenSheetEnvelope(input: unknown): CatalogTokenShee
   return envelope as CatalogTokenSheetEnvelope
 }
 
-export const GAME_SYSTEM_DESCRIPTORS: readonly GameSystemDescriptor[] = [
-  {
-    key: 'PATHFINDER_2E',
-    slug: 'pathfinder-2e',
-    label: 'Pathfinder 2e',
-    catalogDomains: ['BESTIARY', 'SPELLS', 'ITEMS'],
-  },
-]
-
+const gameSystemDescriptors = new Map<GameSystemKey, GameSystemDescriptor>()
 const catalogProviders = new Map<GameSystemKey, GameSystemCatalogProvider>()
 
+function assertValidCatalogDomains(descriptor: GameSystemDescriptor) {
+  const keys = new Set<string>()
+  const slugs = new Set<string>()
+
+  for (const domain of descriptor.catalogDomains) {
+    if (!domain.key.trim()) throw new Error(`Catalog domain key cannot be empty for ${descriptor.key}`)
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(domain.slug)) {
+      throw new Error(`Invalid catalog domain slug ${domain.slug} for ${descriptor.key}`)
+    }
+    if (!domain.label.trim()) throw new Error(`Catalog domain label cannot be empty for ${descriptor.key}`)
+    if (keys.has(domain.key)) throw new Error(`Duplicate catalog domain key ${domain.key} for ${descriptor.key}`)
+    if (slugs.has(domain.slug)) throw new Error(`Duplicate catalog domain slug ${domain.slug} for ${descriptor.key}`)
+    if (domain.capabilities?.areaEffectBindingNamespace !== undefined
+      && !domain.capabilities.areaEffectBindingNamespace.trim()) {
+      throw new Error(`Area effect binding namespace cannot be empty for ${descriptor.key}:${domain.key}`)
+    }
+    keys.add(domain.key)
+    slugs.add(domain.slug)
+  }
+}
+
+export function registerGameSystemDescriptor(descriptor: GameSystemDescriptor) {
+  if (gameSystemDescriptors.has(descriptor.key)) {
+    throw new Error(`Game system descriptor already registered for ${descriptor.key}`)
+  }
+  assertValidCatalogDomains(descriptor)
+  gameSystemDescriptors.set(descriptor.key, descriptor)
+}
+
+export function listGameSystemDescriptors(): readonly GameSystemDescriptor[] {
+  return [...gameSystemDescriptors.values()]
+}
+
 export function getGameSystemDescriptor(key: string): GameSystemDescriptor | null {
-  return GAME_SYSTEM_DESCRIPTORS.find((descriptor) => descriptor.key === key) ?? null
+  return gameSystemDescriptors.get(key as GameSystemKey) ?? null
+}
+
+export function getGameSystemCatalogDomainDescriptor(
+  descriptor: GameSystemDescriptor,
+  slug: string,
+): GameSystemCatalogDomainDescriptor | null {
+  return descriptor.catalogDomains.find((domain) => domain.slug === slug) ?? null
 }
 
 export function defaultInventoryCatalogNamespace(system: GameSystemKey) {

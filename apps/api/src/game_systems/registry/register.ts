@@ -7,12 +7,12 @@ import type { GameSystemAutomationEventPublisher } from '../automation/contracts
 import {
   catalogTokenSheetSystemKey,
   createCatalogTokenSheetEnvelope,
-  GAME_SYSTEM_DESCRIPTORS,
+  getGameSystemCatalogDomainDescriptor,
   getGameSystemCatalogProvider,
   getGameSystemDescriptor,
+  listGameSystemDescriptors,
   parseCatalogTokenSheetEnvelope,
   resolveCatalogTokenSize,
-  type GameSystemCatalogDomain,
   type GameSystemContentLocale,
   type GameSystemKey,
 } from '../catalog'
@@ -23,7 +23,7 @@ const sheetParamsSchema = campaignParamsSchema.extend({ sheetId: z.string().trim
 const tokenSheetParamsSchema = campaignParamsSchema.extend({ tokenId: z.string().trim().min(1) })
 const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
 const catalogParamsSchema = campaignParamsSchema.extend({
-  domain: z.enum(['bestiary', 'spells', 'items']),
+  domain: z.string().trim().min(1).max(80).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
 })
 const catalogEntryParamsSchema = catalogParamsSchema.extend({
   contentId: z.string().trim().min(1),
@@ -76,12 +76,6 @@ const updateCharacterSheetAssignmentsSchema = z.object({
 const setCampaignGameSystemSchema = z.object({
   gameSystem: z.enum(['PATHFINDER_2E']),
 })
-
-const domainByPath: Record<'bestiary' | 'spells' | 'items', GameSystemCatalogDomain> = {
-  bestiary: 'BESTIARY',
-  spells: 'SPELLS',
-  items: 'ITEMS',
-}
 
 function groupCatalogFilters(filters: readonly string[]) {
   return filters.reduce<Record<string, string[]>>((selection, filter) => {
@@ -195,7 +189,7 @@ export function registerGameSystemRoutes(
   app.get('/api/game-systems', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
-    return reply.send(GAME_SYSTEM_DESCRIPTORS)
+    return reply.send(listGameSystemDescriptors())
   })
 
   app.get('/api/game-systems/campaign-invites/:inviteCode', async (req, reply) => {
@@ -533,10 +527,11 @@ export function registerGameSystemRoutes(
     const descriptor = getGameSystemDescriptor(campaign.gameSystem)
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
-    const domain = domainByPath[params.data.domain]
-    if (!descriptor.catalogDomains.includes(domain)) {
+    const catalogDomain = getGameSystemCatalogDomainDescriptor(descriptor, params.data.domain)
+    if (!catalogDomain) {
       return reply.status(404).send({ error: 'Catalogo nao disponivel para este sistema' })
     }
+    const domain = catalogDomain.key
 
     const provider = getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)
     if (!provider) {
@@ -592,10 +587,11 @@ export function registerGameSystemRoutes(
     const descriptor = getGameSystemDescriptor(campaign.gameSystem)
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
-    const domain = domainByPath[params.data.domain]
-    if (!descriptor.catalogDomains.includes(domain)) {
+    const catalogDomain = getGameSystemCatalogDomainDescriptor(descriptor, params.data.domain)
+    if (!catalogDomain) {
       return reply.status(404).send({ error: 'Catalogo nao disponivel para este sistema' })
     }
+    const domain = catalogDomain.key
 
     const provider = getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)
     if (!provider) return reply.status(404).send({ error: 'Catalogo ainda nao instalado' })
@@ -630,7 +626,14 @@ export function registerGameSystemRoutes(
     const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
     if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode criar Tokens' })
 
-    const domain = domainByPath[params.data.domain]
+    const descriptor = getGameSystemDescriptor(campaign.gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
+
+    const catalogDomain = getGameSystemCatalogDomainDescriptor(descriptor, params.data.domain)
+    if (!catalogDomain) {
+      return reply.status(404).send({ error: 'Catalogo nao disponivel para este sistema' })
+    }
+    const domain = catalogDomain.key
     const provider = getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)
     if (!provider?.getTokenizableSheet) {
       return reply.status(409).send({ error: 'O sistema da campanha nao permite criar Tokens deste catalogo' })

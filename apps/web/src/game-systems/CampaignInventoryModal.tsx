@@ -44,6 +44,7 @@ type InventoryPresentation = {
   iconKey?: string | null
   traits?: readonly string[]
   details?: ReadonlyArray<{ label: string; value: string }>
+  catalogDomainKey?: string | null
 }
 
 type InventoryEntry = InventoryGridEntry & {
@@ -348,6 +349,10 @@ export function CampaignInventoryModal({
       setError('Este item não possui uma ficha de catálogo vinculada.')
       return
     }
+    if (!entry.presentation?.catalogDomainKey?.trim()) {
+      setError('Este item não informa um domínio de Compêndio registrado.')
+      return
+    }
     setSheetEntry(entry)
   }
 
@@ -523,11 +528,11 @@ export function CampaignInventoryModal({
         </section>
       </div>
 
-      {sheetEntry?.catalogContentId ? (
+      {sheetEntry?.catalogContentId && sheetEntry.presentation?.catalogDomainKey ? (
         <CatalogEntitySheetModal
           campaignId={campaignId}
           contentId={sheetEntry.catalogContentId}
-          domain="ITEMS"
+          domain={sheetEntry.presentation.catalogDomainKey}
           locale={itemSheetLocale}
           zIndex={zIndex + 20}
           onClose={() => setSheetEntry(null)}

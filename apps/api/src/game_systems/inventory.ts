@@ -1,4 +1,4 @@
-import type { GameSystemKey } from './catalog'
+import type { GameSystemCatalogDomain, GameSystemKey } from './catalog'
 
 export type GameSystemInventoryPresentationDetail = {
   label: string
@@ -13,6 +13,7 @@ export type GameSystemInventoryItemPresentation = {
   iconKey?: string | null
   traits?: readonly string[]
   details?: readonly GameSystemInventoryPresentationDetail[]
+  catalogDomainKey?: GameSystemCatalogDomain | null
 }
 
 export type GameSystemInventoryPolicy = {

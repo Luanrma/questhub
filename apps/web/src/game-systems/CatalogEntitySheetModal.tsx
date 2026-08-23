@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BookOpen, CopyPlus, Package, PawPrint, Send, Settings2, Sparkles, X } from 'lucide-react'
+import { BookOpen, CopyPlus, Send, Settings2, X } from 'lucide-react'
 import { api } from '../lib/api'
 import { AreaEffectBindingModal } from '../vtt/tool-bindings/AreaEffectBindingModal'
 import { CatalogItemSendModal } from './CatalogItemSendModal'
@@ -11,11 +11,11 @@ import {
   PathfinderActiveEffectReferenceList,
   PathfinderReferenceText,
 } from './PathfinderActiveEffectReferences'
-import {
-  catalogDomainPaths,
-  type GameSystemCatalogDomain,
-  type GameSystemContentLocale,
-  type GameSystemKey,
+import type {
+  GameSystemCatalogDomain,
+  GameSystemCatalogDomainDescriptor,
+  GameSystemContentLocale,
+  GameSystemKey,
 } from './registry'
 import { notifyCampaignTokenLibraryChanged } from '../lib/campaign-token-library-events'
 import { createCatalogToken } from './catalogTokenApi'
@@ -60,6 +60,12 @@ type CatalogSheetResponse = {
   entry: CatalogSheet
 }
 
+type CampaignGameSystemResponse = {
+  descriptor: {
+    catalogDomains: GameSystemCatalogDomainDescriptor[]
+  }
+}
+
 type PathfinderActiveEffectReferencesResponse = {
   contentId: string
   locale: GameSystemContentLocale
@@ -69,18 +75,12 @@ type PathfinderActiveEffectReferencesResponse = {
 type Props = {
   campaignId: string
   contentId: string
-  domain: GameSystemCatalogDomain
+  domain: GameSystemCatalogDomainDescriptor | GameSystemCatalogDomain
   locale: GameSystemContentLocale
   canManageTokens?: boolean
   zIndex?: number
   onClose: () => void
 }
-
-const domainIcons = {
-  BESTIARY: PawPrint,
-  SPELLS: Sparkles,
-  ITEMS: Package,
-} satisfies Record<GameSystemCatalogDomain, typeof PawPrint>
 
 const statusClasses: Record<EditorialStatus['tone'], string> = {
   review: 'border-amber-300/35 bg-amber-500/15 text-amber-100',
@@ -98,6 +98,9 @@ export function CatalogEntitySheetModal({
   zIndex = 120,
   onClose,
 }: Props) {
+  const [resolvedDomain, setResolvedDomain] = useState<GameSystemCatalogDomainDescriptor | null>(
+    typeof domain === 'string' ? null : domain,
+  )
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -108,14 +111,51 @@ export function CatalogEntitySheetModal({
   const [creatingToken, setCreatingToken] = useState(false)
   const [effectReferences, setEffectReferences] = useState<PathfinderActiveEffectReference[]>([])
   const [selectedEffectReference, setSelectedEffectReference] = useState<PathfinderActiveEffectReference | null>(null)
-  const Icon = domainIcons[domain]
-  const sendPermissionKey = `${campaignId}:${domain}`
+  const sendPermissionKey = resolvedDomain ? `${campaignId}:${resolvedDomain.key}` : ''
   const canSendToActor =
-    domain === 'ITEMS' &&
-    sendPermission.key === sendPermissionKey &&
-    sendPermission.allowed
+    resolvedDomain?.capabilities?.canSendToActorInventory === true
+    && sendPermission.key === sendPermissionKey
+    && sendPermission.allowed
+  const areaEffectBindingNamespace = resolvedDomain?.capabilities?.areaEffectBindingNamespace ?? null
 
   useEffect(() => {
+    if (typeof domain !== 'string') {
+      setResolvedDomain(domain)
+      return
+    }
+
+    const controller = new AbortController()
+    setResolvedDomain(null)
+    setData(null)
+    setLoading(true)
+    setError(null)
+
+    api<CampaignGameSystemResponse>(`/api/campaigns/${campaignId}/game-system`, {
+      signal: controller.signal,
+    })
+      .then((response) => {
+        const registeredDomain = response.descriptor.catalogDomains.find(
+          (candidate) => candidate.key === domain,
+        )
+        if (!registeredDomain) {
+          setError('Este domínio não está registrado no Compêndio da campanha.')
+          setLoading(false)
+          return
+        }
+        setResolvedDomain(registeredDomain)
+      })
+      .catch((cause) => {
+        if (controller.signal.aborted) return
+        setError(cause instanceof Error ? cause.message : 'Não foi possível resolver o domínio do Compêndio.')
+        setLoading(false)
+      })
+
+    return () => controller.abort()
+  }, [campaignId, domain])
+
+  useEffect(() => {
+    if (!resolvedDomain) return
+
     const controller = new AbortController()
     queueMicrotask(() => {
       if (controller.signal.aborted) return
@@ -124,7 +164,7 @@ export function CatalogEntitySheetModal({
     })
 
     api<CatalogSheetResponse>(
-      `/api/campaigns/${campaignId}/catalog/${catalogDomainPaths[domain]}/${encodeURIComponent(contentId)}?locale=${locale}`,
+      `/api/campaigns/${campaignId}/catalog/${encodeURIComponent(resolvedDomain.slug)}/${encodeURIComponent(contentId)}?locale=${locale}`,
       { signal: controller.signal },
     )
       .then((response) => setData(response))
@@ -137,7 +177,7 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, contentId, domain, locale])
+  }, [campaignId, contentId, locale, resolvedDomain])
 
   useEffect(() => {
     if (data?.system.key !== 'PATHFINDER_2E') {
@@ -163,7 +203,10 @@ export function CatalogEntitySheetModal({
   }, [contentId, data?.system.key, locale])
 
   useEffect(() => {
-    if (domain !== 'ITEMS') return
+    if (resolvedDomain?.capabilities?.canSendToActorInventory !== true) {
+      setSendPermission({ key: sendPermissionKey, allowed: false })
+      return
+    }
 
     const controller = new AbortController()
     api<{ recipients: unknown[] }>(`/api/campaigns/${campaignId}/inventory/actor-recipients`, {
@@ -177,20 +220,17 @@ export function CatalogEntitySheetModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, domain, sendPermissionKey])
+  }, [campaignId, resolvedDomain?.capabilities?.canSendToActorInventory, sendPermissionKey])
 
   const entry = data?.entry
   const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
-  const spellBindingNamespace = data?.system.key === 'PATHFINDER_2E'
-    ? 'questhub:pathfinder_2e:spells:v1'
-    : null
 
   async function handleCreateToken() {
-    if (!entry || creatingToken) return
+    if (!entry || creatingToken || !resolvedDomain) return
     setCreatingToken(true)
     setError(null)
     try {
-      await createCatalogToken({ campaignId, contentId, domain, locale })
+      await createCatalogToken({ campaignId, contentId, domain: resolvedDomain, locale })
       notifyCampaignTokenLibraryChanged(campaignId)
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Nao foi possivel criar o Token.')
@@ -228,13 +268,13 @@ export function CatalogEntitySheetModal({
               />
             ) : (
               <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg">
-                <Icon className="h-7 w-7" />
+                <BookOpen className="h-7 w-7" />
               </div>
             )}
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-indigo-200/70">
                 <BookOpen className="h-3.5 w-3.5" />
-                Ficha
+                {resolvedDomain?.label ?? 'Compêndio'}
               </div>
               <h1 className="mt-1 truncate text-2xl font-semibold text-white">
                 {entry?.name ?? 'Carregando...'}
@@ -244,7 +284,7 @@ export function CatalogEntitySheetModal({
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-2">
-            {canManageTokens && domain === 'SPELLS' && spellBindingNamespace && entry ? (
+            {canManageTokens && areaEffectBindingNamespace && entry ? (
               <button
                 type="button"
                 onClick={() => setAreaEffectOpen(true)}
@@ -382,21 +422,22 @@ export function CatalogEntitySheetModal({
         </div>
       </section>
 
-      {sendOpen && entry ? (
+      {sendOpen && entry && resolvedDomain ? (
         <CatalogItemSendModal
           campaignId={campaignId}
           contentId={contentId}
+          domain={resolvedDomain}
           itemName={entry.name}
           onClose={() => setSendOpen(false)}
         />
       ) : null}
 
-      {areaEffectOpen && entry && spellBindingNamespace ? (
+      {areaEffectOpen && entry && areaEffectBindingNamespace ? (
         <AreaEffectBindingModal
           campaignId={campaignId}
           source={{
             kind: 'CATALOG_CONTENT',
-            namespace: spellBindingNamespace,
+            namespace: areaEffectBindingNamespace,
             id: contentId,
           }}
           actionName={entry.name}

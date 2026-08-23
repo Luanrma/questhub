@@ -4,7 +4,9 @@ import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import {
   catalogTokenSheetSystemKey,
+  getGameSystemCatalogDomainDescriptor,
   getGameSystemCatalogProvider,
+  getGameSystemDescriptor,
   getInventoryCatalogNamespace,
   type GameSystemKey,
 } from '../catalog'
@@ -19,6 +21,7 @@ const campaignParamsSchema = z.object({
 })
 
 const catalogItemParamsSchema = campaignParamsSchema.extend({
+  domain: z.string().trim().min(1).max(80).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   contentId: z.string().trim().min(1),
 })
 
@@ -110,7 +113,7 @@ export function registerInventoryActorRecipientRoutes(app: FastifyInstance) {
     return reply.send({ recipients: actors.map(presentActorInventoryRecipient) })
   })
 
-  app.post('/api/campaigns/:campaignId/catalog/items/:contentId/send-to-actor', async (req, reply) => {
+  app.post('/api/campaigns/:campaignId/catalog/:domain/:contentId/send-to-actor', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -126,6 +129,14 @@ export function registerInventoryActorRecipientRoutes(app: FastifyInstance) {
     if (!master) return reply.status(403).send({ error: 'Apenas o Mestre pode enviar itens' })
 
     const gameSystem = master.campaign.gameSystem as GameSystemKey
+    const descriptor = getGameSystemDescriptor(gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo não suportado' })
+
+    const catalogDomain = getGameSystemCatalogDomainDescriptor(descriptor, params.data.domain)
+    if (!catalogDomain || catalogDomain.capabilities?.canSendToActorInventory !== true) {
+      return reply.status(404).send({ error: 'Catálogo não disponível para envio ao inventário' })
+    }
+
     const catalogSheetSystemKey = catalogTokenSheetSystemKey(gameSystem)
     const recipientActor = await prisma.campaignActor.findFirst({
       where: {
@@ -163,7 +174,7 @@ export function registerInventoryActorRecipientRoutes(app: FastifyInstance) {
 
     const itemData = await provider.getInventoryItemData({
       campaignId: params.data.campaignId,
-      domain: 'ITEMS',
+      domain: catalogDomain.key,
       locale: 'en-US',
       contentId: params.data.contentId,
     })

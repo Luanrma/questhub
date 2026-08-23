@@ -2,21 +2,36 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
   createCatalogTokenSheetEnvelope,
-  GAME_SYSTEM_DESCRIPTORS,
+  getGameSystemCatalogDomainDescriptor,
   getGameSystemCatalogProvider,
   getGameSystemDescriptor,
+  listGameSystemDescriptors,
   parseCatalogTokenSheetEnvelope,
   registerGameSystemCatalogProvider,
+  registerGameSystemDescriptor,
   resolveCatalogTokenSize,
 } from './catalog'
 
-test('game system descriptor exposes Pathfinder catalogs without mechanical rules', () => {
-  assert.equal(GAME_SYSTEM_DESCRIPTORS.length, 1)
+const descriptor = {
+  key: 'PATHFINDER_2E',
+  slug: 'pathfinder-2e',
+  label: 'Pathfinder 2e',
+  catalogDomains: [
+    { key: 'CREATURES', slug: 'creatures', label: 'Creatures' },
+    { key: 'POWERS', slug: 'powers', label: 'Powers' },
+  ],
+} as const
 
-  const descriptor = getGameSystemDescriptor('PATHFINDER_2E')
-  assert.ok(descriptor)
-  assert.equal(descriptor.label, 'Pathfinder 2e')
-  assert.deepEqual(descriptor.catalogDomains, ['BESTIARY', 'SPELLS', 'ITEMS'])
+test('a game system registers opaque catalog domain descriptors', () => {
+  registerGameSystemDescriptor(descriptor)
+
+  assert.equal(listGameSystemDescriptors().length, 1)
+  const registered = getGameSystemDescriptor('PATHFINDER_2E')
+  assert.ok(registered)
+  assert.equal(registered.label, 'Pathfinder 2e')
+  assert.deepEqual(registered.catalogDomains, descriptor.catalogDomains)
+  assert.deepEqual(getGameSystemCatalogDomainDescriptor(registered, 'powers'), descriptor.catalogDomains[1])
+  assert.equal(getGameSystemCatalogDomainDescriptor(registered, 'missing'), null)
   assert.equal(getGameSystemDescriptor('UNKNOWN'), null)
 })
 
@@ -55,14 +70,14 @@ test('a game system can register a neutral catalog provider', async () => {
 
   const result = await provider.list({
     campaignId: 'campaign-1',
-    domain: 'BESTIARY',
+    domain: 'CREATURES',
     locale: 'pt-BR',
     page: 1,
     limit: 24,
   })
   const sheet = await provider.get({
     campaignId: 'campaign-1',
-    domain: 'BESTIARY',
+    domain: 'CREATURES',
     locale: 'pt-BR',
     contentId: 'creature-1',
   })
@@ -80,7 +95,7 @@ test('catalog Token sheet envelope preserves a neutral immutable presentation sn
     sections: [{ title: 'Details', fields: [{ label: 'Value', value: '15' }] }],
   }
   const envelope = createCatalogTokenSheetEnvelope({
-    domain: 'BESTIARY',
+    domain: 'CREATURES',
     contentId: sheet.id,
     locale: 'pt-BR',
   }, {
@@ -93,6 +108,7 @@ test('catalog Token sheet envelope preserves a neutral immutable presentation sn
 
   assert.deepEqual(parseCatalogTokenSheetEnvelope(envelope), envelope)
   assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, version: 2 }), null)
+  assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, source: { ...envelope.source, domain: '' } }), null)
   assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, sheet: { name: 'Missing id' } }), null)
   const { data: _data, ...withoutData } = envelope
   assert.deepEqual(parseCatalogTokenSheetEnvelope(withoutData), withoutData)

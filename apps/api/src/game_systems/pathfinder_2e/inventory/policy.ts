@@ -69,6 +69,7 @@ export const pathfinder2eInventoryPolicy: GameSystemInventoryPolicy = {
       iconKey: data.itemType,
       traits: data.traits,
       details,
+      catalogDomainKey: 'ITEMS',
     }
   },
 }

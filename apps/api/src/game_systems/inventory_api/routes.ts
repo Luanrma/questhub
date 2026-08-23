@@ -20,7 +20,6 @@ import {
 import {
   addInventoryEntrySchema,
   INVENTORY_QUANTITY_MAX,
-  sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
   updateInventoryEntrySlotSchema,
 } from './validation'
@@ -35,10 +34,6 @@ const inventoryParamsSchema = campaignParamsSchema.extend({
 
 const inventoryEntryParamsSchema = inventoryParamsSchema.extend({
   entryId: z.string().trim().min(1),
-})
-
-const catalogItemParamsSchema = campaignParamsSchema.extend({
-  contentId: z.string().trim().min(1),
 })
 
 async function findActiveMember(campaignId: string, userId: string) {
@@ -475,103 +470,5 @@ export function registerInventoryRoutes(app: FastifyInstance) {
 
     await prisma.inventoryEntry.delete({ where: { id: existing.id } })
     return reply.status(204).send()
-  })
-
-  app.post('/api/campaigns/:campaignId/catalog/items/:contentId/send', async (req, reply) => {
-    const auth = requireAuth(req, reply)
-    if (!auth) return
-
-    const params = catalogItemParamsSchema.safeParse(req.params)
-    const body = sendCatalogItemSchema.safeParse(req.body ?? {})
-    if (!params.success || !body.success) {
-      return reply.status(400).send({ error: body.success ? 'Item de catalogo invalido' : body.error.flatten() })
-    }
-
-    const master = await prisma.campaignMember.findFirst({
-      where: {
-        campaignId: params.data.campaignId,
-        userId: auth.id,
-        role: 'MASTER',
-        status: 'ACTIVE',
-      },
-      select: {
-        id: true,
-        campaign: { select: { gameSystem: true } },
-      },
-    })
-    if (!master) return reply.status(403).send({ error: 'Apenas o Mestre pode enviar itens' })
-
-    const recipientActor = await prisma.campaignActor.findFirst({
-      where: {
-        id: body.data.recipientActorId,
-        campaignId: params.data.campaignId,
-        controllerMember: {
-          is: {
-            role: 'PLAYER',
-            status: 'ACTIVE',
-          },
-        },
-      },
-      select: {
-        id: true,
-        name: true,
-        avatarUrl: true,
-        controllerMember: {
-          select: {
-            id: true,
-            userId: true,
-            user: { select: { email: true } },
-          },
-        },
-      },
-    })
-    if (!recipientActor?.controllerMember) {
-      return reply.status(404).send({ error: 'Ator destinatario nao encontrado na campanha' })
-    }
-
-    const gameSystem = master.campaign.gameSystem as GameSystemKey
-    const provider = getGameSystemCatalogProvider(gameSystem)
-    if (!provider?.getInventoryItemData) {
-      return reply.status(409).send({ error: 'O sistema da campanha nao permite enviar itens do catalogo' })
-    }
-
-    const itemData = await provider.getInventoryItemData({
-      campaignId: params.data.campaignId,
-      domain: 'ITEMS',
-      locale: 'en-US',
-      contentId: params.data.contentId,
-    })
-    if (!itemData) return reply.status(404).send({ error: 'Item nao encontrado no catalogo' })
-
-    const result = await addInventoryItem({
-      actorId: recipientActor.id,
-      gameSystem,
-      quantity: body.data.quantity,
-      data: itemData,
-      stack: true,
-      catalogNamespace: getInventoryCatalogNamespace(gameSystem, provider),
-      catalogContentId: params.data.contentId,
-    })
-    if (!result.ok) {
-      return reply.status(409).send({
-        error: `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`,
-      })
-    }
-
-    return reply.status(201).send({
-      recipient: {
-        recipientActorId: recipientActor.id,
-        memberId: recipientActor.controllerMember.id,
-        userId: recipientActor.controllerMember.userId,
-        email: recipientActor.controllerMember.user.email,
-        actor: {
-          id: recipientActor.id,
-          name: recipientActor.name,
-          avatarUrl: recipientActor.avatarUrl,
-        },
-      },
-      entry: presentInventoryEntry(result.entry, gameSystem),
-      stacked: result.stacked,
-    })
   })
 }

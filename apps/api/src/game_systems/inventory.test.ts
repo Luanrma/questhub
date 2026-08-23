@@ -69,6 +69,71 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.canStack(arrows, { ...arrows }), true)
   assert.equal(pathfinder2eInventoryPolicy.canStack(ration, { ...ration }), true)
   assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.iconKey, 'weapon')
+  assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.catalogDomainKey, 'ITEMS')
+})
+
+test('shared inventory forwards opaque catalog routing without concrete domain names', () => {
+  const source = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'web',
+      'src',
+      'game-systems',
+      'CampaignInventoryModal.tsx',
+    ),
+    'utf8',
+  )
+
+  assert.match(source, /catalogDomainKey/)
+  assert.doesNotMatch(source, /\b(?:BESTIARY|SPELLS|ITEMS)\b/)
+})
+
+test('shared inventory delivery resolves a registered domain instead of naming Items', () => {
+  const backend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'api',
+      'src',
+      'game_systems',
+      'inventory_api',
+      'actor-recipient-routes.ts',
+    ),
+    'utf8',
+  )
+  const legacyBackend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'api',
+      'src',
+      'game_systems',
+      'inventory_api',
+      'routes.ts',
+    ),
+    'utf8',
+  )
+  const frontend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'web',
+      'src',
+      'game-systems',
+      'CatalogItemSendModal.tsx',
+    ),
+    'utf8',
+  )
+
+  assert.match(backend, /catalog\/:domain\/:contentId\/send-to-actor/)
+  assert.match(backend, /getGameSystemCatalogDomainDescriptor/)
+  assert.match(backend, /canSendToActorInventory/)
+  assert.doesNotMatch(backend, /domain:\s*['"]ITEMS['"]/)
+  assert.doesNotMatch(legacyBackend, /catalog\/items/)
+  assert.doesNotMatch(legacyBackend, /domain:\s*['"]ITEMS['"]/)
+  assert.match(frontend, /domain\.slug/)
+  assert.doesNotMatch(frontend, /catalog\/items/)
 })
 
 test('campaign actor persistence replaces the global Character model', () => {
