@@ -1,6 +1,7 @@
 export type GameSystemKey = 'PATHFINDER_2E'
 export type GameSystemCatalogDomain = string
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
+export type GameSystemCatalogIcon = 'activity' | 'backpack' | 'book-open' | 'sparkles' | 'swords'
 
 export type GameSystemCatalogDomainCapabilities = {
   canSendToActorInventory?: boolean
@@ -11,6 +12,7 @@ export type GameSystemCatalogDomainDescriptor = {
   key: GameSystemCatalogDomain
   slug: string
   label: string
+  icon?: GameSystemCatalogIcon
   capabilities?: GameSystemCatalogDomainCapabilities
 }
 
