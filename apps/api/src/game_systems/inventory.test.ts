@@ -89,6 +89,39 @@ test('shared inventory forwards opaque catalog routing without concrete domain n
   assert.doesNotMatch(source, /\b(?:BESTIARY|SPELLS|ITEMS)\b/)
 })
 
+test('shared inventory delivery resolves a registered domain instead of naming Items', () => {
+  const backend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'api',
+      'src',
+      'game_systems',
+      'inventory_api',
+      'actor-recipient-routes.ts',
+    ),
+    'utf8',
+  )
+  const frontend = readFileSync(
+    path.join(
+      process.cwd(),
+      'apps',
+      'web',
+      'src',
+      'game-systems',
+      'CatalogItemSendModal.tsx',
+    ),
+    'utf8',
+  )
+
+  assert.match(backend, /catalog\/:domain\/:contentId\/send-to-actor/)
+  assert.match(backend, /getGameSystemCatalogDomainDescriptor/)
+  assert.match(backend, /canSendToActorInventory/)
+  assert.doesNotMatch(backend, /domain:\s*['"]ITEMS['"]/)
+  assert.match(frontend, /domain\.slug/)
+  assert.doesNotMatch(frontend, /catalog\/items/)
+})
+
 test('campaign actor persistence replaces the global Character model', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const actorModel = prismaModel(schema, 'CampaignActor')
