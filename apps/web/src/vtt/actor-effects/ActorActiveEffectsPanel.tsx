@@ -14,6 +14,7 @@ import { api, ApiError } from '../../lib/api'
 import { CampaignActiveEffectDefinitionModal } from './CampaignActiveEffectDefinitionModal'
 import { publishLocalActorEffectsChanged } from './localInvalidation'
 import { useActorActiveEffects } from './useActorActiveEffects'
+import { useCanonicalActorEffectPresentations } from './useCanonicalActorEffectPresentations'
 import type {
   ActorEffectPolarity,
   ActorEffectPresentationResolver,
@@ -125,6 +126,7 @@ export function ActorActiveEffectsPanel({
   resolvePresentation,
 }: Props) {
   const { effects, loading, error, reload } = useActorActiveEffects(campaignId, actorId)
+  const canonicalPresentations = useCanonicalActorEffectPresentations(campaignId, effects)
   const [overlay, setOverlay] = useState<OverlayState>(null)
   const [detailEffectId, setDetailEffectId] = useState<string | null>(null)
   const [detailReturnsToAll, setDetailReturnsToAll] = useState(false)
@@ -141,8 +143,12 @@ export function ActorActiveEffectsPanel({
 
   function resolved(effect: ActorEffectView) {
     const presentation = resolvePresentation?.(effect) ?? null
+    const canonical = effect.definitionKey
+      ? canonicalPresentations[effect.definitionKey] ?? null
+      : null
     return {
-      iconUrl: presentation?.iconUrl ?? effect.iconUrl,
+      name: canonical?.name ?? effect.name,
+      iconUrl: canonical?.iconUrl ?? presentation?.iconUrl ?? effect.iconUrl,
       summary: presentation?.summary ?? effect.description,
     }
   }
@@ -174,6 +180,7 @@ export function ActorActiveEffectsPanel({
   }
 
   function openEdit(effect: ActorEffectView) {
+    if (effect.definitionKey) return
     setDetailEffectId(null)
     setDetailReturnsToAll(false)
     setDraft(draftFromEffect(effect))
@@ -188,6 +195,14 @@ export function ActorActiveEffectsPanel({
 
   async function saveEffect() {
     if (!canManage || saving || !draft.name.trim()) return
+    if (overlay?.kind === 'edit') {
+      const target = effects.find((effect) => effect.id === overlay.effectId)
+      if (!target || target.definitionKey) {
+        setMutationError('Efeitos vinculados a uma definição canônica são somente leitura.')
+        return
+      }
+    }
+
     setSaving(true)
     setMutationError(null)
 
@@ -223,7 +238,7 @@ export function ActorActiveEffectsPanel({
 
   async function removeEffect(effect: ActorEffectView) {
     if (!canManage || saving) return
-    if (!window.confirm(`Remover o efeito “${effect.name}”?`)) return
+    if (!window.confirm(`Remover o efeito “${resolved(effect).name}”?`)) return
 
     setSaving(true)
     setMutationError(null)
@@ -309,10 +324,10 @@ export function ActorActiveEffectsPanel({
               type="button"
               onClick={() => openDetail(effect)}
               className={`inline-flex max-w-56 items-center gap-1.5 rounded-md border px-2 py-1 text-left text-xs font-semibold text-[#3f352b] transition ${visual.chipClass}`}
-              title={effect.name}
+              title={presentation.name}
             >
               <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
-              <span className="truncate">{effect.name}</span>
+              <span className="truncate">{presentation.name}</span>
               {effect.displayValue ? (
                 <span className="shrink-0 rounded bg-black/10 px-1 py-0.5 text-[10px] font-bold">{effect.displayValue}</span>
               ) : null}
@@ -376,7 +391,7 @@ export function ActorActiveEffectsPanel({
                       >
                         <EffectIcon effect={effect} resolvedIconUrl={presentation.iconUrl} />
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-sm font-semibold">{effect.name}</span>
+                          <span className="block truncate text-sm font-semibold">{presentation.name}</span>
                           <span className="block truncate text-xs text-[#6b5d4d]">
                             {effect.displayValue || presentation.summary || visual.label}
                           </span>
@@ -384,20 +399,22 @@ export function ActorActiveEffectsPanel({
                       </button>
                       {canManage ? (
                         <div className="flex shrink-0 items-center gap-1">
-                          <button
-                            type="button"
-                            onClick={() => openEdit(effect)}
-                            className="rounded-md border border-[#6d4ac8]/25 bg-[#6d4ac8]/10 p-1.5 text-[#4d2c91] hover:bg-[#6d4ac8]/20"
-                            aria-label={`Editar ${effect.name}`}
-                            title="Editar"
-                          >
-                            <Pencil className="h-3.5 w-3.5" />
-                          </button>
+                          {!effect.definitionKey ? (
+                            <button
+                              type="button"
+                              onClick={() => openEdit(effect)}
+                              className="rounded-md border border-[#6d4ac8]/25 bg-[#6d4ac8]/10 p-1.5 text-[#4d2c91] hover:bg-[#6d4ac8]/20"
+                              aria-label={`Editar ${presentation.name}`}
+                              title="Editar"
+                            >
+                              <Pencil className="h-3.5 w-3.5" />
+                            </button>
+                          ) : null}
                           <button
                             type="button"
                             onClick={() => void removeEffect(effect)}
                             className="rounded-md border border-rose-700/25 bg-rose-950/10 p-1.5 text-rose-900 hover:bg-rose-950/20"
-                            aria-label={`Remover ${effect.name}`}
+                            aria-label={`Remover ${presentation.name}`}
                             title="Remover"
                           >
                             <Trash2 className="h-3.5 w-3.5" />

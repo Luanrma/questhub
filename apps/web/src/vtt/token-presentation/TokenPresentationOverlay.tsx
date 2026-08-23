@@ -3,6 +3,7 @@ import { CircleDot, ShieldCheck, TriangleAlert } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { CampaignActiveEffectDefinitionModal } from '../actor-effects/CampaignActiveEffectDefinitionModal'
 import type { ActorEffectView } from '../actor-effects/types'
+import { useCanonicalActorEffectPresentations } from '../actor-effects/useCanonicalActorEffectPresentations'
 import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
 import type {
   TokenIndicatorPresentation,
@@ -56,16 +57,28 @@ function EffectFallbackIcon({ effect, compact }: { effect: ActorEffectView; comp
   return <CircleDot className={className} />
 }
 
-function EffectGlyph({ effect, compact = false }: { effect: ActorEffectView; compact?: boolean }) {
+function EffectGlyph({
+  effect,
+  compact = false,
+  displayName,
+  resolvedIconUrl,
+}: {
+  effect: ActorEffectView
+  compact?: boolean
+  displayName?: string
+  resolvedIconUrl?: string | null
+}) {
   const sizeClass = compact ? 'h-[18px] w-[18px]' : 'h-9 w-9'
+  const name = displayName ?? effect.name
+  const iconUrl = resolvedIconUrl ?? effect.iconUrl
   return (
     <span
       className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border shadow-lg ${sizeClass} ${effectClass(effect)}`}
-      title={`${effect.name}${effect.displayValue ? ` ${effect.displayValue}` : ''}`}
+      title={`${name}${effect.displayValue ? ` ${effect.displayValue}` : ''}`}
     >
-      {effect.iconUrl ? (
+      {iconUrl ? (
         <img
-          src={effect.iconUrl}
+          src={iconUrl}
           alt=""
           draggable={false}
           className="h-full w-full object-cover"
@@ -89,11 +102,22 @@ function ActiveEffectIndicators({
   campaignId?: string
   effects: ActorEffectView[]
 }) {
+  const canonicalPresentations = useCanonicalActorEffectPresentations(campaignId, effects)
   const [open, setOpen] = useState(false)
   const [selectedEffect, setSelectedEffect] = useState<ActorEffectView | null>(null)
   const rootRef = useRef<HTMLDivElement | null>(null)
   const visibleEffects = effects.slice(0, 3)
   const hiddenCount = Math.max(0, effects.length - visibleEffects.length)
+
+  function resolved(effect: ActorEffectView) {
+    const canonical = effect.definitionKey
+      ? canonicalPresentations[effect.definitionKey] ?? null
+      : null
+    return {
+      name: canonical?.name ?? effect.name,
+      iconUrl: canonical?.iconUrl ?? effect.iconUrl,
+    }
+  }
 
   useEffect(() => {
     if (!open) return
@@ -144,9 +168,18 @@ function ActiveEffectIndicators({
             setOpen((current) => !current)
           }}
         >
-          {visibleEffects.map((effect) => (
-            <EffectGlyph key={effect.id} effect={effect} compact />
-          ))}
+          {visibleEffects.map((effect) => {
+            const presentation = resolved(effect)
+            return (
+              <EffectGlyph
+                key={effect.id}
+                effect={effect}
+                compact
+                displayName={presentation.name}
+                resolvedIconUrl={presentation.iconUrl}
+              />
+            )
+          })}
           {hiddenCount > 0 ? (
             <span className="grid h-[18px] min-w-[18px] place-items-center rounded-full border border-zinc-300/50 bg-zinc-950/95 px-1 text-[8px] font-black text-zinc-100 shadow-lg">
               +{hiddenCount}
@@ -173,32 +206,39 @@ function ActiveEffectIndicators({
 
             <div className="max-h-[min(20rem,55vh)] overflow-y-auto overflow-x-hidden p-2" data-token-active-effects-list>
               <div className="grid min-w-0 gap-1.5">
-                {effects.map((effect) => (
-                  <button
-                    key={effect.id}
-                    type="button"
-                    onClick={() => openDetail(effect)}
-                    className="group flex min-w-0 w-full items-center gap-2.5 rounded-lg border border-white/8 bg-white/[0.035] px-2.5 py-2 text-left transition hover:border-white/18 hover:bg-white/[0.075] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30"
-                  >
-                    <EffectGlyph effect={effect} />
-                    <span className="min-w-0 flex-1 overflow-hidden">
-                      <span className="block min-w-0 break-words text-xs font-semibold leading-4 text-zinc-100">
-                        {effect.name}
-                        {effect.displayValue ? ` ${effect.displayValue}` : ''}
+                {effects.map((effect) => {
+                  const presentation = resolved(effect)
+                  return (
+                    <button
+                      key={effect.id}
+                      type="button"
+                      onClick={() => openDetail(effect)}
+                      className="group flex min-w-0 w-full items-center gap-2.5 rounded-lg border border-white/8 bg-white/[0.035] px-2.5 py-2 text-left transition hover:border-white/18 hover:bg-white/[0.075] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30"
+                    >
+                      <EffectGlyph
+                        effect={effect}
+                        displayName={presentation.name}
+                        resolvedIconUrl={presentation.iconUrl}
+                      />
+                      <span className="min-w-0 flex-1 overflow-hidden">
+                        <span className="block min-w-0 break-words text-xs font-semibold leading-4 text-zinc-100">
+                          {presentation.name}
+                          {effect.displayValue ? ` ${effect.displayValue}` : ''}
+                        </span>
+                        <span className="mt-1 flex min-w-0 flex-wrap items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.08em] text-zinc-500">
+                          <span>{effectPolarityLabel(effect)}</span>
+                          {effectCategoryLabel(effect) ? (
+                            <>
+                              <span aria-hidden="true">•</span>
+                              <span>{effectCategoryLabel(effect)}</span>
+                            </>
+                          ) : null}
+                        </span>
                       </span>
-                      <span className="mt-1 flex min-w-0 flex-wrap items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.08em] text-zinc-500">
-                        <span>{effectPolarityLabel(effect)}</span>
-                        {effectCategoryLabel(effect) ? (
-                          <>
-                            <span aria-hidden="true">•</span>
-                            <span>{effectCategoryLabel(effect)}</span>
-                          </>
-                        ) : null}
-                      </span>
-                    </span>
-                    <span aria-hidden="true" className="shrink-0 text-sm text-zinc-600 transition group-hover:translate-x-0.5 group-hover:text-zinc-300">›</span>
-                  </button>
-                ))}
+                      <span aria-hidden="true" className="shrink-0 text-sm text-zinc-600 transition group-hover:translate-x-0.5 group-hover:text-zinc-300">›</span>
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { api, ApiError } from '../../lib/api'
+import { CAMPAIGN_USER_SETTINGS_CHANGED_EVENT } from '../dice-roller/infrastructure/storage/diceThemeStorage'
 import { normalizeActorEffectPresentationText } from './presentationText'
 import {
   ActiveEffectDefinitionModal,
@@ -25,6 +26,7 @@ type Presentation = {
 
 type Response = {
   gameSystem: string
+  locale: ActiveEffectDefinitionLocale
   presentation: Presentation
 }
 
@@ -56,14 +58,18 @@ function fallbackTags(effect: ActorEffectView): ActiveEffectDefinitionTag[] {
 }
 
 export function CampaignActiveEffectDefinitionModal({ campaignId, effect, onClose }: Props) {
-  const [locale, setLocale] = useState<ActiveEffectDefinitionLocale>('pt-BR')
+  const [localeOverride, setLocaleOverride] = useState<ActiveEffectDefinitionLocale | null>(null)
+  const [resolvedLocale, setResolvedLocale] = useState<ActiveEffectDefinitionLocale>('pt-BR')
   const [presentation, setPresentation] = useState<Presentation | null>(null)
   const [loading, setLoading] = useState(Boolean(campaignId && effect.definitionKey))
   const [error, setError] = useState<string | null>(null)
+  const [settingsRevision, setSettingsRevision] = useState(0)
   const canonical = Boolean(campaignId && effect.definitionKey)
+  const locale = localeOverride ?? resolvedLocale
 
   useEffect(() => {
-    setLocale('pt-BR')
+    setLocaleOverride(null)
+    setResolvedLocale('pt-BR')
     setPresentation(null)
     setError(null)
   }, [effect.id])
@@ -77,12 +83,16 @@ export function CampaignActiveEffectDefinitionModal({ campaignId, effect, onClos
     const controller = new AbortController()
     setLoading(true)
     setError(null)
+    const basePath = `/api/campaigns/${encodeURIComponent(campaignId)}/game-system-effects/definitions/${encodeURIComponent(effect.definitionKey)}`
+    const requestPath = localeOverride
+      ? `${basePath}?locale=${encodeURIComponent(localeOverride)}`
+      : basePath
 
-    api<Response>(
-      `/api/campaigns/${encodeURIComponent(campaignId)}/game-system-effects/definitions/${encodeURIComponent(effect.definitionKey)}?locale=${locale}`,
-      { signal: controller.signal },
-    )
-      .then((response) => setPresentation(response.presentation))
+    api<Response>(requestPath, { signal: controller.signal })
+      .then((response) => {
+        setPresentation(response.presentation)
+        setResolvedLocale(response.locale)
+      })
       .catch((cause) => {
         if (controller.signal.aborted) return
         setPresentation(null)
@@ -93,7 +103,19 @@ export function CampaignActiveEffectDefinitionModal({ campaignId, effect, onClos
       })
 
     return () => controller.abort()
-  }, [campaignId, effect.definitionKey, locale])
+  }, [campaignId, effect.definitionKey, localeOverride, settingsRevision])
+
+  useEffect(() => {
+    if (!campaignId || localeOverride) return
+
+    function onCampaignSettingsChanged(event: Event) {
+      const detail = (event as CustomEvent<{ campaignId?: string }>).detail
+      if (detail?.campaignId === campaignId) setSettingsRevision((current) => current + 1)
+    }
+
+    window.addEventListener(CAMPAIGN_USER_SETTINGS_CHANGED_EVENT, onCampaignSettingsChanged)
+    return () => window.removeEventListener(CAMPAIGN_USER_SETTINGS_CHANGED_EVENT, onCampaignSettingsChanged)
+  }, [campaignId, localeOverride])
 
   const fallbackDescription = useMemo(() => {
     const normalized = normalizeActorEffectPresentationText(effect.description)
@@ -118,7 +140,7 @@ export function CampaignActiveEffectDefinitionModal({ campaignId, effect, onClos
       localeEnabled={canonical}
       loading={loading && useFallback}
       error={error}
-      onLocaleChange={setLocale}
+      onLocaleChange={setLocaleOverride}
       onClose={onClose}
     />
   )

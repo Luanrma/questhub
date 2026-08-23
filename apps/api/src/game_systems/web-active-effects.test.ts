@@ -8,6 +8,7 @@ const webRoot = path.join(root, 'apps', 'web', 'src')
 const panelFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActorActiveEffectsPanel.tsx')
 const hookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useActorActiveEffects.ts')
 const tokenEffectHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useTokenActiveEffects.ts')
+const canonicalPresentationHookFile = path.join(webRoot, 'vtt', 'actor-effects', 'useCanonicalActorEffectPresentations.ts')
 const localInvalidationFile = path.join(webRoot, 'vtt', 'actor-effects', 'localInvalidation.ts')
 const presentationTextFile = path.join(webRoot, 'vtt', 'actor-effects', 'presentationText.ts')
 const sharedDefinitionModalFile = path.join(webRoot, 'vtt', 'actor-effects', 'ActiveEffectDefinitionModal.tsx')
@@ -85,15 +86,16 @@ test('successful manual mutations publish local invalidation as well as reloadin
   assert.doesNotMatch(invalidation, /setInterval|setTimeout/)
 })
 
-test('sheet management stays separate from the canonical read-only detail modal', () => {
+test('sheet management keeps canonical definitions read-only while manual effects remain editable', () => {
   const source = read(panelFile)
 
   assert.match(source, /CampaignActiveEffectDefinitionModal/)
   assert.match(source, /function openDetail\(effect: ActorEffectView/)
-  assert.match(source, /function openEdit\(effect: ActorEffectView/)
+  assert.match(source, /function openEdit\(effect: ActorEffectView\) \{[\s\S]*if \(effect\.definitionKey\) return/)
+  assert.match(source, /!effect\.definitionKey \? \([\s\S]*<Pencil/)
+  assert.match(source, /target\.definitionKey[\s\S]*somente leitura/)
   assert.match(source, /removeEffect\(effect\)/)
   assert.doesNotMatch(source, /kind: 'detail'/)
-  assert.match(source, /function closeOverlay\(\)[\s\S]*setMutationError\(null\)[\s\S]*setOverlay\(null\)/)
 })
 
 test('actor effect realtime refresh filters campaign and actor and never polls', () => {
@@ -102,6 +104,22 @@ test('actor effect realtime refresh filters campaign and actor and never polls',
   assert.match(source, /payload\.campaignId !== activeCampaignId \|\| payload\.actorId !== activeActorId/)
   assert.match(source, /socket\?\.on\('connect', refresh\)/)
   assert.doesNotMatch(source, /setInterval|setTimeout/)
+})
+
+test('canonical actor effect presentation is preloaded in batches and refreshes when campaign settings change', () => {
+  const hook = read(canonicalPresentationHookFile)
+  const panel = read(panelFile)
+  const overlay = read(tokenPresentationOverlayFile)
+
+  assert.match(hook, /MAX_DEFINITIONS_PER_REQUEST = 100/)
+  assert.match(hook, /game-system-effects\/presentations/)
+  assert.match(hook, /definitionKeys: batch\.join\(','\)/)
+  assert.match(hook, /CAMPAIGN_USER_SETTINGS_CHANGED_EVENT/)
+  assert.match(hook, /detail\?\.campaignId !== campaignId/)
+  assert.match(panel, /useCanonicalActorEffectPresentations\(campaignId, effects\)/)
+  assert.match(panel, /name: canonical\?\.name \?\? effect\.name/)
+  assert.match(overlay, /useCanonicalActorEffectPresentations\(campaignId, effects\)/)
+  assert.match(overlay, /name: canonical\?\.name \?\? effect\.name/)
 })
 
 test('sheet actor context is resolved by Core and not by a concrete game-system renderer', () => {
@@ -164,9 +182,8 @@ test('token effect summary caps at three and the expanded list stays compact wit
   assert.match(overlay, /effects\.map\(\(effect\) =>/)
   assert.match(overlay, /openDetail\(effect\)/)
   assert.match(overlay, /CampaignActiveEffectDefinitionModal/)
+  assert.match(overlay, /presentation\.name/)
   assert.match(overlay, /effect\.displayValue/)
-  assert.match(overlay, /effect\.polarity/)
-  assert.match(overlay, /effect\.category/)
   assert.match(overlay, /overflow-y-auto overflow-x-hidden/)
   assert.doesNotMatch(overlay, /overflow-x-(?:auto|scroll)/)
   assert.doesNotMatch(overlay, /effect\.description/)
@@ -192,7 +209,8 @@ test('sheet, token and content references converge on the same shared definition
   assert.match(overlay, /<CampaignActiveEffectDefinitionModal[\s\S]*campaignId=\{campaignId\}[\s\S]*effect=\{selectedEffect\}/)
   assert.match(campaignDefinition, /<ActiveEffectDefinitionModal/)
   assert.match(pf2eDefinition, /<ActiveEffectDefinitionModal/)
-  assert.match(campaignDefinition, /game-system-effects\/definitions\/\$\{encodeURIComponent\(effect\.definitionKey\)\}\?locale=\$\{locale\}/)
+  assert.match(campaignDefinition, /const basePath = `\/api\/campaigns\/\$\{encodeURIComponent\(campaignId\)\}\/game-system-effects\/definitions\/\$\{encodeURIComponent\(effect\.definitionKey\)\}`/)
+  assert.match(campaignDefinition, /const requestPath = localeOverride[\s\S]*\?locale=/)
   assert.match(campaignDefinition, /localeEnabled=\{canonical\}/)
   assert.match(pf2eDefinition, /localeEnabled/)
   assert.match(sharedDefinition, /Português \(Brasil\)/)
@@ -200,6 +218,16 @@ test('sheet, token and content references converge on the same shared definition
   assert.match(sharedDefinition, /descriptionBlocks\.map/)
   assert.match(sharedDefinition, /createPortal\(/)
   assert.doesNotMatch(sharedDefinition, /dangerouslySetInnerHTML/)
+})
+
+test('canonical effect detail starts from campaign preference and reacts to settings until locally overridden', () => {
+  const source = read(campaignDefinitionModalFile)
+
+  assert.match(source, /useState<ActiveEffectDefinitionLocale \| null>\(null\)/)
+  assert.match(source, /localeOverride \?[^:]*`\$\{basePath\}\?locale=/)
+  assert.match(source, /setResolvedLocale\(response\.locale\)/)
+  assert.match(source, /CAMPAIGN_USER_SETTINGS_CHANGED_EVENT/)
+  assert.match(source, /if \(!campaignId \|\| localeOverride\) return/)
 })
 
 test('token effect canonical lookup falls back safely for manual or unavailable definitions', () => {
@@ -242,6 +270,7 @@ test('generic actor effects UI contains no concrete game-system semantics', () =
     read(panelFile),
     read(hookFile),
     read(tokenEffectHookFile),
+    read(canonicalPresentationHookFile),
     read(localInvalidationFile),
     read(presentationTextFile),
     read(sharedDefinitionModalFile),

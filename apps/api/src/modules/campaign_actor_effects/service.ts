@@ -85,18 +85,20 @@ export async function updateActorEffectPresentation(
 ) {
   return prisma.$transaction(async (tx) => {
     const actor = await lockActiveActor(tx, actorId)
-    if (!actor) return null
+    if (!actor) return { status: 'NOT_FOUND' as const }
 
     const existing = await tx.campaignActorEffect.findFirst({
       where: { id: effectId, actorId: actor.id },
-      select: { id: true },
+      select: { id: true, definitionKey: true },
     })
-    if (!existing) return null
+    if (!existing) return { status: 'NOT_FOUND' as const }
+    if (existing.definitionKey) return { status: 'CANONICAL_READ_ONLY' as const }
 
-    return tx.campaignActorEffect.update({
+    const effect = await tx.campaignActorEffect.update({
       where: { id: existing.id },
       data: input,
     })
+    return { status: 'UPDATED' as const, effect }
   })
 }
 

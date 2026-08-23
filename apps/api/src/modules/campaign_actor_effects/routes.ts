@@ -233,15 +233,22 @@ export function registerCampaignActorEffectRoutes(app: FastifyInstance, io: Serv
       return reply.status(403).send({ error: 'Apenas o Mestre pode alterar efeitos ativos' })
     }
 
-    const effect = await updateActorEffectPresentation(
+    const result = await updateActorEffectPresentation(
       access.actor.id,
       params.data.effectId,
       body.data,
     )
-    if (!effect) return reply.status(404).send({ error: 'Efeito ativo nao encontrado' })
+    if (result.status === 'NOT_FOUND') {
+      return reply.status(404).send({ error: 'Efeito ativo nao encontrado' })
+    }
+    if (result.status === 'CANONICAL_READ_ONLY') {
+      return reply.status(409).send({
+        error: 'Efeitos vinculados a definicoes canonicas sao somente leitura',
+      })
+    }
 
     publishActorEffectsChanged(io, params.data.campaignId, access.actor.id)
-    return reply.send(effect)
+    return reply.send(result.effect)
   })
 
   app.delete('/api/campaigns/:campaignId/actors/:actorId/effects/:effectId', async (req, reply) => {

@@ -33,13 +33,37 @@ test('composition delegates semantic resolution to PF2e and persistence to gener
   assert.match(source, /archivedAt: null/)
 })
 
-test('QH-EFF-014 composes manual definition discovery from the QH-EFF-013 query contract', () => {
+test('manual definition discovery uses the canonical query contract and the effective user locale', () => {
   const source = readFileSync(routeFile, 'utf8')
 
   assert.match(source, /listPathfinder2eActiveEffectDefinitionViews/)
-  assert.match(source, /locale: 'pt-BR'/)
+  assert.match(source, /resolvePathfinder2eContentLocale/)
+  assert.match(source, /locale,/)
   assert.match(source, /conditionValue\?\.isValued/)
   assert.doesNotMatch(source, /searchPathfinder2eEffectDefinitions/)
+})
+
+test('canonical effect presentation derives locale from campaign user settings with pt-BR default and explicit override support', () => {
+  const source = readFileSync(routeFile, 'utf8')
+
+  assert.match(source, /campaignUserSettings\.findUnique/)
+  assert.match(source, /settings\.pathfinder2e/)
+  assert.match(source, /pathfinder2e\.contentLocale === 'en-US' \? 'en-US' : 'pt-BR'/)
+  assert.match(source, /if \(override\) return override/)
+  assert.match(source, /definitionDetailQuerySchema = z\.object\(\{[\s\S]*locale: localeSchema\.optional\(\)/)
+  assert.match(source, /definitionPresentationsQuerySchema = z\.object\(\{[\s\S]*locale: localeSchema\.optional\(\)/)
+})
+
+test('batch canonical presentations use one effective locale for every requested definition key', () => {
+  const source = readFileSync(routeFile, 'utf8')
+  const presentationsStart = source.indexOf("app.get('/api/campaigns/:campaignId/game-system-effects/presentations'")
+  const detailStart = source.indexOf("app.get('/api/campaigns/:campaignId/game-system-effects/definitions/:definitionKey'", presentationsStart)
+  assert.ok(presentationsStart >= 0 && detailStart > presentationsStart)
+
+  const route = source.slice(presentationsStart, detailStart)
+  assert.match(route, /const locale = await resolvePathfinder2eContentLocale/)
+  assert.match(route, /getPathfinder2eActiveEffectDefinitionView\(definitionKey, locale\)/)
+  assert.match(route, /locale,[\s\S]*presentations,/)
 })
 
 test('canonical effect detail is exposed through a read-only campaign composition seam', () => {

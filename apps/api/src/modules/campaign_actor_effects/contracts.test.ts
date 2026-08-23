@@ -93,6 +93,30 @@ test('effect identity and opaque game-system state stay immutable through PATCH'
   assert.match(updateType, /displayValue\?: string \| null/)
 })
 
+test('canonical linked effects reject presentation PATCH while manual effects remain editable', () => {
+  const service = read(serviceFile)
+  const routes = read(routesFile)
+
+  assert.match(service, /select: \{ id: true, definitionKey: true \}/)
+  assert.match(service, /if \(existing\.definitionKey\) return \{ status: 'CANONICAL_READ_ONLY' as const \}/)
+  assert.match(service, /status: 'UPDATED' as const, effect/)
+  assert.match(routes, /result\.status === 'CANONICAL_READ_ONLY'/)
+  assert.match(routes, /reply\.status\(409\)/)
+  assert.match(routes, /definicoes canonicas sao somente leitura/)
+})
+
+test('canonical linked effects can still be removed without mutating their definition', () => {
+  const service = read(serviceFile)
+  const routes = read(routesFile)
+
+  const deleteStart = service.indexOf('export async function deleteActorEffect')
+  assert.ok(deleteStart >= 0)
+  const deleteService = service.slice(deleteStart)
+  assert.match(deleteService, /campaignActorEffect\.delete/)
+  assert.doesNotMatch(deleteService, /definitionKey|CANONICAL_READ_ONLY/)
+  assert.match(routes, /app\.delete\('\/api\/campaigns\/:campaignId\/actors\/:actorId\/effects\/:effectId'/)
+})
+
 test('effect mutation publishes one generic campaign invalidation contract', () => {
   const source = read(routesFile)
 
@@ -102,7 +126,7 @@ test('effect mutation publishes one generic campaign invalidation contract', () 
   assert.equal(
     [...source.matchAll(/publishActorEffectsChanged\(io,/g)].length,
     3,
-    'POST, PATCH and DELETE must each publish invalidation',
+    'POST, successful PATCH and DELETE each publish through the shared invalidation helper',
   )
 })
 
