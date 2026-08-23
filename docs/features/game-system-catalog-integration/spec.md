@@ -97,11 +97,46 @@ neutro nem o registrador de Pathfinder.
 
 A coexistencia no mesmo processo HTTP nao torna um sistema modulo do VTT.
 
-## 5. Catalogo suportado
+## 5. Descritor do sistema e Compendio
 
-O VTT pode conhecer apenas descritores neutros dos sistemas suportados, limitados
-a nome/chave. Esse catalogo nao expoe handlers, schemas, regras, tipos mecanicos
-ou capacidades internas e nao e necessario para montar o servidor base.
+O VTT conhece somente metadados neutros publicados pelo Game System. O descritor
+pode anunciar os dominios disponiveis no Compendio, mas nao pode expor regras,
+schemas mecanicos ou tipos concretos no contrato compartilhado.
+
+O dominio e opaco para o Core:
+
+```ts
+type GameSystemCatalogDomainDescriptor = {
+  key: string
+  slug: string
+  label: string
+  capabilities?: {
+    canSendToActorInventory?: boolean
+    areaEffectBindingNamespace?: string
+  }
+}
+```
+
+Regras obrigatorias:
+
+1. `key` e identificador opaco pertencente ao Game System; o Core nao mantem enum
+   com `BESTIARY`, `SPELLS`, `ITEMS`, `EFFECTS` ou equivalentes;
+2. `slug` e a parte estavel da rota HTTP e e resolvido contra o descritor do
+   sistema configurado na campanha;
+3. `label` e apresentacao fornecida pelo sistema, nao um mapa global do VTT;
+4. capabilities sao contratos neutros de integracao com ferramentas genericas;
+   a UI nao identifica capacidades comparando nomes de dominio;
+5. a barra lateral da campanha expoe apenas a entrada `Compendio`;
+6. a navegacao interna do Compendio e montada dinamicamente a partir dos dominios
+   registrados;
+7. registrar um novo dominio nao exige editar o registry HTTP, o menu lateral ou
+   enums compartilhados;
+8. o provider continua recebendo a `key` opaca e e o unico responsavel por
+   interpretar seu significado dentro do sistema concreto.
+
+No Pathfinder 2e, o recorte QH-CMP-001 registra Bestiario, Magias e Itens no
+arquivo de descritor do proprio sistema. Effects e adicionado separadamente em
+QH-CMP-002, reutilizando sua fonte canonica.
 
 ## 6. Criterios de aceitacao
 
@@ -185,6 +220,10 @@ GET  /api/campaigns/:campaignId/game-system/token-capabilities
 POST /api/campaigns/:campaignId/game-system/tokens/:tokenId/duplicate
 GET  /api/campaigns/:campaignId/character-sheets/:sheetId/simplified
 ```
+
+O `:domain` das rotas de catalogo e o `slug` registrado pelo Game System. O
+registry valida esse slug contra o descritor da campanha antes de converter para
+a `key` opaca entregue ao provider.
 
 O `POST` de criacao recebe apenas `{ locale }`. O endpoint de capacidades retorna
 IDs de Tokens e acoes neutras disponiveis. A duplicacao aceita somente Tokens
