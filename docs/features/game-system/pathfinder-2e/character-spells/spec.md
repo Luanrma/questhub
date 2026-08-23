@@ -171,3 +171,9 @@ Regras:
 19. salvar ou restaurar atualiza a sinalização da magia na ficha.
 20. a sinalização da ficha e o ícone de Play do Encounter concordam sobre a
     existência de uma configuração executável.
+
+## Governança da referência futura
+
+- `spellcasting-rules-reference.md` é contexto de produto e referência de regras, não enforcement automático;
+- divergência de uma mesa em relação à referência não é erro técnico;
+- implementações futuras devem preservar uma saída manual/override quando a automação de regra não for requisito explícito.
