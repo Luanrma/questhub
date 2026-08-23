@@ -69,6 +69,7 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.canStack(arrows, { ...arrows }), true)
   assert.equal(pathfinder2eInventoryPolicy.canStack(ration, { ...ration }), true)
   assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.iconKey, 'weapon')
+  assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.catalogDomainKey, 'ITEMS')
 })
 
 test('campaign actor persistence replaces the global Character model', () => {
