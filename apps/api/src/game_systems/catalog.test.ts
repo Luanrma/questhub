@@ -19,8 +19,8 @@ const descriptor = {
   slug: 'pathfinder-2e',
   label: 'Pathfinder 2e',
   catalogDomains: [
-    { key: 'CREATURES', slug: 'creatures', label: 'Creatures' },
-    { key: 'POWERS', slug: 'powers', label: 'Powers' },
+    { key: 'CREATURES', slug: 'creatures', label: 'Creatures', icon: 'swords' },
+    { key: 'POWERS', slug: 'powers', label: 'Powers', icon: 'sparkles' },
   ],
 } as const
 
@@ -134,6 +134,10 @@ test('shared compendium navigation opens opaque domains as independent standard 
     path.join(process.cwd(), 'apps', 'web', 'src', 'components', 'Aside.tsx'),
     'utf8',
   )
+  const domainIcon = readFileSync(
+    path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CatalogDomainIcon.tsx'),
+    'utf8',
+  )
   const modal = readFileSync(
     path.join(process.cwd(), 'apps', 'web', 'src', 'game-systems', 'CampaignCatalogModal.tsx'),
     'utf8',
@@ -157,10 +161,13 @@ test('shared compendium navigation opens opaque domains as independent standard 
   assert.match(aside, /leftInset=\{compendiumLeftInset\}/)
   assert.match(aside, /bottomInset=\{compendiumBottomInset\}/)
   assert.match(aside, /bg-zinc-800\/90 p-2 text-white shadow-2xl backdrop-blur/)
-  assert.match(aside, /<BookOpen size=\{18\} \/><\/span>\s*<span className="min-w-0 flex-1 truncate">\{domain\.label\}/)
+  assert.match(aside, /<CatalogDomainIcon icon=\{domain\.icon\} \/>/)
+  assert.match(domainIcon, /const ICONS/)
+  assert.match(domainIcon, /const Icon = icon \? ICONS\[icon\] : BookOpen/)
   assert.doesNotMatch(aside, />Aberto</)
   assert.doesNotMatch(aside, /const open = compendiumWindows/)
   assert.doesNotMatch(aside, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
+  assert.doesNotMatch(domainIcon, /\b(?:BESTIARY|SPELLS|ITEMS|EFFECTS)\b/)
 
   assert.match(modal, /ResizableEdges/)
   assert.match(modal, /Minimize2/)
