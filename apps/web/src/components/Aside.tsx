@@ -9,6 +9,7 @@ import {
   ChevronUp,
   House,
   Map,
+  Maximize2,
   ScrollText,
   Settings,
   Users,
@@ -41,6 +42,12 @@ type CampaignSystemResponse = {
   characterSheetsAvailable: boolean
 }
 
+type CompendiumWindowState = {
+  domainKey: GameSystemCatalogDomain
+  minimized: boolean
+  zIndex: number
+}
+
 type Props = {
   campaignId: string
   role?: CampaignRole | null
@@ -48,8 +55,8 @@ type Props = {
   onOpenCampaignPanel?: (path: string) => void
 }
 
-const COMPENDIUM_WINDOW_BASE_Z_INDEX = 100
-const COMPENDIUM_WINDOW_Z_INDEX_STEP = 100
+const COMPENDIUM_WINDOW_BASE_Z_INDEX = 200
+const COMPENDIUM_WINDOW_Z_INDEX_STEP = 40
 const COMPACT_SIDEBAR_QUERY = '(max-width: 899px), (max-height: 639px)'
 const COMPACT_SIDEBAR_BOTTOM_INSET = 76
 
@@ -63,11 +70,12 @@ export function Aside({
   const [system, setSystem] = useState<CampaignSystemResponse | null>(null)
   const [compendiumMenuOpen, setCompendiumMenuOpen] = useState(false)
   const [compendiumMenuTop, setCompendiumMenuTop] = useState(0)
-  const [openCompendiumDomainKeys, setOpenCompendiumDomainKeys] = useState<GameSystemCatalogDomain[]>([])
+  const [compendiumWindows, setCompendiumWindows] = useState<CompendiumWindowState[]>([])
   const [compactSidebar, setCompactSidebar] = useState(false)
   const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
   const compendiumButtonRef = useRef<HTMLButtonElement>(null)
+  const compendiumZIndexRef = useRef(COMPENDIUM_WINDOW_BASE_Z_INDEX)
   const catalogDomains = system?.descriptor.catalogDomains ?? []
 
   useEffect(() => {
@@ -95,7 +103,8 @@ export function Aside({
 
   useEffect(() => {
     setCompendiumMenuOpen(false)
-    setOpenCompendiumDomainKeys([])
+    setCompendiumWindows([])
+    compendiumZIndexRef.current = COMPENDIUM_WINDOW_BASE_Z_INDEX
   }, [campaignId])
 
   useEffect(() => registerVttWindow({
@@ -145,15 +154,48 @@ export function Aside({
     setCompendiumMenuOpen((current) => !current)
   }
 
+  function nextCompendiumZIndex() {
+    compendiumZIndexRef.current += COMPENDIUM_WINDOW_Z_INDEX_STEP
+    return compendiumZIndexRef.current
+  }
+
   function openCompendiumDomain(domain: GameSystemCatalogDomainDescriptor) {
-    setOpenCompendiumDomainKeys((current) => [
-      ...current.filter((key) => key !== domain.key),
-      domain.key,
-    ])
+    const zIndex = nextCompendiumZIndex()
+    setCompendiumWindows((current) => {
+      const existing = current.some((windowState) => windowState.domainKey === domain.key)
+      if (existing) {
+        return current.map((windowState) => windowState.domainKey === domain.key
+          ? { ...windowState, minimized: false, zIndex }
+          : windowState)
+      }
+      return [...current, { domainKey: domain.key, minimized: false, zIndex }]
+    })
+  }
+
+  function focusCompendiumDomain(domainKey: GameSystemCatalogDomain) {
+    const zIndex = nextCompendiumZIndex()
+    setCompendiumWindows((current) => current.map((windowState) => (
+      windowState.domainKey === domainKey ? { ...windowState, zIndex } : windowState
+    )))
+  }
+
+  function minimizeCompendiumDomain(domainKey: GameSystemCatalogDomain) {
+    setCompendiumWindows((current) => current.map((windowState) => (
+      windowState.domainKey === domainKey ? { ...windowState, minimized: true } : windowState
+    )))
+  }
+
+  function restoreCompendiumDomain(domainKey: GameSystemCatalogDomain) {
+    const zIndex = nextCompendiumZIndex()
+    setCompendiumWindows((current) => current.map((windowState) => (
+      windowState.domainKey === domainKey
+        ? { ...windowState, minimized: false, zIndex }
+        : windowState
+    )))
   }
 
   function closeCompendiumDomain(domainKey: GameSystemCatalogDomain) {
-    setOpenCompendiumDomainKeys((current) => current.filter((key) => key !== domainKey))
+    setCompendiumWindows((current) => current.filter((windowState) => windowState.domainKey !== domainKey))
   }
 
   function renderNavItem(item: NavItem) {
@@ -191,6 +233,7 @@ export function Aside({
   const compendiumBottomInset = compactSidebar && !collapsed
     ? COMPACT_SIDEBAR_BOTTOM_INSET
     : 0
+  const minimizedCompendiumWindows = compendiumWindows.filter((windowState) => windowState.minimized)
 
   return (
     <>
@@ -302,7 +345,7 @@ export function Aside({
           aria-label="Domínios do Compêndio"
         >
           {catalogDomains.map((domain) => {
-            const open = openCompendiumDomainKeys.includes(domain.key)
+            const open = compendiumWindows.some((windowState) => windowState.domainKey === domain.key)
             return (
               <button
                 key={domain.key}
@@ -316,15 +359,14 @@ export function Aside({
                   open ? 'border-violet-300 bg-violet-400' : 'border-zinc-600 bg-transparent',
                 ].join(' ')} />
                 <span className="min-w-0 flex-1 truncate">{domain.label}</span>
-                {open ? <span className="text-[10px] uppercase tracking-wide text-violet-300">Aberto</span> : null}
               </button>
             )
           })}
         </div>
       ) : null}
 
-      {openCompendiumDomainKeys.map((domainKey, index) => {
-        const domain = catalogDomains.find((candidate) => candidate.key === domainKey)
+      {compendiumWindows.map((windowState, index) => {
+        const domain = catalogDomains.find((candidate) => candidate.key === windowState.domainKey)
         if (!domain) return null
         return (
           <CampaignCatalogModal
@@ -332,13 +374,38 @@ export function Aside({
             campaignId={campaignId}
             domains={[domain]}
             canManageTokens={role === 'MASTER'}
-            zIndex={COMPENDIUM_WINDOW_BASE_Z_INDEX + index * COMPENDIUM_WINDOW_Z_INDEX_STEP}
+            zIndex={windowState.zIndex}
             leftInset={compendiumLeftInset}
             bottomInset={compendiumBottomInset}
+            initialOffset={index * 24}
+            minimized={windowState.minimized}
+            onFocus={() => focusCompendiumDomain(domain.key)}
+            onMinimize={() => minimizeCompendiumDomain(domain.key)}
             onClose={() => closeCompendiumDomain(domain.key)}
           />
         )
       })}
+
+      {minimizedCompendiumWindows.length > 0 ? (
+        <div className="fixed bottom-4 right-4 z-[10000] flex max-w-[calc(100vw-2rem)] flex-wrap justify-end gap-2">
+          {minimizedCompendiumWindows.map((windowState) => {
+            const domain = catalogDomains.find((candidate) => candidate.key === windowState.domainKey)
+            if (!domain) return null
+            return (
+              <button
+                key={windowState.domainKey}
+                type="button"
+                title={`Restaurar Compêndio · ${domain.label}`}
+                onClick={() => restoreCompendiumDomain(windowState.domainKey)}
+                className="flex max-w-56 items-center gap-2 rounded-lg border border-indigo-300/25 bg-[#111218]/98 px-3 py-2 text-left text-xs font-semibold text-indigo-100 shadow-xl transition hover:bg-indigo-500/20"
+              >
+                <Maximize2 className="h-4 w-4 shrink-0" />
+                <span className="truncate">Compêndio · {domain.label}</span>
+              </button>
+            )
+          })}
+        </div>
+      ) : null}
 
       {characterSheetsOpen ? (
         <CampaignCharacterSheetsModal
