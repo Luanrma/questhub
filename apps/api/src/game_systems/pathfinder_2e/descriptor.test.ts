@@ -5,12 +5,12 @@ import { pathfinder2eGameSystemDescriptor } from './descriptor'
 test('Pathfinder 2e registers its Compendium domains and neutral capabilities', () => {
   assert.equal(pathfinder2eGameSystemDescriptor.key, 'PATHFINDER_2E')
   assert.deepEqual(
-    pathfinder2eGameSystemDescriptor.catalogDomains.map(({ key, slug, label }) => ({ key, slug, label })),
+    pathfinder2eGameSystemDescriptor.catalogDomains.map(({ key, slug, label, icon }) => ({ key, slug, label, icon })),
     [
-      { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
-      { key: 'SPELLS', slug: 'spells', label: 'Magias' },
-      { key: 'ITEMS', slug: 'items', label: 'Itens' },
-      { key: 'EFFECTS', slug: 'effects', label: 'Efeitos' },
+      { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário', icon: 'swords' },
+      { key: 'SPELLS', slug: 'spells', label: 'Magias', icon: 'sparkles' },
+      { key: 'ITEMS', slug: 'items', label: 'Itens', icon: 'backpack' },
+      { key: 'EFFECTS', slug: 'effects', label: 'Efeitos', icon: 'activity' },
     ],
   )
 
