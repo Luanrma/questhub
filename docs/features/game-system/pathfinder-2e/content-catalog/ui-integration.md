@@ -13,10 +13,11 @@ O VTT sabe apenas renderizar:
 - traits;
 - status editorial pendente;
 - imagem local opcional com fallback;
-- uma ficha composta por seções e campos.
+- uma ficha composta por seções e campos;
+- uma dica visual opcional de ícone publicada pelo descriptor do domínio.
 
-A escolha dos domínios, labels, campos e toda interpretação do conteúdo pertencem
-ao adapter Pathfinder 2e.
+A escolha dos domínios, labels, campos, ícones de apresentação e toda interpretação
+do conteúdo pertencem ao adapter Pathfinder 2e.
 
 ## Navegação do Compêndio
 
@@ -32,12 +33,28 @@ O Pathfinder 2e registra seus domínios em seu próprio descriptor:
 
 ```ts
 catalogDomains: [
-  { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
-  { key: 'SPELLS', slug: 'spells', label: 'Magias', capabilities: { /* ... */ } },
-  { key: 'ITEMS', slug: 'items', label: 'Itens', capabilities: { /* ... */ } },
-  { key: 'EFFECTS', slug: 'effects', label: 'Efeitos' },
+  { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário', icon: 'swords' },
+  {
+    key: 'SPELLS',
+    slug: 'spells',
+    label: 'Magias',
+    icon: 'sparkles',
+    capabilities: { /* ... */ },
+  },
+  {
+    key: 'ITEMS',
+    slug: 'items',
+    label: 'Itens',
+    icon: 'backpack',
+    capabilities: { /* ... */ },
+  },
+  { key: 'EFFECTS', slug: 'effects', label: 'Efeitos', icon: 'activity' },
 ]
 ```
+
+`icon` é somente uma dica neutra de apresentação. O Core não deduz ícone a partir
+de `BESTIARY`, `SPELLS`, `ITEMS` ou `EFFECTS`, e continua usando `BookOpen` como
+fallback quando um Game System não publica essa dica.
 
 Cada item do submenu abre uma janela própria de Compêndio para aquele descriptor.
 As janelas são independentes e podem permanecer abertas simultaneamente. Busca,
@@ -49,8 +66,8 @@ instância se estiver minimizada e a traz para frente, preservando seu estado.
 Fechar uma janela remove somente aquele domínio; as demais continuam montadas.
 O submenu não exibe texto, ponto, badge ou qualquer outra sinalização de que uma
 janela daquele domínio já está aberta. Cada entrada segue o mesmo padrão visual
-do menu lateral pai, incluindo espaçamento, tipografia, fundo e ícone genérico do
-Compêndio à esquerda.
+do menu lateral pai, incluindo espaçamento, tipografia e fundo, mas pode usar o
+ícone de apresentação publicado pelo descriptor.
 
 ### Padrão de janela
 
@@ -100,8 +117,16 @@ O domínio reúne as definições canônicas disponíveis dos tipos:
 - Afflictions.
 
 A listagem aceita busca, paginação, filtro por tipo, filtro por polaridade e o
-mesmo filtro editorial PT-BR do Compêndio. O detalhe é resolvido exclusivamente
-pela `definitionKey` estável; nomes não funcionam como identidade alternativa.
+mesmo filtro editorial PT-BR do Compêndio. O detalhe continua sendo resolvido
+exclusivamente pela `definitionKey` estável; nomes não funcionam como identidade
+alternativa.
+
+A `definitionKey` é identidade técnica e não precisa ser exposta ao usuário na
+ficha visual. Também não são exibidos na ficha de Efeito o campo redundante
+`Tipo` nem os metadados internos de origem (`Pacote`, `Source ID`, `Slug` e o bloco
+`Fonte`). A publicação pode continuar aparecendo no rodapé como crédito/contexto
+editorial. Polaridade, grupo e os dados específicos de condição permanecem
+visíveis quando aplicáveis.
 
 Abrir uma definição de Efeito é somente consulta. O Compêndio não cria nem aplica
 `CampaignActorEffect`, não executa stacking, duração, Rule Elements, saves, dano
@@ -202,8 +227,8 @@ VTT. A resposta usa seções genéricas. Pathfinder 2e define internamente:
 - Bestiário: defesas, percepção, atributos, perícias, ataques e habilidades;
 - Magias: conjuração, alcance, alvo, defesa, dano ou cura e aprimoramento;
 - Itens: informações de uso, preço, volume, dano ou valores de armadura;
-- Efeitos: identidade estável, tipo, polaridade, grupo, dados de condição quando
-  aplicáveis e metadados da fonte canônica.
+- Efeitos: descrição, polaridade, grupo e dados de condição quando aplicáveis; a
+  identidade estável e os metadados canônicos continuam internos ao provider.
 
 ## Imagens
 
@@ -350,6 +375,7 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 
 - o menu e o shell compartilhado do Compêndio não conhecem domínios Pathfinder específicos;
 - o submenu é derivado somente dos descriptors registrados pelo Game System;
+- ícones do submenu são dicas neutras publicadas pelo descriptor e possuem fallback genérico;
 - o submenu não sinaliza quais domínios já possuem janela aberta e mantém o padrão visual do menu lateral pai;
 - múltiplas janelas podem coexistir, ser redimensionadas e minimizadas sem introduzir nomes concretos no Core;
 - a mesa não é escurecida por backdrop enquanto uma janela do Compêndio ou uma ficha detalhada está aberta;
@@ -358,6 +384,7 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
 - Efeitos reutiliza a fonte canônica de Active Effects e não duplica definições;
 - consultar Efeitos não aplica efeitos a atores;
+- metadados técnicos necessários para resolução permanecem internos quando não agregam valor à ficha visual;
 - ações adicionais são expostas por capabilities ou flags neutras, como `canCreateToken`;
 - a ficha permanece uma projeção de apresentação; aplicar regras mecânicas não é responsabilidade do Compêndio;
 - não há dependência de assets externos em runtime.

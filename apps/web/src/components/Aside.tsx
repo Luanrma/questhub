@@ -15,6 +15,7 @@ import {
   Users,
 } from 'lucide-react'
 import { api } from '../lib/api'
+import { CatalogDomainIcon } from '../game-systems/CatalogDomainIcon'
 import { CampaignCatalogModal } from '../game-systems/CampaignCatalogModal'
 import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterSheetsModal'
 import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharacterSheetWorkspace'
@@ -352,7 +353,7 @@ export function Aside({
               onClick={() => openCompendiumDomain(domain)}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
             >
-              <span className="text-[#6e3fae]"><BookOpen size={18} /></span>
+              <span className="text-[#6e3fae]"><CatalogDomainIcon icon={domain.icon} /></span>
               <span className="min-w-0 flex-1 truncate">{domain.label}</span>
             </button>
           ))}
