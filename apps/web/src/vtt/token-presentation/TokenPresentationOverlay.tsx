@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CircleDot, ShieldCheck, TriangleAlert } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { CampaignActiveEffectDefinitionModal } from '../actor-effects/CampaignActiveEffectDefinitionModal'
-import type { ActorEffectView } from '../actor-effects/types'
+import type { ActorEffectPolarity, ActorEffectView } from '../actor-effects/types'
 import { useCanonicalActorEffectPresentations } from '../actor-effects/useCanonicalActorEffectPresentations'
 import { useTokenActiveEffects } from '../actor-effects/useTokenActiveEffects'
 import type {
@@ -31,29 +31,29 @@ function indicatorClass(indicator: TokenIndicatorPresentation) {
   return 'border-zinc-300/40 bg-zinc-950/90 text-zinc-100'
 }
 
-function effectClass(effect: ActorEffectView) {
-  if (effect.polarity === 'HARMFUL') return 'border-rose-300/70 bg-rose-950/95 text-rose-100'
-  if (effect.polarity === 'BENEFICIAL') return 'border-emerald-300/70 bg-emerald-950/95 text-emerald-100'
+function effectClass(polarity: ActorEffectPolarity) {
+  if (polarity === 'HARMFUL') return 'border-rose-300/70 bg-rose-950/95 text-rose-100'
+  if (polarity === 'BENEFICIAL') return 'border-emerald-300/70 bg-emerald-950/95 text-emerald-100'
   return 'border-zinc-300/50 bg-zinc-950/95 text-zinc-100'
 }
 
-function effectPolarityLabel(effect: ActorEffectView) {
-  if (effect.polarity === 'HARMFUL') return 'Prejudicial'
-  if (effect.polarity === 'BENEFICIAL') return 'Benéfico'
+function effectPolarityLabel(polarity: ActorEffectPolarity) {
+  if (polarity === 'HARMFUL') return 'Prejudicial'
+  if (polarity === 'BENEFICIAL') return 'Benéfico'
   return 'Neutro'
 }
 
-function effectCategoryLabel(effect: ActorEffectView) {
-  if (effect.category === 'condition') return 'Condição'
-  if (effect.category === 'effect') return 'Efeito'
-  if (effect.category === 'affliction') return 'Aflição'
-  return effect.category
+function effectCategoryLabel(category: string | null) {
+  if (category === 'condition') return 'Condição'
+  if (category === 'effect') return 'Efeito'
+  if (category === 'affliction') return 'Aflição'
+  return category
 }
 
-function EffectFallbackIcon({ effect, compact }: { effect: ActorEffectView; compact: boolean }) {
+function EffectFallbackIcon({ polarity, compact }: { polarity: ActorEffectPolarity; compact: boolean }) {
   const className = compact ? 'h-2.5 w-2.5' : 'h-4 w-4'
-  if (effect.polarity === 'HARMFUL') return <TriangleAlert className={className} />
-  if (effect.polarity === 'BENEFICIAL') return <ShieldCheck className={className} />
+  if (polarity === 'HARMFUL') return <TriangleAlert className={className} />
+  if (polarity === 'BENEFICIAL') return <ShieldCheck className={className} />
   return <CircleDot className={className} />
 }
 
@@ -62,18 +62,21 @@ function EffectGlyph({
   compact = false,
   displayName,
   resolvedIconUrl,
+  resolvedPolarity,
 }: {
   effect: ActorEffectView
   compact?: boolean
   displayName?: string
   resolvedIconUrl?: string | null
+  resolvedPolarity?: ActorEffectPolarity
 }) {
   const sizeClass = compact ? 'h-[18px] w-[18px]' : 'h-9 w-9'
   const name = displayName ?? effect.name
   const iconUrl = resolvedIconUrl ?? effect.iconUrl
+  const polarity = resolvedPolarity ?? effect.polarity
   return (
     <span
-      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border shadow-lg ${sizeClass} ${effectClass(effect)}`}
+      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border shadow-lg ${sizeClass} ${effectClass(polarity)}`}
       title={`${name}${effect.displayValue ? ` ${effect.displayValue}` : ''}`}
     >
       {iconUrl ? (
@@ -84,7 +87,7 @@ function EffectGlyph({
           className="h-full w-full object-cover"
         />
       ) : (
-        <EffectFallbackIcon effect={effect} compact={compact} />
+        <EffectFallbackIcon polarity={polarity} compact={compact} />
       )}
       {compact && effect.displayValue ? (
         <span className="absolute -bottom-px -right-px max-w-[14px] truncate rounded bg-black/90 px-0.5 text-[7px] font-black leading-[9px] text-white">
@@ -116,6 +119,8 @@ function ActiveEffectIndicators({
     return {
       name: canonical?.name ?? effect.name,
       iconUrl: canonical?.iconUrl ?? effect.iconUrl,
+      polarity: canonical?.polarity ?? effect.polarity,
+      category: canonical?.category ?? effect.category,
     }
   }
 
@@ -177,6 +182,7 @@ function ActiveEffectIndicators({
                 compact
                 displayName={presentation.name}
                 resolvedIconUrl={presentation.iconUrl}
+                resolvedPolarity={presentation.polarity}
               />
             )
           })}
@@ -208,6 +214,7 @@ function ActiveEffectIndicators({
               <div className="grid min-w-0 gap-1.5">
                 {effects.map((effect) => {
                   const presentation = resolved(effect)
+                  const categoryLabel = effectCategoryLabel(presentation.category)
                   return (
                     <button
                       key={effect.id}
@@ -219,6 +226,7 @@ function ActiveEffectIndicators({
                         effect={effect}
                         displayName={presentation.name}
                         resolvedIconUrl={presentation.iconUrl}
+                        resolvedPolarity={presentation.polarity}
                       />
                       <span className="min-w-0 flex-1 overflow-hidden">
                         <span className="block min-w-0 break-words text-xs font-semibold leading-4 text-zinc-100">
@@ -226,11 +234,11 @@ function ActiveEffectIndicators({
                           {effect.displayValue ? ` ${effect.displayValue}` : ''}
                         </span>
                         <span className="mt-1 flex min-w-0 flex-wrap items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.08em] text-zinc-500">
-                          <span>{effectPolarityLabel(effect)}</span>
-                          {effectCategoryLabel(effect) ? (
+                          <span>{effectPolarityLabel(presentation.polarity)}</span>
+                          {categoryLabel ? (
                             <>
                               <span aria-hidden="true">•</span>
-                              <span>{effectCategoryLabel(effect)}</span>
+                              <span>{categoryLabel}</span>
                             </>
                           ) : null}
                         </span>
