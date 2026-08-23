@@ -2,9 +2,9 @@
 
 ## Objetivo
 
-Bestiário, Magias e Itens são registrados pelo Pathfinder 2e e exibidos dentro
-de uma única entrada genérica `Compêndio` no VTT, por meio do contrato neutro de
-catálogo definido em `apps/api/src/game_systems/catalog.ts`.
+Bestiário, Magias, Itens e Efeitos são registrados pelo Pathfinder 2e e exibidos
+dentro de uma única entrada genérica `Compêndio` no VTT, por meio do contrato
+neutro de catálogo definido em `apps/api/src/game_systems/catalog.ts`.
 
 O VTT sabe apenas renderizar:
 
@@ -20,8 +20,8 @@ ao adapter Pathfinder 2e.
 
 ## Navegação do Compêndio
 
-A barra lateral da campanha não possui entradas próprias para Bestiário, Magias
-ou Itens. Ela possui uma única entrada pai `Compêndio`.
+A barra lateral da campanha não possui entradas próprias para Bestiário, Magias,
+Itens ou Efeitos. Ela possui uma única entrada pai `Compêndio`.
 
 Ao acionar `Compêndio`, a composição compartilhada abre um submenu/flyout ao lado
 da barra lateral. Esse submenu é montado exclusivamente a partir de
@@ -35,6 +35,7 @@ catalogDomains: [
   { key: 'BESTIARY', slug: 'bestiary', label: 'Bestiário' },
   { key: 'SPELLS', slug: 'spells', label: 'Magias', capabilities: { /* ... */ } },
   { key: 'ITEMS', slug: 'items', label: 'Itens', capabilities: { /* ... */ } },
+  { key: 'EFFECTS', slug: 'effects', label: 'Efeitos' },
 ]
 ```
 
@@ -43,19 +44,32 @@ As janelas são independentes e podem permanecer abertas simultaneamente. Busca,
 filtros, idioma, página e ficha selecionada permanecem associados à instância do
 domínio enquanto ela estiver aberta.
 
-Clicar novamente em um domínio já aberto não recria sua janela. A chave opaca do
-domínio é movida para o topo da ordem de stacking, trazendo a janela existente à
-frente e preservando seu estado. Fechar uma janela remove somente aquele domínio;
-as demais continuam montadas.
+Clicar novamente em um domínio já aberto não recria sua janela: restaura a
+instância se estiver minimizada e a traz para frente, preservando seu estado.
+Fechar uma janela remove somente aquele domínio; as demais continuam montadas.
+O submenu usa somente o indicador visual de estado do item e não repete o texto
+`Aberto` ao lado do nome do domínio.
 
-As janelas do Compêndio reservam a área ocupada pela navegação da campanha em vez
-de alterar globalmente o z-index da sidebar. No layout desktop, essa reserva é a
-faixa lateral da sidebar; no layout compacto, é a faixa inferior da barra de
-navegação. Assim, a navegação continua acessível para abrir ou trazer outro domínio
-à frente sem mudar o comportamento dos demais modais do VTT. O submenu usa uma
-camada própria acima das janelas do Compêndio e, no layout compacto, aparece acima
-da barra inferior. A ficha de uma entidade recebe os mesmos insets da janela que
-a originou, mantendo acesso rápido e ordem de foco coerente.
+### Padrão de janela
+
+As janelas do Compêndio seguem o mesmo comportamento de janela usado pelo VTT:
+
+- podem ser arrastadas pelo cabeçalho;
+- podem ser redimensionadas pelas bordas e cantos;
+- podem ser minimizadas sem perder seu estado;
+- uma janela minimizada aparece como atalho de restauração;
+- clicar ou reabrir um domínio traz a janela correspondente à frente;
+- não existe backdrop preto cobrindo a mesa ao redor da janela.
+
+A ausência de backdrop é intencional: o Compêndio é uma ferramenta de consulta
+simultânea à mesa, e não um modal bloqueante. O conteúdo da cena continua visível
+e utilizável fora da área ocupada pelas janelas.
+
+As janelas preservam a área ocupada pela navegação da campanha. No layout desktop,
+a posição e o redimensionamento respeitam a faixa lateral da sidebar; no layout
+compacto, respeitam a faixa inferior da navegação. O submenu usa camada própria
+acima das janelas para continuar acessível. A ficha de uma entidade recebe os
+mesmos insets da janela que a originou.
 
 A `key` é opaca para o Core; o `slug` é usado na rota e validado pelo backend
 contra o descriptor do sistema da campanha. Quando um novo domínio for registrado
@@ -66,9 +80,27 @@ No recorte atual, Magias anuncia o namespace de Area Effect e Itens anuncia que
 pode usar o fluxo genérico de envio ao inventário de um ator. A UI não infere
 essas capacidades a partir das strings `SPELLS` ou `ITEMS`.
 
-Effects não faz parte do QH-CMP-001/QH-CMP-003. Sua inclusão como quarto domínio
-do PF2e é o escopo do QH-CMP-002; quando registrado, `Efeitos` surgirá no submenu
-automaticamente.
+## Efeitos PF2e
+
+`Efeitos` é uma projeção de leitura do catálogo canônico de Active Effects já
+utilizado pelo Pathfinder 2e. O domínio não cria uma segunda fonte de verdade.
+A implementação reutiliza `ActiveEffectDefinition`, a resolução por
+`definitionKey` e a localização já existentes.
+
+O domínio reúne as definições canônicas disponíveis dos tipos:
+
+- Conditions;
+- Effects;
+- Afflictions.
+
+A listagem aceita busca, paginação, filtro por tipo, filtro por polaridade e o
+mesmo filtro editorial PT-BR do Compêndio. O detalhe é resolvido exclusivamente
+pela `definitionKey` estável; nomes não funcionam como identidade alternativa.
+
+Abrir uma definição de Efeito é somente consulta. O Compêndio não cria nem aplica
+`CampaignActorEffect`, não executa stacking, duração, Rule Elements, saves, dano
+ou qualquer outra automação mecânica. Aplicação e apresentação de efeitos em um
+ator continuam sendo fluxos separados.
 
 Hazards usam o mesmo domínio visual `BESTIARY`, porém a ficha respeita
 `entryType = "HAZARD"`. Cards exibem tipo simples/complexo, Furtividade, CA, PV
@@ -81,17 +113,19 @@ reações; seções vazias e seções exclusivas de criatura não são renderiza
 Cada card contém:
 
 - nome;
-- publicação;
+- publicação, quando aplicável;
 - descrição resumida;
 - estatísticas principais;
-- traits traduzidas;
+- traits ou classificadores de apresentação;
 - status editorial somente quando houver pendência;
 - imagem local opcional;
 - botão `Ficha`.
 
-`Tradução em revisão` não é uma trait. O status deve ser enviado em `editorialStatus` e renderizado com cor própria.
+`Tradução em revisão` não é uma trait. O status deve ser enviado em
+`editorialStatus` e renderizado com cor própria.
 
-Uma tradução `REVIEWED` não exibe tag. O estado continua disponível para filtros e relatórios, mas `editorialStatus` deve ser `null` no card e na ficha.
+Uma tradução revisada não exibe tag. O estado continua disponível para filtros e
+relatórios, mas `editorialStatus` deve ser `null` no card e na ficha.
 
 ## Filtro editorial
 
@@ -108,6 +142,10 @@ O filtro é aplicado no provider antes da paginação. Na interface PT-BR existe
 - Tradução revisada.
 
 O filtro `ready` continua funcionando mesmo que os registros revisados não exibam tag visual.
+
+Para Efeitos, uma definição PT-BR é considerada revisada para essa projeção
+somente quando nome e descrição são resolvidos em `pt-BR`; qualquer fallback de
+um desses campos para `en-US` permanece em revisão.
 
 O filtro não é exibido na visualização EN-US.
 
@@ -128,10 +166,14 @@ No Bestiário de Pathfinder 2e, o provider publica:
 - Raridade: seleção única, com label localizado;
 - Traits: seleção múltipla, com labels localizados.
 
-Selecionar várias traits exige que a entrada possua todas elas. Os filtros são
-independentes do idioma e do status editorial, podem ser combinados com a busca
-e são aplicados antes da paginação. Qualquer alteração de seleção retorna à
-primeira página.
+No domínio Efeitos, o provider publica:
+
+- Tipo: Condição, Efeito ou Aflição;
+- Polaridade: Benéfico, Prejudicial ou Neutro.
+
+Os filtros são independentes do shell compartilhado, podem ser combinados com a
+busca e com o status editorial e são aplicados antes da paginação. Qualquer
+alteração de seleção retorna à primeira página.
 
 Cada janela de domínio mantém seu próprio estado de busca, filtros e paginação.
 Trazer outra janela à frente não reinicia esse estado. O VTT e os componentes
@@ -153,7 +195,9 @@ VTT. A resposta usa seções genéricas. Pathfinder 2e define internamente:
 
 - Bestiário: defesas, percepção, atributos, perícias, ataques e habilidades;
 - Magias: conjuração, alcance, alvo, defesa, dano ou cura e aprimoramento;
-- Itens: informações de uso, preço, volume, dano ou valores de armadura.
+- Itens: informações de uso, preço, volume, dano ou valores de armadura;
+- Efeitos: identidade estável, tipo, polaridade, grupo, dados de condição quando
+  aplicáveis e metadados da fonte canônica.
 
 ## Imagens
 
@@ -186,6 +230,10 @@ Regras obrigatórias:
 - sem correspondência exata no pacote local, o campo `image` deve ser omitido;
 - o frontend mantém o ícone genérico quando não há imagem ou quando o arquivo local falha;
 - remover todos os arquivos não pode quebrar cards, fichas, busca, filtros ou build.
+
+As definições canônicas de Active Effects atualmente mantêm o caminho de imagem
+do source como metadado, mas continuam usando o fallback visual até existir um
+resolver local seguro para esses assets.
 
 ### Estado da primeira rodada
 
@@ -296,10 +344,13 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 
 - o menu e o shell compartilhado do Compêndio não conhecem domínios Pathfinder específicos;
 - o submenu é derivado somente dos descriptors registrados pelo Game System;
-- múltiplas janelas podem coexistir sem introduzir nomes concretos no Core;
+- múltiplas janelas podem coexistir, ser redimensionadas e minimizadas sem introduzir nomes concretos no Core;
+- a mesa não é bloqueada por backdrop enquanto uma janela do Compêndio está aberta;
 - o frontend não conhece campos Pathfinder específicos;
 - o VTT não calcula regras;
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
+- Efeitos reutiliza a fonte canônica de Active Effects e não duplica definições;
+- consultar Efeitos não aplica efeitos a atores;
 - ações adicionais são expostas por capabilities ou flags neutras, como `canCreateToken`;
 - a ficha permanece uma projeção de apresentação; aplicar regras mecânicas não é responsabilidade do Compêndio;
 - não há dependência de assets externos em runtime.
