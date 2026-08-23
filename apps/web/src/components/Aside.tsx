@@ -50,6 +50,8 @@ type Props = {
 
 const COMPENDIUM_WINDOW_BASE_Z_INDEX = 100
 const COMPENDIUM_WINDOW_Z_INDEX_STEP = 100
+const COMPACT_SIDEBAR_QUERY = '(max-width: 899px), (max-height: 639px)'
+const COMPACT_SIDEBAR_BOTTOM_INSET = 76
 
 export function Aside({
   campaignId,
@@ -62,9 +64,11 @@ export function Aside({
   const [compendiumMenuOpen, setCompendiumMenuOpen] = useState(false)
   const [compendiumMenuTop, setCompendiumMenuTop] = useState(0)
   const [openCompendiumDomainKeys, setOpenCompendiumDomainKeys] = useState<GameSystemCatalogDomain[]>([])
+  const [compactSidebar, setCompactSidebar] = useState(false)
   const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
   const compendiumButtonRef = useRef<HTMLButtonElement>(null)
+  const catalogDomains = system?.descriptor.catalogDomains ?? []
 
   useEffect(() => {
     let cancelled = false
@@ -80,6 +84,14 @@ export function Aside({
       cancelled = true
     }
   }, [campaignId])
+
+  useEffect(() => {
+    const media = window.matchMedia(COMPACT_SIDEBAR_QUERY)
+    const sync = () => setCompactSidebar(media.matches)
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [])
 
   useEffect(() => {
     setCompendiumMenuOpen(false)
@@ -113,14 +125,20 @@ export function Aside({
     [campaignId],
   )
 
-  const catalogDomains = system?.descriptor.catalogDomains ?? []
-
   function updateCompendiumMenuPosition() {
     const rect = compendiumButtonRef.current?.getBoundingClientRect()
     if (!rect) return
     const estimatedHeight = Math.max(56, catalogDomains.length * 42 + 16)
+    if (compactSidebar) {
+      setCompendiumMenuTop(Math.max(8, window.innerHeight - COMPACT_SIDEBAR_BOTTOM_INSET - estimatedHeight - 8))
+      return
+    }
     setCompendiumMenuTop(Math.max(8, Math.min(rect.top, window.innerHeight - estimatedHeight - 8)))
   }
+
+  useEffect(() => {
+    if (compendiumMenuOpen) updateCompendiumMenuPosition()
+  }, [compactSidebar, compendiumMenuOpen, catalogDomains.length])
 
   function toggleCompendiumMenu() {
     updateCompendiumMenuPosition()
@@ -166,6 +184,13 @@ export function Aside({
       </li>
     )
   }
+
+  const compendiumLeftInset = compactSidebar
+    ? (collapsed ? 48 : 0)
+    : (collapsed ? 48 : 240)
+  const compendiumBottomInset = compactSidebar && !collapsed
+    ? COMPACT_SIDEBAR_BOTTOM_INSET
+    : 0
 
   return (
     <>
@@ -266,7 +291,12 @@ export function Aside({
 
       {!collapsed && compendiumMenuOpen && catalogDomains.length > 0 ? (
         <div
-          className="fixed left-[244px] z-[10001] w-60 max-w-[calc(100vw-256px)] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur"
+          className={[
+            'fixed z-[10001] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur',
+            compactSidebar
+              ? 'left-3 right-3 w-auto'
+              : 'left-[244px] w-60 max-w-[calc(100vw-256px)]',
+          ].join(' ')}
           style={{ top: compendiumMenuTop }}
           role="menu"
           aria-label="Domínios do Compêndio"
@@ -303,7 +333,8 @@ export function Aside({
             domains={[domain]}
             canManageTokens={role === 'MASTER'}
             zIndex={COMPENDIUM_WINDOW_BASE_Z_INDEX + index * COMPENDIUM_WINDOW_Z_INDEX_STEP}
-            leftInset={collapsed ? 48 : 240}
+            leftInset={compendiumLeftInset}
+            bottomInset={compendiumBottomInset}
             onClose={() => closeCompendiumDomain(domain.key)}
           />
         )
