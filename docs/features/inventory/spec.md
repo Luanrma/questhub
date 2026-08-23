@@ -72,17 +72,40 @@ Exemplo:
 questhub:pathfinder_2e:items:v1
 ```
 
-O provider pode declarar um namespace próprio quando precisar diferenciar versões ou sourcepacks.
+O provider pode declarar um namespace próprio quando precisar diferenciar versões ou sourcepacks. O namespace persistido é opaco para o Core e não é usado pela UI compartilhada para inferir um domínio de Compêndio.
 
-## Contrato de agrupamento
+## Roteamento opaco para ficha do Compêndio
+
+A apresentação de um item pode anunciar qual domínio registrado é responsável por sua ficha:
+
+```ts
+type GameSystemInventoryItemPresentation = {
+  name: string
+  // demais campos de apresentação omitidos
+  catalogDomainKey?: string | null
+}
+```
+
+Regras:
+
+- `catalogDomainKey` é uma chave opaca fornecida pela policy do Game System.
+- A UI compartilhada de inventário não conhece nem compara `BESTIARY`, `SPELLS`, `ITEMS`, `EFFECTS` ou equivalentes.
+- Ao abrir uma ficha, o inventário apenas encaminha a chave opaca para a composição do Compêndio.
+- A composição resolve essa chave contra o descritor do Game System da campanha e usa o `slug` registrado para as rotas HTTP.
+- A ausência de `catalogDomainKey` significa que a apresentação não oferece navegação para uma ficha de Compêndio.
+- No Pathfinder 2e, a policy de inventário declara `ITEMS`; esse literal permanece dentro da camada PF2e e não vaza para a UI compartilhada.
+
+## Contrato de agrupamento e apresentação
 
 ```ts
 interface GameSystemInventoryPolicy {
   canStack(existingData: unknown, incomingData: unknown): boolean
+  present?(data: unknown): GameSystemInventoryItemPresentation | null
 }
 ```
 
 - O Game System decide se duas entradas podem ser agrupadas.
+- O Game System também pode produzir apresentação e metadados opacos de integração, como `catalogDomainKey`.
 - A primeira política do Pathfinder 2e utiliza igualdade profunda entre os JSONs.
 - Quando `canStack` retornar `true`, a inclusão pode aumentar `quantity` em vez de criar outra entrada.
 - Entradas com estado operacional não são agrupadas.
@@ -92,10 +115,12 @@ interface GameSystemInventoryPolicy {
 
 - `GET /api/campaigns/:campaignId/inventory/actors`: alimenta o painel administrativo do Mestre e a resolução segura do Token controlado.
 - `GET /api/campaigns/:campaignId/inventory/actor-recipients`: lista atores da campanha que possuem inventário, independentemente de o controlador ser Mestre, Jogador ou inexistente.
-- `POST /api/campaigns/:campaignId/catalog/items/:contentId/send-to-actor`: recebe `recipientActorId` e `quantity`.
+- `POST /api/campaigns/:campaignId/catalog/:domain/:contentId/send-to-actor`: recebe `recipientActorId` e `quantity`.
 - `GET /api/campaigns/:campaignId/inventory/system`: informa ao composition shell qual renderer de Game System pode ser montado.
 - `PATCH /api/campaigns/:campaignId/actors/:actorId/inventory/entries/:entryId/slot`: recebe qualquer `slotIndex` inteiro não negativo para uma entrada que já ocupa a grade.
-- `GET /api/campaigns/:campaignId/catalog/items/:contentId?locale=pt-BR|en-US`: retorna a ficha localizada do item referenciado.
+- `GET /api/campaigns/:campaignId/catalog/:domain/:contentId?locale=pt-BR|en-US`: retorna a ficha localizada do conteúdo referenciado.
+- `:domain` é sempre o `slug` registrado pelo Game System da campanha; a camada compartilhada resolve esse slug contra o descritor antes de entregar a chave opaca ao provider.
+- A rota `send-to-actor` só aceita um domínio que anuncie a capability neutra `canSendToActorInventory`.
 - Rotas de inventário por ator validam Mestre ou `CampaignActor.controllerMemberId`.
 - Somente o Mestre altera quantidades ou remove entradas.
 - Mestre e controlador do ator podem reorganizar slots; para o jogador, o ator deve possuir Token vinculado sob seu controle.
@@ -113,6 +138,8 @@ interface GameSystemInventoryPolicy {
 - O banco não impõe quantidade máxima de slots.
 - Existe um registry agnóstico para políticas de inventário.
 - Pathfinder 2e registra uma política baseada em igualdade profunda.
+- A UI compartilhada de inventário não contém nomes concretos de domínio de Compêndio e encaminha somente `catalogDomainKey` opaco.
+- O envio de conteúdo para inventário resolve `:domain` pelo descritor da campanha e valida `canSendToActorInventory`; não existe rota compartilhada fixa em `/catalog/items`.
 - Containers, peso e capacidade permanecem fora desta entrega. Moedas PF2e são
   uma extensão de ficha documentada em `docs/features/pathfinder-2e-currency/`
   e não alteram este contrato.
