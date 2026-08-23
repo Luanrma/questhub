@@ -1,5 +1,11 @@
 # Pathfinder 2e — Magias vinculadas à ficha — Especificação
 
+## Referência de regras e capacidades
+
+Esta spec registra o comportamento entregue pelo MVP de vínculo de Spells. Para evoluções envolvendo fontes de conjuração, slots, repertoire, prepared/spontaneous spellcasting, proficiência, Heightening ou Rank efetivo, consultar [`spellcasting-rules-reference.md`](./spellcasting-rules-reference.md).
+
+Essa referência documenta regras oficiais para orientar defaults, UX e automações opcionais, mas **não governa obrigatoriamente a mesa**. O QuestHub deve continuar permitindo operação manual, overrides e house rules; legalidade de regra de jogo não deve ser confundida com integridade técnica.
+
 ## Modelo
 
 ```text
@@ -165,3 +171,9 @@ Regras:
 19. salvar ou restaurar atualiza a sinalização da magia na ficha.
 20. a sinalização da ficha e o ícone de Play do Encounter concordam sobre a
     existência de uma configuração executável.
+
+## Governança da referência futura
+
+- `spellcasting-rules-reference.md` é contexto de produto e referência de regras, não enforcement automático;
+- divergência de uma mesa em relação à referência não é erro técnico;
+- implementações futuras devem preservar uma saída manual/override quando a automação de regra não for requisito explícito.
