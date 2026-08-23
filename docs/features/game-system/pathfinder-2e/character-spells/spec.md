@@ -1,8 +1,10 @@
 # Pathfinder 2e — Magias vinculadas à ficha — Especificação
 
-## Referência canônica de regras
+## Referência de regras e capacidades
 
-Esta spec registra o comportamento entregue pelo MVP de vínculo de Spells. Para qualquer evolução envolvendo fontes de conjuração, slots, repertoire, prepared/spontaneous spellcasting, proficiência, Heightening ou Rank efetivo, consultar primeiro [`canonical-spellcasting-rules.md`](./canonical-spellcasting-rules.md). A referência canônica governa P2A/P2B e evoluções posteriores; este documento não deve ser usado para concluir que os itens originalmente fora do escopo não possuem regras já documentadas.
+Esta spec registra o comportamento entregue pelo MVP de vínculo de Spells. Para evoluções envolvendo fontes de conjuração, slots, repertoire, prepared/spontaneous spellcasting, proficiência, Heightening ou Rank efetivo, consultar [`spellcasting-rules-reference.md`](./spellcasting-rules-reference.md).
+
+Essa referência documenta regras oficiais para orientar defaults, UX e automações opcionais, mas **não governa obrigatoriamente a mesa**. O QuestHub deve continuar permitindo operação manual, overrides e house rules; legalidade de regra de jogo não deve ser confundida com integridade técnica.
 
 ## Modelo
 
