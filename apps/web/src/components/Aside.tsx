@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   Backpack,
   BookOpen,
   BookUser,
   ChevronDown,
+  ChevronRight,
   ChevronUp,
   House,
   Map,
@@ -19,6 +20,7 @@ import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharact
 import { CampaignGameSystemTokenIntegration } from '../game-systems/CampaignGameSystemTokenIntegration'
 import { CampaignInventoryModal } from '../game-systems/CampaignInventoryModal'
 import type {
+  GameSystemCatalogDomain,
   GameSystemCatalogDomainDescriptor,
   GameSystemKey,
 } from '../game-systems/registry'
@@ -46,6 +48,11 @@ type Props = {
   onOpenCampaignPanel?: (path: string) => void
 }
 
+const COMPENDIUM_WINDOW_BASE_Z_INDEX = 100
+const COMPENDIUM_WINDOW_Z_INDEX_STEP = 100
+const COMPACT_SIDEBAR_QUERY = '(max-width: 899px), (max-height: 639px)'
+const COMPACT_SIDEBAR_BOTTOM_INSET = 76
+
 export function Aside({
   campaignId,
   role,
@@ -54,9 +61,14 @@ export function Aside({
 }: Props) {
   const [collapsed, setCollapsed] = useState(true)
   const [system, setSystem] = useState<CampaignSystemResponse | null>(null)
-  const [compendiumOpen, setCompendiumOpen] = useState(false)
+  const [compendiumMenuOpen, setCompendiumMenuOpen] = useState(false)
+  const [compendiumMenuTop, setCompendiumMenuTop] = useState(0)
+  const [openCompendiumDomainKeys, setOpenCompendiumDomainKeys] = useState<GameSystemCatalogDomain[]>([])
+  const [compactSidebar, setCompactSidebar] = useState(false)
   const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
+  const compendiumButtonRef = useRef<HTMLButtonElement>(null)
+  const catalogDomains = system?.descriptor.catalogDomains ?? []
 
   useEffect(() => {
     let cancelled = false
@@ -73,10 +85,26 @@ export function Aside({
     }
   }, [campaignId])
 
+  useEffect(() => {
+    const media = window.matchMedia(COMPACT_SIDEBAR_QUERY)
+    const sync = () => setCompactSidebar(media.matches)
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [])
+
+  useEffect(() => {
+    setCompendiumMenuOpen(false)
+    setOpenCompendiumDomainKeys([])
+  }, [campaignId])
+
   useEffect(() => registerVttWindow({
     id: `campaign-sidebar:${campaignId}`,
     getZIndex: () => 40,
-    close: () => setCollapsed(true),
+    close: () => {
+      setCompendiumMenuOpen(false)
+      setCollapsed(true)
+    },
     isVisible: () => !collapsed,
   }), [campaignId, collapsed])
 
@@ -97,7 +125,36 @@ export function Aside({
     [campaignId],
   )
 
-  const catalogDomains = system?.descriptor.catalogDomains ?? []
+  function updateCompendiumMenuPosition() {
+    const rect = compendiumButtonRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const estimatedHeight = Math.max(56, catalogDomains.length * 42 + 16)
+    if (compactSidebar) {
+      setCompendiumMenuTop(Math.max(8, window.innerHeight - COMPACT_SIDEBAR_BOTTOM_INSET - estimatedHeight - 8))
+      return
+    }
+    setCompendiumMenuTop(Math.max(8, Math.min(rect.top, window.innerHeight - estimatedHeight - 8)))
+  }
+
+  useEffect(() => {
+    if (compendiumMenuOpen) updateCompendiumMenuPosition()
+  }, [compactSidebar, compendiumMenuOpen, catalogDomains.length])
+
+  function toggleCompendiumMenu() {
+    updateCompendiumMenuPosition()
+    setCompendiumMenuOpen((current) => !current)
+  }
+
+  function openCompendiumDomain(domain: GameSystemCatalogDomainDescriptor) {
+    setOpenCompendiumDomainKeys((current) => [
+      ...current.filter((key) => key !== domain.key),
+      domain.key,
+    ])
+  }
+
+  function closeCompendiumDomain(domainKey: GameSystemCatalogDomain) {
+    setOpenCompendiumDomainKeys((current) => current.filter((key) => key !== domainKey))
+  }
 
   function renderNavItem(item: NavItem) {
     return (
@@ -128,6 +185,13 @@ export function Aside({
     )
   }
 
+  const compendiumLeftInset = compactSidebar
+    ? (collapsed ? 48 : 0)
+    : (collapsed ? 48 : 240)
+  const compendiumBottomInset = compactSidebar && !collapsed
+    ? COMPACT_SIDEBAR_BOTTOM_INSET
+    : 0
+
   return (
     <>
       {collapsed ? (
@@ -155,7 +219,10 @@ export function Aside({
                 type="button"
                 title="Recolher menu da campanha"
                 className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/30 text-[#a78bfa] transition hover:bg-white/10 hover:text-white"
-                onClick={() => setCollapsed(true)}
+                onClick={() => {
+                  setCompendiumMenuOpen(false)
+                  setCollapsed(true)
+                }}
                 aria-label="Recolher menu"
               >
                 <ChevronUp className="h-5 w-5" strokeWidth={3} />
@@ -193,12 +260,24 @@ export function Aside({
                 {catalogDomains.length > 0 ? (
                   <li>
                     <button
+                      ref={compendiumButtonRef}
                       type="button"
-                      onClick={() => setCompendiumOpen(true)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                      onClick={toggleCompendiumMenu}
+                      aria-expanded={compendiumMenuOpen}
+                      aria-haspopup="menu"
+                      className={[
+                        'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition',
+                        compendiumMenuOpen
+                          ? 'bg-white/10 text-white'
+                          : 'text-zinc-300 hover:bg-white/10 hover:text-white',
+                      ].join(' ')}
                     >
                       <span className="text-[#6e3fae]"><BookOpen size={18} /></span>
-                      <span>Compêndio</span>
+                      <span className="flex-1">Compêndio</span>
+                      <ChevronRight
+                        size={16}
+                        className={compendiumMenuOpen ? 'rotate-90 text-zinc-200 transition' : 'text-zinc-500 transition'}
+                      />
                     </button>
                   </li>
                 ) : null}
@@ -210,14 +289,56 @@ export function Aside({
         </aside>
       )}
 
-      {compendiumOpen ? (
-        <CampaignCatalogModal
-          campaignId={campaignId}
-          domains={catalogDomains}
-          canManageTokens={role === 'MASTER'}
-          onClose={() => setCompendiumOpen(false)}
-        />
+      {!collapsed && compendiumMenuOpen && catalogDomains.length > 0 ? (
+        <div
+          className={[
+            'fixed z-[10001] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur',
+            compactSidebar
+              ? 'left-3 right-3 w-auto'
+              : 'left-[244px] w-60 max-w-[calc(100vw-256px)]',
+          ].join(' ')}
+          style={{ top: compendiumMenuTop }}
+          role="menu"
+          aria-label="Domínios do Compêndio"
+        >
+          {catalogDomains.map((domain) => {
+            const open = openCompendiumDomainKeys.includes(domain.key)
+            return (
+              <button
+                key={domain.key}
+                type="button"
+                role="menuitem"
+                onClick={() => openCompendiumDomain(domain)}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-zinc-300 transition hover:bg-white/10 hover:text-white"
+              >
+                <span className={[
+                  'h-2 w-2 shrink-0 rounded-full border',
+                  open ? 'border-violet-300 bg-violet-400' : 'border-zinc-600 bg-transparent',
+                ].join(' ')} />
+                <span className="min-w-0 flex-1 truncate">{domain.label}</span>
+                {open ? <span className="text-[10px] uppercase tracking-wide text-violet-300">Aberto</span> : null}
+              </button>
+            )
+          })}
+        </div>
       ) : null}
+
+      {openCompendiumDomainKeys.map((domainKey, index) => {
+        const domain = catalogDomains.find((candidate) => candidate.key === domainKey)
+        if (!domain) return null
+        return (
+          <CampaignCatalogModal
+            key={domain.key}
+            campaignId={campaignId}
+            domains={[domain]}
+            canManageTokens={role === 'MASTER'}
+            zIndex={COMPENDIUM_WINDOW_BASE_Z_INDEX + index * COMPENDIUM_WINDOW_Z_INDEX_STEP}
+            leftInset={compendiumLeftInset}
+            bottomInset={compendiumBottomInset}
+            onClose={() => closeCompendiumDomain(domain.key)}
+          />
+        )
+      })}
 
       {characterSheetsOpen ? (
         <CampaignCharacterSheetsModal
