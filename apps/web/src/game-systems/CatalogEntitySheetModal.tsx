@@ -422,10 +422,11 @@ export function CatalogEntitySheetModal({
         </div>
       </section>
 
-      {sendOpen && entry ? (
+      {sendOpen && entry && resolvedDomain ? (
         <CatalogItemSendModal
           campaignId={campaignId}
           contentId={contentId}
+          domain={resolvedDomain}
           itemName={entry.name}
           onClose={() => setSendOpen(false)}
         />
