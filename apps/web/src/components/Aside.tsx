@@ -266,7 +266,7 @@ export function Aside({
 
       {!collapsed && compendiumMenuOpen && catalogDomains.length > 0 ? (
         <div
-          className="campaign-compendium-submenu z-[10001] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur"
+          className="fixed left-[244px] z-[10001] w-60 max-w-[calc(100vw-256px)] rounded-xl border border-white/10 bg-zinc-900/95 p-1.5 text-white shadow-2xl backdrop-blur"
           style={{ top: compendiumMenuTop }}
           role="menu"
           aria-label="Domínios do Compêndio"
