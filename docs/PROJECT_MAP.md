@@ -95,6 +95,7 @@ Features/documentos de apoio atuais incluem:
 - `docs/features/campaign-session/`
 - `docs/features/campaign-scene/`
 - `docs/features/campaign-diary/`
+- `docs/features/campaign-game-log/`
 - `docs/features/campaign-user-settings/`
 - `docs/features/chat/`
 - `docs/features/combat/`

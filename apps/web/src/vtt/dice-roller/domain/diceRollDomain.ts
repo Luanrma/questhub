@@ -91,12 +91,6 @@ export function extractRollResults(results: DiceEngineRollResult[], groups: Dice
   })
 }
 
-export function formatChatMessage(command: string, groups: DiceRollResultGroup[]) {
-  const total = groups.reduce((sum, group) => sum + group.values.reduce((groupSum, value) => groupSum + value, 0), 0)
-  const details = groups.map((group) => `D${group.sides}: ${group.values.join(', ')}`).join(' | ')
-  return `ROLOU ${command} | ${details} | TOTAL: ${total}`
-}
-
 export function normalizeRollValue(value: unknown, sides: DiceSides) {
   if (typeof value !== 'number' || !Number.isFinite(value)) return null
   return Math.max(1, Math.min(sides, Math.round(value)))

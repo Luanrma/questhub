@@ -1,7 +1,7 @@
 # QuestHub — Arquitetura Canônica
 
 Status: **CURRENT**  
-Última consolidação: 2026-08-19
+Última consolidação: 2026-08-24
 
 Este documento descreve a arquitetura vigente do QuestHub. Ele é subordinado a `docs/PROJECT_CONSTITUTION.md` e aos ADRs aceitos em `docs/architecture/adr/`.
 
@@ -186,7 +186,8 @@ O VTT Core é responsável por capacidades genéricas, incluindo quando aplicáv
 - iluminação e visão por contratos genéricos;
 - seleção de alvos;
 - áreas e overlays;
-- chat;
+- chat de diálogo;
+- Campaign Game Log para eventos mecânicos genéricos;
 - presença e sessão;
 - assets;
 - diário;
@@ -195,6 +196,16 @@ O VTT Core é responsável por capacidades genéricas, incluindo quando aplicáv
 - persistência agnóstica necessária para suportar o mundo.
 
 O Core não interpreta regras de um ruleset concreto.
+
+### 9.1 Chat e Campaign Game Log
+
+`ChatMessage` representa exclusivamente diálogo. Rolagens e outros eventos mecânicos não são mensagens de Chat.
+
+O Campaign Game Log recebe fatos estruturados produzidos por capacidades já autorizadas do VTT. Fora de um Encontro, esses fatos existem apenas no realtime. Durante um Encontro, o Core persiste entradas vinculadas a `CampaignEncounter`, preservando snapshots genéricos para consulta histórica após o encerramento.
+
+`CampaignEncounter` é a identidade persistente do agrupamento histórico; tracker, rodada, turno e participantes continuam como estado operacional vivo do Encounter Mode. O Log pode transportar payload opaco de uma engine, mas não interpreta acerto, dano, modificadores ou qualquer regra concreta.
+
+Contrato: `docs/features/campaign-game-log/spec.md`.
 
 Configurações pessoais de Game System podem ser persistidas como namespaces opacos em estruturas genéricas, mas defaults, validação semântica e UI concreta desses namespaces pertencem ao sistema correspondente.
 

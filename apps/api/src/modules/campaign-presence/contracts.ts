@@ -145,7 +145,7 @@ export const vttDiceRollSchema = z
     campaignId: z.string().min(1),
     sides: vttDiceSidesSchema.optional(),
     value: z.number().int().min(1).optional(),
-    rolls: z.array(vttDiceRollItemSchema).min(1).max(20).optional(),
+    rolls: z.array(vttDiceRollItemSchema).min(1).max(40).optional(),
   })
   .transform((input) => ({
     campaignId: input.campaignId,

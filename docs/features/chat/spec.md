@@ -2,6 +2,8 @@
 
 ## Persistência
 
+O Chat é exclusivo para diálogo entre participantes e atores. Rolagens, resultados e demais eventos mecânicos pertencem ao Campaign Game Log e nunca criam `ChatMessage`.
+
 ```prisma
 model ChatMessage {
   id                     String
@@ -40,3 +42,5 @@ Evento: `chat:message:create`
 ```
 
 O backend valida membro ativo. Quando `actorId` é informado, o ator deve pertencer à campanha e ser controlado pelo membro, salvo quando o remetente é o Mestre.
+
+O evento `chat:message:create` não aceita payload de rolagem ou evento mecânico. Mensagens históricas criadas antes desta separação permanecem intactas; não há migração retroativa neste recorte.

@@ -26,6 +26,7 @@ type VttCombatParticipant = {
 }
 
 type VttCombatState = {
+  encounterId: string
   campaignId: string
   sceneId: string
   round: number
@@ -37,6 +38,7 @@ type VttCombatState = {
 ```
 
 Regras:
+* `encounterId` identifica o registro persistente que agrupa o Game Log do encontro; o tracker e as regras operacionais continuam no estado vivo.
 * `sceneId` identifica a cena usada para iniciar o combate.
 * `participants` inicia com os tokens selecionados explicitamente pelo Mestre na caixa de Encounter Mode e pode ser alterado durante o encontro.
 * Participantes referenciam tokens de cena; nao exigem `CampaignActor`, ficha, bestiario ou sistema de jogo.
@@ -50,8 +52,8 @@ Regras:
 * `activeTurnIndex` inicia em `0`.
 * Ao avancar alem do ultimo participante, `activeTurnIndex` volta para `0`, `round` aumenta em `1` e `turnCount` continua crescente.
 * `previous-turn` reduz `turnCount` e volta o participante ativo, sem permitir valores abaixo de `1`; no primeiro turno do encontro, o comando nao altera o estado.
-* Encerrar encontro remove o estado vivo.
-* Trocar a cena ativa remove o combate vivo quando ele pertence a uma cena diferente.
+* Encerrar encontro grava o evento final, fecha o registro persistente e remove o estado vivo, sem excluir o histórico.
+* Trocar a cena ativa fecha o registro persistente e remove o combate vivo quando ele pertence a uma cena diferente.
 
 ## 3. Eventos Socket.IO
 

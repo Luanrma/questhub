@@ -10,6 +10,7 @@ import { registerCampaignActorEffectRoutes } from './modules/campaign_actor_effe
 import { registerCampaignCharacterSheetContextRoutes } from './modules/campaign_character_sheet_context/routes'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
 import { registerCampaignDiaryRoutes } from './modules/campaign_diary/routes'
+import { registerCampaignGameLogRoutes } from './modules/campaign_game_log/routes'
 import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
 import { FogService } from './modules/fog-of-war/application/fog-service'
 import { PrismaFogRepository } from './modules/fog-of-war/infra/prisma-fog-repository'
@@ -71,6 +72,7 @@ export async function createVttServer() {
   registerGameSystemActiveEffectCompositionRoutes(app, presence.io)
   registerCampaignCharacterSheetContextRoutes(app)
   registerCampaignDiaryRoutes(app)
+  registerCampaignGameLogRoutes(app)
   registerCampaignSceneRoutes(app, presence)
   registerFogRoutes(app, fogService, presence.io)
   registerFogSocketHandlers(presence.io, fogService)

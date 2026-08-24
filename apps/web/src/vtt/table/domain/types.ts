@@ -186,6 +186,7 @@ export type VttTokenMovementStartedPayload = {
 }
 
 export type VttCombatState = {
+  encounterId: string
   campaignId: string
   sceneId: string
   round: number

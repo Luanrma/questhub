@@ -3,6 +3,7 @@ import test from 'node:test'
 import {
   vttCombatAdjustInitiativeSchema,
   vttCombatParticipantsSchema,
+  vttDiceRollSchema,
   vttGridSettingsSchema,
   vttTargetMarkerStyleUpdateSchema,
   vttTokenPlaceSchema,
@@ -89,4 +90,10 @@ test('target marker layout accepts only the supported campaign session styles', 
     campaignId: 'campaign-1',
     style: 'CIRCLE',
   }).success, false)
+})
+
+test('dice roll contract accepts the full visible tray and rejects oversized batches', () => {
+  const roll = { sides: 20 as const, value: 10 }
+  assert.equal(vttDiceRollSchema.safeParse({ campaignId: 'campaign-1', rolls: Array(40).fill(roll) }).success, true)
+  assert.equal(vttDiceRollSchema.safeParse({ campaignId: 'campaign-1', rolls: Array(41).fill(roll) }).success, false)
 })

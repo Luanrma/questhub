@@ -86,6 +86,7 @@ model Campaign {
   userSettings    CampaignUserSettings[]
   areaTemplates   CampaignAreaTemplate[]
   areaEffects     SceneAreaEffect[]
+  encounters      CampaignEncounter[]
 }
 
 model CampaignActor {
@@ -246,6 +247,40 @@ model ChatMessage {
   @@index([userId])
 }
 
+model CampaignEncounter {
+  id                String    @id @default(cuid())
+  campaignId        String
+  sceneId           String?
+  sceneNameSnapshot String?
+  startedAt         DateTime  @default(now())
+  endedAt           DateTime?
+  endReason         String?
+
+  campaign Campaign               @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  scene    CampaignScene?         @relation(fields: [sceneId], references: [id], onDelete: SetNull)
+  entries  CampaignGameLogEntry[]
+
+  @@index([campaignId, startedAt])
+  @@index([campaignId, endedAt])
+  @@index([sceneId])
+  @@unique([id, campaignId])
+}
+
+model CampaignGameLogEntry {
+  id          String   @id @default(cuid())
+  campaignId  String
+  encounterId String
+  eventType   String
+  summary     String
+  payload     Json
+  createdAt   DateTime @default(now())
+
+  encounter CampaignEncounter @relation(fields: [encounterId, campaignId], references: [id, campaignId], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+  @@index([encounterId, createdAt])
+}
+
 model Asset {
   id           String   @id @default(cuid())
   userId       String
@@ -309,6 +344,7 @@ model CampaignScene {
   forcedForViewStates CampaignSceneViewState[] @relation("ForcedScene")
   areaEffects         SceneAreaEffect[]
   fogExplorations     CampaignFogExploration[]
+  encounters          CampaignEncounter[]
 
   @@unique([campaignId, order])
   @@index([campaignId])

@@ -12,13 +12,11 @@ import {
 import {
   buildCommand,
   extractRollResults,
-  formatChatMessage,
   normalizeGroups,
   parseDiceCommand,
   resolveDiceBoxScale,
   rollCount,
 } from '../domain/diceRollDomain'
-import { publishDiceRollChatMessage } from '../infrastructure/chat/diceRollChatPublisher'
 import {
   DICE_DISPLAY_SETTINGS_CHANGED_EVENT,
   normalizeHexColor,
@@ -87,16 +85,6 @@ export function useVttDiceRoller({
   const visibleCount = visibleRolls.length
   const remainingSlots = Math.max(0, maxVisibleDice - visibleCount - selectedCount)
 
-  const publishChatMessage = useCallback(
-    async (content: string) => {
-      if (!socket) return
-
-      const result = await publishDiceRollChatMessage({ socket, campaignId, content })
-      if (!result.ok) setWarning(result.error)
-    },
-    [campaignId, socket],
-  )
-
   const cancelAutoClear = useCallback(() => {
     if (autoClearTimeoutRef.current === null) return
     window.clearTimeout(autoClearTimeoutRef.current)
@@ -151,7 +139,10 @@ export function useVttDiceRoller({
 
       setVisibleRolls((current) => [...current, ...nextRolls])
       setResultPopup({ command: pendingRoll.command, groups, total })
-      void publishChatMessage(formatChatMessage(pendingRoll.command, groups))
+      socket?.emit('vtt:dice:roll', {
+        campaignId,
+        rolls: nextRolls.map(({ sides, value }) => ({ sides, value })),
+      })
 
       cancelResultPopupTimeout()
       resultPopupTimeoutRef.current = window.setTimeout(() => {
@@ -166,7 +157,7 @@ export function useVttDiceRoller({
         }, currentDisplaySettings.autoClear * 1000)
       }
     },
-    [cancelAutoClear, cancelResultPopupTimeout, clearDice, publishChatMessage],
+    [campaignId, cancelAutoClear, cancelResultPopupTimeout, clearDice, socket],
   )
 
   useEffect(() => {

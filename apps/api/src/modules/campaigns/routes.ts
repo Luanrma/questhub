@@ -21,7 +21,7 @@ type CampaignRoutesDeps = {
   io: SocketIOServer
   isCampaignOnline: (campaignId: string) => boolean
   getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
-  removeCampaignTokenFromLiveState: (campaignId: string, tokenId: string) => void
+  removeCampaignTokenFromLiveState: (campaignId: string, tokenId: string) => Promise<void>
   refreshCampaignTokenInLiveState: (campaignId: string, tokenId: string) => Promise<void>
   getCampaignTokenLivePlacement: (
     campaignId: string,
@@ -808,7 +808,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     })
     if (!token) return reply.status(404).send({ error: 'Token nao encontrado' })
 
-    removeCampaignTokenFromLiveState(params.campaignId, token.id)
+    await removeCampaignTokenFromLiveState(params.campaignId, token.id)
     await prisma.campaignToken.delete({ where: { id: token.id } })
     io.to(`campaign:${params.campaignId}`).emit('vtt:token:deleted', {
       campaignId: params.campaignId,
