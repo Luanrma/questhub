@@ -1,5 +1,7 @@
 # Campaign Game Log — Especificação
 
+Card: `QH-TLC-004`
+
 ## 1. Objetivo
 
 O Campaign Game Log é o registro operacional de eventos mecânicos da mesa. Ele fica separado do Chat, que existe exclusivamente para diálogo entre participantes e atores.
