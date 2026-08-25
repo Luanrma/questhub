@@ -25,6 +25,7 @@ function participant(tokenId: string, initiative: number): VttCombatParticipant 
 
 function combat(participants: VttCombatParticipant[]): VttCombatState {
   return {
+    encounterId: 'encounter-1',
     campaignId: 'campaign-1',
     sceneId: 'scene-1',
     round: 1,

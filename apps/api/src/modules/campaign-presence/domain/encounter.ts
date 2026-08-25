@@ -8,6 +8,7 @@ export type VttCombatParticipant = {
 }
 
 export type VttCombatState = {
+  encounterId: string
   campaignId: string
   sceneId: string
   round: number

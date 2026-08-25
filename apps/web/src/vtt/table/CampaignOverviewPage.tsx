@@ -29,7 +29,7 @@ import {
   ZoomOut,
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import { CampaignChat } from '../../components/CampaignChat'
+import { CampaignCommunicationPanel } from '../../components/CampaignGameLog'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { CampaignInventoryModal } from '../../game-systems/CampaignInventoryModal'
 import { requestCampaignCharacterSheetOpen } from '../../lib/campaign-character-sheet-window-events'
@@ -3773,7 +3773,7 @@ export function CampaignOverviewPage({
             {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{campaign?.myRole === 'MASTER' ? 'Mestre conectado à mesa.' : 'Jogador conectado à mesa.'}</div></section> : null}
             {rightPanelTab === 'session' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3">{campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}<div><div className="text-sm font-semibold">Sessao</div><div className="text-[11px] uppercase text-zinc-500">{rightPanelSessionStatus.title}</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">{sessionState === 'PAUSED' ? 'Jogadores estao bloqueados na mesa, exceto no chat. O Mestre ainda pode preparar cenas.' : campaign?.isOnline ? 'A mesa esta disponivel para participantes ativos.' : 'A mesa esta em modo de preparacao offline.'}</div></section> : null}
             {rightPanelTab === 'scenes' && isMaster ? <SceneSidebarScenes scenes={preparedScenes} activeSceneId={activeScene?.id ?? null} onSelectScene={selectPreparedScene} onPrepareScene={() => setScenePreparationOpen(true)} /> : null}
-            {rightPanelTab === 'chat' && campaignId ? <CampaignChat campaignId={campaignId} enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')} className="h-full min-h-0" /> : null}
+            {rightPanelTab === 'chat' && campaignId ? <CampaignCommunicationPanel campaignId={campaignId} chatEnabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')} /> : null}
           </div>
         </div>
       </aside>

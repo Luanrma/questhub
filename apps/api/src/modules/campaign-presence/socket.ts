@@ -9,6 +9,15 @@ import { isActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
 import { assetService } from '../assets/service'
+import {
+  campaignGameLogEventType,
+  type CampaignGameLogEntry,
+} from '../campaign_game_log/contracts'
+import {
+  appendCampaignGameLogEntry,
+  createCampaignEncounter,
+  endCampaignEncounter,
+} from '../campaign_game_log/service'
 import { isMovementBlockedBySceneWalls, normalizeSceneWalls } from '../campaign_scene/domain/wall-geometry'
 import {
   defaultVttGridSettings,
@@ -108,6 +117,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
   async function endCampaignSession(campaignId: string, message: string, trigger: VttPersistenceTrigger) {
     await persistCampaignLiveState(campaignId, trigger)
+    await closeCampaignCombat(campaignId, 'SESSION_ENDED')
     state.clearCampaignSession(campaignId)
     await notifyCampaignStatus(campaignId, false)
 
@@ -206,6 +216,8 @@ export function setupCampaignPresence(server: HttpServer) {
       return tokenSceneMap.get(token.id) === options.sceneId
     })
 
+    await removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.id))
+
     for (const token of tokensToRemove) {
       const sceneId = tokenSceneMap.get(token.id)
       if (!sceneId) continue
@@ -214,7 +226,6 @@ export function setupCampaignPresence(server: HttpServer) {
       await emitSceneTokenRemoved(campaignId, sceneId, token)
     }
 
-    removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.id))
     if (tokensToRemove.length) state.markCampaignVttStateDirty(campaignId)
 
     if (!options.sceneId) {
@@ -784,6 +795,37 @@ export function setupCampaignPresence(server: HttpServer) {
     })
   }
 
+  function emitGameLogEntry(entry: CampaignGameLogEntry) {
+    io.to(campaignRoom(entry.campaignId)).emit('game-log:entry:created', entry)
+  }
+
+  async function appendCombatGameLogEntry(
+    campaignId: string,
+    event: Parameters<typeof appendCampaignGameLogEntry>[0]['event'],
+  ) {
+    const combat = state.getCampaignCombat(campaignId)
+    if (!combat) return null
+    const entry = await appendCampaignGameLogEntry({
+      campaignId,
+      encounterId: combat.encounterId,
+      event,
+    })
+    emitGameLogEntry(entry)
+    return entry
+  }
+
+  async function closeCampaignCombat(
+    campaignId: string,
+    reason: Parameters<typeof endCampaignEncounter>[0]['reason'],
+  ) {
+    const combat = state.getCampaignCombat(campaignId)
+    if (!combat) return
+    const entry = await endCampaignEncounter({ campaignId, encounterId: combat.encounterId, reason })
+    if (entry) emitGameLogEntry(entry)
+    state.deleteCampaignCombat(campaignId)
+    emitCombatChanged(campaignId)
+  }
+
   function combatParticipantFromToken(token: VttPlayerToken): VttCombatParticipant {
     return {
       tokenId: token.id,
@@ -801,14 +843,24 @@ export function setupCampaignPresence(server: HttpServer) {
     })
   }
 
-  function removeCombatParticipants(campaignId: string, tokenIds: string[]) {
+  async function removeCombatParticipants(campaignId: string, tokenIds: string[]) {
     const combat = state.getCampaignCombat(campaignId)
     if (!combat || !tokenIds.length) return
 
+    const removedParticipants = combat.participants.filter((participant) => tokenIds.includes(participant.tokenId))
+    if (!removedParticipants.length) return
     const updatedCombat = removeParticipantsFromCombatState(combat, tokenIds)
+    await appendCombatGameLogEntry(campaignId, {
+      eventType: campaignGameLogEventType.encounterParticipantsRemoved,
+      summary: removedParticipants.length === 1
+        ? `${removedParticipants[0].name} saiu do encontro.`
+        : `${removedParticipants.length} participantes sairam do encontro.`,
+      payload: {
+        participants: removedParticipants.map(({ tokenId, actorId, name }) => ({ tokenId, actorId, name })),
+      },
+    })
     if (!updatedCombat) {
-      state.deleteCampaignCombat(campaignId)
-      emitCombatChanged(campaignId)
+      await closeCampaignCombat(campaignId, 'NO_PARTICIPANTS')
       return
     }
 
@@ -816,11 +868,11 @@ export function setupCampaignPresence(server: HttpServer) {
     emitCombatChanged(campaignId)
   }
 
-  function removeCampaignTokenFromLiveState(campaignId: string, tokenId: string) {
+  async function removeCampaignTokenFromLiveState(campaignId: string, tokenId: string) {
+    await removeCombatParticipants(campaignId, [tokenId])
     const tokenRemoved = state.getCampaignTokens(campaignId)?.delete(tokenId) ?? false
     const placementRemoved = state.getCampaignTokenSceneIds(campaignId)?.delete(tokenId) ?? false
     if (tokenRemoved || placementRemoved) state.markCampaignVttStateDirty(campaignId)
-    removeCombatParticipants(campaignId, [tokenId])
   }
 
   async function refreshCampaignTokenInLiveState(campaignId: string, tokenId: string) {
@@ -858,16 +910,18 @@ export function setupCampaignPresence(server: HttpServer) {
     const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
     if (!tokenMap || !tokenSceneMap) return
 
-    const removedTokenIds: string[] = []
+    const removedTokenIds = [...tokenSceneMap.entries()]
+      .filter(([, placedSceneId]) => placedSceneId === sceneId)
+      .map(([tokenId]) => tokenId)
+    await removeCombatParticipants(campaignId, removedTokenIds)
+
     for (const [tokenId, placedSceneId] of tokenSceneMap.entries()) {
       if (placedSceneId !== sceneId) continue
       tokenSceneMap.delete(tokenId)
-      removedTokenIds.push(tokenId)
       const token = tokenMap.get(tokenId)
       if (token) await emitSceneTokenRemoved(campaignId, sceneId, token)
     }
     if (removedTokenIds.length) state.markCampaignVttStateDirty(campaignId)
-    removeCombatParticipants(campaignId, removedTokenIds)
   }
 
   async function removeCampaignToken(campaignId: string, tokenId: string) {
@@ -884,10 +938,10 @@ export function setupCampaignPresence(server: HttpServer) {
     const sceneId = liveSceneId ?? persistedPlacement?.sceneId
     if (!sceneId) return
 
+    await removeCombatParticipants(campaignId, [tokenId])
     state.getCampaignTokenSceneIds(campaignId)?.delete(tokenId)
     state.markCampaignVttStateDirty(campaignId)
     await emitSceneTokenRemoved(campaignId, sceneId, token)
-    removeCombatParticipants(campaignId, [tokenId])
   }
 
   io.use((socket, next) => {
@@ -1283,10 +1337,10 @@ export function setupCampaignPresence(server: HttpServer) {
       const nextToken = { ...token, hidden: !token.hidden }
       const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
       if (!sceneId) return
+      if (nextToken.hidden) await removeCombatParticipants(campaignId, [tokenId])
       setLiveSceneToken(campaignId, sceneId, nextToken)
       if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
       else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
-      if (nextToken.hidden) removeCombatParticipants(campaignId, [tokenId])
     })
 
     socket.on('vtt:tokens:request', (input: unknown) => {
@@ -1318,7 +1372,22 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const participants = sortCombatParticipants(tokens.map(combatParticipantFromToken))
 
+      await closeCampaignCombat(campaignId, 'REPLACED')
+
+      const createdEncounter = await createCampaignEncounter({
+        campaignId,
+        sceneId,
+        participants: participants.map(({ tokenId, actorId, name, initiative }) => ({
+          tokenId,
+          actorId,
+          name,
+          initiative,
+        })),
+      })
+      if (!createdEncounter) return
+
       state.setCampaignCombat(campaignId, {
+        encounterId: createdEncounter.encounter.id,
         campaignId,
         sceneId,
         round: 1,
@@ -1328,6 +1397,7 @@ export function setupCampaignPresence(server: HttpServer) {
         participants,
       })
       emitCombatChanged(campaignId)
+      emitGameLogEntry(createdEncounter.entry)
     })
 
     socket.on('vtt:combat:add-participants', async (input: unknown) => {
@@ -1347,24 +1417,36 @@ export function setupCampaignPresence(server: HttpServer) {
       )
       if (!tokens.length) return
 
-      state.setCampaignCombat(
-        campaignId,
-        addParticipantsToCombatState(combat, tokens.map(combatParticipantFromToken)),
-      )
+      const addedParticipants = tokens.map(combatParticipantFromToken)
+      await appendCombatGameLogEntry(campaignId, {
+        eventType: campaignGameLogEventType.encounterParticipantsAdded,
+        summary: addedParticipants.length === 1
+          ? `${addedParticipants[0].name} entrou no encontro.`
+          : `${addedParticipants.length} participantes entraram no encontro.`,
+        payload: {
+          participants: addedParticipants.map(({ tokenId, actorId, name, initiative }) => ({
+            tokenId,
+            actorId,
+            name,
+            initiative,
+          })),
+        },
+      })
+      state.setCampaignCombat(campaignId, addParticipantsToCombatState(combat, addedParticipants))
       emitCombatChanged(campaignId)
     })
 
-    socket.on('vtt:combat:remove-participants', (input: unknown) => {
+    socket.on('vtt:combat:remove-participants', async (input: unknown) => {
       const parsed = vttCombatParticipantsSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, tokenIds } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      removeCombatParticipants(campaignId, tokenIds)
+      await removeCombatParticipants(campaignId, tokenIds)
     })
 
-    socket.on('vtt:combat:adjust-initiative', (input: unknown) => {
+    socket.on('vtt:combat:adjust-initiative', async (input: unknown) => {
       const parsed = vttCombatAdjustInitiativeSchema.safeParse(input)
       if (!parsed.success) return
 
@@ -1374,11 +1456,29 @@ export function setupCampaignPresence(server: HttpServer) {
       const combat = state.getCampaignCombat(campaignId)
       if (!combat) return
 
-      state.setCampaignCombat(campaignId, adjustCombatInitiative(combat, tokenId, initiativeAdjustment))
+      const participant = combat.participants.find((item) => item.tokenId === tokenId)
+      if (!participant) return
+      const adjustedCombat = adjustCombatInitiative(combat, tokenId, initiativeAdjustment)
+      const adjustedParticipant = adjustedCombat.participants.find((item) => item.tokenId === tokenId)
+      if (!adjustedParticipant || adjustedParticipant.initiative === participant.initiative) return
+
+      await appendCombatGameLogEntry(campaignId, {
+        eventType: campaignGameLogEventType.encounterInitiativeAdjusted,
+        summary: `Iniciativa de ${participant.name} ajustada para ${adjustedParticipant.initiative}.`,
+        payload: {
+          tokenId,
+          actorId: participant.actorId,
+          name: participant.name,
+          adjustment: initiativeAdjustment,
+          previousInitiative: participant.initiative,
+          initiative: adjustedParticipant.initiative,
+        },
+      })
+      state.setCampaignCombat(campaignId, adjustedCombat)
       emitCombatChanged(campaignId)
     })
 
-    socket.on('vtt:combat:next-turn', (input: unknown) => {
+    socket.on('vtt:combat:next-turn', async (input: unknown) => {
       const parsed = vttCombatCommandSchema.safeParse(input)
       if (!parsed.success) return
 
@@ -1388,11 +1488,28 @@ export function setupCampaignPresence(server: HttpServer) {
       const combat = state.getCampaignCombat(campaignId)
       if (!combat?.participants.length) return
 
-      state.setCampaignCombat(campaignId, advanceCombatTurn(combat))
+      const nextCombat = advanceCombatTurn(combat)
+      const activeParticipant = nextCombat.participants[nextCombat.activeTurnIndex]
+      await appendCombatGameLogEntry(campaignId, {
+        eventType: campaignGameLogEventType.encounterTurnChanged,
+        summary: `Turno ${nextCombat.turnCount}: ${activeParticipant.name}.`,
+        payload: {
+          direction: 'NEXT',
+          round: nextCombat.round,
+          turnCount: nextCombat.turnCount,
+          activeTurnIndex: nextCombat.activeTurnIndex,
+          activeParticipant: {
+            tokenId: activeParticipant.tokenId,
+            actorId: activeParticipant.actorId,
+            name: activeParticipant.name,
+          },
+        },
+      })
+      state.setCampaignCombat(campaignId, nextCombat)
       emitCombatChanged(campaignId)
     })
 
-    socket.on('vtt:combat:previous-turn', (input: unknown) => {
+    socket.on('vtt:combat:previous-turn', async (input: unknown) => {
       const parsed = vttCombatCommandSchema.safeParse(input)
       if (!parsed.success) return
 
@@ -1402,19 +1519,36 @@ export function setupCampaignPresence(server: HttpServer) {
       const combat = state.getCampaignCombat(campaignId)
       if (!combat?.participants.length) return
 
-      state.setCampaignCombat(campaignId, rewindCombatTurn(combat))
+      const previousCombat = rewindCombatTurn(combat)
+      if (previousCombat === combat) return
+      const activeParticipant = previousCombat.participants[previousCombat.activeTurnIndex]
+      await appendCombatGameLogEntry(campaignId, {
+        eventType: campaignGameLogEventType.encounterTurnChanged,
+        summary: `Turno ${previousCombat.turnCount}: ${activeParticipant.name}.`,
+        payload: {
+          direction: 'PREVIOUS',
+          round: previousCombat.round,
+          turnCount: previousCombat.turnCount,
+          activeTurnIndex: previousCombat.activeTurnIndex,
+          activeParticipant: {
+            tokenId: activeParticipant.tokenId,
+            actorId: activeParticipant.actorId,
+            name: activeParticipant.name,
+          },
+        },
+      })
+      state.setCampaignCombat(campaignId, previousCombat)
       emitCombatChanged(campaignId)
     })
 
-    socket.on('vtt:combat:end', (input: unknown) => {
+    socket.on('vtt:combat:end', async (input: unknown) => {
       const parsed = vttCombatCommandSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      state.deleteCampaignCombat(campaignId)
-      emitCombatChanged(campaignId)
+      await closeCampaignCombat(campaignId, 'MANUAL')
     })
 
     socket.on('vtt:combat:request', (input: unknown) => {
@@ -1498,8 +1632,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!sceneUpdated) return
       const combat = state.getCampaignCombat(campaignId)
       if (combat && combat.sceneId !== (scene?.id ?? null)) {
-        state.deleteCampaignCombat(campaignId)
-        emitCombatChanged(campaignId)
+        await closeCampaignCombat(campaignId, 'SCENE_CHANGED')
       }
       if (scene?.id) {
         const settings = await getActiveSceneGridSettings(campaignId)
@@ -1566,11 +1699,28 @@ export function setupCampaignPresence(server: HttpServer) {
         rolledAt,
       }))
 
+      const combat = state.getCampaignCombat(campaignId)
+      const total = rolls.reduce((sum, roll) => sum + roll.value, 0)
+      const gameLogEntry = await appendCampaignGameLogEntry({
+        campaignId,
+        encounterId: combat?.encounterId ?? null,
+        event: {
+          eventType: campaignGameLogEventType.diceRoll,
+          summary: `${rolls[0].actorName} rolou ${rolls.length} dado(s): total ${total}.`,
+          payload: {
+            actorId: rolls[0].actorId,
+            actorName: rolls[0].actorName,
+            total,
+            rolls: rolls.map(({ id, sides, value, rolledAt }) => ({ id, sides, value, rolledAt })),
+          },
+        },
+      })
       io.to(campaignRoom(campaignId)).emit('vtt:dice:rolled', {
         campaignId,
         roll: rolls[0],
         rolls,
       })
+      emitGameLogEntry(gameLogEntry)
     })
 
   })
