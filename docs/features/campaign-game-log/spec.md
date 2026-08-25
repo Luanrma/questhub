@@ -159,6 +159,7 @@ Rolagens continuam sendo solicitadas pelo contrato `vtt:dice:roll`. O servidor e
 * Ao destacar o Log, o dock lateral volta a mostrar o Chat e o Log vira janela flutuante.
 * A janela flutuante pode ser arrastada e redimensionada, respeitando limites mínimos e a viewport.
 * A ação no canto superior direito prende o Log novamente no dock original.
+* Enquanto destacado, o Log permanece flutuante ao trocar, recolher ou reabrir qualquer opção da sidebar direita; somente a ação explícita de prender pode reencaixá-lo.
 * Alternar, destacar e prender não remove entradas nem reinicia a posição de leitura.
 * O estado de destaque é local ao cliente e não é persistido entre dispositivos.
 * Tipos conhecidos podem ter apresentação especializada; tipos desconhecidos mostram data, `summary` e marcador de persistência.
@@ -187,5 +188,6 @@ QH-TLC-005 poderá acrescentar contexto guiado de rolagem — origem, ação, mo
 * Chat e Log são intercambiáveis no dock;
 * Log destacado pode ser arrastado e redimensionado;
 * a ação de prender devolve o Log ao dock;
+* trocar, recolher ou reabrir opções da sidebar direita não reencaixa um Log destacado;
 * entradas e posição de leitura são preservadas ao alternar entre os dois modos;
 * o domínio base não contém campos nem decisões específicas de Pathfinder 2e.
