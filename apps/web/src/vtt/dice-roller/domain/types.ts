@@ -13,3 +13,12 @@ export type DiceRollGroup = {
 export type DiceRollResultGroup = DiceRollGroup & {
   values: number[]
 }
+
+export type DiceInputMode = 'guided' | 'expression'
+
+export type DiceRollComposition = {
+  groups: DiceRollGroup[]
+  modifier: number
+  label: string | null
+  expression: string
+}

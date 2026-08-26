@@ -148,7 +148,7 @@ game-log:entry:created
 
 O payload é `CampaignGameLogEntry`. O evento é enviado à sala da campanha depois da validação do comando que o originou.
 
-Rolagens continuam sendo solicitadas pelo contrato `vtt:dice:roll`. O servidor emite `vtt:dice:rolled` para compatibilidade visual e publica também a entrada correspondente no Game Log. Fora de Encontro, esta entrada é transitória; dentro de Encontro, é persistida.
+Rolagens são solicitadas pelo contrato `vtt:dice:roll`. Conforme `docs/features/manual-dice-roll/spec.md` (`QH-TLC-005`), o comando transporta grupos de dados, valores individuais produzidos pela animação, modificador inteiro e identificação opcional. O servidor valida a composição, deriva a expressão normalizada, calcula o total e publica a entrada correspondente no Game Log. Ele também emite `vtt:dice:rolled` para compatibilidade visual. Fora de Encontro, a entrada é transitória; dentro de Encontro, é persistida.
 
 ## 7. UI/UX
 
@@ -172,9 +172,9 @@ Rolagens continuam sendo solicitadas pelo contrato `vtt:dice:roll`. O servidor e
 * toda relação persistida deve ser validada no mesmo `campaignId`;
 * o Log não torna informação oculta visível: produtores devem publicar apenas snapshots já autorizados para toda a sala da campanha.
 
-## 9. Compatibilidade futura
+## 9. Composição manual de rolagens
 
-QH-TLC-005 poderá acrescentar contexto guiado de rolagem — origem, ação, modificadores e expressão — dentro de `payload`, sem alterar a decisão de persistência nem converter o Log em motor de regras. A expressão livre permanece um atalho de entrada, não uma autoridade normativa.
+QH-TLC-005 acrescenta identificação, expressão normalizada, grupos, valores individuais, subtotal dos dados, modificador e total ao `payload` de `DICE_ROLL`. Esses campos são fatos produzidos pela capacidade genérica de Dice: não alteram a decisão de persistência e não convertem o Log em motor de regras. A expressão permanece uma forma alternativa de preencher o mesmo modelo guiado, não uma autoridade normativa nem uma fórmula de Game System.
 
 ## 10. Critérios de aceitação
 

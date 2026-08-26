@@ -94,6 +94,58 @@ test('target marker layout accepts only the supported campaign session styles', 
 
 test('dice roll contract accepts the full visible tray and rejects oversized batches', () => {
   const roll = { sides: 20 as const, value: 10 }
-  assert.equal(vttDiceRollSchema.safeParse({ campaignId: 'campaign-1', rolls: Array(40).fill(roll) }).success, true)
-  assert.equal(vttDiceRollSchema.safeParse({ campaignId: 'campaign-1', rolls: Array(41).fill(roll) }).success, false)
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 40 }],
+    rolls: Array(40).fill(roll),
+    modifier: -2,
+    label: 'Ataque com espada',
+  }).success, true)
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 40 }, { sides: 6, count: 1 }],
+    rolls: [...Array(40).fill(roll), { sides: 6, value: 3 }],
+  }).success, false)
+})
+
+test('dice roll contract rejects mismatched composition and unsafe context', () => {
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 2 }],
+    rolls: [{ sides: 20, value: 10 }, { sides: 6, value: 3 }],
+    modifier: 7,
+    label: null,
+  }).success, false)
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 1 }, { sides: 20, count: 1 }],
+    rolls: [{ sides: 20, value: 10 }, { sides: 20, value: 11 }],
+  }).success, false)
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 1 }],
+    rolls: [{ sides: 20, value: 10 }],
+    modifier: Number.MAX_SAFE_INTEGER + 1,
+  }).success, false)
+  assert.equal(vttDiceRollSchema.safeParse({
+    campaignId: 'campaign-1',
+    groups: [{ sides: 20, count: 1 }],
+    rolls: [{ sides: 20, value: 10 }],
+    label: 'x'.repeat(121),
+  }).success, false)
+})
+
+test('dice roll contract normalizes optional context and applies neutral defaults', () => {
+  const parsed = vttDiceRollSchema.safeParse({
+    campaignId: ' campaign-1 ',
+    groups: [{ sides: 20, count: 1 }],
+    rolls: [{ sides: 20, value: 10 }],
+    label: '  Ataque com espada  ',
+  })
+
+  assert.equal(parsed.success, true)
+  if (!parsed.success) return
+  assert.equal(parsed.data.campaignId, 'campaign-1')
+  assert.equal(parsed.data.label, 'Ataque com espada')
+  assert.equal(parsed.data.modifier, 0)
 })

@@ -1,5 +1,5 @@
-import { diceOptions } from '../config/constants'
-import type { DiceRollGroup, DiceRollResultGroup, DiceSides } from './types'
+import { ascendingDiceOptions, maxDiceRollModifier } from '../config/constants'
+import type { DiceRollComposition, DiceRollGroup, DiceRollResultGroup, DiceSides } from './types'
 
 export type DiceEngineRollResult = {
   sides: number | string
@@ -11,7 +11,7 @@ export function isDiceSides(value: number): value is DiceSides {
 }
 
 export function normalizeGroups(groups: DiceRollGroup[]) {
-  return diceOptions
+  return ascendingDiceOptions
     .map((sides) => ({
       sides,
       count: groups.filter((group) => group.sides === sides).reduce((total, group) => total + group.count, 0),
@@ -30,18 +30,17 @@ export function resolveDiceBoxScale(totalDice: number) {
   return 7
 }
 
-export function parseDiceCommand(input: string): { groups: DiceRollGroup[]; command: string } | { error: string } {
+export function parseDiceCommand(input: string): Omit<DiceRollComposition, 'label'> | { error: string } {
   const normalized = input.trim().toLowerCase().replace(/\s+/g, '')
   if (!normalized) return { error: 'Informe uma rolagem.' }
 
-  const parts = normalized.split('-').filter(Boolean)
-  if (!parts.length || parts.join('-') !== normalized) return { error: 'Use o formato 1d20-5d6-3d10.' }
-
   const groups: DiceRollGroup[] = []
+  let cursor = normalized
+  let modifier = 0
 
-  for (const part of parts) {
-    const match = part.match(/^(\d*)d(\d+)$/)
-    if (!match) return { error: 'Use apenas grupos como 1d20, 5d6 ou 3d10.' }
+  while (cursor) {
+    const match = cursor.match(/^(\d*)d(\d+)/)
+    if (!match) return { error: 'Use dados como 1d20 ou 2d6 e um modificador inteiro final.' }
 
     const count = match[1] ? Number(match[1]) : 1
     const sides = Number(match[2])
@@ -50,18 +49,68 @@ export function parseDiceCommand(input: string): { groups: DiceRollGroup[]; comm
     if (!isDiceSides(sides)) return { error: 'Use apenas D4, D6, D8, D10, D12 ou D20.' }
 
     groups.push({ sides, count })
+    cursor = cursor.slice(match[0].length)
+    if (!cursor) break
+
+    const operator = cursor[0]
+    if (operator !== '+' && operator !== '-') {
+      return { error: 'Separe grupos com + e use + ou - somente no modificador final.' }
+    }
+
+    const remainder = cursor.slice(1)
+    if (!remainder) return { error: 'Informe um termo depois do operador.' }
+
+    if (operator === '+' && /^(?:\d*)d\d+/.test(remainder)) {
+      cursor = remainder
+      continue
+    }
+
+    if (!/^\d+$/.test(remainder)) {
+      return { error: operator === '-'
+        ? 'Subtração de dados não é suportada; use apenas um modificador inteiro final.'
+        : 'Use no máximo um modificador inteiro no final da expressão.' }
+    }
+
+    modifier = Number(`${operator}${remainder}`)
+    if (!Number.isSafeInteger(modifier) || modifier > maxDiceRollModifier) return { error: 'O modificador precisa manter o total dentro de um inteiro seguro.' }
+    cursor = ''
   }
 
   const normalizedGroups = normalizeGroups(groups)
-  const command = buildCommand(normalizedGroups)
-  return { groups: normalizedGroups, command }
+  if (rollCount(normalizedGroups) > 40) return { error: 'O limite é de 40 dados.' }
+  return {
+    groups: normalizedGroups,
+    modifier,
+    expression: buildCommand(normalizedGroups, modifier),
+  }
 }
 
-export function buildCommand(groups: DiceRollGroup[]) {
-  return normalizeGroups(groups)
+export function buildCommand(groups: DiceRollGroup[], modifier = 0) {
+  const diceExpression = normalizeGroups(groups)
     .map((group) => `${group.count}d${group.sides}`)
-    .join('-')
+    .join(' + ')
     .toUpperCase()
+
+  if (!diceExpression || modifier === 0) return diceExpression
+  return `${diceExpression} ${modifier > 0 ? '+' : '-'} ${Math.abs(modifier)}`
+}
+
+export function parseModifierInput(input: string): { modifier: number } | { error: string } {
+  const normalized = input.trim()
+  if (!normalized) return { modifier: 0 }
+  if (!/^[+-]?\d+$/.test(normalized)) return { error: 'O modificador precisa ser um número inteiro.' }
+
+  const modifier = Number(normalized)
+  return Number.isSafeInteger(modifier) && modifier <= maxDiceRollModifier
+    ? { modifier }
+    : { error: 'O modificador precisa manter o total dentro de um inteiro seguro.' }
+}
+
+export function normalizeRollLabel(input: string): { label: string | null } | { error: string } {
+  const normalized = input.trim()
+  if (!normalized) return { label: null }
+  if (normalized.length > 120) return { error: 'A identificação pode ter no máximo 120 caracteres.' }
+  return { label: normalized }
 }
 
 export function extractRollResults(results: DiceEngineRollResult[], groups: DiceRollGroup[]): DiceRollResultGroup[] {

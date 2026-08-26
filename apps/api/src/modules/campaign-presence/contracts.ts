@@ -140,18 +140,44 @@ const vttDiceRollItemSchema = z
   })
   .refine((roll) => roll.value <= roll.sides)
 
+const vttDiceRollGroupSchema = z.object({
+  sides: vttDiceSidesSchema,
+  count: z.number().int().min(1).max(40),
+})
+
 export const vttDiceRollSchema = z
   .object({
-    campaignId: z.string().min(1),
-    sides: vttDiceSidesSchema.optional(),
-    value: z.number().int().min(1).optional(),
-    rolls: z.array(vttDiceRollItemSchema).min(1).max(40).optional(),
+    campaignId: z.string().trim().min(1),
+    groups: z.array(vttDiceRollGroupSchema).min(1).max(6),
+    rolls: z.array(vttDiceRollItemSchema).min(1).max(40),
+    modifier: z.number().int().min(Number.MIN_SAFE_INTEGER).max(Number.MAX_SAFE_INTEGER - 800).default(0),
+    label: z.string().trim().min(1).max(120).nullable().default(null),
   })
-  .transform((input) => ({
-    campaignId: input.campaignId,
-    rolls: input.rolls ?? (input.sides && input.value ? [{ sides: input.sides, value: input.value }] : []),
-  }))
-  .refine((input) => input.rolls.length > 0)
+  .superRefine((input, context) => {
+    const declaredCounts = new Map<number, number>()
+    for (const group of input.groups) {
+      if (declaredCounts.has(group.sides)) {
+        context.addIssue({ code: 'custom', path: ['groups'], message: 'Dice groups must use unique sides' })
+      }
+      declaredCounts.set(group.sides, group.count)
+    }
+
+    const declaredTotal = input.groups.reduce((total, group) => total + group.count, 0)
+    if (declaredTotal > 40) {
+      context.addIssue({ code: 'custom', path: ['groups'], message: 'A roll may contain at most 40 dice' })
+    }
+    if (declaredTotal !== input.rolls.length) {
+      context.addIssue({ code: 'custom', path: ['rolls'], message: 'Roll values must match declared dice groups' })
+    }
+
+    const receivedCounts = new Map<number, number>()
+    for (const roll of input.rolls) receivedCounts.set(roll.sides, (receivedCounts.get(roll.sides) ?? 0) + 1)
+    for (const [sides, count] of declaredCounts) {
+      if (receivedCounts.get(sides) !== count) {
+        context.addIssue({ code: 'custom', path: ['rolls'], message: 'Roll values must match each declared dice group' })
+      }
+    }
+  })
 
 export const vttDiceRolledSchema = z.object({
   id: z.number().int().positive(),

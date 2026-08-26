@@ -54,6 +54,7 @@ import {
   sortCombatParticipants,
   type VttCombatParticipant,
 } from './domain/encounter'
+import { buildDiceRollExpression, calculateDiceRollTotal, normalizeDiceRollGroups } from './domain/dice-roll'
 import { selectPlayerVisibleSceneId } from './domain/scene-visibility'
 import { CampaignMutationQueue } from './application/campaign-mutation-queue'
 import {
@@ -1677,7 +1678,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttDiceRollSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, rolls: diceRolls } = parsed.data
+      const { campaignId, groups: requestedGroups, rolls: diceRolls, modifier, label } = parsed.data
       const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
@@ -1700,17 +1701,25 @@ export function setupCampaignPresence(server: HttpServer) {
       }))
 
       const combat = state.getCampaignCombat(campaignId)
-      const total = rolls.reduce((sum, roll) => sum + roll.value, 0)
+      const groups = normalizeDiceRollGroups(requestedGroups)
+      const expression = buildDiceRollExpression(groups, modifier)
+      const { diceTotal, total } = calculateDiceRollTotal(rolls.map((roll) => roll.value), modifier)
+      const rollDescription = label ? `${label} (${expression})` : expression
       const gameLogEntry = await appendCampaignGameLogEntry({
         campaignId,
         encounterId: combat?.encounterId ?? null,
         event: {
           eventType: campaignGameLogEventType.diceRoll,
-          summary: `${rolls[0].actorName} rolou ${rolls.length} dado(s): total ${total}.`,
+          summary: `${rolls[0].actorName} rolou ${rollDescription}: total ${total}.`,
           payload: {
             actorId: rolls[0].actorId,
             actorName: rolls[0].actorName,
+            label,
+            expression,
+            modifier,
+            diceTotal,
             total,
+            groups,
             rolls: rolls.map(({ id, sides, value, rolledAt }) => ({ id, sides, value, rolledAt })),
           },
         },
@@ -1719,6 +1728,12 @@ export function setupCampaignPresence(server: HttpServer) {
         campaignId,
         roll: rolls[0],
         rolls,
+        label,
+        expression,
+        modifier,
+        diceTotal,
+        total,
+        groups,
       })
       emitGameLogEntry(gameLogEntry)
     })
