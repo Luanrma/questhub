@@ -54,6 +54,19 @@ function diceRolls(entry: CampaignGameLogEntry) {
   })
 }
 
+function diceRollDetails(entry: CampaignGameLogEntry) {
+  if (entry.eventType !== 'DICE_ROLL') return null
+  const { label, expression, modifier, diceTotal, total } = entry.payload
+  if (typeof expression !== 'string' || typeof modifier !== 'number' || typeof diceTotal !== 'number' || typeof total !== 'number') return null
+  return {
+    label: typeof label === 'string' ? label : null,
+    expression,
+    modifier,
+    diceTotal,
+    total,
+  }
+}
+
 function initiativeSnapshots(entry: CampaignGameLogEntry) {
   if (!Array.isArray(entry.payload.participants)) return []
   return entry.payload.participants.flatMap((participant) => {
@@ -107,6 +120,7 @@ function CampaignGameLogList({ entries, loading, error, scrollPositionRef, class
       ) : null}
       {entries.map((entry) => {
         const rolls = diceRolls(entry)
+        const rollDetails = diceRollDetails(entry)
         const initiatives = initiativeSnapshots(entry)
         return (
           <article key={entry.id} className="rounded-lg border border-white/10 bg-black/25 px-3 py-2">
@@ -117,6 +131,15 @@ function CampaignGameLogList({ entries, loading, error, scrollPositionRef, class
               </span>
             </div>
             <div className="text-sm leading-relaxed text-zinc-200">{entry.summary}</div>
+            {rollDetails ? (
+              <div className="mt-2 rounded-md border border-indigo-300/15 bg-indigo-500/5 px-2.5 py-2">
+                {rollDetails.label ? <div className="text-xs font-semibold text-indigo-100">{rollDetails.label}</div> : null}
+                <div className="font-mono text-xs text-zinc-200">{rollDetails.expression}</div>
+                <div className="mt-1 text-[11px] text-zinc-400">
+                  Dados {rollDetails.diceTotal} {rollDetails.modifier >= 0 ? '+' : '-'} {Math.abs(rollDetails.modifier)} = <strong className="text-zinc-100">{rollDetails.total}</strong>
+                </div>
+              </div>
+            ) : null}
             {rolls.length ? (
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {rolls.map((roll, index) => (

@@ -9,6 +9,8 @@ function source(...segments: string[]) {
 
 test('dice rolls publish mechanical events without using the dialogue channel', () => {
   const roller = source('apps', 'web', 'src', 'vtt', 'dice-roller', 'hooks', 'useVttDiceRoller.ts')
+  const presence = source('apps', 'api', 'src', 'modules', 'campaign-presence', 'socket.ts')
+  const logPanel = source('apps', 'web', 'src', 'components', 'CampaignGameLog.tsx')
   const legacyPublisher = path.join(
     process.cwd(),
     'apps',
@@ -24,6 +26,15 @@ test('dice rolls publish mechanical events without using the dialogue channel', 
   assert.match(roller, /socket\?\.emit\('vtt:dice:roll'/)
   assert.doesNotMatch(roller, /chat:message:create|publishDiceRollChatMessage|formatChatMessage/)
   assert.equal(existsSync(legacyPublisher), false)
+  assert.match(roller, /groups: pendingRoll\.groups/)
+  assert.match(roller, /modifier: pendingRoll\.modifier/)
+  assert.match(roller, /label: pendingRoll\.label/)
+  assert.match(presence, /encounterId: combat\?\.encounterId \?\? null/)
+  assert.match(presence, /diceTotal/)
+  assert.match(presence, /expression/)
+  assert.match(logPanel, /diceRollDetails/)
+  assert.match(logPanel, /rollDetails\.modifier/)
+  assert.match(logPanel, /rollDetails\.total/)
 })
 
 test('campaign communication UI supports shared dock and detachable game log', () => {

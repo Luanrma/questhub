@@ -13,7 +13,9 @@ import {
   buildCommand,
   extractRollResults,
   normalizeGroups,
+  normalizeRollLabel,
   parseDiceCommand,
+  parseModifierInput,
   resolveDiceBoxScale,
   rollCount,
 } from '../domain/diceRollDomain'
@@ -26,7 +28,7 @@ import {
   storeDiceThemeColor,
   type DiceDisplaySettings,
 } from '../infrastructure/storage/diceThemeStorage'
-import type { DiceRollGroup, DiceRollResultGroup, DiceSides } from '../domain/types'
+import type { DiceInputMode, DiceRollComposition, DiceRollResultGroup, DiceSides } from '../domain/types'
 
 const diceFadeOutMs = 700
 
@@ -44,9 +46,12 @@ type UseVttDiceRollerOptions = {
 }
 
 export type DiceResultPopupData = {
-  command: string
+  expression: string
   groups: DiceRollResultGroup[]
+  modifier: number
+  diceTotal: number
   total: number
+  label: string | null
 }
 
 export function useVttDiceRoller({
@@ -60,14 +65,17 @@ export function useVttDiceRoller({
   const diceBoxRef = useRef<DestroyableDiceBox | null>(null)
   const initPromiseRef = useRef<Promise<DestroyableDiceBox> | null>(null)
   const initializedRef = useRef(false)
-  const pendingRollRef = useRef<{ groups: DiceRollGroup[]; command: string } | null>(null)
+  const pendingRollRef = useRef<DiceRollComposition | null>(null)
   const lastClearSignalRef = useRef(clearSignal)
   const autoClearTimeoutRef = useRef<number | null>(null)
   const resultPopupTimeoutRef = useRef<number | null>(null)
   const fadeClearTimeoutRef = useRef<number | null>(null)
   const [initializing, setInitializing] = useState(false)
   const [rolling, setRolling] = useState(false)
+  const [inputMode, setInputModeState] = useState<DiceInputMode>('guided')
   const [command, setCommand] = useState('')
+  const [modifierInput, setModifierInput] = useState('')
+  const [labelInput, setLabelInput] = useState('')
   const [diceThemeColor, setDiceThemeColor] = useState(() => readStoredDiceThemeColor(campaignId))
   const [displaySettings, setDisplaySettings] = useState<DiceDisplaySettings>(() => readStoredDiceDisplaySettings(campaignId))
   const displaySettingsRef = useRef<DiceDisplaySettings>(displaySettings)
@@ -135,13 +143,24 @@ export function useVttDiceRoller({
         })),
       )
 
-      const total = groups.reduce((sum, group) => sum + group.values.reduce((groupSum, value) => groupSum + value, 0), 0)
+      const diceTotal = groups.reduce((sum, group) => sum + group.values.reduce((groupSum, value) => groupSum + value, 0), 0)
+      const total = diceTotal + pendingRoll.modifier
 
       setVisibleRolls((current) => [...current, ...nextRolls])
-      setResultPopup({ command: pendingRoll.command, groups, total })
+      setResultPopup({
+        expression: pendingRoll.expression,
+        groups,
+        modifier: pendingRoll.modifier,
+        diceTotal,
+        total,
+        label: pendingRoll.label,
+      })
       socket?.emit('vtt:dice:roll', {
         campaignId,
+        groups: pendingRoll.groups,
         rolls: nextRolls.map(({ sides, value }) => ({ sides, value })),
+        modifier: pendingRoll.modifier,
+        label: pendingRoll.label,
       })
 
       cancelResultPopupTimeout()
@@ -297,7 +316,6 @@ export function useVttDiceRoller({
     const safeValue = Math.min(nextValue, maxForSide)
 
     setQuantities((current) => ({ ...current, [sides]: safeValue }))
-    if (safeValue > 0) setCommand('')
 
     if (nextValue > maxForSide) {
       setWarning(`O limite e de ${maxVisibleDice} dados.`)
@@ -307,10 +325,46 @@ export function useVttDiceRoller({
     setWarning(null)
   }
 
-  function resolveRoll() {
-    if (selectedCount > 0) return { groups: selectedGroups, command: buildCommand(selectedGroups) }
-    return parseDiceCommand(command)
+  function resolveRoll(): DiceRollComposition | { error: string } {
+    const labelResult = normalizeRollLabel(labelInput)
+    if ('error' in labelResult) return labelResult
+
+    if (inputMode === 'expression') {
+      const expressionResult = parseDiceCommand(command)
+      return 'error' in expressionResult
+        ? expressionResult
+        : { ...expressionResult, label: labelResult.label }
+    }
+
+    if (selectedCount <= 0) return { error: 'Informe pelo menos um dado.' }
+    const modifierResult = parseModifierInput(modifierInput)
+    if ('error' in modifierResult) return modifierResult
+    return {
+      groups: selectedGroups,
+      modifier: modifierResult.modifier,
+      label: labelResult.label,
+      expression: buildCommand(selectedGroups, modifierResult.modifier),
+    }
   }
+
+  const preview = useMemo(() => {
+    const labelResult = normalizeRollLabel(labelInput)
+    if ('error' in labelResult) return null
+    if (inputMode === 'expression') {
+      const result = parseDiceCommand(command)
+      return 'error' in result ? null : { ...result, label: labelResult.label, diceCount: rollCount(result.groups) }
+    }
+    if (selectedCount <= 0) return null
+    const modifierResult = parseModifierInput(modifierInput)
+    if ('error' in modifierResult) return null
+    return {
+      groups: selectedGroups,
+      modifier: modifierResult.modifier,
+      label: labelResult.label,
+      expression: buildCommand(selectedGroups, modifierResult.modifier),
+      diceCount: selectedCount,
+    }
+  }, [command, inputMode, labelInput, modifierInput, selectedCount, selectedGroups])
 
   async function rollDice() {
     if (!canRollDice || rolling || initializing) return
@@ -366,6 +420,25 @@ export function useVttDiceRoller({
     setWarning(null)
   }
 
+  function updateModifierInput(value: string) {
+    setModifierInput(value)
+    setWarning(null)
+  }
+
+  function updateLabelInput(value: string) {
+    setLabelInput(value)
+    setWarning(null)
+  }
+
+  function setInputMode(nextMode: DiceInputMode) {
+    if (nextMode === inputMode) return
+    setInputModeState(nextMode)
+    setCommand('')
+    setModifierInput('')
+    setQuantities({ 4: 0, 6: 0, 8: 0, 10: 0, 12: 0, 20: 0 })
+    setWarning(null)
+  }
+
   function updateDiceThemeColor(value: string) {
     setDiceThemeColor(normalizeHexColor(value))
   }
@@ -377,16 +450,23 @@ export function useVttDiceRoller({
     displaySettings,
     diceFading,
     diceThemeColor,
+    inputMode,
     initializing,
+    labelInput,
+    modifierInput,
+    preview,
     quantities,
     remainingSlots,
     resultPopup,
     rollDice,
     rolling,
     selectedCount,
+    setInputMode,
     setQuantity,
     updateCommand,
     updateDiceThemeColor,
+    updateLabelInput,
+    updateModifierInput,
     visibleCount,
     warning,
   }

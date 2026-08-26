@@ -205,6 +205,8 @@ O Campaign Game Log recebe fatos estruturados produzidos por capacidades já aut
 
 `CampaignEncounter` é a identidade persistente do agrupamento histórico; tracker, rodada, turno e participantes continuam como estado operacional vivo do Encounter Mode. O Log pode transportar payload opaco de uma engine, mas não interpreta acerto, dano, modificadores ou qualquer regra concreta.
 
+A capacidade genérica de Dice pode validar grupos de dados explicitamente solicitados, somar um modificador inteiro fornecido pelo usuário e produzir expressão, subtotal e total. Essa aritmética não consulta ficha nem atribui significado ao modificador. O Campaign Game Log apenas registra o fato estruturado produzido por Dice e continua sem interpretar regras ou consequências.
+
 Contrato: `docs/features/campaign-game-log/spec.md`.
 
 Configurações pessoais de Game System podem ser persistidas como namespaces opacos em estruturas genéricas, mas defaults, validação semântica e UI concreta desses namespaces pertencem ao sistema correspondente.

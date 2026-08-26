@@ -66,16 +66,22 @@ export const VttDiceControls = memo(function VttDiceControls({
           command={diceRoller.command}
           diceThemeColor={diceRoller.diceThemeColor}
           initializing={diceRoller.initializing}
+          inputMode={diceRoller.inputMode}
+          labelInput={diceRoller.labelInput}
+          modifierInput={diceRoller.modifierInput}
+          preview={diceRoller.preview}
           quantities={diceRoller.quantities}
           remainingSlots={diceRoller.remainingSlots}
           rolling={diceRoller.rolling}
-          selectedCount={diceRoller.selectedCount}
           showClearButton={diceRoller.displaySettings.autoClear === 'manual'}
           visibleCount={diceRoller.visibleCount}
           warning={diceRoller.warning}
           onClear={diceRoller.clearDice}
           onClose={onClose}
           onCommandChange={diceRoller.updateCommand}
+          onInputModeChange={diceRoller.setInputMode}
+          onLabelChange={diceRoller.updateLabelInput}
+          onModifierChange={diceRoller.updateModifierInput}
           onQuantityChange={diceRoller.setQuantity}
           onRoll={() => void diceRoller.rollDice()}
           onThemeColorChange={diceRoller.updateDiceThemeColor}

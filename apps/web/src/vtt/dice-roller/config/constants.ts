@@ -2,6 +2,7 @@ export const diceOptions = [20, 12, 10, 8, 6, 4] as const
 export const ascendingDiceOptions = [...diceOptions].reverse()
 export const diceAssetPath = '/assets/dice-box/'
 export const maxVisibleDice = 40
+export const maxDiceRollModifier = Number.MAX_SAFE_INTEGER - maxVisibleDice * 20
 export const defaultDiceBoxScale = 7
 export const defaultDiceThemeColor = '#7f59d9'
 export const defaultDiceAutoClearSeconds = 3
