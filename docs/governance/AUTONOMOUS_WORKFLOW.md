@@ -15,7 +15,7 @@ BA -> UX REVIEW (quando aplicável) -> ARCHITECTURE REVIEW -> READY -> DEVELOPME
 Retornos internos são esperados e também devem ser executados autonomamente, por exemplo:
 
 ```text
-DEVELOPMENT -> BA -> ARCHITECTURE REVIEW -> READY -> DEVELOPMENT
+DEVELOPMENT -> BA -> UX REVIEW (quando aplicável) -> ARCHITECTURE REVIEW -> READY -> DEVELOPMENT
 UX REVIEW -> BA -> UX REVIEW
 CODE REVIEW -> DEVELOPMENT -> CODE REVIEW
 QA -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT -> QA
