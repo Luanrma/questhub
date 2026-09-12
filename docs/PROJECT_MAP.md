@@ -165,6 +165,7 @@ Runtime:
 - `apps/agents/src/config/` — política de modelos.
 - `apps/agents/src/runtime/` — execução controlada.
 - `docs/features/ai-agent-runtime/spec.md` — escopo/contratos do runtime atual.
+- `docs/features/ai-agent-ux-review/spec.md` — UX Specialist e gate condicional de experiência.
 
 O runtime atual é read-only/advisory. O workflow do Trello não é automaticamente delegado a esses Agents. Mudanças com impacto observável passam pelo gate condicional `UX REVIEW` entre BA e Architecture Review; ausência de impacto deve ser registrada como `N/A` justificado.
 
