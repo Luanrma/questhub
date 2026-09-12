@@ -302,6 +302,12 @@ Os conceitos são separados:
 - `apps/agents/src/runtime/` define **como uma execução controlada acontece**;
 - Trello representa o **estado operacional do workflow**, sem se tornar fonte canônica de produto/arquitetura.
 
+Os roles registrados incluem BA, UX Specialist, Architect, Developer, Code Reviewer, Documentation Auditor e QA. O UX Specialist é responsável por revisar experiência observável com especialização em UX/UI, game design e RPGs de mesa; ele não interpreta regras mecânicas nem decide arquitetura.
+
+Quando há impacto observável, o workflow usa o gate condicional `UX REVIEW` entre `BA / REFINEMENT` e `ARCHITECTURE REVIEW`. Um item sem impacto pode registrar `UX REVIEW: N/A` com justificativa explícita. O gate continua externamente coordenado: o runtime não move cards nem executa handoffs.
+
+Contrato: `docs/features/ai-agent-ux-review/spec.md`.
+
 `.ai/` não é mais área de documentação de produto em migração. Qualquer arquivo ali fora de `.ai/agents/*.md` viola a organização documental e deve ser bloqueado pelo guard correspondente.
 
 Na fase QH-AI-001:

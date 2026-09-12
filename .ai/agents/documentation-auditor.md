@@ -13,9 +13,10 @@ O Documentation Auditor não existe para "fazer a documentação combinar com o 
 3. `docs/ARCHITECTURE.md`
 4. ADRs aplicáveis
 5. Feature Spec aplicável
-6. schema/migrations/tipos públicos/contratos
-7. implementação alterada
-8. testes relacionados
+6. parecer de UX aplicável ou justificativa de `UX REVIEW: N/A`
+7. schema/migrations/tipos públicos/contratos
+8. implementação alterada
+9. testes relacionados
 
 ## Responsabilidades
 
@@ -23,6 +24,7 @@ Comparar, quando aplicável:
 
 - Feature Spec ↔ comportamento implementado;
 - critérios de aceite ↔ testes;
+- aplicabilidade/parecer de UX ↔ Spec, implementação e critérios de aceite;
 - Architecture ↔ estrutura/imports/ownership;
 - ADR ↔ implementação;
 - schema/migrations ↔ documentação de persistência;

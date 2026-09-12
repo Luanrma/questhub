@@ -13,6 +13,7 @@ async function createFixtureRepo() {
     'docs/governance/SOURCE_OF_TRUTH.md': 'source of truth',
     'docs/ARCHITECTURE.md': 'architecture',
     '.ai/agents/ba.md': 'ba role',
+    '.ai/agents/ux-specialist.md': 'ux specialist role',
     'docs/features/example/spec.md': 'feature spec',
   }
 
@@ -75,4 +76,17 @@ test('rejects path traversal', async (t) => {
     }),
     /Context path is not allowed|escapes repository root/,
   )
+})
+
+test('loads the UX Specialist role through the governed context loader', async (t) => {
+  const root = await createFixtureRepo()
+  t.after(() => rm(root, { recursive: true, force: true }))
+
+  const result = await loadAgentInstructions({
+    role: 'ux-specialist',
+    repoRoot: root,
+  })
+
+  assert.equal(result.contextPaths.at(-1), '.ai/agents/ux-specialist.md')
+  assert.match(result.instructions, /ux specialist role/)
 })

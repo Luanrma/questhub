@@ -28,6 +28,7 @@ npm run agent:run -- --role architect --input "Revise a arquitetura desta featur
 Roles disponíveis:
 
 - `ba`
+- `ux-specialist`
 - `architect`
 - `developer`
 - `code-reviewer`
@@ -39,6 +40,7 @@ Roles disponíveis:
 | Role | Modelo | Reasoning |
 |---|---|---|
 | BA | `gpt-5.6-terra` | `medium` |
+| UX Specialist | `gpt-5.6-sol` | `high` |
 | Architect | `gpt-5.6-sol` | `high` |
 | Developer | `gpt-5.6-sol` | `high` |
 | Code Reviewer | `gpt-5.6-sol` | `high` |
@@ -65,6 +67,19 @@ QH_AGENT_MODEL_CODE_REVIEWER=gpt-5.6-sol
 ```
 
 Roles com hífen usam `_` no nome da variável, em maiúsculas.
+
+Exemplo para o UX Specialist:
+
+```bash
+QH_AGENT_MODEL_UX_SPECIALIST=gpt-5.6-terra
+QH_AGENT_REASONING_UX_SPECIALIST=medium
+```
+
+## Gate condicional de UX
+
+Mudanças com impacto observável seguem `BA / REFINEMENT -> UX REVIEW -> ARCHITECTURE REVIEW`. O BA pode declarar `UX REVIEW: N/A` somente com justificativa objetiva de que não há impacto para o usuário.
+
+O runtime continua executando um único role por chamada. Ele não move cards nem realiza handoff automático; o gate é operado externamente pelo workflow governado.
 
 ## Segurança nesta fase
 

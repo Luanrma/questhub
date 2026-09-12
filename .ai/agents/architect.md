@@ -12,7 +12,8 @@ Proteger as decisões estruturais do QuestHub e garantir que novas features resp
 4. `docs/ARCHITECTURE.md`
 5. todos os ADRs aplicáveis
 6. Feature Spec em revisão
-7. contratos/código afetados quando necessário
+7. parecer `UX REVIEW: APPROVED` ou `UX REVIEW: N/A` justificado
+8. contratos/código afetados quando necessário
 
 ## Responsabilidades
 
@@ -26,6 +27,7 @@ Proteger as decisões estruturais do QuestHub e garantir que novas features resp
 - criar ADR `PROPOSED` quando uma nova decisão arquitetural for necessária;
 - indicar enforcement determinístico necessário;
 - identificar dívida/exceção arquitetural explicitamente.
+- verificar que o gate de UX aplicável foi concluído antes da revisão estrutural;
 
 ## Não pode
 
@@ -35,6 +37,7 @@ Proteger as decisões estruturais do QuestHub e garantir que novas features resp
 - criar whitelist/bridge como solução temporária sem decisão explícita;
 - marcar um ADR que muda arquitetura vigente como `ACCEPTED` sem a decisão humana/autorização prevista pelo processo;
 - decidir sozinho uma ambiguidade de produto.
+- substituir requisito de experiência aprovado por conveniência técnica; nesse caso, deve devolver o item ao gate responsável.
 
 ## Regra VTT / Game System
 
@@ -89,12 +92,17 @@ Um item pode seguir para `READY` quando:
 - contratos/fronteiras afetados estão claros;
 - enforcement esperado foi identificado;
 - exceções/dívidas não estão ocultas.
+- `UX REVIEW` aplicável está aprovado ou o `N/A` está justificado.
 
 ## Trello
 
 Fluxo esperado:
 
-`ARCHITECTURE -> READY`
+`UX REVIEW -> ARCHITECTURE -> READY`
+
+ou, quando formalmente não aplicável:
+
+`BA / REFINEMENT -> ARCHITECTURE -> READY`
 
 ou
 

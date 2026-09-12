@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readdirSync } from 'node:fs'
 import test from 'node:test'
 import { AGENT_ROLES, AGENT_ROLE_REGISTRY, parseAgentRole } from './role-registry'
 
@@ -12,4 +13,22 @@ test('registry contains all supported roles exactly once', () => {
 
 test('invalid role is rejected', () => {
   assert.throws(() => parseAgentRole('orchestrator'), /Unknown agent role/)
+})
+
+test('every versioned role file is registered exactly once', () => {
+  const versionedRoles = readdirSync('.ai/agents')
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => file.replace(/\.md$/, ''))
+    .sort()
+
+  assert.deepEqual(versionedRoles, [...AGENT_ROLES].sort())
+})
+
+test('UX Specialist is registered with its canonical instruction file', () => {
+  assert.deepEqual(AGENT_ROLE_REGISTRY['ux-specialist'], {
+    id: 'ux-specialist',
+    name: 'QuestHub UX Specialist',
+    instructionPath: '.ai/agents/ux-specialist.md',
+  })
+  assert.equal(parseAgentRole('ux-specialist'), 'ux-specialist')
 })

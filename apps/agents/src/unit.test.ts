@@ -1,4 +1,5 @@
 import './roles/role-registry.test'
+import './roles/ux-workflow-governance.test'
 import './config/model-policy.test'
 import './runtime/context-loader.test'
 import './runtime/validation.test'

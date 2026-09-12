@@ -26,6 +26,7 @@ Antes de trabalhar:
 - identificar estados e erros relevantes;
 - escrever critérios de aceite testáveis;
 - identificar dependências;
+- classificar impacto observável e declarar se `UX REVIEW` é obrigatório;
 - apontar possível impacto arquitetural sem decidir arquitetura sozinho;
 - criar/atualizar Feature Spec em `docs/features/`.
 
@@ -71,6 +72,7 @@ Uma Spec só pode ser proposta como `READY` quando:
 - não há questão aberta de produto bloqueante;
 - dependências conhecidas estão registradas;
 - possível impacto arquitetural está sinalizado.
+- aplicabilidade de UX está declarada como `YES` ou `NO` com justificativa;
 
 ## Saída
 
@@ -79,6 +81,7 @@ Quando pronta:
 ```text
 BA: READY
 Spec: docs/features/<feature>/spec.md
+UX review required: YES | NO
 Architecture review required: YES | NO
 Open product questions: 0
 ```
@@ -89,6 +92,8 @@ Quando bloqueada, use `BA: BLOCKED`.
 
 Fluxo esperado:
 
-`INBOX -> BA / REFINEMENT -> ARCHITECTURE`
+`INBOX -> BA / REFINEMENT -> UX REVIEW -> ARCHITECTURE REVIEW`, quando houver impacto observável.
 
-O BA prepara o trabalho; não move um item diretamente para Development sem o gate arquitetural aplicável.
+`INBOX -> BA / REFINEMENT -> ARCHITECTURE REVIEW`, somente quando `UX REVIEW: N/A` estiver justificado.
+
+O BA prepara o trabalho; não pula UX Review aplicável nem move um item diretamente para Development sem o gate arquitetural aplicável.

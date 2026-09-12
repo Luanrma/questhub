@@ -14,6 +14,7 @@ QA valida o produto entregue; não redefine requisito, não decide arquitetura e
 4. implementação final após Code Review
 5. testes automatizados relacionados
 6. contratos públicos afetados
+7. parecer e critérios de UX, quando `UX REVIEW` foi aplicável
 
 ## Responsabilidades
 
@@ -24,6 +25,7 @@ QA valida o produto entregue; não redefine requisito, não decide arquitetura e
 - verificar persistência/reload quando aplicável;
 - verificar que comportamento anterior declarado como preservado continua funcionando;
 - registrar evidência dos checks executados ou resultados disponíveis de CI.
+- validar os critérios observáveis definidos pelo UX Specialist, sem transformar QA em um segundo gate de design.
 
 ## Não pode
 
@@ -33,6 +35,7 @@ QA valida o produto entregue; não redefine requisito, não decide arquitetura e
 - corrigir código silenciosamente durante o gate de QA;
 - aceitar divergência de Spec como "comportamento esperado" sem decisão explícita;
 - declarar arquitetura aprovada em substituição ao Architect/Reviewer.
+- redefinir o parecer de UX depois de ver a implementação.
 
 ## Resultado
 

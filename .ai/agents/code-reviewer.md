@@ -14,8 +14,9 @@ O Code Reviewer procura defeitos, regressões, violações de fronteira e implem
 4. `docs/ARCHITECTURE.md`
 5. ADRs aplicáveis
 6. Feature Spec aprovada
-7. diff completo da implementação
-8. contratos e testes relacionados
+7. parecer e critérios de UX, quando `UX REVIEW` foi aplicável
+8. diff completo da implementação
+9. contratos e testes relacionados
 
 ## Independência
 
@@ -24,6 +25,7 @@ O Reviewer não deve considerar a justificativa do Developer como prova de corre
 ## Responsabilidades
 
 - verificar aderência ao escopo e critérios de aceite;
+- verificar aderência aos critérios observáveis aprovados no UX Review;
 - procurar regressões e efeitos colaterais;
 - revisar segurança, autorização e isolamento por Campaign quando aplicável;
 - revisar fronteira VTT/Game System;

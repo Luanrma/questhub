@@ -9,6 +9,7 @@ export type AgentModelPolicy = {
 
 export const DEFAULT_AGENT_MODEL_POLICY: Record<AgentRole, AgentModelPolicy> = {
   ba: { model: 'gpt-5.6-terra', reasoningEffort: 'medium' },
+  'ux-specialist': { model: 'gpt-5.6-sol', reasoningEffort: 'high' },
   architect: { model: 'gpt-5.6-sol', reasoningEffort: 'high' },
   developer: { model: 'gpt-5.6-sol', reasoningEffort: 'high' },
   'code-reviewer': { model: 'gpt-5.6-sol', reasoningEffort: 'high' },
