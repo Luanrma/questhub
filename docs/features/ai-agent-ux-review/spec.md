@@ -2,7 +2,7 @@
 
 Status: **READY**
 
-Card: `QH-AI-002` — `https://trello.com/c/wYkkvefB`  
+Card: `QH-AI-002` — `https://trello.com/c/wYkkvefB`
 Domínio: `AI Agent Tooling / workflow de desenvolvimento`
 
 ## Objetivo
