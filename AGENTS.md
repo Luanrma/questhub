@@ -80,19 +80,20 @@ Regras:
 Use o papel correspondente ao gate atual da esteira:
 
 - BA: `.ai/agents/ba.md`
+- UX Specialist: `.ai/agents/ux-specialist.md`
 - Architect: `.ai/agents/architect.md`
 - Developer: `.ai/agents/developer.md`
 - Code Reviewer: `.ai/agents/code-reviewer.md`
 - Documentation Auditor: `.ai/agents/documentation-auditor.md`
 - QA: `.ai/agents/qa.md`
 
-Um papel não herda automaticamente a autoridade de outro. Em especial, Developer não aprova a própria implementação, Code Reviewer não substitui QA e nenhum desses papéis decide arquitetura no lugar do Architect.
+Um papel não herda automaticamente a autoridade de outro. Em especial, UX Specialist não substitui BA ou Architect, Developer não aprova a própria implementação, Code Reviewer não substitui QA e nenhum desses papéis decide arquitetura no lugar do Architect.
 
 ### Loop autônomo entre gates
 
 Quando o usuário autorizar explicitamente a execução autônoma até um gate humano, siga também `docs/governance/AUTONOMOUS_WORKFLOW.md`.
 
-Nesse modo, retornos recuperáveis entre BA, Architecture, Development, Code Review, Documentation Audit e QA fazem parte do próprio loop e não devem interromper o usuário. `HUMAN APPROVAL` só pode ser declarado com gates aplicáveis revalidados e checks obrigatórios verdes; merge continua sendo responsabilidade humana.
+Nesse modo, retornos recuperáveis entre BA, UX Review quando aplicável, Architecture, Development, Code Review, Documentation Audit e QA fazem parte do próprio loop e não devem interromper o usuário. `HUMAN APPROVAL` só pode ser declarado com gates aplicáveis revalidados e checks obrigatórios verdes; merge continua sendo responsabilidade humana.
 
 ## 4. Antes de qualquer mudança
 
@@ -107,6 +108,7 @@ Identifique explicitamente:
 - ADRs relacionados;
 - impacto em contratos existentes;
 - impacto em isolamento de Campaign e permissões.
+- impacto observável de UX e aplicabilidade do gate `UX REVIEW`.
 
 ## 5. Feature development
 
@@ -124,7 +126,21 @@ Uma Feature Spec deve referenciar seu card Trello e definir, conforme aplicável
 - erros esperados;
 - critérios de aceite.
 
+Também deve declarar `UX review required: YES | NO`. `NO` exige justificativa objetiva de ausência de impacto observável.
+
 Se uma decisão de produto necessária estiver ausente, não a invente durante a implementação.
+
+### 5.1. UX Review condicional
+
+Quando uma mudança afetar jornada, navegação, layout, hierarquia visual, interação, feedback, copy, acessibilidade, responsividade ou a apresentação entre VTT e Game System, o fluxo aplicável é:
+
+```text
+BA / REFINEMENT -> UX REVIEW -> ARCHITECTURE REVIEW
+```
+
+O UX Specialist revisa a experiência de Mestre e Player com conhecimento de game design e RPGs de mesa, transforma findings em critérios observáveis e protege a harmonia entre a shell do QuestHub e a identidade dos Game Systems.
+
+`UX REVIEW: N/A` só é permitido para trabalho sem impacto observável e deve possuir justificativa explícita. Dúvida de aplicabilidade exige review. Finding de produto retorna ao BA; o UX Specialist não decide arquitetura, regra mecânica nem implementação.
 
 ## 6. Mudança arquitetural
 

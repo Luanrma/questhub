@@ -9,13 +9,14 @@ Ele não substitui Feature Specs, ADRs ou a autoridade de cada role. Seu objetiv
 Quando o usuário autorizar explicitamente uma execução até `HUMAN APPROVAL`, o agente coordenador deve continuar por todos os gates aplicáveis sem pedir confirmação a cada transição:
 
 ```text
-BA -> ARCHITECTURE REVIEW -> READY -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT -> QA -> HUMAN APPROVAL
+BA -> UX REVIEW (quando aplicável) -> ARCHITECTURE REVIEW -> READY -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT -> QA -> HUMAN APPROVAL
 ```
 
 Retornos internos são esperados e também devem ser executados autonomamente, por exemplo:
 
 ```text
 DEVELOPMENT -> BA -> ARCHITECTURE REVIEW -> READY -> DEVELOPMENT
+UX REVIEW -> BA -> UX REVIEW
 CODE REVIEW -> DEVELOPMENT -> CODE REVIEW
 QA -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT -> QA
 ```
@@ -40,6 +41,14 @@ Não são motivos para interromper o loop:
 - CI ainda em andamento.
 
 Esses casos devem ser tratados dentro do próprio loop.
+
+## 2.1. UX Review condicional
+
+O BA deve declarar `UX review required: YES | NO`. Quando `YES`, o card passa fisicamente por `UX REVIEW` antes de `ARCHITECTURE REVIEW`. Quando `NO`, o gate é registrado como `UX REVIEW: N/A` com justificativa objetiva e o card pode seguir diretamente do BA para Architecture Review.
+
+São impactos de UX: jornada, navegação, layout, hierarquia visual, interação, feedback, copy, acessibilidade, responsividade e apresentação entre VTT e Game System. Dúvida sobre aplicabilidade resulta em review.
+
+Finding do UX Specialist retorna ao BA. Falha posterior da implementação contra critérios de UX retorna de QA para Development; esta política não cria um segundo gate de UX após Development.
 
 ## 3. Disciplina de CI
 

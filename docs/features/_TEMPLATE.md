@@ -27,6 +27,13 @@ Qual problema existe hoje e por que precisa ser resolvido?
 
 - `<persona/papel>`: <o que pode fazer>
 
+## UX / experiência
+
+UX review required: `YES | NO`
+UX REVIEW: `APPROVED | N/A | BLOCKED`
+
+Quando `YES`, descreva jornadas afetadas, interação, estados, responsividade, acessibilidade e critérios observáveis. Quando `NO`, justifique objetivamente a ausência de impacto observável.
+
 ## Regras
 
 1. <regra observável/de negócio>

@@ -44,6 +44,13 @@ Liste os ACs da Feature Spec cobertos por esta PR. Para `NO-CARD` sem Feature Sp
 
 - [ ] AC-XX — <descrição>
 
+## UX / experiência
+
+- [ ] UX REVIEW aplicável e aprovado
+- [ ] UX REVIEW não aplicável, com justificativa abaixo
+
+Justificativa/parecer UX: `<resultado ou motivo de N/A>`
+
 ## Segurança e isolamento
 
 - [ ] autenticação/permissões verificadas quando aplicável
@@ -84,6 +91,7 @@ Liste os ACs da Feature Spec cobertos por esta PR. Para `NO-CARD` sem Feature Sp
 Para CARD, marque os gates aplicáveis. Para `NO-CARD`, gates que não se aplicam podem ser marcados como N/A na descrição da PR.
 
 - [ ] BA / REFINEMENT ou N/A
+- [ ] UX REVIEW ou N/A
 - [ ] ARCHITECTURE REVIEW ou N/A
 - [ ] DEVELOPMENT / manutenção
 - [ ] CODE REVIEW

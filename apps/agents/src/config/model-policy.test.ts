@@ -7,6 +7,10 @@ test('uses the approved default policy per role', () => {
     model: 'gpt-5.6-terra',
     reasoningEffort: 'medium',
   })
+  assert.deepEqual(DEFAULT_AGENT_MODEL_POLICY['ux-specialist'], {
+    model: 'gpt-5.6-sol',
+    reasoningEffort: 'high',
+  })
   assert.deepEqual(DEFAULT_AGENT_MODEL_POLICY.architect, {
     model: 'gpt-5.6-sol',
     reasoningEffort: 'high',
@@ -38,6 +42,18 @@ test('supports per-role model and reasoning overrides', () => {
   assert.deepEqual(policy, {
     model: 'gpt-5.6-terra',
     reasoningEffort: 'xhigh',
+  })
+})
+
+test('uses the normalized UX Specialist environment suffix', () => {
+  const policy = resolveAgentModelPolicy('ux-specialist', {
+    QH_AGENT_MODEL_UX_SPECIALIST: 'gpt-5.6-terra',
+    QH_AGENT_REASONING_UX_SPECIALIST: 'medium',
+  })
+
+  assert.deepEqual(policy, {
+    model: 'gpt-5.6-terra',
+    reasoningEffort: 'medium',
   })
 })
 

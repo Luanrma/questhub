@@ -1,5 +1,6 @@
 export const AGENT_ROLES = [
   'ba',
+  'ux-specialist',
   'architect',
   'developer',
   'code-reviewer',
@@ -20,6 +21,11 @@ export const AGENT_ROLE_REGISTRY: Record<AgentRole, AgentRoleDescriptor> = {
     id: 'ba',
     name: 'QuestHub Business Analyst',
     instructionPath: '.ai/agents/ba.md',
+  },
+  'ux-specialist': {
+    id: 'ux-specialist',
+    name: 'QuestHub UX Specialist',
+    instructionPath: '.ai/agents/ux-specialist.md',
   },
   architect: {
     id: 'architect',

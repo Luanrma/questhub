@@ -18,6 +18,7 @@ Fluxo operacional para entregas com card:
 ```text
 INBOX
   -> BA / REFINEMENT
+  -> UX REVIEW (quando aplicável; N/A exige justificativa)
   -> ARCHITECTURE REVIEW
   -> READY
   -> DEVELOPMENT
@@ -151,6 +152,7 @@ A antiga Spec de ficha baseada em `Character`/`CharacterSheet` globais **não fo
 Roles:
 
 - `.ai/agents/ba.md`
+- `.ai/agents/ux-specialist.md`
 - `.ai/agents/architect.md`
 - `.ai/agents/developer.md`
 - `.ai/agents/code-reviewer.md`
@@ -164,7 +166,7 @@ Runtime:
 - `apps/agents/src/runtime/` — execução controlada.
 - `docs/features/ai-agent-runtime/spec.md` — escopo/contratos do runtime atual.
 
-O runtime atual é read-only/advisory. O workflow do Trello não é automaticamente delegado a esses Agents.
+O runtime atual é read-only/advisory. O workflow do Trello não é automaticamente delegado a esses Agents. Mudanças com impacto observável passam pelo gate condicional `UX REVIEW` entre BA e Architecture Review; ausência de impacto deve ser registrada como `N/A` justificado.
 
 ## 8. Guards e qualidade
 

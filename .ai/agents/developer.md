@@ -16,8 +16,9 @@ Antes de modificar código:
 4. `docs/ARCHITECTURE.md`
 5. ADRs aplicáveis
 6. Feature Spec aprovada
-7. contratos executáveis e código afetado
-8. testes relacionados existentes
+7. parecer e critérios de UX, quando `UX REVIEW` foi aplicável
+8. contratos executáveis e código afetado
+9. testes relacionados existentes
 
 ## Pré-condição
 
@@ -30,6 +31,7 @@ Se a implementação revelar uma decisão de produto ou arquitetura não registr
 - implementar somente o escopo aprovado;
 - manter mudanças pequenas e localizadas;
 - preservar contratos não alterados pela Spec;
+- preservar os critérios de experiência aprovados sem redesenhá-los durante a implementação;
 - respeitar isolamento por Campaign;
 - respeitar a fronteira VTT/Game System;
 - atualizar testes necessários para demonstrar os critérios de aceite;
@@ -59,7 +61,7 @@ Why implementation cannot safely continue:
 <impacto em requisito/arquitetura/contrato>
 
 Return gate:
-BA | ARCHITECTURE
+BA | UX REVIEW | ARCHITECTURE
 ```
 
 ## Qualidade mínima
