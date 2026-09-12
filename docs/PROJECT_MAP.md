@@ -106,6 +106,11 @@ Features/documentos de apoio atuais incluem:
 - `docs/features/vtt/`
 - `docs/features/character-sheet-entries/`
 
+Propostas em refinamento, sem substituir os contratos vigentes:
+
+- `docs/features/encounter-foundation/spec.md` — QH-ENC-001, análise DRAFT de
+  puzzles, combates e eventos ambientais na mesma atividade.
+
 ## 5. Game System boundary e integração
 
 O VTT pode persistir/transportar dados mecânicos opacos e selecionar uma engine por `Campaign.gameSystem`, mas não interpreta regras concretas.
