@@ -14,6 +14,7 @@ export type AgentRoleDescriptor = {
   id: AgentRole
   name: string
   instructionPath: string
+  requiredContextPaths?: readonly string[]
 }
 
 export const AGENT_ROLE_REGISTRY: Record<AgentRole, AgentRoleDescriptor> = {
@@ -26,6 +27,12 @@ export const AGENT_ROLE_REGISTRY: Record<AgentRole, AgentRoleDescriptor> = {
     id: 'ux-specialist',
     name: 'QuestHub UX Specialist',
     instructionPath: '.ai/agents/ux-specialist.md',
+    requiredContextPaths: [
+      'docs/skills/impeccable/SKILL.md',
+      'docs/skills/impeccable/reference/operate.md',
+      'docs/skills/impeccable/reference/craft-floor.md',
+      'docs/skills/impeccable/reference/critique.md',
+    ],
   },
   architect: {
     id: 'architect',

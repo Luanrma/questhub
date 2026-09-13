@@ -77,6 +77,22 @@ QH_AGENT_REASONING_UX_SPECIALIST=medium
 
 ## Gate condicional de UX
 
+O `ux-specialist` recebe automaticamente a integração advisory de Impeccable:
+entrypoint, Operate, Craft Floor e material de referência de Critique. Os arquivos
+vivem em `docs/skills/impeccable/`, com revisão fixa, receita/hashes de importação,
+licença e atribuição. Não é necessário adicionar `--context` para essas referências.
+Seu `contextPaths` retornado identifica os documentos efetivamente carregados.
+
+Esta integração fornece orientação de design ao runtime textual. Não instala
+executor, detector, hooks ou comandos interativos; não é uma execução completa
+de `impeccable critique`. Screenshots citados por caminho não são carregados como
+imagens. O parecer precisa distinguir análise de fluxo/código de verificação visual.
+
+Para atualizar, obter a revisão desejada de `pbakaus/impeccable`, revisar o diff
+dos arquivos listados em `provenance.json`, reproduzir as seleções registradas,
+atualizar hashes/atribuição e rodar `test:agents` e `build:agents` pelo fluxo de PR.
+Não buscar a versão mais recente durante a execução do agente.
+
 Mudanças com impacto observável seguem `BA / REFINEMENT -> UX REVIEW -> ARCHITECTURE REVIEW`. O BA pode declarar `UX REVIEW: N/A` somente com justificativa objetiva de que não há impacto para o usuário.
 
 O runtime continua executando um único role por chamada. Ele não move cards nem realiza handoff automático; o gate é operado externamente pelo workflow governado.

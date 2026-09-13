@@ -164,6 +164,9 @@ Runtime:
 - `apps/agents/src/roles/` — registry de roles.
 - `apps/agents/src/config/` — política de modelos.
 - `apps/agents/src/runtime/` — execução controlada.
+- `docs/skills/impeccable/` — conteúdo Impeccable fixado por revisão e adaptado
+  ao contexto advisory do UX Specialist; licença e proveniência incluídas.
+- `docs/features/ai-agent-impeccable/spec.md` — contrato de carregamento e limites.
 - `docs/features/ai-agent-runtime/spec.md` — escopo/contratos do runtime atual.
 - `docs/features/ai-agent-ux-review/spec.md` — UX Specialist e gate condicional de experiência.
 

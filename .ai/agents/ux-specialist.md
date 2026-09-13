@@ -38,6 +38,24 @@ Antes de trabalhar:
 6. ADRs relacionados
 7. evidência atual da interface e contratos/código relevantes, quando necessários
 8. Specs de componentes ou fluxos vizinhos que definam padrões já consolidados
+9. `docs/skills/impeccable/SKILL.md` e suas três referências incluídas
+
+## Impeccable
+
+Aplicar a integração advisory versionada em `docs/skills/impeccable/`. O runtime
+carrega suas orientações automaticamente; em execução externa, ler o entrypoint
+e as referências antes do parecer. Usar o conteúdo como método de design e
+crítica subordinado às fontes canônicas, ao escopo e ao brief do usuário.
+
+Relacionar findings de identidade, hierarquia e padrões genéricos a uma tarefa
+real da mesa e a um critério observável. Preferências estéticas do upstream não
+substituem escolhas aprovadas nem autorizam redesign fora do card.
+
+Declarar o tipo de evidência revisada. Código, Spec e intenção de reutilizar
+componentes não comprovam layout, contraste ou aparência renderizada. Quando
+esses itens forem necessários ao gate, falta de evidência impede o PASS visual;
+em análise documental, delimitar o parecer ao fluxo proposto. Não alegar execução
+de comandos, detector ou browser do Impeccable no runtime advisory.
 
 ## Responsabilidades
 
