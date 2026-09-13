@@ -7,8 +7,9 @@ Domínio: VTT Core / condução da mesa
 UX review required: **YES**
 Base consultada: `d21f7c34e71fc366a321869e8fbf818a75ad5ca4` (PR #86 merged).
 
-Rascunho de produto para discussão. Não substitui os contratos vigentes nem
-autoriza implementação. BA, UX e Architecture ainda não declararam aprovação.
+Recorte inicial confirmado pelo usuário em 2026-09-13, incluindo integração com
+armas equipadas e magias da ficha. Os contratos seguem em refinamento; esta
+proposta não substitui o comportamento vigente nem declara gates concluídos.
 
 ## Objetivo e orientação humana
 
@@ -117,11 +118,11 @@ sessão e de visão seguem os contratos próprios.
 
 ## Próximo refinamento
 
-Revisar o recorte e o fluxo de combate com o usuário; depois fechar o contrato
-de ativação/retomada da ordem. Um desenho de interação é uma proposta revisável,
-não implementação nem aceite automático de uma mudança de arquitetura.
+O recorte e o fluxo manual integrado receberam confirmação para iniciar.
+O contrato de ativação/retomada da ordem está proposto no ADR abaixo. Um desenho
+de interação não representa implementação nem aceite automático de arquitetura.
 
-Architecture Review deve registrar a mudança de lifecycle/contratos em ADR
-próprio, respeitando ADR-0002, ADR-0004, ADR-0005 e ADR-0007, e definir a transição
-coordenada de `vtt:combat:*`. A entrega de QH-ENC-001 será documental, por PR;
-cards de implementação serão derivados da fundação aprovada.
+Proposta estrutural: [ADR-0008](../../architecture/adr/ADR-0008-encounter-optional-turns.md),
+respeitando ADR-0002, ADR-0004, ADR-0005 e ADR-0007. Revisão de UX e pontos de
+handoff: [revisão do recorte](review.md). A entrega de QH-ENC-001 permanece
+documental, por PR; desenvolvimento segue nos cards próprios após os gates.
