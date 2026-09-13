@@ -8,8 +8,8 @@ UX review required: **YES**
 Base consultada: `d21f7c34e71fc366a321869e8fbf818a75ad5ca4` (PR #86 merged).
 
 Recorte inicial confirmado pelo usuário em 2026-09-13, incluindo integração com
-armas equipadas e magias da ficha. Os contratos seguem em refinamento; esta
-proposta não substitui o comportamento vigente nem declara gates concluídos.
+armas equipadas e magias da ficha. UX da proposta revisada; aceitação estrutural
+do ADR-0008 pendente. Esta proposta não substitui o comportamento vigente.
 
 ## Objetivo e orientação humana
 
@@ -43,9 +43,9 @@ encontro corrente por Campaign, conforme o recorte atual, sem introduzir vários
 encontros simultâneos.
 
 No primeiro recorte, progresso cabe nas notas: por exemplo, `Runas 2/4` e
-`Incêndio 1/3`. Contadores visuais podem reutilizar o trabalho de Resource
-Trackers quando disponível; não bloqueiam esta fundação nem exigem um segundo
-sistema de trackers.
+`Incêndio 1/3`. Contadores visuais ficam para um recorte posterior. O card atual
+de Resource Trackers trata recursos do ator; sua reutilização para encontros
+exigiria análise própria e não é dependência desta fundação.
 
 ## Exemplo de condução
 
@@ -76,6 +76,23 @@ estado e suas consequências são conduzidos pela mesa; o VTT não os simula.
   futura Action Tray será tratada em seu próprio recorte, sem ampliar este painel.
 - Reutilizar a linguagem visual, componentes, foco e teclado do VTT. Evitar
   navegação adicional e rolagem horizontal obrigatória.
+
+### Estados e feedback propostos
+
+| Situação | Experiência esperada |
+| --- | --- |
+| Livre, sem participantes | Encontro utilizável; ativação de turnos indica que é preciso adicionar um participante. |
+| Primeira ativação | Mostrar rodada 1, participante atual e controles de ordem existentes. |
+| Desativar e retomar | Ocultar a ordem no fluxo livre; ao retomar, recuperar iniciativas, rodada e posição preservadas. |
+| Último participante removido | Voltar ao fluxo livre; uma nova ordem começa na rodada 1 sem apagar o encontro. |
+| Comando em envio | Bloquear repetição do mesmo comando e sinalizar processamento; só confirmar sucesso após resposta. |
+| Falha de edição/comando | Mostrar erro junto à operação e preservar o texto não salvo; não anunciar sucesso nem apagar o encontro localmente. |
+| Estado alterado por outra conexão | Reconciliar com o servidor; se o encontro foi encerrado, informar o encerramento e impedir novos comandos nessa identidade. |
+| Notas do Mestre | Rótulo de privacidade explícito; nunca renderizar o conteúdo para Player. |
+
+Usar `Desativar turnos` e `Encerrar encontro` como ações distintas. O retorno
+para fluxo livre não encerra a atividade. A retomada acima é a recomendação de
+interação submetida à decisão estrutural do ADR-0008, ainda PROPOSED.
 
 ## Limites deste recorte
 
@@ -115,6 +132,10 @@ sessão e de visão seguem os contratos próprios.
 6. Um encontro livre não restringe movimento por um turno inexistente; a ordem
    atual não impede acessar ataques e magias autorizados do próprio personagem.
 7. Encerrar manualmente ou terminar a sessão preserva o histórico existente.
+8. Ativação vazia, envio, erro e encerramento remoto seguem os estados descritos;
+   falha não descarta notas não salvas nem cria confirmação falsa.
+9. Alternar turnos não rouba o foco das ações do personagem; controles possuem
+   rótulos acessíveis e ficam utilizáveis por teclado e sem rolagem horizontal.
 
 ## Próximo refinamento
 

@@ -32,15 +32,56 @@ erros associados aos campos e confirmação alcançável. Contraste, layout real
 integração realtime deverão ser verificados na implementação. O protótipo
 anterior teve lógica exercitada em DOM; não comprova esses itens de produto.
 
-O fluxo de ativação/retomada foi concretizado no ADR proposto para revisão, não
-tratado como decisão já aceita. Por isso não é declarado UX Ready global nem
-avanço para Development nesta atualização.
+Revisão concluída sobre a proposta documental, confrontando também os componentes
+atuais `EncounterSetupPanel`, `EncounterActionPanel`, o carrossel e as Specs de
+Combat, Scene e Game Log. Foram explicitados na Spec os estados de encontro
+livre, primeira ativação, retomada, última remoção, envio, falha e atualização
+por outra conexão. Ações de encerrar e desativar turnos são distintas.
+
+```text
+UX REVIEW: APPROVED
+Applicability: REQUIRED
+Journeys reviewed: BOTH
+Visual consistency: PASS (reutilização de componentes e padrões existentes)
+Tabletop flow: PASS (revisão da proposta, sem execução do produto)
+Accessibility/responsiveness: PASS (critérios definidos; QA de UI futura)
+Acceptance criteria added or refined: Foundation 8–9 e tabela de estados;
+  integração 1–8 e regras de foco/seleção/feedback do combate.
+Open UX questions: 0 para a proposta submetida à decisão arquitetural
+```
+
+Este parecer avalia a coerência da experiência proposta; não aceita o ADR em
+nome do usuário. Exigir ADR aceito para emitir UX Review criava uma dependência
+circular, pois o Architect recebe o parecer de UX como entrada. Se a decisão
+humana alterar a interação proposta, os critérios afetados voltam para revisão.
 
 ## Handoff estrutural
 
 O [ADR-0008](../../architecture/adr/ADR-0008-encounter-optional-turns.md) torna
-revisável a separação entre identidade do encontro e ordem de turnos. Permanece
-PROPOSED; a revisão estrutural formal sucede o encerramento do gate de UX.
+revisável a separação entre identidade do encontro e ordem de turnos. Com o
+parecer de UX concluído, a proposta foi confrontada com ADR-0002/0004/0005,
+Architecture seção 9.1, Combat e Game Log: preservar a identidade sem ordem
+altera o lifecycle vigente, embora mantenha as fronteiras de Campaign e sistema.
+
+```text
+ARCHITECTURE: DECISION REQUIRED
+Proposed ADR: docs/architecture/adr/ADR-0008-encounter-optional-turns.md
+Decision: aceitar a separação entre encontro e ordem opcional, incluindo
+  preservação de rodada/posição ao desativar e reativar turnos?
+Recommendation: aceitar a proposta; evita perder o contexto ao alternar
+  combate e condução livre, reutilizando iniciativa e histórico existentes.
+```
+
+A continuidade entre cenas e o MVP integrado já receberam orientação humana;
+não é solicitada nova autorização para refinar, revisar ou publicar o PR. Falta
+a aceitação explícita do ADR concretizado posteriormente, conforme o role
+Architect. Não há aprovação de arquitetura, READY ou HUMAN APPROVAL declarada.
+O PR pode sair de draft para receber essa decisão humana, sem implicar merge.
+
+Enforcement revisado: snapshots privados para notas, mesma Campaign em todos os
+IDs, ausência de movimento bloqueado por turno inexistente, preservação dos
+snapshots históricos e migração coordenada dos consumidores `vtt:combat:*`.
+Os payloads executáveis e a verificação do produto pertencem à implementação.
 
 Depois da fundação aprovada, retomar QH-TLC-005 e refinar QH-PF2-003/004 na ordem
 descrita no fluxo de combate. Conferir o PR #85 fechado sem merge antes de
