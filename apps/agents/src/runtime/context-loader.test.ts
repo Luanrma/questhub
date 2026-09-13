@@ -14,6 +14,10 @@ async function createFixtureRepo() {
     'docs/ARCHITECTURE.md': 'architecture',
     '.ai/agents/ba.md': 'ba role',
     '.ai/agents/ux-specialist.md': 'ux specialist role',
+    'docs/skills/impeccable/SKILL.md': 'impeccable entrypoint',
+    'docs/skills/impeccable/reference/operate.md': 'operate reference',
+    'docs/skills/impeccable/reference/craft-floor.md': 'craft reference',
+    'docs/skills/impeccable/reference/critique.md': 'critique reference',
     'docs/features/example/spec.md': 'feature spec',
   }
 
@@ -87,6 +91,15 @@ test('loads the UX Specialist role through the governed context loader', async (
     repoRoot: root,
   })
 
-  assert.equal(result.contextPaths.at(-1), '.ai/agents/ux-specialist.md')
+  assert.deepEqual(result.contextPaths.slice(4), [
+    '.ai/agents/ux-specialist.md',
+    'docs/skills/impeccable/SKILL.md',
+    'docs/skills/impeccable/reference/operate.md',
+    'docs/skills/impeccable/reference/craft-floor.md',
+    'docs/skills/impeccable/reference/critique.md',
+  ])
   assert.match(result.instructions, /ux specialist role/)
+  for (const content of ['impeccable entrypoint', 'operate reference', 'craft reference', 'critique reference']) {
+    assert.ok(result.instructions.includes(content))
+  }
 })

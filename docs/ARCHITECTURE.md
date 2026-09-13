@@ -318,10 +318,18 @@ Na fase QH-AI-001:
 - não há tools de shell, GitHub ou Trello;
 - não há autonomia de aprovação ou merge;
 - o contexto obrigatório é carregado do repositório antes da execução;
+- o registry pode declarar contexto documental obrigatório por role, validado
+  pelos mesmos limites de caminho do contexto adicional; o UX Specialist carrega
+  a integração advisory de Impeccable em `docs/skills/impeccable/`;
 - contexto adicional é explícito e limitado a documentação autorizada;
 - `apps/api`, `apps/web` e Game System engines não podem importar `apps/agents`.
 
 A evolução para ferramentas mutáveis, sandboxes, orquestração automática ou gatilhos externos exige Feature Spec e Architecture Review próprios.
+
+QH-AI-004 incorpora conteúdo Impeccable fixado por revisão como orientação de
+design, sem executor, hooks, navegador ou novas tools. A proveniência e a licença
+acompanham a cópia; o material permanece subordinado às fontes canônicas. Contrato:
+`docs/features/ai-agent-impeccable/spec.md`.
 
 ## 17. Documentação e mapa do projeto
 

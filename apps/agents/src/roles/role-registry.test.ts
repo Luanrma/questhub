@@ -29,6 +29,12 @@ test('UX Specialist is registered with its canonical instruction file', () => {
     id: 'ux-specialist',
     name: 'QuestHub UX Specialist',
     instructionPath: '.ai/agents/ux-specialist.md',
+    requiredContextPaths: [
+      'docs/skills/impeccable/SKILL.md',
+      'docs/skills/impeccable/reference/operate.md',
+      'docs/skills/impeccable/reference/craft-floor.md',
+      'docs/skills/impeccable/reference/critique.md',
+    ],
   })
   assert.equal(parseAgentRole('ux-specialist'), 'ux-specialist')
 })

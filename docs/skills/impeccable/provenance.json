@@ -1,0 +1,40 @@
+{
+  "repository": "https://github.com/pbakaus/impeccable",
+  "commit": "cb56ed6c19a07329a9fa0cd4e657bee040156593",
+  "distribution": "plugin/skills/impeccable",
+  "skillVersion": "4.3.1",
+  "license": "Apache-2.0",
+  "adaptation": "QuestHub advisory integration; SKILL.md is a local adapter based on upstream entrypoint; no upstream command execution or hooks. Critique includes reference material only.",
+  "files": {
+    "reference/operate.md": {
+      "upstreamPath": "plugin/skills/impeccable/reference/operate.md",
+      "upstreamSha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d",
+      "sha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d",
+      "selection": "complete file"
+    },
+    "reference/craft-floor.md": {
+      "upstreamPath": "plugin/skills/impeccable/reference/craft-floor.md",
+      "upstreamSha256": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07",
+      "sha256": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07",
+      "selection": "complete file"
+    },
+    "reference/critique.md": {
+      "upstreamPath": "plugin/skills/impeccable/reference/critique.md",
+      "upstreamSha256": "8bf1b06547f571d9b8d3875426fff6621fadd3bc08ae9ebb16d749f5c5f44b01",
+      "sha256": "7df63455fdc8b3b59d55028942e93857e4214fd0a6c56883d5a80cb1908af1ee",
+      "selection": "from ## Reference Material to EOF; attribution comment prepended"
+    },
+    "LICENSE": {
+      "upstreamPath": "LICENSE",
+      "upstreamSha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+      "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+      "selection": "complete file"
+    },
+    "NOTICE.md": {
+      "upstreamPath": "NOTICE.md",
+      "upstreamSha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb",
+      "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb",
+      "selection": "complete file"
+    }
+  }
+}

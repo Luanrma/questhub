@@ -80,8 +80,13 @@ export async function loadAgentInstructions({
     additionalContextPaths.map((relativePath) => resolveRepositoryFile(repoRoot, relativePath, { additional: true })),
   )
 
+  const resolvedRoleContext = await Promise.all(
+    (descriptor.requiredContextPaths ?? []).map((relativePath) =>
+      resolveRepositoryFile(repoRoot, relativePath, { additional: true })),
+  )
+
   const unique = new Map<string, { relativePath: string; absolutePath: string }>()
-  for (const entry of [...resolvedRequired, ...resolvedAdditional]) {
+  for (const entry of [...resolvedRequired, ...resolvedRoleContext, ...resolvedAdditional]) {
     unique.set(entry.absolutePath, entry)
   }
 
