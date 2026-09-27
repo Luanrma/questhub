@@ -238,5 +238,6 @@ test('Prisma history contains the current baseline and additive feature migratio
     '20260804180000_use_nullable_inventory_slots',
     '20260820011000_add_campaign_actor_effects',
     '20260824230500_add_campaign_game_log',
+    '20260919120000_add_encounter_management',
   ])
 })

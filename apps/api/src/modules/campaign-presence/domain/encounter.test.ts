@@ -5,8 +5,10 @@ import {
   adjustCombatInitiative,
   advanceCombatTurn,
   combatInitiativeTotalLimits,
+  projectCombatStateForRole,
   removeParticipantsFromCombatState,
   rewindCombatTurn,
+  setCombatTurnsActive,
   sortCombatParticipants,
   type VttCombatParticipant,
   type VttCombatState,
@@ -27,7 +29,10 @@ function combat(participants: VttCombatParticipant[]): VttCombatState {
   return {
     encounterId: 'encounter-1',
     campaignId: 'campaign-1',
-    sceneId: 'scene-1',
+    startedSceneId: 'scene-1',
+    name: 'Emboscada',
+    privateNotes: 'O dragão foge com pouca vida.',
+    turnsActive: true,
     round: 1,
     turnCount: 1,
     activeTurnIndex: 0,
@@ -77,8 +82,25 @@ test('participants can enter and leave an active encounter without duplicating t
   assert.equal(added.participants[added.activeTurnIndex].tokenId, 'active')
 
   const removed = removeParticipantsFromCombatState(added, ['new-highest'])
-  assert.deepEqual(removed?.participants.map((item) => item.tokenId), ['active', 'existing'])
-  assert.equal(removeParticipantsFromCombatState(combat([participant('only', 10)]), ['only']), null)
+  assert.deepEqual(removed.participants.map((item) => item.tokenId), ['active', 'existing'])
+  const empty = removeParticipantsFromCombatState(combat([participant('only', 10)]), ['only'])
+  assert.deepEqual(empty.participants, [])
+  assert.equal(empty.turnsActive, false)
+  assert.deepEqual({ round: empty.round, turnCount: empty.turnCount, activeTurnIndex: empty.activeTurnIndex }, { round: 1, turnCount: 1, activeTurnIndex: 0 })
+})
+
+test('turns are optional and cannot activate without participants', () => {
+  const free = { ...combat([participant('first', 20)]), turnsActive: false }
+  assert.equal(advanceCombatTurn(free), free)
+  assert.equal(setCombatTurnsActive(free, true).turnsActive, true)
+  assert.equal(setCombatTurnsActive(combat([]), true).turnsActive, false)
+})
+
+test('player encounter projection omits private master notes', () => {
+  const state = combat([])
+  assert.equal(projectCombatStateForRole(state, true)?.privateNotes, state.privateNotes)
+  const playerProjection = projectCombatStateForRole(state, false)
+  assert.equal('privateNotes' in (playerProjection ?? {}), false)
 })
 
 test('turn progression counts every participant turn and wraps rounds', () => {

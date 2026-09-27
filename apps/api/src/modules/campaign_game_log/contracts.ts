@@ -6,6 +6,7 @@ export const campaignGameLogEventType = {
   encounterParticipantsAdded: 'ENCOUNTER_PARTICIPANTS_ADDED',
   encounterParticipantsRemoved: 'ENCOUNTER_PARTICIPANTS_REMOVED',
   encounterInitiativeAdjusted: 'ENCOUNTER_INITIATIVE_ADJUSTED',
+  encounterTurnsChanged: 'ENCOUNTER_TURNS_CHANGED',
   encounterTurnChanged: 'ENCOUNTER_TURN_CHANGED',
   encounterEnded: 'ENCOUNTER_ENDED',
 } as const

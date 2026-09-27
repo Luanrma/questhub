@@ -1,79 +1,84 @@
 # ADR-0008 — Encounter com turnos opcionais
 
-Status: **PROPOSED**
-Data: 2026-09-13
-Card: `QH-ENC-001` — https://trello.com/c/tw4LllTF
-Supersedes: nenhum; estende o lifecycle descrito nas Specs de Combat, Scene e Game Log.
+Status: **ACCEPTED**
+Data: 2026-09-19
+Card: `QH-ENC-002` — https://trello.com/c/gaM4vjK9
+Supersedes: nenhum; estende o lifecycle de Combat, Scene e Game Log.
 
 ## Contexto
 
-O usuário confirmou um MVP que permite puzzle, combate e evento ambiental no
-mesmo encontro, com prioridade seguinte em ataques manuais integrados à ficha.
-Hoje remover o último participante ou trocar de cena encerra o encontro. A
-identidade histórica está acoplada à existência de uma ordem de combate.
+O Encounter vigente depende de participantes, ativa turnos imediatamente,
+restringe movimento enquanto existe, termina ao remover o último Token e termina
+na troca de cena. Isso impede representar puzzle, exploração e eventos manuais e
+acopla a identidade histórica à ordem de turnos.
 
-## Decisão proposta
+O produto adotou **Campaign Management First**: o QuestHub organiza a mesa e não
+executa regras de Game System.
 
-Manter uma identidade de encontro corrente por Campaign durante a sessão,
-separada da ordem opcional de turnos. Reutilizar `CampaignEncounter` para o
-histórico; não criar um segundo agregado de combate nem um motor ambiental.
+## Decisão
 
-- Mestre pode iniciar sem participantes, com nome e notas privadas.
-- Participantes continuam sendo Tokens, com Actor opcional (ADR-0004).
-- Ativar turnos exige ao menos um participante; usar a ordenação de iniciativa
-  existente. Sem participantes, indicar `Adicione um participante para ativar turnos`.
-- Primeira ativação começa na rodada 1 e primeiro participante. Desativar
-  preserva ordem, iniciativas e posição para retomar, ocultando controles de turno.
-- Reativar retoma a posição preservada. Remover o participante atual usa a regra
-  vigente de sucessão; remover o último desativa e limpa apenas a ordem. Uma
-  ordem nova começa na rodada 1, dentro do mesmo encontro e histórico.
-- Trocar de cena mantém identidade, notas e ordem, com o comportamento de pausa
-  da sessão vigente. Nenhum Token é teleportado e nenhuma cena é revelada.
-  Participante sem presença na cena autorizada não habilita operações espaciais
-  nessa cena; ações manuais do ator continuam conforme autorização própria.
-- Encerramento explícito, encerramento da sessão e substituição explícita por
-  outro encontro finalizam o histórico. Não implementar retomada entre sessões.
+Separar a identidade do Encounter da ordem opcional de turnos.
 
-Essa proposta não permite vários encontros correntes nem exige novos estados de
-preparação, pausa ou fases. Progresso e efeitos ambientais permanecem em notas.
+- Existe no máximo um Encounter corrente por Campaign durante a sessão.
+- `CampaignEncounter` mantém identidade persistente, nome, notas privadas e o
+  agrupamento histórico do Game Log.
+- Participantes e ordem permanecem estado operacional vivo da sessão.
+- O Encounter pode iniciar sem participantes e começa com turnos desativados.
+- Ativar turnos exige participante; desativar preserva ordem e posição.
+- Remover o último participante limpa a ordem e mantém o Encounter aberto.
+- Trocar de cena preserva identidade, participantes e ordem sem mover Tokens.
+- Encerramento explícito, encerramento da sessão ou substituição encerram o
+  registro persistente. Não há retomada operacional entre sessões neste recorte.
 
-## Fronteiras e segurança
+## Privacidade e segurança
 
-Campanha, identidade histórica, turnos e projeção autorizada pertencem ao Core.
-Notas privadas só podem integrar resposta/evento destinado ao Mestre; não enviar
-em snapshot público nem em entrada compartilhada do Game Log. Toda operação
-valida membership, papel e pertencimento dos IDs à mesma Campaign (ADR-0002).
+Notas pertencem ao Mestre. Elas só integram persistência e projeção destinada a
+MASTER; não são enviadas a Player nem registradas no Game Log compartilhado.
 
-Armas, magias e seus perfis pertencem ao contexto do ator e ao Game System.
-O sistema interpreta equipamento e entradas da ficha e fornece apresentação e
-pedido de rolagem agnósticos. O Core não interpreta `carryMode`, slots, CD,
-acerto ou dano (ADR-0005). Rolagens fora de encontro mantêm apenas realtime;
-durante encontro, vinculam-se à identidade histórica corrente.
+Toda operação valida membership, papel e pertencimento dos IDs à mesma Campaign
+no backend. O frontend não é fronteira de segurança.
 
-## Transição e enforcement antes da implementação
+## Fronteira VTT / Game System
 
-1. Atualizar de forma coordenada Specs de Combat, Scene e Game Log, tipos,
-   handlers `vtt:combat:*` e consumidores; não manter dois estados concorrentes.
-2. Distinguir ausência de encontro de encontro livre nos snapshots e nos
-   consumidores de movimento/turno. Estado livre não pode bloquear movimento
-   por ausência de participante atual.
-3. Preservar histórico já armazenado e os significados dos snapshots antigos;
-   eventual persistência de nome/notas exige migration própria revisada.
-4. Testar transições livre/turnos, última remoção, mudança de cena e término da
-   sessão; testar separadamente vazamento de notas, isolamento e autorização.
-5. Rodar checks de arquitetura e contratos. A implementação deve especificar
-   os payloads e a compatibilidade de clientes; este ADR não declara esses
-   contratos executáveis entregues.
+Encounter, participantes, turnos, iniciativa genérica e projeção autorizada
+pertencem ao Core. O Encounter não interpreta armas, magias, dano, salvamentos,
+alcance, áreas, recursos ou Effects. Não existe Action Tray neste agregado.
 
-## Alternativas e consequências
+## Contratos e compatibilidade
 
-- Manter Encounter exclusivamente de combate: menor mudança, mas obriga eventos
-  sem turnos a usar Tokens artificiais e fragmenta o histórico.
-- Criar engines para puzzle/clima e vários ciclos: maior expressividade, porém
-  excede o MVP confirmado.
-- Separar identidade e ordem (proposta): reaproveita iniciativa e Log; exige
-  revisar lifecycle, projeção privada e transições existentes antes do código.
+Os nomes legados `VttCombat*` e `vtt:combat:*` podem permanecer temporariamente
+para evitar uma migração nominal fora do escopo. Seus payloads passam a expressar
+o lifecycle de Encounter definido nesta decisão.
 
-Não altera ADR aceito. A aceitação desta decisão e o merge são humanos conforme
-o role Architect; a confirmação do recorte não é registrada como aceitação
-antecipada destes detalhes estruturais.
+O estado distingue `turnsActive`. Consumidores de movimento, medição e UI só
+aplicam comportamento de turno quando esse valor é verdadeiro. A projeção
+realtime é filtrada por destinatário.
+
+## Persistência
+
+`CampaignEncounter` recebe nome e notas privadas. A cena inicial continua como
+snapshot opcional e não define ownership do Encounter. Histórico existente é
+preservado; a migration fornece nome compatível aos registros anteriores.
+
+## Consequências
+
+### Positivas
+
+- Encounter representa atividades híbridas sem Tokens artificiais;
+- turnos podem ser usados apenas quando ajudam a mesa;
+- mudança de cena não fragmenta o histórico;
+- regras permanecem sob responsabilidade humana/Game System.
+
+### Custos
+
+- snapshots realtime precisam variar por papel;
+- contratos e consumidores devem distinguir Encounter livre de turnos ativos;
+- persistência recebe campos privados e exige testes contra vazamento.
+
+## Enforcement
+
+- testes de lifecycle livre/turnos/último participante/troca de cena;
+- testes de autorização e Campaign isolation;
+- teste de projeção que prove ausência de notas para Player;
+- testes de movimento/medição condicionados a `turnsActive`;
+- `npm run check:architecture` e builds aplicáveis.

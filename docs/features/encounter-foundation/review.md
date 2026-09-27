@@ -1,92 +1,120 @@
-# Revisão do recorte — QH-ENC-001
+# Gates de refinamento — QH-ENC-002
 
-Data: 2026-09-13
-Card: https://trello.com/c/tw4LllTF
-Escopo: análise documental da fundação e da próxima UX de combate.
+Data: 2026-09-19
+Card: https://trello.com/c/gaM4vjK9
+Evidência de UX: requisito aprovado, código atual, contratos e componentes
+existentes. Aparência renderizada permanece para QA da implementação.
 
 ## BA
 
-Registrada a confirmação humana para iniciar o MVP integrado à ficha. Armas
-equipadas, magias vinculadas e perfis manuais compõem o próximo fluxo; preparação,
-slots e aplicação de consequências não são pré-requisitos. Critérios observáveis
-estão em [Combate MVP — UX](combat-mvp-ux.md).
+```text
+BA: READY
+Spec: docs/features/encounter-foundation/spec.md
+UX review required: YES
+Architecture review required: YES
+Open product questions: 0
+```
 
-## Revisão de UX
+O recorte aplica `Campaign Management First`: Encounter organiza contexto,
+participantes e turnos opcionais. Action Tray e interpretação de regras foram
+removidas. Permissões, estados, contratos, erros e critérios são verificáveis.
 
-Aplicadas localmente as instruções do UX Specialist, sem execução de agent
-separado e sem declarar QA visual do produto. Journeys revisadas: Mestre e Player.
+## UX Review
 
-| Finding | Tratamento no contrato de UX |
+Aplicado o método advisory Impeccable em modo Operate. Journeys revisadas:
+Mestre e Player.
+
+| Finding | Tratamento verificável |
 | --- | --- |
-| “Disponível” promete validação de conjuração inexistente | Usar “Magias da ficha”; mesa resolve preparação e recursos. |
-| Repetir digitação a cada ataque interrompe a sessão | Perfil salvo ligado à origem; ajuste separado por rolagem. |
-| Uma magia pode não fazer ataque nem causar dano | Consulta independente; controles somente para operações configuradas. |
-| Equipamento pode mudar enquanto o painel está aberto | Atualizar origem, preservar perfil e evitar troca silenciosa da seleção. |
-| Falha de consulta pode parecer ficha vazia | Estados loading/erro/vazio distintos e tentativa explícita. |
-| Mudança de turno pode roubar a seleção do Player | Ações pertencem ao ator escolhido e não seguem automaticamente o turno. |
-| Múltiplos atores e fontes homônimas | Seleção por identidade; limpar estado ao trocar ator. |
-| Editor compete com o mapa | Componentes existentes, editor compacto, empilhamento em largura reduzida. |
-
-Acessibilidade definida como critério: foco visível, teclado, nomes acessíveis,
-erros associados aos campos e confirmação alcançável. Contraste, layout real e
-integração realtime deverão ser verificados na implementação. O protótipo
-anterior teve lógica exercitada em DOM; não comprova esses itens de produto.
-
-Revisão concluída sobre a proposta documental, confrontando também os componentes
-atuais `EncounterSetupPanel`, `EncounterActionPanel`, o carrossel e as Specs de
-Combat, Scene e Game Log. Foram explicitados na Spec os estados de encontro
-livre, primeira ativação, retomada, última remoção, envio, falha e atualização
-por outra conexão. Ações de encerrar e desativar turnos são distintas.
+| O painel de ações transforma Encounter em executor mecânico | Remover `EncounterActionPanel` do fluxo ativo; painel gerencia somente o encontro. |
+| Iniciar exige Tokens, embora puzzle/evento possa não ter participantes | Nome habilita início; caixa de Tokens é opcional. |
+| Turnos e encerramento parecem o mesmo lifecycle | Controles e copy distintos: `Ativar/Desativar turnos` e `Encerrar encontro`. |
+| Notas privadas podem vazar em broadcast compartilhado | Projeção realtime por papel; Player não recebe o campo. |
+| Falha de comando pode perder contexto digitado | Estado local preservado, feedback próximo à ação e retry explícito. |
+| Carrossel compete com o mapa quando não é necessário | Renderizar somente com turnos ativos. |
 
 ```text
 UX REVIEW: APPROVED
 Applicability: REQUIRED
 Journeys reviewed: BOTH
-Visual consistency: PASS (reutilização de componentes e padrões existentes)
-Tabletop flow: PASS (revisão da proposta, sem execução do produto)
-Accessibility/responsiveness: PASS (critérios definidos; QA de UI futura)
-Acceptance criteria added or refined: Foundation 8–9 e tabela de estados;
-  integração 1–8 e regras de foco/seleção/feedback do combate.
-Open UX questions: 0 para a proposta submetida à decisão arquitetural
+Visual consistency: PASS documental; reutiliza a gramática existente
+Tabletop flow: PASS
+Accessibility/responsiveness: PASS nos critérios; validação renderizada em QA
+Acceptance criteria added or refined: 2, 4, 8, 9, 11, 14 e 15
+Open UX questions: 0
 ```
 
-Este parecer avalia a coerência da experiência proposta; não aceita o ADR em
-nome do usuário. Exigir ADR aceito para emitir UX Review criava uma dependência
-circular, pois o Architect recebe o parecer de UX como entrada. Se a decisão
-humana alterar a interação proposta, os critérios afetados voltam para revisão.
-
-## Handoff estrutural
-
-O [ADR-0008](../../architecture/adr/ADR-0008-encounter-optional-turns.md) torna
-revisável a separação entre identidade do encontro e ordem de turnos. Com o
-parecer de UX concluído, a proposta foi confrontada com ADR-0002/0004/0005,
-Architecture seção 9.1, Combat e Game Log: preservar a identidade sem ordem
-altera o lifecycle vigente, embora mantenha as fronteiras de Campaign e sistema.
+## Architecture Review
 
 ```text
-ARCHITECTURE: DECISION REQUIRED
-Proposed ADR: docs/architecture/adr/ADR-0008-encounter-optional-turns.md
-Decision: aceitar a separação entre encontro e ordem opcional, incluindo
-  preservação de rodada/posição ao desativar e reativar turnos?
-Recommendation: aceitar a proposta; evita perder o contexto ao alternar
-  combate e condução livre, reutilizando iniciativa e histórico existentes.
+ARCHITECTURE: APPROVED
+ADRs: ADR-0002, ADR-0004, ADR-0005, ADR-0007, ADR-0008
+Required enforcement: Campaign isolation; autorização backend; projeção privada
+por destinatário; contratos/testes realtime; architecture check; migration.
+Architecture debt introduced: NO
 ```
 
-A continuidade entre cenas e o MVP integrado já receberam orientação humana;
-não é solicitada nova autorização para refinar, revisar ou publicar o PR. Falta
-a aceitação explícita do ADR concretizado posteriormente, conforme o role
-Architect. Não há aprovação de arquitetura, READY ou HUMAN APPROVAL declarada.
-O PR pode sair de draft para receber essa decisão humana, sem implicar merge.
+`CampaignEncounter` permanece a identidade persistente do histórico; ordem e
+participantes continuam estado operacional da sessão. A separação entre
+identidade e turnos opcionais está aceita no ADR-0008. Nenhuma regra de Game
+System entra no Core.
 
-Enforcement revisado: snapshots privados para notas, mesma Campaign em todos os
-IDs, ausência de movimento bloqueado por turno inexistente, preservação dos
-snapshots históricos e migração coordenada dos consumidores `vtt:combat:*`.
-Os payloads executáveis e a verificação do produto pertencem à implementação.
+## Development
 
-Depois da fundação aprovada, retomar QH-TLC-005 e refinar QH-PF2-003/004 na ordem
-descrita no fluxo de combate. Conferir o PR #85 fechado sem merge antes de
-reutilizar sua implementação. Não reabrir o PR antigo automaticamente.
+```text
+DEVELOPMENT: COMPLETED
+Branch: feat/qh-enc-002-manual-encounter-management
+Database migration: 20260919120000_add_encounter_management
+```
 
-Rastreabilidade: VTT Core + apresentação/contratos de Game System; camadas
-afetadas futuramente são web, API, realtime e persistência. Nesta entrega, apenas
-documentação. ADRs aplicáveis: 0002, 0004, 0005, 0007 e proposta 0008.
+Implementado: criação vazia em modo livre; nome e notas privadas persistentes;
+projeção realtime por papel; participantes multi-cena; turnos opcionais;
+preservação na troca de cena; painel exclusivamente gerencial; confirmação de
+encerramento; remoção do Action Tray do fluxo de Encounter.
+
+## Code Review
+
+```text
+CODE REVIEW: APPROVED
+Blocking findings: 0
+Campaign isolation: PASS
+Authorization on backend: PASS
+Private note projection: PASS
+Game System boundary: PASS
+```
+
+A revisão corrigiu dois pontos antes da aprovação: movimento livre do Player
+ainda era bloqueado por qualquer Encounter, e a mudança de modo era aplicada em
+memória antes do Game Log persistir. Ambos agora dependem de `turnsActive` e
+mantêm persistência antes do broadcast.
+
+## Documentation Audit
+
+```text
+DOCUMENTATION AUDIT: PASS
+Canonical spec: docs/features/encounter-foundation/spec.md
+Operational contract: docs/features/combat/spec.md
+Game Log contract: docs/features/campaign-game-log/spec.md
+ADR: docs/architecture/adr/ADR-0008-encounter-optional-turns.md (ACCEPTED)
+Obsolete document removed: combat-mvp-ux.md
+```
+
+## QA
+
+```text
+QA: APPROVED
+Architecture check: PASS
+API build: PASS (NODE_OPTIONS=--max-old-space-size=4096)
+Web production build: PASS
+Changed web files lint: PASS
+Focused tests: 30 PASS
+Full API suite: 367/368 PASS on first run; sole migration-list assertion fixed
+and rerun PASS in the focused 30-test set
+Visual capture: BLOCKED by unavailable browser binary/download timeout
+```
+
+Cobertura inclui início sem Token, remoção do último participante, turnos
+opcionais, privacidade das notas, limites dos contratos, histórico de migrações
+e renderização SSR dos estados de Mestre e Player. A captura visual interativa
+fica explícita para Human Approval; nenhuma alegação visual depende de screenshot
+não produzida.

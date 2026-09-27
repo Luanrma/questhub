@@ -10,7 +10,10 @@ export type VttCombatParticipant = {
 export type VttCombatState = {
   encounterId: string
   campaignId: string
-  sceneId: string
+  startedSceneId: string | null
+  name: string
+  privateNotes: string
+  turnsActive: boolean
   round: number
   turnCount: number
   activeTurnIndex: number
@@ -76,12 +79,38 @@ export function removeParticipantsFromCombatState(
   const removedTokenIdSet = new Set(removedTokenIds)
   const activeTokenId = combat.participants[combat.activeTurnIndex]?.tokenId ?? null
   const participants = combat.participants.filter((participant) => !removedTokenIdSet.has(participant.tokenId))
-  if (!participants.length) return null
+  if (!participants.length) {
+    return {
+      ...combat,
+      participants: [],
+      turnsActive: false,
+      round: 1,
+      turnCount: 1,
+      activeTurnIndex: 0,
+    }
+  }
 
   return normalizeCombatTurnIndex(
     { ...combat, participants },
     activeTokenId && removedTokenIdSet.has(activeTokenId) ? null : activeTokenId,
   )
+}
+
+export function setCombatTurnsActive(combat: VttCombatState, active: boolean) {
+  if (active && !combat.participants.length) return { ...combat, turnsActive: false }
+  return { ...combat, turnsActive: active }
+}
+
+export function projectCombatStateForRole(combat: VttCombatState | null, isMaster: true): VttCombatState | null
+export function projectCombatStateForRole(combat: VttCombatState | null, isMaster: false): Omit<VttCombatState, 'privateNotes'> | null
+export function projectCombatStateForRole(
+  combat: VttCombatState | null,
+  isMaster: boolean,
+): VttCombatState | Omit<VttCombatState, 'privateNotes'> | null
+export function projectCombatStateForRole(combat: VttCombatState | null, isMaster: boolean) {
+  if (!combat || isMaster) return combat
+  const { privateNotes: _privateNotes, ...playerCombat } = combat
+  return playerCombat
 }
 
 export function adjustCombatInitiative(
@@ -105,7 +134,7 @@ export function adjustCombatInitiative(
 }
 
 export function advanceCombatTurn(combat: VttCombatState) {
-  if (!combat.participants.length) return combat
+  if (!combat.turnsActive || !combat.participants.length) return combat
   const isLastParticipant = combat.activeTurnIndex >= combat.participants.length - 1
 
   return {
@@ -117,7 +146,7 @@ export function advanceCombatTurn(combat: VttCombatState) {
 }
 
 export function rewindCombatTurn(combat: VttCombatState) {
-  if (!combat.participants.length || combat.turnCount <= 1) return combat
+  if (!combat.turnsActive || !combat.participants.length || combat.turnCount <= 1) return combat
   const isFirstParticipant = combat.activeTurnIndex <= 0
 
   return {

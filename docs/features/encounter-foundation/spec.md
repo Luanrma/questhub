@@ -1,149 +1,184 @@
-# Encounter Foundation — proposta de MVP
+# Encounter Foundation — gerenciamento manual da campanha
 
-Status: **DRAFT**
+Status: **READY**
 
-Card: `QH-ENC-001` — https://trello.com/c/tw4LllTF
+Card: `QH-ENC-002` — https://trello.com/c/gaM4vjK9
 Domínio: VTT Core / condução da mesa
 UX review required: **YES**
-Base consultada: `d21f7c34e71fc366a321869e8fbf818a75ad5ca4` (PR #86 merged).
+Direção confirmada pelo usuário: **Campaign Management First**.
 
-Recorte inicial confirmado pelo usuário em 2026-09-13, incluindo integração com
-armas equipadas e magias da ficha. UX da proposta revisada; aceitação estrutural
-do ADR-0008 pendente. Esta proposta não substitui o comportamento vigente.
+## Objetivo
 
-## Objetivo e orientação humana
+Permitir que o Mestre acompanhe uma situação da campanha — combate, puzzle,
+exploração ou evento — sem transformar o Encounter em executor de regras.
 
-Permitir que o Mestre acompanhe uma situação que envolva puzzle, combate,
-incêndio, tempestade ou uma combinação deles, usando poucas ferramentas manuais.
+O QuestHub mantém contexto, participantes e uma ordem opcional. A mesa decide e
+executa ataques, magias, dano, salvamentos, recursos, efeitos e house rules.
 
-Orientação humana: **priorizar MVP e liberdade de condução, evitando grandes
-complexidades**. A proposta anterior foi reduzida com esse critério.
+## Escopo
 
-Próximo foco solicitado: **combate utilizável pelo Player**, com ataques de arma
-ou magia, modificadores manuais e UX coerente. O fluxo está detalhado em
-[Combate MVP — UX](combat-mvp-ux.md), sem condicionar essa entrega a um motor
-completo de encontros, progressão ou conjuração.
+- um Encounter corrente por Campaign durante a sessão;
+- nome e notas privadas do Mestre;
+- início sem participantes;
+- participantes opcionais representados por Tokens;
+- iniciativa, rodadas e turnos ativáveis/desativáveis pelo Mestre;
+- continuidade ao trocar de cena, sem mover Tokens nem revelar cenas;
+- encerramento explícito;
+- histórico mecânico no Campaign Game Log.
 
-Decisão inicial mantida: o encontro pertence à Campaign e continua quando o
-Mestre troca de cena. Essa continuidade ainda não existe no produto atual.
+## Fora de escopo
 
-## Proposta mínima
+- Action Tray ou painel de ações do participante;
+- interpretar armas, magias, alcance, área, alvos ou regras do Game System;
+- calcular ataque, dano, salvamento, Degree of Success ou MAP;
+- consumir slots, Focus, ações, munição ou outros recursos;
+- aplicar Effects automaticamente;
+- motor de clima, puzzle ou evento ambiental;
+- múltiplos Encounters simultâneos;
+- retomada do estado operacional entre sessões.
 
-| Capacidade | Uso na mesa |
-| --- | --- |
-| Nome e notas do Mestre | Dar contexto e registrar objetivo, pistas, soluções e progresso manual. |
-| Participantes opcionais | Incluir Tokens quando úteis; um puzzle ou tempestade pode existir sem eles. |
-| Turnos opcionais | Mestre ativa a ordem existente quando precisar e desativa quando quiser voltar ao fluxo livre. |
-| Histórico do encontro | Preservar os eventos mecânicos já suportados pelo Game Log. |
-| Encerramento explícito | Mestre encerra o encontro; sair dos turnos, retirar o último participante ou trocar de cena não o encerra. |
+## Modelo conceitual
 
-O mesmo encontro pode incluir puzzle, inimigos e incêndio. Não precisa de um tipo
-obrigatório nem de um workflow específico para cada situação. A proposta usa um
-encontro corrente por Campaign, conforme o recorte atual, sem introduzir vários
-encontros simultâneos.
+`CampaignEncounter` mantém a identidade persistente e o agrupamento do Game Log.
+O estado operacional permanece vivo durante a sessão.
 
-No primeiro recorte, progresso cabe nas notas: por exemplo, `Runas 2/4` e
-`Incêndio 1/3`. Contadores visuais ficam para um recorte posterior. O card atual
-de Resource Trackers trata recursos do ator; sua reutilização para encontros
-exigiria análise própria e não é dependência desta fundação.
+```ts
+type VttEncounterState = {
+  encounterId: string
+  campaignId: string
+  startedSceneId: string | null
+  name: string
+  privateNotes?: string // somente projeção MASTER
+  turnsActive: boolean
+  round: number
+  turnCount: number
+  activeTurnIndex: number
+  status: 'ACTIVE'
+  participants: VttEncounterParticipant[]
+}
+```
 
-## Exemplo de condução
+O nome possui de 1 a 120 caracteres. Notas aceitam até 20.000 caracteres. O
+servidor persiste ambos; `privateNotes` nunca integra snapshot/evento de Player
+nem entrada compartilhada do Game Log.
 
-Encontro: **Escapar do templo em chamas**.
+## Lifecycle
 
-1. Mestre começa sem turnos e registra o puzzle da porta nas notas.
-2. O incêndio começa; ele anota a situação e conduz suas consequências.
-3. Guardiões aparecem; ele adiciona os Tokens e ativa a ordem de turnos.
-4. Os guardiões são vencidos; ele desativa os turnos e continua o puzzle/resgate.
-5. O grupo muda de mapa; o encontro e seu histórico continuam.
-6. Quando considerar a situação concluída, o Mestre encerra o encontro.
+1. Mestre inicia com nome, notas e zero ou mais Tokens visíveis da cena atual.
+2. O Encounter começa em modo livre (`turnsActive = false`).
+3. Participantes podem ser adicionados/removidos manualmente durante a sessão.
+4. Ativar turnos exige ao menos um participante.
+5. Desativar turnos preserva ordem, iniciativas, rodada e posição corrente.
+6. Reativar retoma a posição preservada.
+7. Remover o último participante desativa turnos, limpa a ordem e mantém o
+   Encounter aberto; uma nova ordem começa na rodada 1.
+8. Trocar de cena preserva o Encounter e não teleporta Tokens.
+9. Encerrar Encounter exige confirmação e preserva o histórico.
+10. Encerrar a sessão ou substituir explicitamente o Encounter encerra sua
+    identidade persistente.
 
-O incêndio não precisa virar NPC, Token ou entidade nova para este fluxo. Seu
-estado e suas consequências são conduzidos pela mesa; o VTT não os simula.
+## Participantes e cenas
 
-## Direção de UX
+- participante referencia `CampaignToken`; Actor e ficha continuam opcionais;
+- Token adicionado deve pertencer à mesma Campaign e à cena indicada no comando;
+- Tokens ocultos não podem ser adicionados;
+- participantes fora da cena visível permanecem na lista, mas não habilitam
+  operações espaciais nessa cena;
+- trocar de cena não altera participantes;
+- excluir ou ocultar um Token remove sua participação, sem encerrar o Encounter.
 
-- Um painel de Encontro com nome, notas, participantes e controle de turnos.
-- Sem turnos, a interface não mostra iniciativa, rodada ou participante atual.
-- Com turnos, aproveitar o carrossel já existente e os controles do Mestre.
-- Ação de sair dos turnos deve ser distinta de encerrar o encontro.
-- O Player vê apenas o contexto autorizado; notas do Mestre são privadas.
-- Sem turnos, aplicar movimento normal autorizado. Com turnos, manter o
-  comportamento de movimento atual neste primeiro recorte; o Mestre conserva
-  seus controles e pode voltar ao fluxo livre. Ações de personagem não exigem
-  que ele seja o participante do turno atual.
-- Ações do ator devem continuar acessíveis fora de encontros. A posição de uma
-  futura Action Tray será tratada em seu próprio recorte, sem ampliar este painel.
-- Reutilizar a linguagem visual, componentes, foco e teclado do VTT. Evitar
-  navegação adicional e rolagem horizontal obrigatória.
+## Turnos e movimento
 
-### Estados e feedback propostos
+- iniciativa continua sendo um total manualmente ajustável, sem regra de sistema;
+- o carrossel aparece somente quando `turnsActive = true`;
+- em modo livre, o movimento autorizado segue o comportamento normal da mesa;
+- com turnos ativos, preserva-se o comportamento atual: Player usa movimento
+  medido apenas com o Token ativo que controla; Mestre continua livre;
+- ausência de turnos nunca restringe movimento, medição ou seleção por ordem.
 
-| Situação | Experiência esperada |
-| --- | --- |
-| Livre, sem participantes | Encontro utilizável; ativação de turnos indica que é preciso adicionar um participante. |
-| Primeira ativação | Mostrar rodada 1, participante atual e controles de ordem existentes. |
-| Desativar e retomar | Ocultar a ordem no fluxo livre; ao retomar, recuperar iniciativas, rodada e posição preservadas. |
-| Último participante removido | Voltar ao fluxo livre; uma nova ordem começa na rodada 1 sem apagar o encontro. |
-| Comando em envio | Bloquear repetição do mesmo comando e sinalizar processamento; só confirmar sucesso após resposta. |
-| Falha de edição/comando | Mostrar erro junto à operação e preservar o texto não salvo; não anunciar sucesso nem apagar o encontro localmente. |
-| Estado alterado por outra conexão | Reconciliar com o servidor; se o encontro foi encerrado, informar o encerramento e impedir novos comandos nessa identidade. |
-| Notas do Mestre | Rótulo de privacidade explícito; nunca renderizar o conteúdo para Player. |
+## Permissões e projeções
 
-Usar `Desativar turnos` e `Encerrar encontro` como ações distintas. O retorno
-para fluxo livre não encerra a atividade. A retomada acima é a recomendação de
-interação submetida à decisão estrutural do ADR-0008, ainda PROPOSED.
+- iniciar, editar, adicionar/remover participantes, ativar/desativar turnos,
+  ajustar iniciativa, avançar/voltar e encerrar exigem Mestre ativo da sessão;
+- membro ativo da Campaign pode solicitar a projeção autorizada;
+- Player recebe nome, modo, participantes e ordem quando ativa;
+- Player nunca recebe notas privadas, nem como campo vazio ou metadata indireta;
+- backend valida membership, papel e pertencimento de todos os IDs à Campaign.
 
-## Limites deste recorte
+## UX
 
-Não inclui motor de clima/incêndio, fases ambientais, gatilhos, avanço automático
-de contadores, consequências mecânicas, encontros aninhados, múltiplas linhas do
-tempo, novo ciclo de preparação/pausa ou rodadas coletivas. O Mestre pode
-representar essas situações por notas e condução manual.
+### Sem Encounter
 
-Preparação persistente de vários encontros, gestão de eventos ambientais fora
-do encontro e retomada entre sessões são evoluções posteriores. Neste MVP, a
-continuidade proposta cobre mudanças de cena durante a sessão; encerrar a sessão
-mantém o encerramento vigente do encontro e preserva o histórico.
+O painel mostra nome, notas privadas, caixa opcional de Tokens e `Iniciar
+Encontro`. A ausência de Tokens não desabilita o início.
 
-## Diferenças em relação ao produto atual
+### Encounter livre
 
-Hoje o encontro exige Tokens, inicia iniciativa/rodadas automaticamente,
-restringe movimento dos Players por turno e termina ao trocar de cena ou remover
-o último participante. Essas mudanças precisam ser explícitas nos contratos.
+O painel mostra nome, notas, participantes e `Ativar turnos`. Sem participantes,
+o controle fica indisponível e explica `Adicione um participante para ativar
+turnos`. O mapa mantém fluxo livre.
 
-Fontes consultadas: [Combat](../combat/spec.md),
-[Game Log](../campaign-game-log/spec.md), [Scene](../campaign-scene/spec.md),
-`apps/api/src/modules/campaign-presence/domain/encounter.ts` e
-`apps/api/src/modules/campaign-presence/socket.ts`.
+### Turnos ativos
 
-Notas privadas não podem ser publicadas no Game Log compartilhado. A continuidade
-do encontro não transfere Tokens nem revela a nova cena aos Players. Regras de
-sessão e de visão seguem os contratos próprios.
+O carrossel existente mostra a ordem. O painel continua sendo de gerenciamento:
+nome, notas, participantes, `Desativar turnos` e `Encerrar encontro`. Não mostra
+ações, armas, magias ou resolução mecânica.
 
-## Critérios candidatos de aceite
+### Estados e feedback
 
-1. Mestre inicia um encontro livre sem participantes.
-2. Ativar/desativar turnos preserva nome, notas e histórico do mesmo encontro.
-3. Remover o último participante deixa o encontro aberto, sem turno ativo.
-4. Trocar de cena preserva o encontro sem movimentar Tokens automaticamente.
-5. Nome/participantes são apresentados conforme autorização; notas permanecem
-   privadas também no backend, realtime e histórico.
-6. Um encontro livre não restringe movimento por um turno inexistente; a ordem
-   atual não impede acessar ataques e magias autorizados do próprio personagem.
-7. Encerrar manualmente ou terminar a sessão preserva o histórico existente.
-8. Ativação vazia, envio, erro e encerramento remoto seguem os estados descritos;
-   falha não descarta notas não salvas nem cria confirmação falsa.
-9. Alternar turnos não rouba o foco das ações do personagem; controles possuem
-   rótulos acessíveis e ficam utilizáveis por teclado e sem rolagem horizontal.
+- loading, vazio, envio, sucesso, erro e encerramento remoto são distintos;
+- comandos em envio não podem ser duplicados;
+- erro de salvamento preserva nome/notas locais e oferece nova tentativa;
+- `Desativar turnos` e `Encerrar encontro` são ações diferentes;
+- encerramento pede confirmação;
+- controles possuem rótulos acessíveis, foco visível, uso por teclado e layout
+  sem rolagem horizontal obrigatória;
+- em largura reduzida, ações permanecem acessíveis e campos empilham.
 
-## Próximo refinamento
+## Contratos realtime
 
-O recorte e o fluxo manual integrado receberam confirmação para iniciar.
-O contrato de ativação/retomada da ordem está proposto no ADR abaixo. Um desenho
-de interação não representa implementação nem aceite automático de arquitetura.
+Os eventos legados `vtt:combat:*` podem permanecer durante este recorte para
+compatibilidade, mas transportam o novo estado genérico.
 
-Proposta estrutural: [ADR-0008](../../architecture/adr/ADR-0008-encounter-optional-turns.md),
-respeitando ADR-0002, ADR-0004, ADR-0005 e ADR-0007. Revisão de UX e pontos de
-handoff: [revisão do recorte](review.md). A entrega de QH-ENC-001 permanece
-documental, por PR; desenvolvimento segue nos cards próprios após os gates.
+Comandos adicionados/alterados:
+
+```txt
+vtt:combat:start            // nome, notas, sceneId/tokenIds opcionais
+vtt:combat:update           // nome e notas privadas
+vtt:combat:set-turns        // turnsActive boolean
+vtt:combat:add-participants // sceneId + tokenIds
+vtt:combat:remove-participants
+vtt:combat:end
+vtt:combat:request
+```
+
+Comandos existentes de iniciativa e navegação só produzem efeito quando os
+turnos estão ativos. `vtt:combat:changed` é projetado por destinatário: MASTER
+recebe notas privadas; PLAYER não recebe esse campo.
+
+## Critérios de aceite
+
+1. Mestre inicia um Encounter sem Token.
+2. O Encounter inicia em modo livre e não mostra carrossel de turnos.
+3. Mestre adiciona/remove participantes; remover o último não encerra.
+4. Ativar turnos sem participantes é impedido com feedback claro.
+5. Desativar/reativar preserva ordem, iniciativas, rodada e posição.
+6. Trocar de cena preserva Encounter, participantes e histórico sem mover Tokens.
+7. Modo livre não restringe movimento por turno; modo ativo preserva a restrição
+   existente do Player ao Token ativo controlado.
+8. Mestre edita nome/notas; falha preserva o conteúdo local.
+9. Player nunca recebe notas privadas por snapshot, realtime ou Game Log.
+10. Encerrar exige confirmação e preserva o histórico persistido.
+11. Painel ativo não apresenta Action Tray, armas, magias ou automação mecânica.
+12. Reconnect recupera a projeção autorizada do estado vivo sem duplicar evento.
+13. IDs de outra Campaign e comandos sem papel MASTER são rejeitados no backend.
+14. Loading, vazio, envio, erro e encerramento remoto são distinguíveis.
+15. Fluxo principal funciona por teclado e sem rolagem horizontal obrigatória.
+
+## Dependências e enforcement
+
+- ADR-0002, ADR-0004, ADR-0005, ADR-0007 e ADR-0008;
+- `docs/features/combat/spec.md`;
+- `docs/features/campaign-game-log/spec.md`;
+- testes de domínio, contratos, projeção privada, isolamento e UI;
+- `npm run check:architecture`, testes e builds aplicáveis.
