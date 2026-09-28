@@ -106,9 +106,9 @@ Features/documentos de apoio atuais incluem:
 - `docs/features/vtt/`
 - `docs/features/character-sheet-entries/`
 
-Propostas em refinamento, sem substituir os contratos vigentes:
+Especificações de base para evolução do produto:
 
-- `docs/features/encounter-foundation/spec.md` — QH-ENC-001, análise DRAFT de
+- `docs/features/encounter-foundation/spec.md` — QH-ENC-002, especificação READY de
   puzzles, combates e eventos ambientais na mesma atividade.
 
 ## 5. Game System boundary e integração

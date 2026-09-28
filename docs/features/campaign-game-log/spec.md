@@ -21,6 +21,7 @@ Incluído no primeiro recorte:
 * adição e remoção de participantes;
 * ajuste de iniciativa;
 * avanço e retorno de turno;
+* ativação e desativação de turnos;
 * consulta do histórico persistido por campanha e Encontro;
 * entrega realtime dos eventos transitórios e persistidos;
 * painel Log no mesmo dock do Chat, com opção de destacar, arrastar, redimensionar e prender novamente.
@@ -66,6 +67,7 @@ ENCOUNTER_STARTED
 ENCOUNTER_PARTICIPANTS_ADDED
 ENCOUNTER_PARTICIPANTS_REMOVED
 ENCOUNTER_INITIATIVE_ADJUSTED
+ENCOUNTER_TURNS_CHANGED
 ENCOUNTER_TURN_CHANGED
 ENCOUNTER_ENDED
 ```
@@ -76,6 +78,8 @@ ENCOUNTER_ENDED
 model CampaignEncounter {
   id                String
   campaignId        String
+  name              String
+  privateNotes      String?
   sceneId           String?
   sceneNameSnapshot String?
   startedAt         DateTime
@@ -112,7 +116,8 @@ O estado vivo de Encounter Mode continua em memória e passa a carregar `encount
 type VttCombatState = {
   encounterId: string
   campaignId: string
-  sceneId: string
+  startedSceneId: string | null
+  turnsActive: boolean
   // demais campos existentes
 }
 ```
@@ -120,10 +125,12 @@ type VttCombatState = {
 O registro persistente é encerrado antes de remover o estado vivo quando ocorrer:
 
 * comando manual (`MANUAL`);
-* remoção do último participante (`NO_PARTICIPANTS`);
-* troca de cena (`SCENE_CHANGED`);
 * encerramento de sessão (`SESSION_ENDED`);
 * substituição por um novo Encontro (`REPLACED`).
+
+Remover o último participante ou trocar a cena ativa preserva o registro e o
+estado vivo. Os motivos legados `NO_PARTICIPANTS` e `SCENE_CHANGED` continuam
+aceitos apenas para leitura de histórico anterior.
 
 Falha ao persistir um evento de Encontro impede a confirmação da transição correspondente. O realtime é emitido somente depois da persistência bem-sucedida.
 
@@ -171,6 +178,7 @@ Rolagens continuam sendo solicitadas pelo contrato `vtt:dice:roll`. O servidor e
 * o cliente não escolhe `persistent`, `encounterId`, `eventType` ou identidade histórica de uma entrada;
 * toda relação persistida deve ser validada no mesmo `campaignId`;
 * o Log não torna informação oculta visível: produtores devem publicar apenas snapshots já autorizados para toda a sala da campanha.
+* `privateNotes` nunca é copiado para `summary`, `payload` ou eventos realtime do Log.
 
 ## 9. Compatibilidade futura
 

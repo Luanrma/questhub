@@ -17,11 +17,30 @@ test('chat dialogue and mechanical game log use separate persistence models', ()
 
   assert.doesNotMatch(chat, /eventType|encounterId|payload/)
   assert.match(encounter, /endedAt\s+DateTime\?/)
+  assert.match(encounter, /name\s+String/)
+  assert.match(encounter, /privateNotes\s+String\?/)
   assert.match(entry, /encounterId\s+String/)
   assert.match(entry, /eventType\s+String/)
   assert.match(entry, /payload\s+Json/)
   assert.match(entry, /fields: \[encounterId, campaignId\]/)
   assert.match(entry, /references: \[id, campaignId\]/)
+})
+
+test('encounter management migration persists name and private notes', () => {
+  const migration = readFileSync(path.join(
+    process.cwd(),
+    'apps',
+    'api',
+    'prisma',
+    'migrations',
+    '20260919120000_add_encounter_management',
+    'migration.sql',
+  ), 'utf8')
+
+  assert.match(migration, /ADD COLUMN "name" TEXT NOT NULL/)
+  assert.match(migration, /ADD COLUMN "privateNotes" TEXT/)
+  assert.match(migration, /CREATE UNIQUE INDEX "CampaignEncounter_one_active_per_campaign"/)
+  assert.match(migration, /WHERE "endedAt" IS NULL/)
 })
 
 test('game log migration enforces campaign-scoped encounter ownership', () => {

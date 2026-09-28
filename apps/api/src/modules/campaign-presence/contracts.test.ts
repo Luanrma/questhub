@@ -3,6 +3,8 @@ import test from 'node:test'
 import {
   vttCombatAdjustInitiativeSchema,
   vttCombatParticipantsSchema,
+  vttCombatStartSchema,
+  vttCombatUpdateSchema,
   vttDiceRollSchema,
   vttGridSettingsSchema,
   vttTargetMarkerStyleUpdateSchema,
@@ -54,6 +56,25 @@ test('active encounter participant commands require unique bounded token ids', (
   assert.equal(vttCombatParticipantsSchema.safeParse({
     campaignId: 'campaign-1',
     tokenIds: ['token-1', 'token-1'],
+  }).success, false)
+})
+
+test('encounter can start without a scene or participants and validates private fields', () => {
+  assert.equal(vttCombatStartSchema.safeParse({
+    campaignId: 'campaign-1',
+    name: 'Conselho real',
+    privateNotes: 'O conselheiro está mentindo.',
+  }).success, true)
+  assert.equal(vttCombatStartSchema.safeParse({ campaignId: 'campaign-1', name: '   ' }).success, false)
+  assert.equal(vttCombatUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    name: 'A'.repeat(121),
+    privateNotes: '',
+  }).success, false)
+  assert.equal(vttCombatUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    name: 'Conselho real',
+    privateNotes: 'A'.repeat(20_001),
   }).success, false)
 })
 

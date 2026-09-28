@@ -17,10 +17,12 @@ import {
   appendCampaignGameLogEntry,
   createCampaignEncounter,
   endCampaignEncounter,
+  updateCampaignEncounterDetails,
 } from '../campaign_game_log/service'
 import { isMovementBlockedBySceneWalls, normalizeSceneWalls } from '../campaign_scene/domain/wall-geometry'
 import {
   defaultVttGridSettings,
+  type PresenceAck,
   type VttDiceRoll,
   type VttGridSettings,
   type VttPlayerToken,
@@ -29,7 +31,9 @@ import {
   vttCombatAdjustInitiativeSchema,
   vttCombatCommandSchema,
   vttCombatParticipantsSchema,
+  vttCombatSetTurnsSchema,
   vttCombatStartSchema,
+  vttCombatUpdateSchema,
   vttDiceRollSchema,
   vttGridUpdateSchema,
   vttMeasurementUpdateSchema,
@@ -51,6 +55,8 @@ import {
   advanceCombatTurn,
   removeParticipantsFromCombatState,
   rewindCombatTurn,
+  projectCombatStateForRole,
+  setCombatTurnsActive,
   sortCombatParticipants,
   type VttCombatParticipant,
 } from './domain/encounter'
@@ -788,11 +794,15 @@ export function setupCampaignPresence(server: HttpServer) {
     return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)
   }
 
-  function emitCombatChanged(campaignId: string) {
-    io.to(campaignRoom(campaignId)).emit('vtt:combat:changed', {
-      campaignId,
-      combat: state.getCampaignCombat(campaignId),
-    })
+  async function emitCombatChanged(campaignId: string) {
+    const combat = state.getCampaignCombat(campaignId)
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    for (const targetSocket of sockets) {
+      targetSocket.emit('vtt:combat:changed', {
+        campaignId,
+        combat: projectCombatStateForRole(combat, targetSocket.data.memberRole === 'MASTER'),
+      })
+    }
   }
 
   function emitGameLogEntry(entry: CampaignGameLogEntry) {
@@ -823,7 +833,7 @@ export function setupCampaignPresence(server: HttpServer) {
     const entry = await endCampaignEncounter({ campaignId, encounterId: combat.encounterId, reason })
     if (entry) emitGameLogEntry(entry)
     state.deleteCampaignCombat(campaignId)
-    emitCombatChanged(campaignId)
+    await emitCombatChanged(campaignId)
   }
 
   function combatParticipantFromToken(token: VttPlayerToken): VttCombatParticipant {
@@ -859,13 +869,8 @@ export function setupCampaignPresence(server: HttpServer) {
         participants: removedParticipants.map(({ tokenId, actorId, name }) => ({ tokenId, actorId, name })),
       },
     })
-    if (!updatedCombat) {
-      await closeCampaignCombat(campaignId, 'NO_PARTICIPANTS')
-      return
-    }
-
     state.setCampaignCombat(campaignId, updatedCombat)
-    emitCombatChanged(campaignId)
+    await emitCombatChanged(campaignId)
   }
 
   async function removeCampaignTokenFromLiveState(campaignId: string, tokenId: string) {
@@ -1148,7 +1153,9 @@ export function setupCampaignPresence(server: HttpServer) {
       const token = await refreshLiveTokenIdentity(campaignId, cachedToken)
       if (!token) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado')
       if (isPlayerMove && token.controllerUserId !== user.id) return reject('FORBIDDEN', 'Token nao controlado')
-      if (isPlayerMove && state.getCampaignCombat(campaignId)) return reject('INVALID_MOVE', 'Movimento livre indisponivel em combate')
+      if (isPlayerMove && state.getCampaignCombat(campaignId)?.turnsActive) {
+        return reject('INVALID_MOVE', 'Movimento livre indisponivel durante turnos ativos')
+      }
       if (state.isTokenMovementActive(campaignId, tokenId)) return reject('INVALID_MOVE', 'Token ja esta em movimento')
 
       const nextToken = { ...token, position }
@@ -1200,7 +1207,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const combat = state.getCampaignCombat(campaignId)
       const activeCombatTokenId = combat?.participants[combat.activeTurnIndex]?.tokenId ?? null
-      if (isPlayerMove && combat && activeCombatTokenId !== tokenId) {
+      if (isPlayerMove && combat?.turnsActive && activeCombatTokenId !== tokenId) {
         return reject('NOT_ACTIVE_TURN', 'Somente o Token do turno ativo pode se mover.')
       }
 
@@ -1356,19 +1363,25 @@ export function setupCampaignPresence(server: HttpServer) {
         .catch(() => {})
     })
 
-    socket.on('vtt:combat:start', async (input: unknown) => {
+    socket.on('vtt:combat:start', async (input: unknown, ack?: PresenceAck) => {
       const parsed = vttCombatStartSchema.safeParse(input)
-      if (!parsed.success) return
+      if (!parsed.success) return ack?.({ ok: false, error: 'Dados do encontro invalidos' })
 
-      const { campaignId, sceneId, tokenIds } = parsed.data
-      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
-      if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+      const { campaignId, name, privateNotes, sceneId, tokenIds } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) {
+        return ack?.({ ok: false, error: 'Apenas o mestre pode iniciar o encontro' })
+      }
+      if (sceneId && !(await sceneBelongsToCampaign(campaignId, sceneId))) {
+        return ack?.({ ok: false, error: 'Cena invalida' })
+      }
 
       const selectedTokenIds = new Set(tokenIds)
-      const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
+      const tokens = sceneId ? (await listSceneTokens(campaignId, sceneId)).filter(
         (token) => selectedTokenIds.has(token.id) && !token.hidden,
-      )
-      if (!tokens.length) return
+      ) : []
+      if (tokens.length !== tokenIds.length) {
+        return ack?.({ ok: false, error: 'Um ou mais tokens nao estao disponiveis na cena' })
+      }
 
       const participants = sortCombatParticipants(tokens.map(combatParticipantFromToken))
 
@@ -1376,6 +1389,8 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const createdEncounter = await createCampaignEncounter({
         campaignId,
+        name,
+        privateNotes,
         sceneId,
         participants: participants.map(({ tokenId, actorId, name, initiative }) => ({
           tokenId,
@@ -1389,30 +1404,83 @@ export function setupCampaignPresence(server: HttpServer) {
       state.setCampaignCombat(campaignId, {
         encounterId: createdEncounter.encounter.id,
         campaignId,
-        sceneId,
+        startedSceneId: sceneId ?? null,
+        name,
+        privateNotes,
+        turnsActive: false,
         round: 1,
         turnCount: 1,
         activeTurnIndex: 0,
         status: 'ACTIVE',
         participants,
       })
-      emitCombatChanged(campaignId)
+      await emitCombatChanged(campaignId)
       emitGameLogEntry(createdEncounter.entry)
+      ack?.({ ok: true })
+    })
+
+    socket.on('vtt:combat:update', async (input: unknown, ack?: PresenceAck) => {
+      const parsed = vttCombatUpdateSchema.safeParse(input)
+      if (!parsed.success) return ack?.({ ok: false, error: 'Dados do encontro invalidos' })
+
+      const { campaignId, name, privateNotes } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) {
+        return ack?.({ ok: false, error: 'Apenas o mestre pode editar o encontro' })
+      }
+      const combat = state.getCampaignCombat(campaignId)
+      if (!combat) return ack?.({ ok: false, error: 'Encontro ativo nao encontrado' })
+      const updated = await updateCampaignEncounterDetails({
+        campaignId,
+        encounterId: combat.encounterId,
+        name,
+        privateNotes,
+      })
+      if (!updated) return ack?.({ ok: false, error: 'Nao foi possivel salvar o encontro' })
+
+      state.setCampaignCombat(campaignId, { ...combat, name, privateNotes })
+      await emitCombatChanged(campaignId)
+      ack?.({ ok: true })
+    })
+
+    socket.on('vtt:combat:set-turns', async (input: unknown, ack?: PresenceAck) => {
+      const parsed = vttCombatSetTurnsSchema.safeParse(input)
+      if (!parsed.success) return ack?.({ ok: false, error: 'Configuracao de turnos invalida' })
+
+      const { campaignId, active } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) {
+        return ack?.({ ok: false, error: 'Apenas o mestre pode alterar os turnos' })
+      }
+      const combat = state.getCampaignCombat(campaignId)
+      if (!combat) return ack?.({ ok: false, error: 'Encontro ativo nao encontrado' })
+      if (active && !combat.participants.length) {
+        return ack?.({ ok: false, error: 'Adicione ao menos um participante para ativar os turnos' })
+      }
+      if (combat.turnsActive === active) return ack?.({ ok: true })
+
+      await appendCombatGameLogEntry(campaignId, {
+        eventType: campaignGameLogEventType.encounterTurnsChanged,
+        summary: active ? 'Turnos ativados.' : 'Turnos desativados.',
+        payload: { active },
+      })
+      state.setCampaignCombat(campaignId, setCombatTurnsActive(combat, active))
+      await emitCombatChanged(campaignId)
+      ack?.({ ok: true })
     })
 
     socket.on('vtt:combat:add-participants', async (input: unknown) => {
       const parsed = vttCombatParticipantsSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, tokenIds } = parsed.data
+      const { campaignId, sceneId, tokenIds } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+      if (!sceneId || !(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
       const combat = state.getCampaignCombat(campaignId)
       if (!combat) return
 
       const requestedTokenIds = new Set(tokenIds)
       const currentTokenIds = new Set(combat.participants.map((participant) => participant.tokenId))
-      const tokens = (await listSceneTokens(campaignId, combat.sceneId)).filter(
+      const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
         (token) => requestedTokenIds.has(token.id) && !currentTokenIds.has(token.id) && !token.hidden,
       )
       if (!tokens.length) return
@@ -1433,7 +1501,7 @@ export function setupCampaignPresence(server: HttpServer) {
         },
       })
       state.setCampaignCombat(campaignId, addParticipantsToCombatState(combat, addedParticipants))
-      emitCombatChanged(campaignId)
+      await emitCombatChanged(campaignId)
     })
 
     socket.on('vtt:combat:remove-participants', async (input: unknown) => {
@@ -1454,7 +1522,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
       const combat = state.getCampaignCombat(campaignId)
-      if (!combat) return
+      if (!combat?.turnsActive) return
 
       const participant = combat.participants.find((item) => item.tokenId === tokenId)
       if (!participant) return
@@ -1475,7 +1543,7 @@ export function setupCampaignPresence(server: HttpServer) {
         },
       })
       state.setCampaignCombat(campaignId, adjustedCombat)
-      emitCombatChanged(campaignId)
+      await emitCombatChanged(campaignId)
     })
 
     socket.on('vtt:combat:next-turn', async (input: unknown) => {
@@ -1486,7 +1554,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
       const combat = state.getCampaignCombat(campaignId)
-      if (!combat?.participants.length) return
+      if (!combat?.turnsActive || !combat.participants.length) return
 
       const nextCombat = advanceCombatTurn(combat)
       const activeParticipant = nextCombat.participants[nextCombat.activeTurnIndex]
@@ -1506,7 +1574,7 @@ export function setupCampaignPresence(server: HttpServer) {
         },
       })
       state.setCampaignCombat(campaignId, nextCombat)
-      emitCombatChanged(campaignId)
+      await emitCombatChanged(campaignId)
     })
 
     socket.on('vtt:combat:previous-turn', async (input: unknown) => {
@@ -1517,7 +1585,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
       const combat = state.getCampaignCombat(campaignId)
-      if (!combat?.participants.length) return
+      if (!combat?.turnsActive || !combat.participants.length) return
 
       const previousCombat = rewindCombatTurn(combat)
       if (previousCombat === combat) return
@@ -1538,7 +1606,7 @@ export function setupCampaignPresence(server: HttpServer) {
         },
       })
       state.setCampaignCombat(campaignId, previousCombat)
-      emitCombatChanged(campaignId)
+      await emitCombatChanged(campaignId)
     })
 
     socket.on('vtt:combat:end', async (input: unknown) => {
@@ -1561,7 +1629,10 @@ export function setupCampaignPresence(server: HttpServer) {
 
       socket.emit('vtt:combat:changed', {
         campaignId,
-        combat: state.getCampaignCombat(campaignId),
+        combat: projectCombatStateForRole(
+          state.getCampaignCombat(campaignId),
+          socket.data.memberRole === 'MASTER',
+        ),
       })
     })
 
@@ -1585,7 +1656,7 @@ export function setupCampaignPresence(server: HttpServer) {
         if (!areMovementPointsEqual(measurement.points[0], token.position)) return
         const combat = state.getCampaignCombat(campaignId)
         const activeTokenId = combat?.participants[combat.activeTurnIndex]?.tokenId ?? null
-        if (isPlayerMeasurement && combat && activeTokenId !== measurement.tokenId) return
+        if (isPlayerMeasurement && combat?.turnsActive && activeTokenId !== measurement.tokenId) return
         state.setCampaignMeasurement(campaignId, measurement)
       } else {
         const currentMeasurement = state.getCampaignMeasurement(campaignId)
@@ -1630,10 +1701,6 @@ export function setupCampaignPresence(server: HttpServer) {
       )
       const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
       if (!sceneUpdated) return
-      const combat = state.getCampaignCombat(campaignId)
-      if (combat && combat.sceneId !== (scene?.id ?? null)) {
-        await closeCampaignCombat(campaignId, 'SCENE_CHANGED')
-      }
       if (scene?.id) {
         const settings = await getActiveSceneGridSettings(campaignId)
         state.setCampaignGridSettings(campaignId, settings)

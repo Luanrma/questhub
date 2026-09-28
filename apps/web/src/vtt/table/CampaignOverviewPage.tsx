@@ -111,7 +111,7 @@ import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneCon
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
 import { EncounterSetupPanel } from './components/EncounterSetupPanel'
 import { EncounterOverlay } from './components/EncounterOverlay'
-import { EncounterActionPanel } from './components/EncounterActionPanel'
+import { EncounterManagementPanel } from './components/EncounterManagementPanel'
 import { hasTokenDragData, readTokenDragData, writeTokenDragData } from './infrastructure/tokenDragAndDrop'
 import { TokenContextMenu } from './components/TokenContextMenu'
 import { TokenImagePickerDialog } from './components/TokenImagePickerDialog'
@@ -294,6 +294,7 @@ export function CampaignOverviewPage({
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const [combatState, setCombatState] = useState<VttCombatState | null>(null)
+  const [encounterMutation, setEncounterMutation] = useState<{ pending: boolean; error: string | null }>({ pending: false, error: null })
   const [encounterSelection, setEncounterSelection] = useState<{
     sceneId: string | null
     tokenIds: string[]
@@ -534,10 +535,10 @@ export function CampaignOverviewPage({
       ? { title: 'Sessao online', label: 'ON', icon: null, className: 'border-emerald-300/45 bg-emerald-500/20 text-emerald-100' }
       : { title: 'Sessao offline', label: 'OFF', icon: null, className: 'border-red-300/45 bg-red-500/20 text-red-100' }
   const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
-  const activeCombatParticipant = activeCombat?.participants[activeCombat.activeTurnIndex] ?? null
+  const activeCombatParticipant = activeCombat?.turnsActive ? activeCombat.participants[activeCombat.activeTurnIndex] ?? null : null
   const activeCombatTokenId = activeCombatParticipant?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
-  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && encounterTokens.length > 0 && !activeCombat)
+  const canStartCombat = Boolean(isMaster && masterCanUseVtt && !activeCombat)
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -1441,7 +1442,7 @@ export function CampaignOverviewPage({
     if (!realtimeVttEnabled || !activeScene || movingTokenIds.has(token.id)) return
     const canMoveToken = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER')
     if (!canMoveToken) return
-    if (!isMaster && activeCombatTokenId && activeCombatTokenId !== token.id) return
+    if (!isMaster && activeCombat?.turnsActive && activeCombatTokenId !== token.id) return
     event.preventDefault()
     event.stopPropagation()
     measuredMovementTokenIdRef.current = token.id
@@ -2450,12 +2451,18 @@ export function CampaignOverviewPage({
     void updateCampaignToken(token.id, { size })
   }
 
-  function startCombat() {
-    if (!campaignId || !socket || !activeScene || !canStartCombat) return
+  function startCombat(details: { name: string; privateNotes: string }) {
+    if (!campaignId || !socket || !canStartCombat) return
+    setEncounterMutation({ pending: true, error: null })
     socket.emit('vtt:combat:start', {
       campaignId,
-      sceneId: activeScene.id,
+      name: details.name,
+      privateNotes: details.privateNotes,
+      sceneId: activeScene?.id,
       tokenIds: encounterTokens.map((token) => token.id),
+    }, (response: { ok: boolean; error?: string }) => {
+      if (response.ok) setEncounterSelection({ sceneId: null, tokenIds: [] })
+      setEncounterMutation({ pending: false, error: response.ok ? null : response.error ?? 'Não foi possível iniciar o encontro.' })
     })
   }
 
@@ -2466,8 +2473,8 @@ export function CampaignOverviewPage({
     if (tokenIdsToSend.length === 0) return
 
     if (activeCombat) {
-      if (!socket || activeCombat.sceneId !== activeScene.id) return
-      socket.emit('vtt:combat:add-participants', { campaignId, tokenIds: tokenIdsToSend })
+      if (!socket) return
+      socket.emit('vtt:combat:add-participants', { campaignId, sceneId: activeScene.id, tokenIds: tokenIdsToSend })
       setRightPanelTab('combat')
       setRightPanelCollapsed(false)
       setTokenContextMenu(null)
@@ -2519,7 +2526,24 @@ export function CampaignOverviewPage({
 
   function endCombat() {
     if (!campaignId || !socket || !isMaster) return
+    if (!window.confirm('Encerrar este encontro? Essa ação não pode ser desfeita.')) return
     socket.emit('vtt:combat:end', { campaignId })
+  }
+
+  function saveCombat(details: { name: string; privateNotes: string }) {
+    if (!campaignId || !socket || !isMaster) return
+    setEncounterMutation({ pending: true, error: null })
+    socket.emit('vtt:combat:update', { campaignId, ...details }, (response: { ok: boolean; error?: string }) => {
+      setEncounterMutation({ pending: false, error: response.ok ? null : response.error ?? 'Não foi possível salvar o encontro.' })
+    })
+  }
+
+  function setCombatTurns(active: boolean) {
+    if (!campaignId || !socket || !isMaster) return
+    setEncounterMutation({ pending: true, error: null })
+    socket.emit('vtt:combat:set-turns', { campaignId, active }, (response: { ok: boolean; error?: string }) => {
+      setEncounterMutation({ pending: false, error: response.ok ? null : response.error ?? 'Não foi possível alterar os turnos.' })
+    })
   }
 
   function nextCombatTurn() {
@@ -2953,7 +2977,7 @@ export function CampaignOverviewPage({
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden bg-[#08090c] text-white">
-      {activeCombat ? (
+      {activeCombat?.turnsActive && activeCombat.participants.length ? (
         <EncounterOverlay
           combat={activeCombat}
           isMaster={Boolean(isMaster)}
@@ -3164,7 +3188,7 @@ export function CampaignOverviewPage({
                 gridAreaRef={gridAreaRef}
                 canDrag={
                   !movingTokenIds.has(token.id) && (
-                    (sessionActive && !activeCombat && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER') ||
+                    (sessionActive && !activeCombat?.turnsActive && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER') ||
                     Boolean(isMaster)
                   )
                 }
@@ -3726,7 +3750,7 @@ export function CampaignOverviewPage({
               {RightPanelSessionStatusIcon ? <RightPanelSessionStatusIcon className="h-4 w-4" /> : rightPanelSessionStatus.label}
             </div>
             {[
-              { id: 'combat' as const, title: 'Combate', icon: Swords },
+              { id: 'combat' as const, title: 'Encontro', icon: Swords },
               { id: 'players' as const, title: 'Jogadores', icon: Users },
               { id: 'session' as const, title: 'Sessao', icon: Eye },
               ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
@@ -3760,15 +3784,17 @@ export function CampaignOverviewPage({
           </div>
 
           <div className="min-h-0 flex-1 overflow-hidden">
-            {rightPanelTab === 'combat' && !activeCombat ? <EncounterSetupPanel isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} selectedTokens={encounterTokens} onStart={startCombat} onRemoveSelectedToken={removeTokenFromEncounter} /> : null}
-            {rightPanelTab === 'combat' && activeCombat && activeCombatParticipant ? (
-              <EncounterActionPanel
-                campaignId={activeCombat.campaignId}
-                participant={activeCombatParticipant}
-                round={activeCombat.round}
-                turnCount={activeCombat.turnCount}
+            {rightPanelTab === 'combat' && !activeCombat ? <EncounterSetupPanel isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} selectedTokens={encounterTokens} pending={encounterMutation.pending} error={encounterMutation.error} onStart={startCombat} onRemoveSelectedToken={removeTokenFromEncounter} /> : null}
+            {rightPanelTab === 'combat' && activeCombat ? (
+              <EncounterManagementPanel
+                combat={activeCombat}
                 isMaster={Boolean(isMaster)}
+                pending={encounterMutation.pending}
+                error={encounterMutation.error}
+                onSave={saveCombat}
+                onSetTurns={setCombatTurns}
                 onEnd={endCombat}
+                onRemoveParticipant={removeActiveCombatParticipant}
               />
             ) : null}
             {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{campaign?.myRole === 'MASTER' ? 'Mestre conectado à mesa.' : 'Jogador conectado à mesa.'}</div></section> : null}

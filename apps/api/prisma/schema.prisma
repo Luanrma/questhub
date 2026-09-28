@@ -250,6 +250,8 @@ model ChatMessage {
 model CampaignEncounter {
   id                String    @id @default(cuid())
   campaignId        String
+  name              String    @default("Encontro")
+  privateNotes      String?
   sceneId           String?
   sceneNameSnapshot String?
   startedAt         DateTime  @default(now())

@@ -8,8 +8,12 @@ import type { VttCombatState } from '../src/vtt/table/domain/types'
 Object.assign(globalThis, { React })
 
 const combat: VttCombatState = {
+  encounterId: 'encounter-1',
   campaignId: 'campaign-1',
-  sceneId: 'scene-1',
+  startedSceneId: 'scene-1',
+  name: 'Emboscada',
+  privateNotes: 'Segredo',
+  turnsActive: true,
   round: 2,
   turnCount: 4,
   activeTurnIndex: 0,

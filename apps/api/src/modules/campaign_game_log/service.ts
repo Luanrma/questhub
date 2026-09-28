@@ -22,14 +22,16 @@ function nowIso() {
 
 export async function createCampaignEncounter(input: {
   campaignId: string
-  sceneId: string
+  name: string
+  privateNotes: string
+  sceneId?: string
   participants: EncounterParticipantSnapshot[]
 }) {
-  const scene = await prisma.campaignScene.findFirst({
+  const scene = input.sceneId ? await prisma.campaignScene.findFirst({
     where: { id: input.sceneId, campaignId: input.campaignId },
     select: { id: true, name: true },
-  })
-  if (!scene) return null
+  }) : null
+  if (input.sceneId && !scene) return null
 
   const result = await prisma.$transaction(async (transaction) => {
     await transaction.campaignEncounter.updateMany({
@@ -40,8 +42,10 @@ export async function createCampaignEncounter(input: {
     const encounter = await transaction.campaignEncounter.create({
       data: {
         campaignId: input.campaignId,
-        sceneId: scene.id,
-        sceneNameSnapshot: scene.name,
+        name: input.name,
+        privateNotes: input.privateNotes || null,
+        sceneId: scene?.id,
+        sceneNameSnapshot: scene?.name,
       },
     })
     const entry = await transaction.campaignGameLogEntry.create({
@@ -49,10 +53,11 @@ export async function createCampaignEncounter(input: {
         campaignId: input.campaignId,
         encounterId: encounter.id,
         eventType: campaignGameLogEventType.encounterStarted,
-        summary: `Encontro iniciado em ${scene.name}.`,
+        summary: `Encontro ${input.name} iniciado${scene ? ` em ${scene.name}` : ''}.`,
         payload: {
-          sceneId: scene.id,
-          sceneName: scene.name,
+          name: input.name,
+          sceneId: scene?.id ?? null,
+          sceneName: scene?.name ?? null,
           participants: input.participants as unknown as Prisma.JsonArray,
         },
       },
@@ -60,6 +65,19 @@ export async function createCampaignEncounter(input: {
     return { encounter, entry }
   })
   return { encounter: result.encounter, entry: presentPersistedGameLogEntry(result.entry) }
+}
+
+export async function updateCampaignEncounterDetails(input: {
+  campaignId: string
+  encounterId: string
+  name: string
+  privateNotes: string
+}) {
+  const result = await prisma.campaignEncounter.updateMany({
+    where: { id: input.encounterId, campaignId: input.campaignId, endedAt: null },
+    data: { name: input.name, privateNotes: input.privateNotes || null },
+  })
+  return result.count > 0
 }
 
 export async function appendCampaignGameLogEntry(input: {

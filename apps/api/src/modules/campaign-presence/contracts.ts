@@ -213,9 +213,22 @@ export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
 
 export const vttCombatStartSchema = z.object({
   campaignId: z.string().min(1),
-  sceneId: z.string().min(1),
-  tokenIds: z.array(z.string().min(1)).min(1).max(100),
+  name: z.string().trim().min(1).max(120),
+  privateNotes: z.string().max(20_000).default(''),
+  sceneId: z.string().min(1).optional(),
+  tokenIds: z.array(z.string().min(1)).max(100).default([]),
 }).refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
+
+export const vttCombatUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  name: z.string().trim().min(1).max(120),
+  privateNotes: z.string().max(20_000),
+})
+
+export const vttCombatSetTurnsSchema = z.object({
+  campaignId: z.string().min(1),
+  active: z.boolean(),
+})
 
 export const vttCombatCommandSchema = z.object({
   campaignId: z.string().min(1),
@@ -223,6 +236,7 @@ export const vttCombatCommandSchema = z.object({
 
 export const vttCombatParticipantsSchema = z.object({
   campaignId: z.string().min(1),
+  sceneId: z.string().min(1).optional(),
   tokenIds: z.array(z.string().min(1)).min(1).max(100),
 }).refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
 

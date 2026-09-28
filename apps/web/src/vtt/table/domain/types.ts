@@ -188,7 +188,10 @@ export type VttTokenMovementStartedPayload = {
 export type VttCombatState = {
   encounterId: string
   campaignId: string
-  sceneId: string
+  startedSceneId: string | null
+  name: string
+  privateNotes?: string
+  turnsActive: boolean
   round: number
   turnCount: number
   activeTurnIndex: number
